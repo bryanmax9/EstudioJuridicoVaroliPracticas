@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Contacto | Estudio Jurídico Varoli Abogados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/global.css">
+<link rel="stylesheet" href="./contacto.css">
+</head>
+<body>
+<div class="alert" id="alert"></div>
+<nav id="navbar"><a href="../../index.html" class="nav-logo"><img src="../../assets/images/logo.gif" alt="Varoli Abogados"><div class="nav-brand"><span class="nav-brand-name">Estudio Jurídico</span><span class="nav-brand-sub">Varoli Abogados · Lima</span></div></a><ul class="nav-links"><li><a href="../../index.html">Nosotros</a></li><li class="nav-dropdown"><a href="../servicios/index.html">Servicios ▾</a><div class="dropdown-menu"><a href="../servicios/index.html#comercial">Comercial y Civil</a><a href="../servicios/index.html#penal">Derecho Penal</a><a href="../servicios/index.html#administrativo">Administrativo</a><a href="../servicios/index.html#contrataciones">Contrataciones del Estado</a><a href="../servicios/index.html#laboral">Laboral Corporativo</a></div></li><li><a href="../equipo/index.html">Equipo</a></li><li><a href="../practicas/index.html">Prácticas</a></li><li><a href="../contacto/index.html" class="active">Contacto</a></li></ul><div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div></nav><div class="mobile-menu" id="mobileMenu"><a href="../../index.html" onclick="toggleMenu()">Nosotros</a><a href="../servicios/index.html" onclick="toggleMenu()">Servicios</a><a href="../equipo/index.html" onclick="toggleMenu()">Equipo</a><a href="../practicas/index.html" onclick="toggleMenu()">Prácticas</a><a href="../contacto/index.html" onclick="toggleMenu()">Contacto</a></div>
+<section class="page-hero"><div class="page-hero-content"><div class="section-tag">Contacto</div><h1 class="serif-title-lg">Hablemos sobre<br><em>su consulta legal</em></h1><div class="divider-line"></div><p>Agende su primera consulta sin costo. Nuestro equipo analizará su caso y le brindará orientación profesional, clara y directa.</p></div></section>
+<div class="contact-band">
+  <div>
+    <div class="section-tag">Información de contacto</div>
+    <h2 class="serif-title" style="margin-bottom:2.5rem">Estamos <em>disponibles</em><br>para usted</h2>
+    <div class="c-item"><div class="c-icon-box">📍</div><div><div class="c-label">Dirección</div><div class="c-val">Av. José Leal N° 835, Of. 302<br>Lince – Lima, Perú</div></div></div>
+    <div class="c-item"><div class="c-icon-box">📞</div><div><div class="c-label">Celular / WhatsApp</div><div class="c-val"><a href="tel:+51924333108">+51 924 333 108</a></div></div></div>
+    <div class="c-item"><div class="c-icon-box">✉</div><div><div class="c-label">Correo electrónico</div><div class="c-val"><a href="mailto:consultasvaroli@gmail.com">consultasvaroli@gmail.com</a></div></div></div>
+    <div class="c-item"><div class="c-icon-box">🕐</div><div><div class="c-label">Horario de atención</div><div class="c-val">Lunes a Viernes: 9:00 am – 6:00 pm<br>Sábados: 9:00 am – 1:00 pm<br>Domingos: Cerrado</div></div></div>
+    <a href="https://wa.me/51924333108?text=Hola%2C%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20legal." target="_blank" class="btn-navy" style="width:fit-content;gap:.8rem;margin-top:1rem">
+      <svg width="18" height="18" viewBox="0 0 58 58" xmlns="http://www.w3.org/2000/svg"><circle cx="29" cy="29" r="29" fill="#25D366"/><path d="M29 8C17.4 8 8 17.4 8 29c0 3.7.97 7.18 2.66 10.18L8 50l11.15-2.62A21 21 0 0 0 29 50c11.6 0 21-9.4 21-21S40.6 8 29 8zm10.3 28.7c-.44.22-2.6 1.28-3 1.43-.4.15-.7.22-1-.22-.3-.44-1.1-1.42-1.35-1.71-.25-.29-.5-.33-.93-.11-.44.22-1.84.67-3.5-2.14a13 13 0 0 1-2.4-2.98c-.25-.44-.03-.68.19-.9.2-.19.44-.5.66-.76.22-.26.29-.44.44-.73.15-.3.07-.55-.03-.77-.11-.22-.99-2.36-1.35-3.23-.35-.84-.7-.73-.99-.74l-.84-.01c-.29 0-.76.11-1.15.55-.4.44-1.52 1.49-1.52 3.62 0 2.13 1.55 4.2 1.77 4.49.22.3 3.05 4.66 7.4 6.54 1.03.44 1.84.7 2.47.9 1.04.32 1.98.27 2.73.16.83-.12 2.6-1.06 2.97-2.09.37-1.02.37-1.9.26-2.09-.11-.17-.4-.28-.84-.5z" fill="white"/></svg>
+      Escribir por WhatsApp
+    </a>
+    <div class="soc" style="margin-top:1.5rem"><a href="#" title="LinkedIn">Li</a><a href="#" title="Facebook">Fb</a><a href="#" title="Instagram">Ig</a></div>
+  </div>
+  <div><div class="cf-wrap"><div class="cf-title">Envíenos su consulta</div>
+    <form onsubmit="submitContact(event)">
+      <div class="fr"><div class="fg"><label>Nombre y apellidos</label><input type="text" placeholder="Su nombre completo" required></div><div class="fg"><label>Teléfono</label><input type="tel" placeholder="+51 XXX XXX XXX"></div></div>
+      <div class="fg"><label>Correo electrónico</label><input type="email" placeholder="su@correo.com" required></div>
+      <div class="fg"><label>Área legal de consulta</label><select><option value="">Seleccionar área</option><option>Derecho Comercial y Civil</option><option>Derecho Penal</option><option>Derecho Administrativo</option><option>Contrataciones del Estado</option><option>Derecho Laboral</option><option>Consulta general</option></select></div>
+      <div class="fg"><label>Mensaje</label><textarea placeholder="Describa brevemente su consulta o situación legal..." required></textarea></div>
+      <button type="submit" class="btn-submit">Enviar consulta</button>
+    </form>
+  </div></div>
+</div>
+<div class="map-sec"><div class="map-label">Av. José Leal 835, Of. 302 · Lince, Lima</div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d975.3!2d-77.0361!3d-12.0828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c83bb8c8c1b3%3A0x0!2sAv.+Jos%C3%A9+Leal+835%2C+Lince+15046!5e0!3m2!1ses!2spe!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+<footer><div class="footer-top"><div class="footer-brand"><div class="footer-logo-wrap"><img src="../../assets/images/logo.gif" alt="Varoli"><div class="footer-brand-name">Estudio Jurídico<br>Varoli Abogados</div></div><p>Soluciones jurídicas estratégicas para personas y empresas en Lima, Perú. Compromiso, excelencia y transparencia.</p></div><div class="footer-col"><h5>Servicios</h5><ul><li><a href="../servicios/index.html#comercial">Derecho Comercial</a></li><li><a href="../servicios/index.html#penal">Derecho Penal</a></li><li><a href="../servicios/index.html#administrativo">Administrativo</a></li><li><a href="../servicios/index.html#contrataciones">Contrataciones Estado</a></li><li><a href="../servicios/index.html#laboral">Derecho Laboral</a></li></ul></div><div class="footer-col"><h5>Estudio</h5><ul><li><a href="../../index.html">Quiénes somos</a></li><li><a href="../equipo/index.html">Nuestro equipo</a></li><li><a href="../practicas/index.html">Prácticas</a></li><li><a href="../contacto/index.html">Contacto</a></li></ul></div><div class="footer-col"><h5>Contacto</h5><ul><li><span>Av. José Leal N° 835, Of. 302<br>Lince – Lima, Perú</span></li><li><a href="tel:+51924333108">+51 924 333 108</a></li><li><a href="mailto:consultasvaroli@gmail.com">consultasvaroli@gmail.com</a></li><li><span>Lun–Vie: 9am–6pm<br>Sáb: 9am–1pm</span></li></ul></div></div><hr class="footer-divider"><div class="footer-bottom"><span>© 2025 Estudio Jurídico Varoli Abogados. Todos los derechos reservados.</span><span>Lince – Lima, Perú</span></div></footer>
+<a href="https://wa.me/51924333108?text=Hola%2C%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20legal." 
+   target="_blank" rel="noopener" class="wa-float" title="Escribirnos por WhatsApp">
+  <svg viewBox="0 0 58 58" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="29" cy="29" r="29" fill="#25D366"/>
+    <path d="M29 8C17.4 8 8 17.4 8 29c0 3.7.97 7.18 2.66 10.18L8 50l11.15-2.62A21 21 0 0 0 29 50c11.6 0 21-9.4 21-21S40.6 8 29 8zm10.3 28.7c-.44.22-2.6 1.28-3 1.43-.4.15-.7.22-1-.22-.3-.44-1.1-1.42-1.35-1.71-.25-.29-.5-.33-.93-.11-.44.22-1.84.67-3.5-2.14a13 13 0 0 1-2.4-2.98c-.25-.44-.03-.68.19-.9.2-.19.44-.5.66-.76.22-.26.29-.44.44-.73.15-.3.07-.55-.03-.77-.11-.22-.99-2.36-1.35-3.23-.35-.84-.7-.73-.99-.74l-.84-.01c-.29 0-.76.11-1.15.55-.4.44-1.52 1.49-1.52 3.62 0 2.13 1.55 4.2 1.77 4.49.22.3 3.05 4.66 7.4 6.54 1.03.44 1.84.7 2.47.9 1.04.32 1.98.27 2.73.16.83-.12 2.6-1.06 2.97-2.09.37-1.02.37-1.9.26-2.09-.11-.17-.4-.28-.84-.5z" fill="white"/>
+  </svg>
+</a>
+<script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('active')}
+function showAlert(msg){const a=document.getElementById('alert');a.textContent=msg;a.classList.add('show');setTimeout(()=>a.classList.remove('show'),4000)}
+window.addEventListener('scroll',()=>{document.getElementById('navbar').style.boxShadow=window.scrollY>40?'0 2px 20px rgba(0,0,0,.12)':'0 1px 12px rgba(0,0,0,.06)'})
+</script>
+<script>function submitContact(e){e.preventDefault();e.target.reset();showAlert('✓ Consulta enviada. Nos contactaremos a la brevedad.');}</script>
+</body>
+</html>

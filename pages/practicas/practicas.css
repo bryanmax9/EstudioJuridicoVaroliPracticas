@@ -1,0 +1,29 @@
+/* ============================================================
+   Prácticas — Page-Specific Styles
+   ============================================================ */
+
+.prac-split{padding:6rem 7% 7rem;background:var(--white);display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:start}
+.prac-text p{font-size:.88rem;color:var(--muted);line-height:1.9;margin-top:.8rem}
+.prac-benefits{margin-top:2rem;list-style:none}
+.prac-benefits li{font-size:.84rem;color:var(--text);padding:.85rem 0;border-bottom:1px solid var(--cream2);display:flex;gap:1rem;align-items:flex-start}
+.prac-benefits li::before{content:'→';color:var(--navy2);flex-shrink:0;font-weight:700;margin-top:2px}
+.cv-form{background:var(--cream);border-top:3px solid var(--navy2);padding:3rem}
+.form-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--navy);margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.form-group{margin-bottom:1.3rem}
+.form-group label{display:block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--navy2);font-weight:700;margin-bottom:.5rem}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--white);border:1px solid var(--border);color:var(--text);font-family:'Lato',sans-serif;font-size:.85rem;padding:.85rem 1rem;outline:none;transition:border-color .3s;-webkit-appearance:none;border-radius:0}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--navy2);box-shadow:0 0 0 3px rgba(46,74,122,.08)}
+.form-group select option{background:var(--white)}
+.form-group textarea{resize:vertical;min-height:90px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.file-upload{border:2px dashed var(--border);padding:1.5rem;text-align:center;cursor:pointer;transition:all .3s;position:relative;background:var(--white)}
+.file-upload:hover{border-color:var(--navy2)}
+.file-upload input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;border:none;padding:0}
+.file-label{font-size:.74rem;color:var(--muted)}
+.file-label strong{color:var(--navy2)}
+.btn-submit{width:100%;padding:1rem;background:var(--navy2);color:var(--white);border:none;font-family:'Lato',sans-serif;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:background .3s;margin-top:1.5rem}
+.btn-submit:hover{background:var(--navy)}
+.form-success{display:none;text-align:center;padding:3rem}
+.form-success .check{font-size:3rem;color:var(--navy2)}
+.form-success p{color:var(--muted);font-size:.88rem;margin-top:1rem;line-height:1.8}
+@media(max-width:900px){.prac-split{grid-template-columns:1fr;gap:3rem}.form-row{grid-template-columns:1fr}}
