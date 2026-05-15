@@ -127,24 +127,26 @@ async function mergePDFs(coverBytes, cvBytes) {
 }
 
 async function uploadToDrive(pdfBytes, fileName) {
-  const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
-  const folderId    = process.env.GOOGLE_DRIVE_FOLDER_ID;
+  const oauth2 = new google.auth.OAuth2(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    'https://developers.google.com/oauthplayground'
+  );
 
-  const auth = new google.auth.GoogleAuth({
-    credentials,
-    scopes: ['https://www.googleapis.com/auth/drive.file'],
-  });
+  oauth2.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
 
-  const drive  = google.drive({ version: 'v3', auth });
+  const drive    = google.drive({ version: 'v3', auth: oauth2 });
+  const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
+
   const stream = new Readable();
   stream.push(Buffer.from(pdfBytes));
   stream.push(null);
 
   const res = await drive.files.create({
     requestBody: {
-      name:    fileName,
+      name:     fileName,
       mimeType: 'application/pdf',
-      parents: [folderId],
+      parents:  [folderId],
     },
     media: {
       mimeType: 'application/pdf',
