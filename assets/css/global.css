@@ -34,8 +34,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
 .nav-links a{text-decoration:none;color:var(--text);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;transition:color .3s;position:relative;padding-bottom:2px}
 .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--navy2);transition:width .3s}
-.nav-links a:hover,.nav-links a.active{color:var(--navy2)}
-.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a:hover{color:var(--navy2)}
+.nav-links a:hover::after{width:100%}
+.nav-links a.active{color:var(--navy);font-weight:700}
+.nav-links a.active::after{width:100%;background:var(--gold);height:3px}
 .nav-dropdown{position:relative}
 .dropdown-menu{position:absolute;top:calc(100% + .8rem);left:50%;transform:translateX(-50%);background:var(--white);border:1px solid var(--border);box-shadow:0 8px 30px rgba(0,0,0,.1);min-width:260px;opacity:0;visibility:hidden;transition:all .3s;padding:.4rem 0}
 .nav-dropdown:hover .dropdown-menu{opacity:1;visibility:visible}
@@ -85,6 +87,16 @@ footer{background:var(--navy);padding:4rem 7% 2rem}
 .page-hero{padding:9rem 7% 5rem;background:var(--cream);border-bottom:3px solid var(--navy2)}
 .page-hero-content{max-width:650px}
 .page-hero p{font-size:.92rem;color:var(--muted);line-height:1.9;max-width:520px;margin-top:1rem}
+
+/* Photo hero variant — used on Servicios main hero */
+.page-hero--photo{background-size:cover;background-position:center;position:relative;border-bottom:none}
+.page-hero--photo::before{content:'';position:absolute;inset:0;background:rgba(20,35,60,.72)}
+.page-hero--photo .page-hero-content{position:relative;z-index:1}
+.page-hero--photo .section-tag{color:var(--gold)}
+.page-hero--photo .serif-title-lg{color:var(--white)}
+.page-hero--photo .serif-title-lg em{color:var(--gold)}
+.page-hero--photo .divider-line{background:var(--gold)}
+.page-hero--photo p{color:rgba(255,255,255,.75)}
 
 /* ---- Alert Toast ---- */
 .alert{position:fixed;top:90px;right:2rem;z-index:200;background:var(--navy);border-left:4px solid var(--gold);padding:1.2rem 2rem;font-size:.8rem;color:var(--white);transform:translateX(150%);transition:transform .4s;max-width:320px;box-shadow:0 4px 20px rgba(0,0,0,.2)}
