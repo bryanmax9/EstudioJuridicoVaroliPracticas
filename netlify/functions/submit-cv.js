@@ -127,13 +127,21 @@ async function mergePDFs(coverBytes, cvBytes) {
 }
 
 async function uploadToDrive(pdfBytes, fileName) {
+  const clientId     = process.env.GOOGLE_CLIENT_ID     || '';
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET || '';
+  const refreshToken = process.env.GOOGLE_REFRESH_TOKEN || '';
+  console.log('[drive] client_id ends:', clientId.slice(-10));
+  console.log('[drive] secret ends:',   clientSecret.slice(-6));
+  console.log('[drive] token ends:',    refreshToken.slice(-10));
+  console.log('[drive] folder_id:',     process.env.GOOGLE_DRIVE_FOLDER_ID);
+
   const oauth2 = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET,
+    clientId,
+    clientSecret,
     'https://developers.google.com/oauthplayground'
   );
 
-  oauth2.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
+  oauth2.setCredentials({ refresh_token: refreshToken });
 
   const drive    = google.drive({ version: 'v3', auth: oauth2 });
   const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
