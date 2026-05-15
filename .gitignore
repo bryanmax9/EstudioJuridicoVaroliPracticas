@@ -1,4 +1,4 @@
-# Google service account key — never commit
+# Google credentials — never commit
 *.json
 !package.json
 
