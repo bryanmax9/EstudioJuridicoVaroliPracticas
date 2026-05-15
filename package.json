@@ -1,0 +1,9 @@
+{
+  "name": "estudio-juridico-varoli",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "googleapis": "^140.0.0",
+    "pdf-lib": "^1.17.1"
+  }
+}

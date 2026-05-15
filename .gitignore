@@ -1,0 +1,7 @@
+# Google service account key — never commit
+*.json
+!package.json
+
+# Local env
+.env
+.env.local
