@@ -1,0 +1,71 @@
+/* ============================================================
+   Nosotros — Page-Specific Styles
+   ============================================================ */
+
+/* Split: history image + text */
+.split{display:grid;grid-template-columns:1fr 1fr;min-height:520px}
+.split-img{position:relative;overflow:hidden}
+.split-img img{width:100%;height:100%;object-fit:cover;display:block}
+.split-img-ov{position:absolute;inset:0;background:rgba(27,45,79,.18)}
+.split-text{padding:6rem 5rem;display:flex;flex-direction:column;justify-content:center;background:var(--white)}
+.split-text p{font-size:.88rem;color:var(--muted);line-height:1.9;margin-top:.8rem;margin-bottom:.8rem}
+
+/* Values grid */
+.valores-wrap{padding:5rem 7% 6rem;background:var(--cream)}
+.valores-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.valor{background:var(--white);padding:2.5rem 2rem;border-top:3px solid var(--border);transition:all .3s}
+.valor:hover{border-top-color:var(--navy2);box-shadow:0 8px 30px rgba(27,45,79,.08);transform:translateY(-2px)}
+.valor-icon{font-size:2rem;margin-bottom:1rem}
+.valor-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--navy);margin-bottom:.5rem}
+.valor-desc{font-size:.76rem;color:var(--muted);line-height:1.8}
+
+/* Mission / Vision band */
+.mision-band{display:grid;grid-template-columns:1fr 1fr;background:var(--navy)}
+.mision-card{padding:5rem}
+.mision-card+.mision-card{border-left:1px solid rgba(255,255,255,.08)}
+.mision-card h3{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:400;color:var(--white);margin-bottom:1.2rem}
+.mision-card h3 em{font-style:italic;color:var(--gold)}
+.mision-card p{font-size:.86rem;color:rgba(255,255,255,.65);line-height:1.9}
+
+/* Stats row */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);background:var(--navy)}
+.stat-cell{padding:3rem 2rem;text-align:center;border-right:1px solid rgba(255,255,255,.08);border-top:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.18)}
+.stat-cell:last-child{border-right:none}
+.stat-n{font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;color:var(--gold);line-height:1}
+.stat-l{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:.4rem}
+
+/* Process section */
+.proceso-wrap{padding:7rem 7%;background:var(--white)}
+.proceso-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:4rem}
+.paso{padding:3rem;border-right:1px solid var(--border)}
+.paso:last-child{border-right:none}
+.paso-num{font-family:'Playfair Display',serif;font-size:4rem;font-weight:700;color:rgba(46,74,122,.1);line-height:1;margin-bottom:.8rem}
+.paso h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--navy);margin-bottom:.5rem}
+.paso p{font-size:.76rem;color:var(--muted);line-height:1.8;margin-bottom:1rem}
+.paso ul{list-style:none}
+.paso ul li{font-size:.73rem;color:var(--muted);padding:.35rem 0;border-bottom:1px solid var(--cream2);display:flex;gap:.6rem}
+.paso ul li::before{content:'→';color:var(--navy2);flex-shrink:0;font-weight:700}
+
+/* CTA strip */
+.cta-strip{padding:5rem 7%;background:var(--cream);display:flex;align-items:center;justify-content:space-between;gap:3rem;flex-wrap:wrap;border-top:1px solid var(--border)}
+.cta-strip h2{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:600;color:var(--navy)}
+.cta-strip h2 em{font-style:italic;color:var(--navy2)}
+.cta-strip p{font-size:.88rem;color:var(--muted);margin-top:.5rem;max-width:400px;line-height:1.8}
+
+@media(max-width:900px){
+  .split{grid-template-columns:1fr}
+  .split-img{height:320px}
+  .split-text{padding:3.5rem 2rem}
+  .valores-grid{grid-template-columns:1fr 1fr}
+  .mision-band{grid-template-columns:1fr}
+  .mision-card{padding:3rem}
+  .mision-card+.mision-card{border-left:none;border-top:1px solid rgba(255,255,255,.08)}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .proceso-grid{grid-template-columns:1fr}
+  .paso{border-right:none;border-bottom:1px solid var(--border)}
+  .paso:last-child{border-bottom:none}
+}
+@media(max-width:600px){
+  .valores-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr 1fr}
+}
