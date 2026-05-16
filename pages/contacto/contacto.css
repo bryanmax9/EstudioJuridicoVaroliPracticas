@@ -216,6 +216,9 @@
 }
 .phone-wrap .phone-country:focus,
 .phone-wrap .phone-num:focus { box-shadow: none; }
+/* Override .fg select/input width:100% for the phone combo widget */
+.phone-wrap select.phone-country { width: 110px; }
+.phone-wrap input.phone-num { width: auto; }
 
 /* ---- Submit button ---- */
 .btn-submit {
