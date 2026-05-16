@@ -166,30 +166,93 @@ async function uploadToDrive(pdfBytes, fileName) {
   return res.data;
 }
 
+// Allowed origins — add your production domain once deployed
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '')
+  .split(',')
+  .map(s => s.trim())
+  .filter(Boolean);
+
+// 6 MB hard cap on the full request body (base64 PDF ≈ 4 MB file)
+const MAX_BODY_BYTES = 6 * 1024 * 1024;
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
 exports.handler = async (event) => {
+  const origin = event.headers['origin'] || event.headers['referer'] || '';
+  const originAllowed =
+    ALLOWED_ORIGINS.length === 0 ||
+    ALLOWED_ORIGINS.some(o => origin.startsWith(o));
+
   const cors = {
-    'Access-Control-Allow-Origin':  '*',
+    'Access-Control-Allow-Origin':  originAllowed ? origin : 'null',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Vary': 'Origin',
   };
 
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 200, headers: cors, body: '' };
   }
 
+  if (!originAllowed) {
+    return { statusCode: 403, headers: cors, body: JSON.stringify({ error: 'Forbidden' }) };
+  }
+
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, headers: cors, body: 'Method Not Allowed' };
+  }
+
+  // Reject oversized payloads before parsing
+  const rawLen = Buffer.byteLength(event.body || '', 'utf8');
+  if (rawLen > MAX_BODY_BYTES) {
+    return {
+      statusCode: 413,
+      headers: { ...cors, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'El archivo supera el tamaño máximo permitido (4 MB).' }),
+    };
+  }
+
+  // Require JSON content-type
+  const ct = (event.headers['content-type'] || '').toLowerCase();
+  if (!ct.includes('application/json')) {
+    return {
+      statusCode: 415,
+      headers: { ...cors, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Content-Type must be application/json.' }),
+    };
   }
 
   try {
     const body = JSON.parse(event.body || '{}');
     const { nombre, apellidos, email, universidad, ciclo, area, mensaje, cvBase64 } = body;
 
+    // Required field presence + format checks
     if (!nombre || !apellidos || !email) {
       return {
         statusCode: 400,
         headers: { ...cors, 'Content-Type': 'application/json' },
         body: JSON.stringify({ error: 'Faltan campos requeridos.' }),
+      };
+    }
+    if (!EMAIL_RE.test(email)) {
+      return {
+        statusCode: 400,
+        headers: { ...cors, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: 'El correo electrónico no es válido.' }),
+      };
+    }
+    // Field length caps to prevent oversized PDF / injection attempts
+    if (
+      nombre.length     > 80  ||
+      apellidos.length  > 80  ||
+      email.length      > 120 ||
+      (universidad || '').length > 120 ||
+      (mensaje     || '').length > 2000
+    ) {
+      return {
+        statusCode: 400,
+        headers: { ...cors, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: 'Uno o más campos superan el límite de caracteres.' }),
       };
     }
 

@@ -4,9 +4,6 @@
 [functions]
   node_bundler = "esbuild"
 
-[[headers]]
-  for = "/.netlify/functions/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Headers = "Content-Type"
-    Access-Control-Allow-Methods = "POST, OPTIONS"
+# CORS is handled per-request inside each function using the ALLOWED_ORIGINS env var.
+# Set ALLOWED_ORIGINS in Netlify dashboard → Site settings → Environment variables.
+# Example value: https://yoursite.netlify.app,https://www.tudominio.com

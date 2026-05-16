@@ -169,6 +169,54 @@
 
 .fr { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
+/* ---- Phone field: country dropdown + number input ---- */
+.phone-wrap {
+  display: flex;
+  gap: 0;
+  border: 1.5px solid var(--cream2);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: border-color .25s, box-shadow .25s;
+  background: var(--cream);
+}
+.phone-wrap:focus-within {
+  border-color: var(--navy2);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(46,74,122,.07);
+}
+.phone-country {
+  flex-shrink: 0;
+  width: 110px;
+  border: none;
+  border-right: 1.5px solid var(--cream2);
+  background: transparent;
+  color: var(--text);
+  font-family: 'Lato', sans-serif;
+  font-size: .82rem;
+  padding: .9rem .6rem;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236B6B6B'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right .5rem center;
+  padding-right: 1.4rem;
+}
+.phone-num {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-family: 'Lato', sans-serif;
+  font-size: .86rem;
+  padding: .9rem 1rem;
+  outline: none;
+  min-width: 0;
+}
+.phone-wrap .phone-country:focus,
+.phone-wrap .phone-num:focus { box-shadow: none; }
+
 /* ---- Submit button ---- */
 .btn-submit {
   width: 100%;
