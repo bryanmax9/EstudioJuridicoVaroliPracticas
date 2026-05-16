@@ -10,7 +10,7 @@
 .svc-block:nth-child(even){background:var(--cream)}
 .svc-block:nth-child(odd){background:var(--white)}
 .svc-aside{position:sticky;top:140px}
-.svc-num{font-family:'Playfair Display',serif;font-size:5rem;font-weight:700;color:rgba(46,74,122,.09);line-height:1;margin-bottom:.5rem}
+.svc-num{font-family:'Playfair Display',serif;font-size:5rem;font-weight:700;color:rgba(46,74,122,.45);line-height:1;margin-bottom:.5rem}
 .svc-aside-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:1.5rem}
 .svc-aside-title em{font-style:italic;color:var(--navy2)}
 .svc-aside img{width:100%;height:200px;object-fit:cover;margin-top:1.5rem;filter:brightness(.85)}
