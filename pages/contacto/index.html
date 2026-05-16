@@ -133,6 +133,8 @@
           </div>
           <!-- combined value sent to EmailJS -->
           <input type="hidden" name="phone" id="cf-phone">
+          <!-- wa.me-formatted number (digits only, no + or spaces) -->
+          <input type="hidden" name="wa_phone" id="cf-wa-phone">
         </div>
       </div>
       <div class="fg">
@@ -196,7 +198,9 @@ function submitContact(e) {
   // Combine country code + local number into the hidden phone field
   const countryCode = document.getElementById('cf-country').value;
   const localNum    = document.getElementById('cf-phone-num').value.trim().replace(/^0+/, '');
-  document.getElementById('cf-phone').value = localNum ? (countryCode + ' ' + localNum) : '';
+  const fullPhone   = localNum ? (countryCode + ' ' + localNum) : '';
+  document.getElementById('cf-phone').value    = fullPhone;
+  document.getElementById('cf-wa-phone').value = fullPhone.replace(/\D/g, '');
 
   // Client-side validation before touching EmailJS
   const name  = document.getElementById('cf-name').value.trim();

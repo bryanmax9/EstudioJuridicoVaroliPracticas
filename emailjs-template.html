@@ -1,241 +1,241 @@
-<!DOCTYPE html>
-<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
-<!--
-  ================================================================
-  EmailJS Email Template — Estudio Jurídico Varoli Abogados
-  ================================================================
-  HOW TO USE:
-  1. Go to emailjs.com → Email Templates → Create New Template
-  2. Set Subject: Nueva consulta legal de {{from_name}}
-  3. Click the </> (HTML editor) button and paste everything
-     inside <body>...</body> below
-  4. Save the template and copy the Template ID
-  5. Replace YOUR_TEMPLATE_ID in pages/contacto/index.html
+  <!DOCTYPE html>
+  <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+  <!--
+    ================================================================
+    EmailJS Email Template — Estudio Jurídico Varoli Abogados
+    ================================================================
+    HOW TO USE:
+    1. Go to emailjs.com → Email Templates → Create New Template
+    2. Set Subject: Nueva consulta legal de {{from_name}}
+    3. Click the </> (HTML editor) button and paste everything
+      inside <body>...</body> below
+    4. Save the template and copy the Template ID
+    5. Replace YOUR_TEMPLATE_ID in pages/contacto/index.html
 
-  Template variables used:
-    {{from_name}}   — full name
-    {{phone}}       — phone number
-    {{from_email}}  — reply-to email
-    {{area}}        — legal area selected
-    {{message}}     — message body
-  ================================================================
--->
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="x-apple-disable-message-reformatting">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Email Template — Varoli Abogados</title>
-<style>
-  /* ── Reset ── */
-  body, table, td, a { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
-  table, td { mso-table-lspace:0pt; mso-table-rspace:0pt; }
-  img { border:0; height:auto; line-height:100%; outline:none; text-decoration:none; }
+    Template variables used:
+      {{from_name}}   — full name
+      {{phone}}       — phone number
+      {{from_email}}  — reply-to email
+      {{area}}        — legal area selected
+      {{message}}     — message body
+    ================================================================
+  -->
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Email Template — Varoli Abogados</title>
+  <style>
+    /* ── Reset ── */
+    body, table, td, a { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+    table, td { mso-table-lspace:0pt; mso-table-rspace:0pt; }
+    img { border:0; height:auto; line-height:100%; outline:none; text-decoration:none; }
 
-  /* ── Mobile overrides ── */
-  @media only screen and (max-width:620px) {
-    .email-wrapper  { padding:16px 8px !important; }
-    .email-card     { border-radius:0 !important; }
-    .header-inner   { display:block !important; width:100% !important; }
-    .header-logo    { display:block !important; width:100% !important; padding:28px 24px 16px !important; }
-    .header-label   { display:block !important; width:100% !important; padding:0 24px 20px !important; text-align:left !important; }
-    .title-band     { padding:20px 24px !important; }
-    .body-pad       { padding:28px 24px 24px !important; }
-    .data-label     { display:block !important; width:100% !important; padding:10px 14px 4px !important; border-right:none !important; border-bottom:none !important; }
-    .data-value     { display:block !important; width:100% !important; padding:4px 14px 12px !important; }
-    .data-row       { border-bottom:1px solid #EDE8DC !important; }
-    .btn-cell       { display:block !important; width:100% !important; padding-right:0 !important; padding-bottom:10px !important; }
-    .btn-link       { display:block !important; text-align:center !important; }
-    .footer-left    { display:block !important; width:100% !important; padding-bottom:16px !important; }
-    .footer-right   { display:block !important; width:100% !important; text-align:left !important; }
-    h2              { font-size:18px !important; }
-  }
-</style>
-</head>
-<body style="margin:0;padding:0;background:#F0EBE1;font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;">
+    /* ── Mobile overrides ── */
+    @media only screen and (max-width:620px) {
+      .email-wrapper  { padding:16px 8px !important; }
+      .email-card     { border-radius:0 !important; }
+      .header-inner   { display:block !important; width:100% !important; }
+      .header-logo    { display:block !important; width:100% !important; padding:28px 24px 16px !important; }
+      .header-label   { display:block !important; width:100% !important; padding:0 24px 20px !important; text-align:left !important; }
+      .title-band     { padding:20px 24px !important; }
+      .body-pad       { padding:28px 24px 24px !important; }
+      .data-label     { display:block !important; width:100% !important; padding:10px 14px 4px !important; border-right:none !important; border-bottom:none !important; }
+      .data-value     { display:block !important; width:100% !important; padding:4px 14px 12px !important; }
+      .data-row       { border-bottom:1px solid #EDE8DC !important; }
+      .btn-cell       { display:block !important; width:100% !important; padding-right:0 !important; padding-bottom:10px !important; }
+      .btn-link       { display:block !important; text-align:center !important; }
+      .footer-left    { display:block !important; width:100% !important; padding-bottom:16px !important; }
+      .footer-right   { display:block !important; width:100% !important; text-align:left !important; }
+      h2              { font-size:18px !important; }
+    }
+  </style>
+  </head>
+  <body style="margin:0;padding:0;background:#F0EBE1;font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;">
 
-<table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" style="background:#F0EBE1;padding:40px 16px;">
-  <tr>
-    <td align="center">
-      <table class="email-card" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:4px;overflow:hidden;box-shadow:0 2px 24px rgba(0,0,0,0.10);">
+  <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" style="background:#F0EBE1;padding:40px 16px;">
+    <tr>
+      <td align="center">
+        <table class="email-card" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:4px;overflow:hidden;box-shadow:0 2px 24px rgba(0,0,0,0.10);">
 
-        <!-- ── GOLD TOP BAR ── -->
-        <tr>
-          <td style="height:4px;background:#C9A068;font-size:0;line-height:0;">&nbsp;</td>
-        </tr>
+          <!-- ── GOLD TOP BAR ── -->
+          <tr>
+            <td style="height:4px;background:#C9A068;font-size:0;line-height:0;">&nbsp;</td>
+          </tr>
 
-        <!-- ── HEADER ── -->
-        <tr>
-          <td style="background:#1B2D4F;padding:0;">
-            <table class="header-inner" width="100%" cellpadding="0" cellspacing="0">
-              <tr>
-                <!-- Logo -->
-                <td class="header-logo" style="padding:30px 40px 26px;vertical-align:middle;">
-                  <table cellpadding="0" cellspacing="0">
-                    <tr>
-                      <td style="border:2px solid rgba(201,160,104,0.45);border-radius:3px;padding:8px 16px;text-align:center;">
-                        <div style="font-family:Georgia,serif;font-size:8px;letter-spacing:3.5px;text-transform:uppercase;color:#C9A068;font-weight:bold;line-height:1.6;">ESTUDIO JURÍDICO</div>
-                        <div style="font-family:Georgia,serif;font-size:16px;font-weight:bold;color:#ffffff;letter-spacing:1px;line-height:1.2;">Varoli Abogados</div>
-                        <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(201,160,104,0.55);margin-top:3px;">Lima · Perú</div>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-                <!-- Label -->
-                <td class="header-label" style="padding:30px 40px 26px;vertical-align:middle;text-align:right;">
-                  <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);line-height:1.6;">Formulario<br>de contacto</div>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
+          <!-- ── HEADER ── -->
+          <tr>
+            <td style="background:#1B2D4F;padding:0;">
+              <table class="header-inner" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <!-- Logo -->
+                  <td class="header-logo" style="padding:30px 40px 26px;vertical-align:middle;">
+                    <table cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:2px solid rgba(201,160,104,0.45);border-radius:3px;padding:8px 16px;text-align:center;">
+                          <div style="font-family:Georgia,serif;font-size:8px;letter-spacing:3.5px;text-transform:uppercase;color:#C9A068;font-weight:bold;line-height:1.6;">ESTUDIO JURÍDICO</div>
+                          <div style="font-family:Georgia,serif;font-size:16px;font-weight:bold;color:#ffffff;letter-spacing:1px;line-height:1.2;">Varoli Abogados</div>
+                          <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(201,160,104,0.55);margin-top:3px;">Lima · Perú</div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <!-- Label -->
+                  <td class="header-label" style="padding:30px 40px 26px;vertical-align:middle;text-align:right;">
+                    <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);line-height:1.6;">Formulario<br>de contacto</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
 
-        <!-- ── TITLE BAND ── -->
-        <tr>
-          <td class="title-band" style="background:#2E4A7A;padding:22px 40px;">
-            <h2 style="font-family:Georgia,serif;font-size:20px;font-weight:bold;color:#ffffff;line-height:1.3;margin:0 0 5px;">Nueva consulta recibida</h2>
-            <p style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,0.55);margin:0;line-height:1.5;">Un cliente ha enviado una consulta a través del sitio web.</p>
-          </td>
-        </tr>
+          <!-- ── TITLE BAND ── -->
+          <tr>
+            <td class="title-band" style="background:#2E4A7A;padding:22px 40px;">
+              <h2 style="font-family:Georgia,serif;font-size:20px;font-weight:bold;color:#ffffff;line-height:1.3;margin:0 0 5px;">Nueva consulta recibida</h2>
+              <p style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,0.55);margin:0;line-height:1.5;">Un cliente ha enviado una consulta a través del sitio web.</p>
+            </td>
+          </tr>
 
-        <!-- ── BODY ── -->
-        <tr>
-          <td class="body-pad" style="padding:36px 40px 30px;background:#ffffff;">
+          <!-- ── BODY ── -->
+          <tr>
+            <td class="body-pad" style="padding:36px 40px 30px;background:#ffffff;">
 
-            <p style="font-family:Arial,sans-serif;font-size:13px;color:#6B6B6B;line-height:1.9;margin:0 0 26px;">
-              Se ha recibido una nueva consulta legal desde el formulario de contacto del sitio web.
-              A continuación se detallan los datos proporcionados por el cliente:
-            </p>
+              <p style="font-family:Arial,sans-serif;font-size:13px;color:#6B6B6B;line-height:1.9;margin:0 0 26px;">
+                Se ha recibido una nueva consulta legal desde el formulario de contacto del sitio web.
+                A continuación se detallan los datos proporcionados por el cliente:
+              </p>
 
-            <!-- ── DATA TABLE ── -->
-            <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #EDE8DC;border-radius:3px;overflow:hidden;margin-bottom:28px;border-collapse:collapse;">
+              <!-- ── DATA TABLE ── -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #EDE8DC;border-radius:3px;overflow:hidden;margin-bottom:28px;border-collapse:collapse;">
 
-              <!-- Name -->
-              <tr class="data-row" style="border-bottom:1px solid #EDE8DC;">
-                <td class="data-label" width="36%" style="background:#F5F0E8;padding:13px 16px;border-right:1px solid #EDE8DC;vertical-align:top;">
-                  <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2E4A7A;font-weight:bold;">Nombre</div>
-                </td>
-                <td class="data-value" style="background:#ffffff;padding:13px 16px;vertical-align:top;">
-                  <div style="font-family:Georgia,serif;font-size:14px;color:#1B2D4F;font-weight:bold;">{{from_name}}</div>
-                </td>
-              </tr>
+                <!-- Name -->
+                <tr class="data-row" style="border-bottom:1px solid #EDE8DC;">
+                  <td class="data-label" width="36%" style="background:#F5F0E8;padding:13px 16px;border-right:1px solid #EDE8DC;vertical-align:top;">
+                    <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2E4A7A;font-weight:bold;">Nombre</div>
+                  </td>
+                  <td class="data-value" style="background:#ffffff;padding:13px 16px;vertical-align:top;">
+                    <div style="font-family:Georgia,serif;font-size:14px;color:#1B2D4F;font-weight:bold;">{{from_name}}</div>
+                  </td>
+                </tr>
 
-              <!-- Phone -->
-              <tr class="data-row" style="border-bottom:1px solid #EDE8DC;">
-                <td class="data-label" width="36%" style="background:#F5F0E8;padding:13px 16px;border-right:1px solid #EDE8DC;vertical-align:top;">
-                  <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2E4A7A;font-weight:bold;">Teléfono</div>
-                </td>
-                <td class="data-value" style="background:#ffffff;padding:13px 16px;vertical-align:top;">
-                  <div style="font-family:Arial,sans-serif;font-size:13px;color:#2C2C2C;">{{phone}}</div>
-                </td>
-              </tr>
+                <!-- Phone -->
+                <tr class="data-row" style="border-bottom:1px solid #EDE8DC;">
+                  <td class="data-label" width="36%" style="background:#F5F0E8;padding:13px 16px;border-right:1px solid #EDE8DC;vertical-align:top;">
+                    <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2E4A7A;font-weight:bold;">Teléfono</div>
+                  </td>
+                  <td class="data-value" style="background:#ffffff;padding:13px 16px;vertical-align:top;">
+                    <div style="font-family:Arial,sans-serif;font-size:13px;color:#2C2C2C;">{{phone}}</div>
+                  </td>
+                </tr>
 
-              <!-- Email -->
-              <tr class="data-row" style="border-bottom:1px solid #EDE8DC;">
-                <td class="data-label" width="36%" style="background:#F5F0E8;padding:13px 16px;border-right:1px solid #EDE8DC;vertical-align:top;">
-                  <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2E4A7A;font-weight:bold;">Correo</div>
-                </td>
-                <td class="data-value" style="background:#ffffff;padding:13px 16px;vertical-align:top;">
-                  <a href="mailto:{{from_email}}" style="font-family:Arial,sans-serif;font-size:13px;color:#2E4A7A;font-weight:bold;text-decoration:none;">{{from_email}}</a>
-                </td>
-              </tr>
+                <!-- Email -->
+                <tr class="data-row" style="border-bottom:1px solid #EDE8DC;">
+                  <td class="data-label" width="36%" style="background:#F5F0E8;padding:13px 16px;border-right:1px solid #EDE8DC;vertical-align:top;">
+                    <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2E4A7A;font-weight:bold;">Correo</div>
+                  </td>
+                  <td class="data-value" style="background:#ffffff;padding:13px 16px;vertical-align:top;">
+                    <a href="mailto:{{from_email}}" style="font-family:Arial,sans-serif;font-size:13px;color:#2E4A7A;font-weight:bold;text-decoration:none;">{{from_email}}</a>
+                  </td>
+                </tr>
 
-              <!-- Area -->
-              <tr class="data-row" style="border-bottom:1px solid #EDE8DC;">
-                <td class="data-label" width="36%" style="background:#F5F0E8;padding:13px 16px;border-right:1px solid #EDE8DC;vertical-align:top;">
-                  <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2E4A7A;font-weight:bold;">Área legal</div>
-                </td>
-                <td class="data-value" style="background:#ffffff;padding:13px 16px;vertical-align:top;">
-                  <span style="display:inline-block;background:#2E4A7A;border-radius:2px;padding:4px 12px;font-family:Arial,sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#ffffff;font-weight:bold;">{{area}}</span>
-                </td>
-              </tr>
+                <!-- Area -->
+                <tr class="data-row" style="border-bottom:1px solid #EDE8DC;">
+                  <td class="data-label" width="36%" style="background:#F5F0E8;padding:13px 16px;border-right:1px solid #EDE8DC;vertical-align:top;">
+                    <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2E4A7A;font-weight:bold;">Área legal</div>
+                  </td>
+                  <td class="data-value" style="background:#ffffff;padding:13px 16px;vertical-align:top;">
+                    <span style="display:inline-block;background:#2E4A7A;border-radius:2px;padding:4px 12px;font-family:Arial,sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#ffffff;font-weight:bold;">{{area}}</span>
+                  </td>
+                </tr>
 
-              <!-- Message -->
-              <tr>
-                <td class="data-label" width="36%" style="background:#F5F0E8;padding:13px 16px;border-right:1px solid #EDE8DC;vertical-align:top;">
-                  <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2E4A7A;font-weight:bold;">Mensaje</div>
-                </td>
-                <td class="data-value" style="background:#ffffff;padding:13px 16px;vertical-align:top;">
-                  <div style="font-family:Arial,sans-serif;font-size:13px;color:#2C2C2C;line-height:1.85;white-space:pre-wrap;">{{message}}</div>
-                </td>
-              </tr>
+                <!-- Message -->
+                <tr>
+                  <td class="data-label" width="36%" style="background:#F5F0E8;padding:13px 16px;border-right:1px solid #EDE8DC;vertical-align:top;">
+                    <div style="font-family:Arial,sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2E4A7A;font-weight:bold;">Mensaje</div>
+                  </td>
+                  <td class="data-value" style="background:#ffffff;padding:13px 16px;vertical-align:top;">
+                    <div style="font-family:Arial,sans-serif;font-size:13px;color:#2C2C2C;line-height:1.85;white-space:pre-wrap;">{{message}}</div>
+                  </td>
+                </tr>
 
-            </table>
+              </table>
 
-            <!-- Gold divider -->
-            <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:22px;">
-              <tr><td style="height:2px;background:linear-gradient(90deg,#C9A068,rgba(201,160,104,0.15));font-size:0;line-height:0;">&nbsp;</td></tr>
-            </table>
+              <!-- Gold divider -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:22px;">
+                <tr><td style="height:2px;background:linear-gradient(90deg,#C9A068,rgba(201,160,104,0.15));font-size:0;line-height:0;">&nbsp;</td></tr>
+              </table>
 
-            <!-- Action buttons -->
-            <table cellpadding="0" cellspacing="0" style="width:100%;">
-              <tr>
-                <td class="btn-cell" style="padding-right:10px;vertical-align:top;width:50%;">
-                  <a class="btn-link" href="mailto:{{from_email}}" style="display:inline-block;background:#1B2D4F;color:#ffffff;font-family:Arial,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:bold;padding:13px 20px;text-decoration:none;border-radius:3px;width:100%;box-sizing:border-box;text-align:center;">
-                    Responder al cliente
-                  </a>
-                </td>
-                <td class="btn-cell" style="vertical-align:top;width:50%;">
-                  <a class="btn-link" href="https://wa.me/{{phone}}" style="display:inline-block;background:#25D366;color:#ffffff;font-family:Arial,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:bold;padding:13px 20px;text-decoration:none;border-radius:3px;width:100%;box-sizing:border-box;text-align:center;">
-                    Abrir WhatsApp
-                  </a>
-                </td>
-              </tr>
-            </table>
+              <!-- Action buttons -->
+              <table cellpadding="0" cellspacing="0" style="width:100%;">
+                <tr>
+                  <td class="btn-cell" style="padding-right:10px;vertical-align:top;width:50%;">
+                    <a class="btn-link" href="mailto:{{from_email}}" style="display:inline-block;background:#1B2D4F;color:#ffffff;font-family:Arial,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:bold;padding:13px 20px;text-decoration:none;border-radius:3px;width:100%;box-sizing:border-box;text-align:center;">
+                      Responder al cliente
+                    </a>
+                  </td>
+                  <td class="btn-cell" style="vertical-align:top;width:50%;">
+                    <a class="btn-link" href="https://wa.me/{{wa_phone}}" style="display:inline-block;background:#25D366;color:#ffffff;font-family:Arial,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:bold;padding:13px 20px;text-decoration:none;border-radius:3px;width:100%;box-sizing:border-box;text-align:center;">
+                      Abrir WhatsApp
+                    </a>
+                  </td>
+                </tr>
+              </table>
 
-          </td>
-        </tr>
+            </td>
+          </tr>
 
-        <!-- ── FOOTER ── -->
-        <tr>
-          <td style="background:#1B2D4F;padding:0;">
-            <!-- Thin gold accent -->
-            <table width="100%" cellpadding="0" cellspacing="0">
-              <tr><td style="height:1px;background:rgba(201,160,104,0.22);font-size:0;line-height:0;">&nbsp;</td></tr>
-            </table>
+          <!-- ── FOOTER ── -->
+          <tr>
+            <td style="background:#1B2D4F;padding:0;">
+              <!-- Thin gold accent -->
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr><td style="height:1px;background:rgba(201,160,104,0.22);font-size:0;line-height:0;">&nbsp;</td></tr>
+              </table>
 
-            <table width="100%" cellpadding="0" cellspacing="0" style="padding:24px 40px;">
-              <tr>
-                <td class="footer-left" style="vertical-align:top;padding-right:16px;">
-                  <div style="font-family:Georgia,serif;font-size:13px;color:#ffffff;font-weight:bold;margin-bottom:8px;">Estudio Jurídico Varoli Abogados</div>
-                  <div style="font-family:Arial,sans-serif;font-size:11px;color:rgba(255,255,255,0.45);line-height:1.9;">
-                    Av. José Leal N° 835, Of. 302 · Lince, Lima<br>
-                    <a href="tel:+51924333108" style="color:#C9A068;text-decoration:none;">+51 924 333 108</a><br>
-                    <a href="mailto:consultasvaroli@gmail.com" style="color:#C9A068;text-decoration:none;">consultasvaroli@gmail.com</a>
-                  </div>
-                </td>
-                <td class="footer-right" style="vertical-align:top;text-align:right;">
-                  <div style="font-family:Arial,sans-serif;font-size:10px;color:rgba(255,255,255,0.28);letter-spacing:1px;text-transform:uppercase;line-height:1.9;">
-                    Lun–Vie: 9am – 6pm<br>Sáb: 9am – 1pm
-                  </div>
-                </td>
-              </tr>
-            </table>
+              <table width="100%" cellpadding="0" cellspacing="0" style="padding:24px 40px;">
+                <tr>
+                  <td class="footer-left" style="vertical-align:top;padding-right:16px;">
+                    <div style="font-family:Georgia,serif;font-size:13px;color:#ffffff;font-weight:bold;margin-bottom:8px;">Estudio Jurídico Varoli Abogados</div>
+                    <div style="font-family:Arial,sans-serif;font-size:11px;color:rgba(255,255,255,0.45);line-height:1.9;">
+                      Av. José Leal N° 835, Of. 302 · Lince, Lima<br>
+                      <a href="tel:+51924333108" style="color:#C9A068;text-decoration:none;">+51 924 333 108</a><br>
+                      <a href="mailto:consultasvaroli@gmail.com" style="color:#C9A068;text-decoration:none;">consultasvaroli@gmail.com</a>
+                    </div>
+                  </td>
+                  <td class="footer-right" style="vertical-align:top;text-align:right;">
+                    <div style="font-family:Arial,sans-serif;font-size:10px;color:rgba(255,255,255,0.28);letter-spacing:1px;text-transform:uppercase;line-height:1.9;">
+                      Lun–Vie: 9am – 6pm<br>Sáb: 9am – 1pm
+                    </div>
+                  </td>
+                </tr>
+              </table>
 
-            <!-- Bottom note -->
-            <table width="100%" cellpadding="0" cellspacing="0">
-              <tr><td style="height:1px;background:rgba(255,255,255,0.06);font-size:0;line-height:0;">&nbsp;</td></tr>
-            </table>
-            <table width="100%" cellpadding="0" cellspacing="0" style="padding:12px 40px 20px;">
-              <tr>
-                <td style="font-family:Arial,sans-serif;font-size:10px;color:rgba(255,255,255,0.22);text-align:center;line-height:1.6;">
-                  Este mensaje fue generado automáticamente desde el formulario de contacto del sitio web.<br>
-                  No responda directamente a este correo — use el botón "Responder al cliente" de arriba.
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
+              <!-- Bottom note -->
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr><td style="height:1px;background:rgba(255,255,255,0.06);font-size:0;line-height:0;">&nbsp;</td></tr>
+              </table>
+              <table width="100%" cellpadding="0" cellspacing="0" style="padding:12px 40px 20px;">
+                <tr>
+                  <td style="font-family:Arial,sans-serif;font-size:10px;color:rgba(255,255,255,0.22);text-align:center;line-height:1.6;">
+                    Este mensaje fue generado automáticamente desde el formulario de contacto del sitio web.<br>
+                    No responda directamente a este correo — use el botón "Responder al cliente" de arriba.
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
 
-        <!-- ── GOLD BOTTOM BAR ── -->
-        <tr>
-          <td style="height:3px;background:#C9A068;font-size:0;line-height:0;">&nbsp;</td>
-        </tr>
+          <!-- ── GOLD BOTTOM BAR ── -->
+          <tr>
+            <td style="height:3px;background:#C9A068;font-size:0;line-height:0;">&nbsp;</td>
+          </tr>
 
-      </table>
-    </td>
-  </tr>
-</table>
+        </table>
+      </td>
+    </tr>
+  </table>
 
-</body>
-</html>
+  </body>
+  </html>
