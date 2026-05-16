@@ -4,14 +4,110 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Estudio Jurídico Varoli Abogados</title>
-<meta http-equiv="refresh" content="0; url=pages/servicios/index.html">
+<meta http-equiv="refresh" content="2; url=pages/servicios/index.html">
 <link rel="canonical" href="pages/servicios/index.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Lato:wght@300;700&display=swap" rel="stylesheet">
 <style>
-  body{font-family:sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#F5F0E8;color:#1B2D4F}
-  a{color:#2E4A7A;font-weight:700}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Lato',sans-serif;
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;
+  background:#1B2D4F;
+  color:#fff;
+  overflow:hidden;
+}
+
+/* Background texture overlay */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(46,74,122,.55) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(201,160,104,.12) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+.splash{
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:2rem;
+  animation:fadeIn .8s ease both;
+  position:relative;z-index:1;
+}
+
+.splash-logo{
+  width:140px;height:140px;
+  background:#fff;
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  padding:14px;
+  box-shadow:0 8px 40px rgba(0,0,0,.35);
+  animation:logoPop .7s cubic-bezier(.22,1,.36,1) .2s both;
+}
+.splash-logo img{width:100%;height:auto;display:block}
+
+.splash-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.5rem,4vw,2.4rem);
+  font-weight:700;
+  color:#fff;
+  line-height:1.15;
+  letter-spacing:.01em;
+}
+.splash-name em{font-style:italic;color:#C9A068}
+
+.splash-sub{
+  font-size:.65rem;
+  letter-spacing:.35em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+  font-weight:700;
+  margin-top:-.5rem;
+}
+
+.splash-divider{
+  width:48px;height:2px;
+  background:linear-gradient(90deg,transparent,#C9A068,transparent);
+  margin:-.5rem auto;
+}
+
+/* Spinner */
+.splash-spinner{
+  width:40px;height:40px;
+  border:2px solid rgba(255,255,255,.12);
+  border-top-color:#C9A068;
+  border-radius:50%;
+  animation:spin .9s linear infinite;
+  margin-top:.5rem;
+}
+
+.splash-label{
+  font-size:.6rem;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+  margin-top:-.8rem;
+}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes logoPop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
-<p>Redirigiendo… <a href="pages/servicios/index.html">Haga clic aquí si no es redirigido automáticamente.</a></p>
+<div class="splash">
+  <div class="splash-logo">
+    <img src="assets/images/logo.gif" alt="Varoli Abogados">
+  </div>
+  <div>
+    <div class="splash-name">Estudio Jurídico<br><em>Varoli Abogados</em></div>
+    <div class="splash-sub">Lima · Perú</div>
+  </div>
+  <div class="splash-divider"></div>
+  <div class="splash-spinner"></div>
+  <div class="splash-label">Cargando…</div>
+</div>
 </body>
 </html>

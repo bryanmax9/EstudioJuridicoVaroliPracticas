@@ -55,8 +55,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 footer{background:var(--navy);padding:4rem 7% 2rem}
 .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
 .footer-logo-wrap{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem}
-.footer-logo-wrap img{height:48px;width:auto;filter:brightness(0) invert(1)}
-.footer-brand-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--white);line-height:1.3}
+.footer-logo-wrap img{height:72px;width:auto;background:var(--white);border-radius:6px;padding:5px 10px;object-fit:contain}
+.footer-brand-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--white);line-height:1.3}
 .footer-brand p{font-size:.76rem;color:rgba(255,255,255,.55);line-height:1.9;max-width:240px;margin-top:.8rem}
 .footer-col h5{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;font-weight:700}
 .footer-col ul{list-style:none}
@@ -117,8 +117,29 @@ footer{background:var(--navy);padding:4rem 7% 2rem}
   .nav-links{display:none}
   .hamburger{display:flex}
   .footer-top{grid-template-columns:1fr 1fr;gap:2rem}
+  .page-hero{padding:7rem 5% 4rem}
+}
+@media(max-width:768px){
+  footer{padding:3rem 5% 1.5rem}
+  .footer-top{gap:1.5rem}
 }
 @media(max-width:600px){
   .footer-top{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;gap:.5rem;text-align:center}
+  .page-hero{padding:6rem 5% 3rem}
+  .page-hero p{font-size:.85rem}
+  .divider-line{margin:.9rem 0 1.1rem}
+  .btn-navy,.btn-outline,.btn-white{padding:.75rem 1.4rem;font-size:.65rem}
+}
+@media(max-width:480px){
+  nav{padding:.65rem 4%}
+  .nav-logo img{height:38px}
+  .nav-brand-name{font-size:.82rem}
+  .nav-brand-sub{font-size:.52rem}
+  .footer-logo-wrap img{height:60px}
+  .footer-brand-name{font-size:1rem}
+  .page-hero{padding:5.5rem 4% 2.5rem}
+  .serif-title{font-size:clamp(1.5rem,5vw,1.9rem)}
+  .wa-float{width:50px;height:50px;bottom:1.2rem;right:1.2rem}
+  .wa-float svg{width:50px;height:50px}
 }

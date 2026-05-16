@@ -55,17 +55,31 @@
 @media(max-width:900px){
   .split{grid-template-columns:1fr}
   .split-img{height:320px}
-  .split-text{padding:3.5rem 2rem}
+  .split-text{padding:3.5rem 5%}
+  .valores-wrap{padding:4rem 5% 5rem}
   .valores-grid{grid-template-columns:1fr 1fr}
   .mision-band{grid-template-columns:1fr}
-  .mision-card{padding:3rem}
+  .mision-card{padding:3rem 5%}
   .mision-card+.mision-card{border-left:none;border-top:1px solid rgba(255,255,255,.08)}
   .stats-row{grid-template-columns:1fr 1fr}
+  .proceso-wrap{padding:5rem 5%}
   .proceso-grid{grid-template-columns:1fr}
-  .paso{border-right:none;border-bottom:1px solid var(--border)}
+  .paso{border-right:none;border-bottom:1px solid var(--border);padding:2rem 0}
   .paso:last-child{border-bottom:none}
+  .cta-strip{padding:3.5rem 5%}
 }
 @media(max-width:600px){
   .valores-grid{grid-template-columns:1fr}
   .stats-row{grid-template-columns:1fr 1fr}
+  .split-text{padding:3rem 4%}
+}
+@media(max-width:480px){
+  .split-img{height:240px}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .stat-cell{padding:2rem 1rem}
+  .stat-n{font-size:2.2rem}
+  .mision-card{padding:2.5rem 4%}
+  .valores-wrap{padding:3rem 4% 4rem}
+  .proceso-wrap{padding:3.5rem 4%}
+  .cta-strip{flex-direction:column;align-items:flex-start;padding:3rem 4%}
 }

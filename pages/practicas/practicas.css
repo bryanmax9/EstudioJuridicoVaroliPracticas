@@ -26,4 +26,16 @@
 .form-success{display:none;text-align:center;padding:3rem}
 .form-success .check{font-size:3rem;color:var(--navy2)}
 .form-success p{color:var(--muted);font-size:.88rem;margin-top:1rem;line-height:1.8}
-@media(max-width:900px){.prac-split{grid-template-columns:1fr;gap:3rem}.form-row{grid-template-columns:1fr}}
+@media(max-width:900px){
+  .prac-split{grid-template-columns:1fr;gap:3rem;padding:4rem 5% 5rem}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .prac-split{padding:3rem 4% 4rem}
+  .cv-form{padding:2rem}
+}
+@media(max-width:480px){
+  .prac-split{padding:2.5rem 4% 3rem}
+  .cv-form{padding:1.5rem}
+  .form-title{font-size:1.3rem}
+}

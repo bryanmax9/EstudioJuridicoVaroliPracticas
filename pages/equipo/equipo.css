@@ -33,5 +33,25 @@
 .join-box h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:400;color:var(--white);margin-bottom:1rem}
 .join-box h3 em{font-style:italic;color:var(--gold)}
 .join-box p{font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.9;margin-bottom:2rem}
-@media(max-width:900px){.eq-intro{grid-template-columns:1fr}.eq-intro-img{height:280px}.miembros-grid{grid-template-columns:1fr 1fr}.comp-grid{grid-template-columns:1fr}.join-sec{grid-template-columns:1fr;gap:3rem}}
-@media(max-width:500px){.miembros-grid{grid-template-columns:1fr}}
+@media(max-width:900px){
+  .eq-intro{grid-template-columns:1fr;padding:4rem 5% 3rem}
+  .eq-intro-img{height:280px}
+  .miembros-wrap{padding:1rem 5% 4rem}
+  .miembros-grid{grid-template-columns:1fr 1fr}
+  .compromiso{padding:5rem 5%}
+  .comp-grid{grid-template-columns:1fr 1fr;margin-top:3rem}
+  .join-sec{grid-template-columns:1fr;gap:3rem;padding:5rem 5%}
+}
+@media(max-width:600px){
+  .comp-grid{grid-template-columns:1fr}
+  .join-sec{padding:4rem 4%}
+  .join-box{padding:2rem}
+}
+@media(max-width:480px){
+  .eq-intro{padding:3rem 4% 2.5rem}
+  .miembros-wrap{padding:1rem 4% 3rem}
+  .miembros-grid{grid-template-columns:1fr}
+  .compromiso{padding:3.5rem 4%}
+  .comp-card{padding:2rem 1.5rem}
+  .comp-num{font-size:2.2rem}
+}
