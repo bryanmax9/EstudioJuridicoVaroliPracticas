@@ -224,23 +224,47 @@ footer a:hover { color: var(--gold); }
 .story h2 { margin-top: 8px; text-align: left; }
 .story p { margin-bottom: 12px; color: var(--muted); line-height: 1.7; }
 
+/* RESPONSIVE GRID HELPERS — used to override inline grid styles cleanly */
+.grid-4col { display: grid; grid-template-columns: repeat(4, 1fr) !important; gap: 16px; }
+.grid-2col { display: grid; grid-template-columns: repeat(2, 1fr) !important; gap: 16px; }
+
 /* RESPONSIVE */
 @keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 1024px) {
+  .logo-text { font-size: 15px; }
+}
 @media (max-width: 880px) {
   .nav-links { position: fixed; top: 72px; left: 0; right: 0; background: var(--navy); flex-direction: column; padding: 20px; gap: 16px; display: none; border-top: 1px solid rgba(201,169,97,0.2); z-index: 99; }
   .nav-links.open { display: flex; }
   .menu-toggle { display: block; }
+  .logo-text { font-size: 14px; }
+  .logo-text small { font-size: 8px; letter-spacing: 1px; }
   .hero h1 { font-size: 32px; }
+  .service-hero h1 { font-size: 28px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px 0; }
   .stat { border-left: none; }
   .areas-grid, .process-grid, .values-grid, .resources-grid, .blog-grid, .downloads-grid, .contact-grid, .included-grid, .when-grid, .footer-grid, .form-grid, .mv-grid { grid-template-columns: 1fr; }
+  .grid-4col, .grid-2col { grid-template-columns: 1fr !important; }
   .featured-article, .story { grid-template-columns: 1fr; }
   .phone-wrap { flex-direction: column; }
   .phone-country { width: 100%; }
   section.block { padding: 50px 0; }
   .section-head h2 { font-size: 26px; }
   .service-hero-grid { flex-direction: column; }
+  .area-card { flex-direction: column; align-items: flex-start !important; }
+  .area-card .btn { align-self: flex-start; }
+  .newsletter { flex-direction: column; text-align: center; }
 }
 @media (max-width: 600px) {
   .footer-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .logo-mark { width: 34px; height: 34px; }
+  .logo-text { font-size: 13px; }
+  .logo-text small { display: none; }
+  .hero h1 { font-size: 26px; }
+  .service-hero h1 { font-size: 22px; }
+  .hero p { font-size: 14px; }
+  .nav-inner { padding: 14px 16px; }
+  .container { padding: 0 16px; }
 }
