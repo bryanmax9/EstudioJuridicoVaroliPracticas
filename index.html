@@ -2,112 +2,181 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Estudio Jurídico Varoli Abogados</title>
-<meta http-equiv="refresh" content="2; url=pages/servicios/index.html">
-<link rel="canonical" href="pages/servicios/index.html">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Lato:wght@300;700&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%}
-body{
-  font-family:'Lato',sans-serif;
-  display:flex;align-items:center;justify-content:center;
-  min-height:100vh;
-  background:#1B2D4F;
-  color:#fff;
-  overflow:hidden;
-}
-
-/* Background texture overlay */
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(46,74,122,.55) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(201,160,104,.12) 0%, transparent 60%);
-  pointer-events:none;
-}
-
-.splash{
-  text-align:center;
-  display:flex;flex-direction:column;align-items:center;gap:2rem;
-  animation:fadeIn .8s ease both;
-  position:relative;z-index:1;
-}
-
-.splash-logo{
-  width:140px;height:140px;
-  background:#fff;
-  border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  padding:14px;
-  box-shadow:0 8px 40px rgba(0,0,0,.35);
-  animation:logoPop .7s cubic-bezier(.22,1,.36,1) .2s both;
-}
-.splash-logo img{width:100%;height:auto;display:block}
-
-.splash-name{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.5rem,4vw,2.4rem);
-  font-weight:700;
-  color:#fff;
-  line-height:1.15;
-  letter-spacing:.01em;
-}
-.splash-name em{font-style:italic;color:#C9A068}
-
-.splash-sub{
-  font-size:.65rem;
-  letter-spacing:.35em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,.45);
-  font-weight:700;
-  margin-top:-.5rem;
-}
-
-.splash-divider{
-  width:48px;height:2px;
-  background:linear-gradient(90deg,transparent,#C9A068,transparent);
-  margin:-.5rem auto;
-}
-
-/* Spinner */
-.splash-spinner{
-  width:40px;height:40px;
-  border:2px solid rgba(255,255,255,.12);
-  border-top-color:#C9A068;
-  border-radius:50%;
-  animation:spin .9s linear infinite;
-  margin-top:.5rem;
-}
-
-.splash-label{
-  font-size:.6rem;
-  letter-spacing:.25em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,.3);
-  margin-top:-.8rem;
-}
-
-@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-@keyframes logoPop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
-@keyframes spin{to{transform:rotate(360deg)}}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inicio | Varoli Abogados</title>
+<meta name="description" content="Estudio Jurídico Varoli Abogados en Lima, Perú. Asesoría en derecho comercial, civil, penal, administrativo, contrataciones del Estado y laboral. Primera consulta gratuita.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="assets/css/global.css">
 </head>
 <body>
-<div class="splash">
-  <div class="splash-logo">
-    <img src="assets/images/logo.gif" alt="Varoli Abogados">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark"><img src="assets/images/logo.gif" alt="VA"></div>
+      <div class="logo-text">Varoli Abogados<small>ESTUDIO JURÍDICO · LIMA</small></div>
+    </a>
+    <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')"><i class="ti ti-menu-2"></i></button>
+    <div class="nav-links">
+      <a href="index.html" class="active">Inicio</a>
+      <a href="pages/nosotros/">El estudio</a>
+      <a href="pages/servicios/">Servicios</a>
+      <a href="pages/recursos/">Recursos</a>
+      <a href="pages/contacto/">Contacto</a>
+      <a href="pages/contacto/" class="nav-cta">Consulta gratuita</a>
+    </div>
   </div>
-  <div>
-    <div class="splash-name">Estudio Jurídico<br><em>Varoli Abogados</em></div>
-    <div class="splash-sub">Lima · Perú</div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="small-caps">Derecho corporativo &middot; Civil &middot; Penal &middot; Administrativo &middot; Laboral</div>
+    <h1>Defensa jurídica estratégica para empresas y personas en Lima</h1>
+    <p>Analizamos tu caso sin costo y te orientamos con claridad. Respuesta en menos de 24 horas hábiles.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-whatsapp" href="https://wa.me/51924333108" target="_blank"><i class="ti ti-brand-whatsapp"></i> Escribir por WhatsApp</a>
+      <a class="btn btn-outline" href="pages/contacto/"><i class="ti ti-calendar"></i> Agendar videollamada</a>
+    </div>
   </div>
-  <div class="splash-divider"></div>
-  <div class="splash-spinner"></div>
-  <div class="splash-label">Cargando…</div>
+</section>
+<div class="stats">
+  <div class="stats-grid">
+    <div class="stat"><div class="stat-num">+5</div><div class="stat-lbl">Años de trayectoria</div></div>
+    <div class="stat"><div class="stat-num">+200</div><div class="stat-lbl">Casos atendidos</div></div>
+    <div class="stat"><div class="stat-num">5</div><div class="stat-lbl">Áreas de práctica</div></div>
+    <div class="stat"><div class="stat-num">24h</div><div class="stat-lbl">Tiempo de respuesta</div></div>
+  </div>
 </div>
+
+<section class="block block-cream">
+  <div class="container">
+    <div class="section-head"><div class="small-caps">Áreas de práctica</div><h2>Soluciones jurídicas a tu medida</h2></div>
+    <div class="areas-grid">
+      <a class="area-card" href="pages/comercial-civil/"><i class="ti ti-building-bank"></i><h3>Comercial y civil</h3><p>Contratos, sociedades, herencias, inmuebles y responsabilidad civil.</p><div class="link">Ver detalle &rarr;</div></a>
+      <a class="area-card" href="pages/derecho-penal/"><i class="ti ti-gavel"></i><h3>Derecho penal</h3><p>Defensa en investigaciones, delitos económicos, informáticos y apelaciones.</p><div class="link">Ver detalle &rarr;</div></a>
+      <a class="area-card" href="pages/servicios/"><i class="ti ti-shield-check"></i><h3>Administrativo</h3><p>Recursos, licencias, sanciones y procesos contencioso-administrativos.</p><div class="link">Ver detalle &rarr;</div></a>
+      <a class="area-card" href="pages/licitaciones/"><i class="ti ti-file-stack"></i><h3>Contrataciones del Estado</h3><p>Licitaciones, procesos sancionadores y apelaciones ante el OSCE.</p><div class="link">Ver detalle &rarr;</div></a>
+      <a class="area-card" href="pages/servicios/"><i class="ti ti-briefcase"></i><h3>Laboral corporativo</h3><p>Contratos, planillas, despidos, inspecciones SUNAFIL y compliance laboral.</p><div class="link">Ver detalle &rarr;</div></a>
+      <a class="area-card" href="pages/contacto/" style="background:var(--navy); color:white; border-left-color:var(--gold);"><i class="ti ti-help-circle" style="color:var(--gold)"></i><h3 style="color:white">¿No sabes en qué área?</h3><p style="color:#C8C5BE">Cuéntanos tu caso y te orientamos en la primera consulta gratuita.</p><div class="link">Consultar ahora &rarr;</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="block block-light">
+  <div class="container">
+    <div class="section-head"><div class="small-caps">Cómo trabajamos</div><h2>Un proceso claro en 3 etapas</h2></div>
+    <div class="process-grid">
+      <div class="step"><div class="step-num">01</div><h3>Diagnóstico</h3><p>Consulta inicial gratuita y análisis de viabilidad de tu caso.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Estrategia</h3><p>Plan personalizado con tiempos, costos y alternativas claras.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Ejecución</h3><p>Representación activa con informes de avance permanentes.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block block-cream">
+  <div class="container">
+    <div class="section-head"><div class="small-caps">Por qué elegirnos</div><h2>Compromisos que nos definen</h2></div>
+    <div class="values-grid">
+      <div class="value"><i class="ti ti-scale"></i><h3>Integridad</h3><p>Honorarios transparentes desde la primera reunión, sin costos ocultos.</p></div>
+      <div class="value"><i class="ti ti-target"></i><h3>Excelencia</h3><p>Actualización normativa permanente en cada área de práctica.</p></div>
+      <div class="value"><i class="ti ti-headset"></i><h3>Cercanía</h3><p>Atención directa con el abogado a cargo, sin intermediarios.</p></div>
+      <div class="value"><i class="ti ti-clock"></i><h3>Respuesta ágil</h3><p>Toda consulta respondida en menos de 24 horas hábiles.</p></div>
+      <div class="value"><i class="ti ti-lock"></i><h3>Confidencialidad</h3><p>Protección estricta de tu información y de tu caso.</p></div>
+      <div class="value"><i class="ti ti-eye"></i><h3>Enfoque preventivo</h3><p>Te ayudamos a evitar el conflicto antes de que escale.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block block-light">
+  <div class="container">
+    <div class="section-head"><div class="small-caps">Recursos jurídicos gratuitos</div><h2>Guías para descargar</h2></div>
+    <div class="resources-grid">
+      <div class="resource"><i class="ti ti-file-text"></i><h4>10 claves antes de firmar un contrato comercial</h4><a>Descargar PDF <i class="ti ti-download"></i></a></div>
+      <div class="resource"><i class="ti ti-checklist"></i><h4>Checklist: prepara tu empresa para SUNAFIL</h4><a>Descargar PDF <i class="ti ti-download"></i></a></div>
+      <div class="resource"><i class="ti ti-mail-opened"></i><h4>Modelo de carta notarial para deudores</h4><a>Descargar PDF <i class="ti ti-download"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="block block-cream">
+  <div class="container">
+    <div class="section-head"><div class="small-caps">Preguntas frecuentes</div><h2>Resolvemos tus dudas antes de comenzar</h2></div>
+    <div class="faq-list">
+      <div class="faq-item open"><div class="faq-q"><span>¿La primera consulta tiene costo?</span><i class="ti ti-plus"></i></div><div class="faq-a">No. Ofrecemos una primera consulta gratuita de 30 minutos para evaluar tu caso, sin compromiso de continuar.</div></div>
+      <div class="faq-item"><div class="faq-q"><span>¿En cuánto tiempo me responden?</span><i class="ti ti-plus"></i></div><div class="faq-a">Toda consulta enviada en horario laboral se responde el mismo día. Fuera de horario, en menos de 24 horas hábiles.</div></div>
+      <div class="faq-item"><div class="faq-q"><span>¿Atienden empresas fuera de Lima?</span><i class="ti ti-plus"></i></div><div class="faq-a">Sí. Trabajamos con clientes en todo el Perú mediante videollamadas, correo y representación legal coordinada.</div></div>
+      <div class="faq-item"><div class="faq-q"><span>¿Cómo manejan la confidencialidad?</span><i class="ti ti-plus"></i></div><div class="faq-a">Toda información compartida está amparada por el secreto profesional. Firmamos NDA cuando el cliente lo requiere.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-block">
+  <div class="container">
+    <h2>¿Listo para tu consulta gratuita?</h2>
+    <p>Cuéntanos tu caso y te orientamos sin compromiso.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-whatsapp" href="https://wa.me/51924333108" target="_blank"><i class="ti ti-brand-whatsapp"></i> +51 924 333 108</a>
+      <a class="btn btn-outline" href="pages/contacto/"><i class="ti ti-mail"></i> Enviar formulario</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="logo" style="margin-bottom:12px;">
+          <div class="logo-mark"><img src="assets/images/logo.gif" alt="VA"></div>
+          <div class="logo-text">Varoli Abogados<small>ESTUDIO JURÍDICO · LIMA</small></div>
+        </a>
+        <p style="font-size:13px; color:var(--muted-2); line-height:1.6; margin-top:12px;">Estudio jurídico en Lince, Lima. Soluciones estratégicas para personas y empresas.</p>
+        <div class="social">
+          <a href="#"><i class="ti ti-brand-linkedin"></i></a>
+          <a href="#"><i class="ti ti-brand-instagram"></i></a>
+          <a href="#"><i class="ti ti-brand-facebook"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="pages/comercial-civil/">Comercial y Civil</a></li>
+          <li><a href="pages/derecho-penal/">Derecho Penal</a></li>
+          <li><a href="pages/servicios/">Administrativo</a></li>
+          <li><a href="pages/licitaciones/">Licitaciones / OSCE</a></li>
+          <li><a href="pages/servicios/">Laboral</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Estudio</h4>
+        <ul>
+          <li><a href="pages/nosotros/">El estudio</a></li>
+          <li><a href="pages/recursos/">Recursos</a></li>
+          <li><a href="pages/contacto/">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li>Av. José Leal 835, Of. 302</li>
+          <li>Lince &mdash; Lima, Per&uacute;</li>
+          <li>+51 924 333 108</li>
+          <li>consultasvaroli@gmail.com</li>
+          <li>Lun–Vie: 9am–6pm · Sáb: 9am–1pm</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">&copy; 2026 Estudio Jur&iacute;dico Varoli Abogados &middot; Todos los derechos reservados &middot; Pol&iacute;tica de privacidad &middot; Ley N&deg; 29733</div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/51924333108?text=Hola,%20me%20gustaría%20recibir%20asesoría%20legal." target="_blank" title="Escribir por WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
+  });
+</script>
+
 </body>
 </html>

@@ -2,150 +2,154 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Prácticas Preprofesionales | Estudio Jurídico Varoli Abogados</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prácticas Preprofesionales | Varoli Abogados</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <link rel="stylesheet" href="../../assets/css/global.css">
-<link rel="stylesheet" href="./practicas.css">
 </head>
 <body>
+
 <div class="alert" id="alert"></div>
 
-<nav id="navbar">
-  <a href="../../index.html" class="nav-logo">
-    <img src="../../assets/images/logo.gif" alt="Estudio Juridico Varoli Abogados">
-    <div class="nav-brand">
-      <span class="nav-brand-name">Estudio Jurídico</span>
-      <span class="nav-brand-sub">Varoli Abogados · Lima</span>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../../index.html" class="logo">
+      <div class="logo-mark"><img src="../../assets/images/logo.gif" alt="Varoli Abogados"></div>
+      <div class="logo-text">Varoli Abogados<small>ESTUDIO JURÍDICO · LIMA</small></div>
+    </a>
+    <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')"><i class="ti ti-menu-2"></i></button>
+    <div class="nav-links">
+      <a href="../nosotros/index.html">Nosotros</a>
+      <a href="../servicios/index.html">Servicios</a>
+      <a href="../equipo/index.html">Equipo</a>
+      <a href="../practicas/index.html" class="active">Prácticas</a>
+      <a href="../contacto/index.html">Contacto</a>
+      <a href="../contacto/index.html" class="nav-cta">Consulta gratuita</a>
     </div>
-  </a>
-  <ul class="nav-links"><li><a href="../nosotros/index.html">Nosotros</a></li><li class="nav-dropdown"><a href="../servicios/index.html">Servicios ▾</a>
-              <div class="dropdown-menu">
-                <a href="../servicios/index.html#comercial">Comercial y Civil</a>
-                <a href="../servicios/index.html#penal">Derecho Penal</a>
-                <a href="../servicios/index.html#administrativo">Administrativo</a>
-                <a href="../servicios/index.html#contrataciones">Contrataciones del Estado</a>
-                <a href="../servicios/index.html#laboral">Laboral Corporativo</a>
-              </div></li><li><a href="../equipo/index.html">Equipo</a></li><li><a href="../practicas/index.html" class="active">Prácticas</a></li><li><a href="../contacto/index.html">Contacto</a></li></ul>
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu"><a href="../nosotros/index.html" onclick="toggleMenu()">Nosotros</a><a href="../servicios/index.html" onclick="toggleMenu()">Servicios</a><a href="../equipo/index.html" onclick="toggleMenu()">Equipo</a><a href="../practicas/index.html" onclick="toggleMenu()">Prácticas</a><a href="../contacto/index.html" onclick="toggleMenu()">Contacto</a></div>
 
-
-<section class="page-hero page-hero--photo" style="background-image:url(../../assets/images/LibroMartilloLegalestatua.jpeg)">
-  <div class="page-hero-content">
-    <div class="section-tag">Únete al equipo</div>
-    <h1 class="serif-title-lg">Prácticas <em>preprofesionales</em></h1>
-    <div class="divider-line"></div>
-    <p>Abrimos nuestras puertas a estudiantes de Derecho que quieran adquirir experiencia real en un entorno profesional exigente y formativo en Lima, Perú.</p>
+<section class="hero">
+  <div class="container">
+    <p class="small-caps">Únete al equipo</p>
+    <h1>Prácticas preprofesionales</h1>
+    <p>Abrimos nuestras puertas a estudiantes de Derecho que quieran adquirir experiencia real.</p>
   </div>
 </section>
 
-<section class="prac-split">
-  <div class="prac-text">
-    <div class="section-tag">Por qué elegirnos</div>
-    <h2 class="serif-title">Aprende <em>haciendo</em></h2>
-    <div class="divider-line"></div>
-    <p>En Varoli Abogados creemos en el desarrollo del talento joven. Nuestros practicantes trabajan directamente con los abogados del estudio, participando en investigaciones, redacción de escritos, audiencias y asesorías reales.</p>
-    <p style="margin-top:.8rem">No somos solo una firma para completar horas de práctica: somos un espacio para crecer, aprender y construir una carrera jurídica sólida desde el inicio.</p>
-    <ul class="prac-benefits">
-      <li>Experiencia en múltiples ramas del derecho en un mismo estudio</li>
-      <li>Mentoría directa y personalizada de los abogados del estudio</li>
-      <li>Participación activa en casos reales desde el primer día</li>
-      <li>Formación en redacción jurídica y estrategia procesal</li>
-      <li>Carta de recomendación detallada al finalizar la práctica</li>
-      <li>Posibilidad real de incorporación al equipo al egresar</li>
-    </ul>
-  </div>
-  <div class="cv-form">
-    <div class="form-title">Envíanos tu CV</div>
-    <form id="cvForm" onsubmit="submitCV(event)">
-      <div class="form-row">
-        <div class="form-group"><label>Nombre</label><input id="inputNombre" type="text" placeholder="Tu nombre" required></div>
-        <div class="form-group"><label>Apellidos</label><input id="inputApellidos" type="text" placeholder="Tus apellidos" required></div>
-      </div>
-      <div class="form-group"><label>Correo electrónico</label><input id="inputEmail" type="email" placeholder="correo@ejemplo.com" required></div>
-      <div class="form-group"><label>Universidad</label><input id="inputUniversidad" type="text" placeholder="Nombre de tu universidad"></div>
-      <div class="form-row">
-        <div class="form-group"><label>Ciclo académico</label>
-          <select id="inputCiclo"><option value="">Seleccionar</option><option>1er - 4to ciclo</option><option>5to - 7mo ciclo</option><option>8vo - 10mo ciclo</option><option>Egresado</option></select>
+<section class="block block-light">
+  <div class="prac-split">
+    <div class="prac-text">
+      <p class="small-caps">Por qué elegirnos</p>
+      <h2 style="font-family:var(--serif);font-size:28px;color:var(--navy);margin:10px 0 16px;font-weight:500;">Aprende haciendo</h2>
+      <p style="color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:12px;">En Varoli Abogados creemos en el desarrollo del talento joven. Nuestros practicantes trabajan directamente con los abogados del estudio, participando en investigaciones, redacción de escritos, audiencias y asesorías reales.</p>
+      <p style="color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:20px;">No somos solo una firma para completar horas de práctica: somos un espacio para crecer, aprender y construir una carrera jurídica sólida desde el inicio.</p>
+      <ul class="prac-benefits">
+        <li>Experiencia en múltiples ramas del derecho en un mismo estudio</li>
+        <li>Mentoría directa y personalizada de los abogados del estudio</li>
+        <li>Participación activa en casos reales desde el primer día</li>
+        <li>Formación en redacción jurídica y estrategia procesal</li>
+        <li>Carta de recomendación detallada al finalizar la práctica</li>
+        <li>Posibilidad real de incorporación al equipo al egresar</li>
+      </ul>
+    </div>
+    <div class="cv-form">
+      <div class="form-title">Envíanos tu CV</div>
+      <form id="cvForm" onsubmit="submitCV(event)">
+        <div class="form-row">
+          <div class="form-group"><label>Nombre</label><input id="inputNombre" type="text" placeholder="Tu nombre" required></div>
+          <div class="form-group"><label>Apellidos</label><input id="inputApellidos" type="text" placeholder="Tus apellidos" required></div>
         </div>
-        <div class="form-group"><label>Área de interés</label>
-          <select id="inputArea"><option value="">Seleccionar</option><option>Derecho Comercial y Civil</option><option>Derecho Penal</option><option>Derecho Administrativo</option><option>Contrataciones del Estado</option><option>Derecho Laboral</option></select>
+        <div class="form-group"><label>Correo electrónico</label><input id="inputEmail" type="email" placeholder="correo@ejemplo.com" required></div>
+        <div class="form-group"><label>Universidad</label><input id="inputUniversidad" type="text" placeholder="Nombre de tu universidad"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Ciclo académico</label>
+            <select id="inputCiclo"><option value="">Seleccionar</option><option>1er - 4to ciclo</option><option>5to - 7mo ciclo</option><option>8vo - 10mo ciclo</option><option>Egresado</option></select>
+          </div>
+          <div class="form-group"><label>Área de interés</label>
+            <select id="inputArea"><option value="">Seleccionar</option><option>Derecho Comercial y Civil</option><option>Derecho Penal</option><option>Derecho Administrativo</option><option>Contrataciones del Estado</option><option>Derecho Laboral</option></select>
+          </div>
         </div>
-      </div>
-      <div class="form-group"><label>Adjuntar CV (PDF)</label>
-        <div class="file-upload">
-          <input type="file" accept=".pdf" id="fileInput">
-          <div class="file-label" id="fileLabel"><strong>Haz clic para subir</strong> o arrastra tu archivo<br><span style="font-size:.65rem;opacity:.6">Solo PDF, máximo 4 MB</span></div>
+        <div class="form-group"><label>Adjuntar CV (PDF)</label>
+          <div class="file-upload">
+            <input type="file" accept=".pdf" id="fileInput">
+            <div class="file-label" id="fileLabel"><strong>Haz clic para subir</strong> o arrastra tu archivo<br><span style="font-size:.65rem;opacity:.6">Solo PDF, máximo 4 MB</span></div>
+          </div>
+          <div id="fileError" style="color:#c0392b;font-size:.75rem;margin-top:.3rem;display:none"></div>
         </div>
-        <div id="fileError" style="color:#c0392b;font-size:.75rem;margin-top:.3rem;display:none"></div>
+        <div class="form-group"><label>Mensaje (opcional)</label><textarea id="inputMensaje" placeholder="Cuéntanos sobre ti y tu motivación para unirte al equipo..."></textarea></div>
+        <button type="submit" class="btn-submit" id="btnSubmit">Enviar postulación</button>
+      </form>
+      <div class="cv-success" id="cvSuccess">
+        <div class="check">✓</div>
+        <p>¡Gracias por postular a Varoli Abogados!<br>Revisaremos tu CV y te contactaremos a la brevedad.</p>
       </div>
-      <div class="form-group"><label>Mensaje (opcional)</label><textarea id="inputMensaje" placeholder="Cuéntanos sobre ti y tu motivación para unirte al equipo..."></textarea></div>
-      <button type="submit" class="btn-submit" id="btnSubmit">Enviar postulación</button>
-    </form>
-    <div class="form-success" id="cvSuccess">
-      <div class="check">✓</div>
-      <p>¡Gracias por postular a Varoli Abogados!<br>Revisaremos tu CV y te contactaremos a la brevedad.</p>
     </div>
   </div>
 </section>
 
+<section class="cta-block">
+  <div class="container">
+    <h2>¿Te interesa unirte?</h2>
+    <p>Da el primer paso en tu carrera jurídica. Envíanos tu CV y conversemos sobre cómo puedes sumarte al equipo.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/51924333108?text=Hola,%20estoy%20interesado%20en%20las%20pr%C3%A1cticas%20preprofesionales." target="_blank" class="btn btn-whatsapp"><i class="ti ti-brand-whatsapp"></i> Escribir por WhatsApp</a>
+      <a href="../contacto/index.html" class="btn btn-outline">Más información</a>
+    </div>
+  </div>
+</section>
 
 <footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <div class="footer-logo-wrap">
-        <img src="../../assets/images/logo.gif" alt="Varoli Abogados">
-        <div class="footer-brand-name">Estudio Jurídico<br>Varoli Abogados</div>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="../../index.html" class="logo" style="margin-bottom:12px;">
+          <div class="logo-mark"><img src="../../assets/images/logo.gif" alt="Varoli Abogados"></div>
+          <div class="logo-text">Varoli Abogados<small>ESTUDIO JURÍDICO · LIMA</small></div>
+        </a>
+        <p style="font-size:13px;color:var(--muted-2);line-height:1.6;margin-top:12px;">Estudio jurídico en Lince, Lima.</p>
+        <div class="social">
+          <a href="#"><i class="ti ti-brand-linkedin"></i></a>
+          <a href="#"><i class="ti ti-brand-instagram"></i></a>
+          <a href="#"><i class="ti ti-brand-facebook"></i></a>
+        </div>
       </div>
-      <p>Soluciones jurídicas estratégicas para personas y empresas en Lima, Perú. Compromiso, excelencia y transparencia en cada caso.</p>
+      <div><h4>Servicios</h4><ul>
+        <li><a href="../servicios/index.html#comercial">Comercial y Civil</a></li>
+        <li><a href="../servicios/index.html#penal">Derecho Penal</a></li>
+        <li><a href="../servicios/index.html#administrativo">Administrativo</a></li>
+        <li><a href="../servicios/index.html#contrataciones">Contrataciones del Estado</a></li>
+        <li><a href="../servicios/index.html#laboral">Laboral</a></li>
+      </ul></div>
+      <div><h4>Estudio</h4><ul>
+        <li><a href="../nosotros/index.html">Quiénes somos</a></li>
+        <li><a href="../equipo/index.html">Equipo</a></li>
+        <li><a href="../practicas/index.html">Prácticas</a></li>
+        <li><a href="../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4>Contacto</h4><ul>
+        <li>Av. José Leal 835, Of. 302</li>
+        <li>Lince – Lima, Perú</li>
+        <li>+51 924 333 108</li>
+        <li>consultasvaroli@gmail.com</li>
+        <li>Lun–Vie: 9am–6pm · Sáb: 9am–1pm</li>
+      </ul></div>
     </div>
-    <div class="footer-col"><h5>Servicios</h5><ul>
-      <li><a href="../servicios/index.html#comercial">Derecho Comercial</a></li>
-      <li><a href="../servicios/index.html#penal">Derecho Penal</a></li>
-      <li><a href="../servicios/index.html#administrativo">Administrativo</a></li>
-      <li><a href="../servicios/index.html#contrataciones">Contrataciones Estado</a></li>
-      <li><a href="../servicios/index.html#laboral">Derecho Laboral</a></li>
-    </ul></div>
-    <div class="footer-col"><h5>Estudio</h5><ul>
-      <li><a href="../nosotros/index.html">Quiénes somos</a></li>
-      <li><a href="../equipo/index.html">Nuestro equipo</a></li>
-      <li><a href="../practicas/index.html">Prácticas</a></li>
-      <li><a href="../contacto/index.html">Contacto</a></li>
-    </ul></div>
-    <div class="footer-col"><h5>Contacto</h5><ul>
-      <li><span>Av. José Leal N° 835, Of. 302<br>Lince – Lima, Perú</span></li>
-      <li><a href="tel:+51924333108">+51 924 333 108</a></li>
-      <li><a href="mailto:consultasvaroli@gmail.com">consultasvaroli@gmail.com</a></li>
-      <li><span>Lun–Vie: 9am–6pm · Sáb: 9am–1pm</span></li>
-    </ul></div>
-  </div>
-  <hr class="footer-divider">
-  <div class="footer-bottom">
-    <span>© 2025 Estudio Jurídico Varoli Abogados. Todos los derechos reservados.</span>
-    <span>Lince – Lima, Perú</span>
+    <div class="copyright">© 2026 Estudio Jurídico Varoli Abogados · Todos los derechos reservados · Ley N° 29733</div>
   </div>
 </footer>
 
-
-<!-- WHATSAPP FLOTANTE -->
-<a href="https://wa.me/51924333108?text=Hola,%20me%20gustaría%20recibir%20asesoría%20legal." 
-   target="_blank" rel="noopener" class="wa-float" title="Escribir al WhatsApp">
-  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="16" cy="16" r="16" fill="#25D366"/>
-    <path d="M23.5 8.5A10.47 10.47 0 0 0 16 5.5C10.2 5.5 5.5 10.2 5.5 16c0 1.85.48 3.66 1.4 5.26L5.5 26.5l5.36-1.4A10.46 10.46 0 0 0 16 26.5c5.8 0 10.5-4.7 10.5-10.5 0-2.8-1.09-5.43-3.0-7.5z" fill="#25D366"/>
-    <path d="M23.5 8.5A10.47 10.47 0 0 0 16 5.5C10.2 5.5 5.5 10.2 5.5 16c0 1.85.48 3.66 1.4 5.26L5.5 26.5l5.36-1.4A10.46 10.46 0 0 0 16 26.5c5.8 0 10.5-4.7 10.5-10.5 0-2.8-1.09-5.43-3.0-7.5zM16 24.7a8.7 8.7 0 0 1-4.44-1.21l-.32-.19-3.18.83.85-3.1-.2-.32A8.65 8.65 0 0 1 7.3 16c0-4.8 3.9-8.7 8.7-8.7 2.32 0 4.5.9 6.14 2.55A8.64 8.64 0 0 1 24.7 16c0 4.8-3.9 8.7-8.7 8.7zm4.76-6.5c-.26-.13-1.54-.76-1.78-.84-.24-.09-.41-.13-.58.13-.17.26-.65.84-.8 1.01-.15.17-.3.2-.55.07-.26-.13-1.08-.4-2.06-1.27a7.73 7.73 0 0 1-1.42-1.77c-.15-.26-.02-.4.11-.53.12-.11.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.07-.13-.58-1.4-.8-1.92-.2-.5-.42-.43-.58-.44h-.49c-.17 0-.45.06-.68.32-.24.26-.9.88-.9 2.14 0 1.27.92 2.49 1.05 2.66.13.17 1.81 2.76 4.38 3.87.61.26 1.09.42 1.46.54.61.19 1.17.16 1.61.1.49-.08 1.54-.63 1.75-1.24.22-.6.22-1.12.15-1.23-.06-.1-.23-.17-.49-.3z" fill="white"/>
-  </svg>
-</a>
-<script>
-function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('active')}
-function showAlert(msg){const a=document.getElementById('alert');a.textContent=msg;a.classList.add('show');setTimeout(()=>a.classList.remove('show'),4000)}
-window.addEventListener('scroll',()=>{const n=document.getElementById('navbar');n.style.boxShadow=window.scrollY>40?'0 2px 20px rgba(0,0,0,.12)':'0 1px 12px rgba(0,0,0,.06)'})
-</script>
+<a class="wa-float" href="https://wa.me/51924333108?text=Hola,%20me%20gustaría%20recibir%20asesoría%20legal." target="_blank" title="Escribir por WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
 
 <script>
+function showAlert(msg) {
+  const a = document.getElementById('alert');
+  a.textContent = msg;
+  a.classList.add('show');
+  setTimeout(() => a.classList.remove('show'), 4000);
+}
+
 const MAX_CV_BYTES = 4 * 1024 * 1024; // 4 MB
 
 document.getElementById('fileInput').addEventListener('change', function () {
@@ -218,7 +222,7 @@ async function submitCV(e) {
     }
 
     document.getElementById('cvForm').style.display = 'none';
-    document.getElementById('cvSuccess').style.display = 'block';
+    document.getElementById('cvSuccess').style.display = 'flex';
     showAlert('✓ CV recibido. Gracias por postular a Varoli Abogados.');
   } catch (err) {
     showAlert('✗ ' + (err.message || 'Error al enviar. Intente nuevamente.'));
@@ -227,7 +231,6 @@ async function submitCV(e) {
   }
 }
 </script>
-
 
 </body>
 </html>

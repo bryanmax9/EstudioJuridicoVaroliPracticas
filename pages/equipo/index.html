@@ -2,47 +2,165 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Equipo | Estudio Jurídico Varoli Abogados</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipo | Varoli Abogados</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <link rel="stylesheet" href="../../assets/css/global.css">
-<link rel="stylesheet" href="./equipo.css">
 </head>
 <body>
-<nav id="navbar"><a href="../../index.html" class="nav-logo"><img src="../../assets/images/logo.gif" alt="Varoli Abogados"><div class="nav-brand"><span class="nav-brand-name">Estudio Jurídico</span><span class="nav-brand-sub">Varoli Abogados · Lima</span></div></a><ul class="nav-links"><li><a href="../nosotros/index.html">Nosotros</a></li><li class="nav-dropdown"><a href="../servicios/index.html">Servicios ▾</a><div class="dropdown-menu"><a href="../servicios/index.html#comercial">Comercial y Civil</a><a href="../servicios/index.html#penal">Derecho Penal</a><a href="../servicios/index.html#administrativo">Administrativo</a><a href="../servicios/index.html#contrataciones">Contrataciones del Estado</a><a href="../servicios/index.html#laboral">Laboral Corporativo</a></div></li><li><a href="../equipo/index.html" class="active">Equipo</a></li><li><a href="../practicas/index.html">Prácticas</a></li><li><a href="../contacto/index.html">Contacto</a></li></ul><div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div></nav><div class="mobile-menu" id="mobileMenu"><a href="../nosotros/index.html" onclick="toggleMenu()">Nosotros</a><a href="../servicios/index.html" onclick="toggleMenu()">Servicios</a><a href="../equipo/index.html" onclick="toggleMenu()">Equipo</a><a href="../practicas/index.html" onclick="toggleMenu()">Prácticas</a><a href="../contacto/index.html" onclick="toggleMenu()">Contacto</a></div>
-<section class="page-hero page-hero--photo" style="background-image:url(../../assets/images/LibroLegal.jpeg)"><div class="page-hero-content"><div class="section-tag">Nuestro equipo</div><h1 class="serif-title-lg">Los <em>profesionales</em><br>del estudio</h1><div class="divider-line"></div><p>Abogados especializados comprometidos con la excelencia y el servicio personalizado a cada cliente.</p></div></section>
-<section class="eq-intro">
-  <div><div class="section-tag">Trabajo en equipo</div><h2 class="serif-title">Un equipo <em>dedicado</em><br>a su caso</h2><div class="divider-line"></div><p>Nuestros abogados trabajan en forma colaborativa, aportando su especialización en cada caso para ofrecer la mejor estrategia legal posible.</p><p>La comunicación directa con los socios del estudio garantiza que su caso sea atendido con la máxima dedicación, sin intermediarios y con total transparencia.</p></div>
-  <div class="eq-intro-img img-box"><img src="../../assets/images/talkingLegal.jpeg" alt="Equipo Varoli Abogados" style="width:100%;height:100%;object-fit:cover"></div>
-</section>
-<section class="compromiso">
-  <div class="section-tag" style="color:var(--gold)">Nuestro compromiso</div>
-  <h2 class="serif-title" style="color:var(--white)">Lo que nos hace <em style="color:var(--gold)">diferentes</em></h2>
-  <div class="comp-grid">
-    <div class="comp-card"><div class="comp-num">01</div><div class="comp-title">Atención directa con el abogado</div><div class="comp-desc">Cada cliente se comunica directamente con el abogado a cargo. Sin intermediarios, sin demoras, con respuesta inmediata.</div></div>
-    <div class="comp-card"><div class="comp-num">02</div><div class="comp-title">Estrategia personalizada</div><div class="comp-desc">Diseñamos una estrategia única para cada cliente, adaptada a sus circunstancias y objetivos específicos.</div></div>
-    <div class="comp-card"><div class="comp-num">03</div><div class="comp-title">Actualización permanente</div><div class="comp-desc">Nuestros abogados se mantienen actualizados en la legislación vigente para ofrecerle siempre la mejor defensa.</div></div>
-    <div class="comp-card"><div class="comp-num">04</div><div class="comp-title">Transparencia en honorarios</div><div class="comp-desc">Informamos claramente los honorarios desde el inicio, sin costos ocultos ni sorpresas de ningún tipo.</div></div>
-    <div class="comp-card"><div class="comp-num">05</div><div class="comp-title">Respuesta en menos de 24 horas</div><div class="comp-desc">Respondemos toda consulta en un plazo máximo de 24 horas hábiles, porque su tranquilidad importa.</div></div>
-    <div class="comp-card"><div class="comp-num">06</div><div class="comp-title">Enfoque preventivo</div><div class="comp-desc">Además de resolver conflictos, ayudamos a prevenirlos con asesoría proactiva antes de que los problemas escalen.</div></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../../index.html" class="logo">
+      <div class="logo-mark"><img src="../../assets/images/logo.gif" alt="Varoli Abogados"></div>
+      <div class="logo-text">Varoli Abogados<small>ESTUDIO JURÍDICO · LIMA</small></div>
+    </a>
+    <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')"><i class="ti ti-menu-2"></i></button>
+    <div class="nav-links">
+      <a href="../nosotros/index.html">Nosotros</a>
+      <a href="../servicios/index.html">Servicios</a>
+      <a href="../equipo/index.html" class="active">Equipo</a>
+      <a href="../practicas/index.html">Prácticas</a>
+      <a href="../contacto/index.html">Contacto</a>
+      <a href="../contacto/index.html" class="nav-cta">Consulta gratuita</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <p class="small-caps">Nuestro equipo</p>
+    <h1>Los profesionales del estudio</h1>
+    <p>Abogados especializados que trabajan de forma colaborativa, comprometidos con la excelencia y el servicio personalizado a cada cliente.</p>
   </div>
 </section>
-<section class="join-sec">
-  <div class="join-text"><div class="section-tag">Únete al equipo</div><h2 class="serif-title">Prácticas <em>preprofesionales</em></h2><div class="divider-line"></div><p>Buscamos estudiantes de Derecho con vocación y ganas de crecer en un entorno profesional real.</p><ul class="join-benefits"><li>Experiencia en múltiples ramas del derecho</li><li>Mentoría directa de los abogados del estudio</li><li>Participación en casos reales desde el primer día</li><li>Carta de recomendación al finalizar</li><li>Posibilidad de incorporación al equipo</li></ul><a href="../practicas/index.html" class="btn-navy" style="width:fit-content">Postular ahora →</a></div>
-  <div class="join-box"><h3>Buscamos talento con <em>vocación</em></h3><p>Si eres estudiante de Derecho y quieres marcar la diferencia, este es tu lugar. Envianos tu CV y cuéntanos por qué.</p><a href="../practicas/index.html" class="btn-white" style="width:fit-content">Enviar CV →</a></div>
+
+<section class="block block-light">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;">
+      <div>
+        <p class="small-caps">Trabajo en equipo</p>
+        <h2 class="serif" style="font-size:32px;color:var(--navy);margin:10px 0 16px;line-height:1.2;">Un equipo dedicado a su caso</h2>
+        <hr style="border:none;border-top:2px solid var(--gold);width:40px;margin:0 0 20px;">
+        <p style="color:var(--muted);line-height:1.7;margin-bottom:14px;">Nuestros abogados trabajan en forma colaborativa, aportando su especialización en cada área del derecho para ofrecer la mejor estrategia legal posible en cada situación.</p>
+        <p style="color:var(--muted);line-height:1.7;">La comunicación directa con los socios del estudio garantiza que su caso sea atendido con la máxima dedicación, sin intermediarios y con total transparencia en cada etapa del proceso.</p>
+      </div>
+      <div>
+        <img src="../../assets/images/talkingLegal.jpeg" alt="Equipo Varoli Abogados" style="width:100%;height:280px;object-fit:cover;border-radius:8px;">
+      </div>
+    </div>
+  </div>
 </section>
-<footer><div class="footer-top"><div class="footer-brand"><div class="footer-logo-wrap"><img src="../../assets/images/logo.gif" alt="Varoli"><div class="footer-brand-name">Estudio Jurídico<br>Varoli Abogados</div></div><p>Soluciones jurídicas estratégicas para personas y empresas en Lima, Perú. Compromiso, excelencia y transparencia.</p></div><div class="footer-col"><h5>Servicios</h5><ul><li><a href="../servicios/index.html#comercial">Derecho Comercial</a></li><li><a href="../servicios/index.html#penal">Derecho Penal</a></li><li><a href="../servicios/index.html#administrativo">Administrativo</a></li><li><a href="../servicios/index.html#contrataciones">Contrataciones Estado</a></li><li><a href="../servicios/index.html#laboral">Derecho Laboral</a></li></ul></div><div class="footer-col"><h5>Estudio</h5><ul><li><a href="../nosotros/index.html">Quiénes somos</a></li><li><a href="../equipo/index.html">Nuestro equipo</a></li><li><a href="../practicas/index.html">Prácticas</a></li><li><a href="../contacto/index.html">Contacto</a></li></ul></div><div class="footer-col"><h5>Contacto</h5><ul><li><span>Av. José Leal N° 835, Of. 302<br>Lince – Lima, Perú</span></li><li><a href="tel:+51924333108">+51 924 333 108</a></li><li><a href="mailto:consultasvaroli@gmail.com">consultasvaroli@gmail.com</a></li><li><span>Lun–Vie: 9am–6pm<br>Sáb: 9am–1pm</span></li></ul></div></div><hr class="footer-divider"><div class="footer-bottom"><span>© 2025 Estudio Jurídico Varoli Abogados. Todos los derechos reservados.</span><span>Lince – Lima, Perú</span></div></footer>
-<a href="https://wa.me/51924333108?text=Hola%2C%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20legal." 
-   target="_blank" rel="noopener" class="wa-float" title="Escribirnos por WhatsApp">
-  <svg viewBox="0 0 58 58" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="29" cy="29" r="29" fill="#25D366"/>
-    <path d="M29 8C17.4 8 8 17.4 8 29c0 3.7.97 7.18 2.66 10.18L8 50l11.15-2.62A21 21 0 0 0 29 50c11.6 0 21-9.4 21-21S40.6 8 29 8zm10.3 28.7c-.44.22-2.6 1.28-3 1.43-.4.15-.7.22-1-.22-.3-.44-1.1-1.42-1.35-1.71-.25-.29-.5-.33-.93-.11-.44.22-1.84.67-3.5-2.14a13 13 0 0 1-2.4-2.98c-.25-.44-.03-.68.19-.9.2-.19.44-.5.66-.76.22-.26.29-.44.44-.73.15-.3.07-.55-.03-.77-.11-.22-.99-2.36-1.35-3.23-.35-.84-.7-.73-.99-.74l-.84-.01c-.29 0-.76.11-1.15.55-.4.44-1.52 1.49-1.52 3.62 0 2.13 1.55 4.2 1.77 4.49.22.3 3.05 4.66 7.4 6.54 1.03.44 1.84.7 2.47.9 1.04.32 1.98.27 2.73.16.83-.12 2.6-1.06 2.97-2.09.37-1.02.37-1.9.26-2.09-.11-.17-.4-.28-.84-.5z" fill="white"/>
-  </svg>
-</a>
-<script>
-function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('active')}
-function showAlert(msg){const a=document.getElementById('alert');a.textContent=msg;a.classList.add('show');setTimeout(()=>a.classList.remove('show'),4000)}
-window.addEventListener('scroll',()=>{document.getElementById('navbar').style.boxShadow=window.scrollY>40?'0 2px 20px rgba(0,0,0,.12)':'0 1px 12px rgba(0,0,0,.06)'})
-</script></body>
+
+<section class="block block-navy">
+  <div class="container">
+    <div class="section-head">
+      <p class="small-caps">Nuestro compromiso</p>
+      <h2>Lo que nos hace diferentes</h2>
+    </div>
+    <div class="commitment-grid">
+      <div class="comp-card">
+        <div class="comp-num">01</div>
+        <div class="comp-title">Atención directa</div>
+        <div class="comp-desc">Cada cliente se comunica directamente con el abogado a cargo. Sin intermediarios, sin demoras, con respuesta inmediata a cada consulta.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-num">02</div>
+        <div class="comp-title">Estrategia personalizada</div>
+        <div class="comp-desc">Diseñamos una estrategia única para cada cliente, adaptada a sus circunstancias y objetivos específicos, sin soluciones genéricas.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-num">03</div>
+        <div class="comp-title">Actualización permanente</div>
+        <div class="comp-desc">Nuestros abogados se mantienen actualizados en la legislación vigente para ofrecerle siempre la mejor defensa y asesoría posible.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-num">04</div>
+        <div class="comp-title">Transparencia en honorarios</div>
+        <div class="comp-desc">Informamos claramente los honorarios desde el inicio, sin costos ocultos ni sorpresas de ningún tipo a lo largo del proceso.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-num">05</div>
+        <div class="comp-title">Respuesta en 24h</div>
+        <div class="comp-desc">Respondemos toda consulta en un plazo máximo de 24 horas hábiles, porque su tranquilidad y tiempo son tan importantes como los nuestros.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-num">06</div>
+        <div class="comp-title">Enfoque preventivo</div>
+        <div class="comp-desc">Además de resolver conflictos, ayudamos a prevenirlos con asesoría proactiva antes de que los problemas legales escalen e impacten su situación.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block block-cream">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+      <div>
+        <p class="small-caps">Únete al equipo</p>
+        <h2 class="serif" style="font-size:32px;color:var(--navy);margin:10px 0 16px;line-height:1.2;">Prácticas preprofesionales</h2>
+        <hr style="border:none;border-top:2px solid var(--gold);width:40px;margin:0 0 20px;">
+        <p style="color:var(--muted);line-height:1.7;margin-bottom:16px;">Buscamos estudiantes de Derecho con vocación y ganas de crecer en un entorno profesional real, participando activamente en casos desde el primer día.</p>
+        <ul class="prac-benefits">
+          <li>Experiencia en múltiples ramas del derecho</li>
+          <li>Mentoría directa de los abogados del estudio</li>
+          <li>Participación en casos reales desde el primer día</li>
+          <li>Carta de recomendación al finalizar el período</li>
+          <li>Posibilidad de incorporación al equipo permanente</li>
+        </ul>
+        <a href="../practicas/index.html" class="btn btn-gold" style="margin-top:24px;">Postular ahora <i class="ti ti-arrow-right"></i></a>
+      </div>
+      <div class="join-box">
+        <h3>Buscamos talento con vocación</h3>
+        <p>Si eres estudiante de Derecho y quieres marcar la diferencia, este es tu lugar. Cuéntanos por qué quieres formar parte del equipo y envíanos tu CV.</p>
+        <a href="../practicas/index.html" class="btn btn-navy">Enviar CV <i class="ti ti-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="../../index.html" class="logo" style="margin-bottom:12px;">
+          <div class="logo-mark"><img src="../../assets/images/logo.gif" alt="Varoli Abogados"></div>
+          <div class="logo-text">Varoli Abogados<small>ESTUDIO JURÍDICO · LIMA</small></div>
+        </a>
+        <p style="font-size:13px;color:var(--muted-2);line-height:1.6;margin-top:12px;">Estudio jurídico en Lince, Lima.</p>
+        <div class="social">
+          <a href="#"><i class="ti ti-brand-linkedin"></i></a>
+          <a href="#"><i class="ti ti-brand-instagram"></i></a>
+          <a href="#"><i class="ti ti-brand-facebook"></i></a>
+        </div>
+      </div>
+      <div><h4>Servicios</h4><ul>
+        <li><a href="../servicios/index.html#comercial">Comercial y Civil</a></li>
+        <li><a href="../servicios/index.html#penal">Derecho Penal</a></li>
+        <li><a href="../servicios/index.html#administrativo">Administrativo</a></li>
+        <li><a href="../servicios/index.html#contrataciones">Contrataciones del Estado</a></li>
+        <li><a href="../servicios/index.html#laboral">Laboral</a></li>
+      </ul></div>
+      <div><h4>Estudio</h4><ul>
+        <li><a href="../nosotros/index.html">Quiénes somos</a></li>
+        <li><a href="../equipo/index.html">Equipo</a></li>
+        <li><a href="../practicas/index.html">Prácticas</a></li>
+        <li><a href="../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4>Contacto</h4><ul>
+        <li>Av. José Leal 835, Of. 302</li>
+        <li>Lince – Lima, Perú</li>
+        <li>+51 924 333 108</li>
+        <li>consultasvaroli@gmail.com</li>
+        <li>Lun–Vie: 9am–6pm · Sáb: 9am–1pm</li>
+      </ul></div>
+    </div>
+    <div class="copyright">© 2026 Estudio Jurídico Varoli Abogados · Todos los derechos reservados · Ley N° 29733</div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/51924333108?text=Hola,%20me%20gustaría%20recibir%20asesoría%20legal." target="_blank" title="Escribir por WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+
+</body>
 </html>
