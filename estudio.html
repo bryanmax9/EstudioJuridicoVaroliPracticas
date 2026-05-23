@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Conocé el Estudio Jurídico Varoli-SLovsa Abogados en Lima — trayectoria, valores, misión y proceso de trabajo de una abogada comprometida con cada caso.">
+<title>El Estudio · Varoli-SLovsa Abogados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:#F8F6F1;color:#2C2C2A;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none;color:inherit}
+
+:root{
+  --navy:#0A1F44;--navy-mid:#0d2550;--navy-dark:#071630;
+  --gold:#B5863A;--gold-light:#d4a85a;
+  --cream:#F8F6F1;--white:#fff;
+  --text-dark: #1a1a18;--text-mid: #383830;--text-muted:#6a6a62;--text-subtle:#888880;
+  --border-light:#e4e0d8;--border-mid:#d4cfc5;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lineGrow{from{width:0}to{width:40px}}
+.fade-up{animation:fadeUp 0.8s ease forwards}
+.fade-up-2{animation:fadeUp 0.8s ease 0.15s forwards;opacity:0}
+.fade-up-3{animation:fadeUp 0.8s ease 0.3s forwards;opacity:0}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-4{transition-delay:0.4s}
+
+.nav{position:sticky;top:0;z-index:100;background:var(--navy);padding:0 48px;height:68px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(181,134,58,0.15);transition:background 0.3s}
+.nav.scrolled{background:rgba(10,31,68,0.97);backdrop-filter:blur(8px)}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-badge{width:38px;height:38px;border:1.5px solid var(--gold);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;color:var(--gold);letter-spacing:1px;flex-shrink:0}
+.nav-brand-name{font-family:var(--serif);font-size:15px;font-weight:400;color:#f5f7fb;letter-spacing:0.3px}
+.nav-brand-sub{font-family:var(--sans);font-size:10px;color:rgba(181,134,58,0.95);letter-spacing:1.5px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{color:#dde2ec;font-family:var(--sans);font-size:12px;letter-spacing:0.3px;transition:color 0.2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s}
+.nav-links a:hover{color:#f5f7fb}
+.nav-links a:hover::after{width:100%}
+.nav-active{color:#f5f7fb !important}
+.nav-active::after{width:100% !important}
+.nav-cta{background:var(--gold) !important;color:#fff !important;padding:9px 20px;border-radius:3px;font-size:11px !important;letter-spacing:0.8px !important;text-transform:uppercase;transition:background 0.2s !important}
+.nav-cta:hover{background:var(--gold-light) !important}
+.nav-cta::after{display:none !important}
+.nav-mobile-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+.nav-mobile-btn span{display:block;width:22px;height:1.5px;background:#f0f2f5;transition:all 0.3s}
+
+.page-hero{background:var(--navy);padding:72px 48px 80px;position:relative;overflow:hidden}
+.hero-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(181,134,58,0.05) 59px,rgba(181,134,58,0.05) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(181,134,58,0.05) 59px,rgba(181,134,58,0.05) 60px)}
+.hero-deco-circle{position:absolute;right:-80px;bottom:-80px;width:400px;height:400px;border-radius:50%;border:1px solid rgba(181,134,58,0.07)}
+.hero-inner{position:relative;z-index:1;max-width:680px}
+.breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:24px;font-family:var(--sans);font-size:10px;color:#b8c4d8;letter-spacing:0.5px}
+.breadcrumb a{color:rgba(181,134,58,0.95);transition:color 0.2s}
+.breadcrumb a:hover{color:var(--gold)}
+.breadcrumb-sep{color:rgba(100,110,130,0.5)}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.eyebrow-line{width:0;height:1px;background:var(--gold);animation:lineGrow 0.6s ease 0.2s forwards}
+.eyebrow span{font-family:var(--sans);font-size:10px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase}
+.page-hero h1{font-family:var(--serif);font-size:clamp(32px,4.5vw,52px);font-weight:300;color:#F8F6F1;line-height:1.15;margin-bottom:20px;letter-spacing:-0.5px}
+.page-hero-sub{color:#d0d8ea;font-family:var(--sans);font-size:14px;line-height:1.75;max-width:520px;font-weight:300}
+
+.section{padding:80px 48px}
+.section-alt{background:var(--white)}
+.section-navy{background:var(--navy)}
+.section-cream{background:var(--cream)}
+.section-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,38px);font-weight:300;color:var(--navy);line-height:1.2;margin-bottom:12px;letter-spacing:-0.3px}
+.section-title-white{color:#F8F6F1}
+.eyebrow-static{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.eyebrow-line-static{width:28px;height:1px;background:var(--gold);flex-shrink:0}
+.eyebrow-static span{font-family:var(--sans);font-size:10px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase}
+.gold-bar{width:40px;height:2px;background:var(--gold);margin-bottom:20px}
+
+.historia-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:72px;align-items:start}
+.photo-col{position:relative}
+.photo-main{aspect-ratio:3/4;border-radius:4px;overflow:hidden;background:#e8e4dc;position:relative}
+.photo-main img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.photo-fallback{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:#e8e4dc}
+.photo-fallback-icon{font-size:36px;color:#9a9488}
+.photo-fallback-text{font-family:var(--sans);font-size:11px;color:#9a9488;text-align:center;line-height:1.6;padding:0 24px}
+.photo-overlay-badge{position:absolute;bottom:-18px;left:28px;background:var(--gold);color:#fff;padding:18px 22px;border-radius:3px;z-index:2}
+.badge-num{font-family:var(--serif);font-size:30px;font-weight:300;line-height:1}
+.badge-label{font-family:var(--sans);font-size:9px;letter-spacing:1.2px;text-transform:uppercase;opacity:0.85;margin-top:3px}
+.photo-deco{position:absolute;top:-16px;right:-16px;width:120px;height:120px;border:1px solid rgba(181,134,58,0.2);border-radius:3px;z-index:0}
+.historia-content h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:300;color:var(--navy);margin-bottom:20px;line-height:1.2}
+.historia-content p{font-family:var(--sans);font-size:13px;color:var(--text-mid);line-height:1.85;margin-bottom:16px;font-weight:300}
+.historia-badges{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:28px 0}
+.h-badge{background:var(--cream);border:1px solid var(--border-light);border-radius:4px;padding:16px 20px}
+.h-badge-num{font-family:var(--serif);font-size:26px;color:var(--gold);font-weight:300;line-height:1;margin-bottom:3px}
+.h-badge-label{font-family:var(--sans);font-size:10px;color:#5a5a52;letter-spacing:0.5px}
+
+.valores-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(181,134,58,0.1);border:1px solid rgba(181,134,58,0.1);border-radius:4px;overflow:hidden;margin-top:48px}
+.valor-card{background:var(--navy-mid);padding:36px 32px;transition:background 0.2s}
+.valor-card:hover{background:rgba(13,37,80,0.95)}
+.valor-num{font-family:var(--serif);font-size:48px;color:rgba(181,134,58,0.12);line-height:1;margin-bottom:12px;font-weight:300}
+.valor-card h3{font-family:var(--serif);font-size:22px;font-weight:400;color:#F8F6F1;margin-bottom:8px}
+.valor-sep{width:24px;height:1px;background:rgba(181,134,58,0.4);margin-bottom:12px}
+.valor-card p{font-family:var(--sans);font-size:12px;color:#c8d0e0;line-height:1.7;font-weight:300}
+
+.mv-grid{display:grid;grid-template-columns:1fr 1px 1fr;gap:0;align-items:stretch}
+.mv-sep{background:rgba(181,134,58,0.2)}
+.mv-block{padding:48px 52px}
+.mv-block:first-child{padding-left:0}
+.mv-block:last-child{padding-right:0}
+.mv-eyebrow{font-family:var(--sans);font-size:9px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:16px}
+.mv-quote{font-family:var(--serif);font-size:clamp(16px,2vw,20px);font-weight:300;color:var(--navy);font-style:italic;line-height:1.65;position:relative;padding-left:20px;border-left:2px solid rgba(181,134,58,0.35)}
+
+.proceso-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:48px;position:relative}
+.proceso-steps::before{content:'';position:absolute;top:22px;left:8%;width:84%;height:1px;background:linear-gradient(90deg,transparent,rgba(181,134,58,0.2) 15%,rgba(181,134,58,0.2) 85%,transparent)}
+.p-step{padding:0 20px 0 0}
+.p-step-num{font-family:var(--serif);font-size:44px;font-weight:300;color:rgba(181,134,58,0.22);line-height:1;margin-bottom:14px}
+.p-step h3{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--navy);margin-bottom:8px}
+.p-step p{font-family:var(--sans);font-size:12px;color:#5a5a52;line-height:1.7;font-weight:300}
+
+.stats-band{background:var(--navy);padding:52px 48px;border-top:1px solid rgba(181,134,58,0.1);border-bottom:1px solid rgba(181,134,58,0.1)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stats-item{text-align:center;padding:16px;border-right:1px solid rgba(181,134,58,0.1)}
+.stats-item:last-child{border-right:none}
+.stats-num{font-family:var(--serif);font-size:44px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:8px}
+.stats-label{color:#b8c4d8;font-family:var(--sans);font-size:10px;letter-spacing:1px;text-transform:uppercase}
+
+.cta-section{background:var(--navy-dark);padding:80px 48px;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(181,134,58,0.04) 39px,rgba(181,134,58,0.04) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(181,134,58,0.04) 39px,rgba(181,134,58,0.04) 40px)}
+.cta-inner{position:relative;z-index:1}
+.cta-section h2{font-family:var(--serif);font-size:clamp(26px,4vw,40px);font-weight:300;color:#F8F6F1;line-height:1.25;margin-bottom:12px}
+.cta-section p{font-family:var(--sans);font-size:12px;color:#b0bcd4;margin-bottom:36px;font-weight:300}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:#fff;padding:13px 26px;border-radius:3px;font-family:var(--sans);font-size:12px;letter-spacing:0.8px;text-transform:uppercase;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;transition:background 0.2s,transform 0.15s;text-decoration:none}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:rgba(240,242,245,0.8);padding:13px 26px;border-radius:3px;font-family:var(--sans);font-size:12px;letter-spacing:0.8px;text-transform:uppercase;border:1px solid rgba(248,246,241,0.18);transition:border-color 0.2s,color 0.2s,transform 0.15s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn-outline:hover{border-color:rgba(181,134,58,0.5);color:#F8F6F1;transform:translateY(-2px)}
+
+footer{background:var(--navy-dark);padding:56px 48px 28px;border-top:1px solid rgba(181,134,58,0.08)}
+.footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1.4fr;gap:40px;margin-bottom:40px}
+.footer-brand-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.footer-desc{color:#8090aa;font-family:var(--sans);font-size:11px;line-height:1.8;max-width:220px;font-weight:300}
+footer h4{font-family:var(--serif);font-size:13px;font-weight:400;color:rgba(220,228,240,0.9);margin-bottom:16px;letter-spacing:0.3px}
+footer a,footer p{display:block;font-family:var(--sans);font-size:11px;color:#8090aa;line-height:2.2;transition:color 0.2s;font-weight:300}
+footer a:hover{color:#c49a4a}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.04);padding-top:20px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{color:#6a7a96;font-family:var(--sans);font-size:10px;letter-spacing:0.3px}
+.footer-bottom-links{display:flex;gap:20px}
+.footer-bottom-links a{font-family:var(--sans);font-size:10px;color:#6a7a96;line-height:1}
+
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:999;width:52px;height:52px;background:#25a050;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 16px rgba(37,160,80,0.35);text-decoration:none;transition:transform 0.2s,box-shadow 0.2s}
+.wa-float:hover{transform:scale(1.08) translateY(-2px);box-shadow:0 8px 24px rgba(37,160,80,0.45)}
+.wa-float svg{width:26px;height:26px;fill:#fff}
+
+.nav-mobile-menu{display:none;position:fixed;inset:0;background:var(--navy-dark);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.nav-mobile-menu.open{display:flex}
+.nav-mobile-menu a{font-family:var(--serif);font-size:28px;color:#F8F6F1;font-weight:300;transition:color 0.2s}
+.nav-mobile-menu a:hover{color:var(--gold)}
+.nav-mobile-close{position:absolute;top:20px;right:24px;background:none;border:none;color:rgba(200,208,220,0.6);font-size:28px;cursor:pointer;line-height:1}
+
+@media(max-width:900px){
+  .nav{padding:0 24px}
+  .nav-links{display:none}
+  .nav-mobile-btn{display:flex}
+  .page-hero{padding:48px 24px 56px}
+  .section{padding:56px 24px}
+  .historia-grid{grid-template-columns:1fr;gap:56px}
+  .photo-overlay-badge{bottom:12px;left:16px}
+  .photo-deco{display:none}
+  .historia-badges{grid-template-columns:repeat(2,1fr)}
+  .valores-grid{grid-template-columns:1fr}
+  .mv-grid{grid-template-columns:1fr;gap:0}
+  .mv-sep{height:1px;width:100%;background:rgba(181,134,58,0.2)}
+  .mv-block{padding:40px 0}
+  .mv-block:first-child{padding-top:0}
+  .proceso-steps{grid-template-columns:repeat(2,1fr);gap:36px}
+  .proceso-steps::before{display:none}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-band{padding:40px 24px}
+  .cta-section{padding:64px 24px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+  footer{padding:40px 24px 24px}
+}
+@media(max-width:560px){
+  .historia-badges{grid-template-columns:1fr 1fr}
+  .valores-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<a href="https://wa.me/51924333108?text=Hola,%20quisiera%20recibir%20asesor%C3%ADa%20legal." class="wa-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<div class="nav-mobile-menu" id="mobileMenu">
+  <button class="nav-mobile-close" onclick="closeMobileMenu()">×</button>
+  <a href="index.html" onclick="closeMobileMenu()">Inicio</a>
+  <a href="servicios.html" onclick="closeMobileMenu()">Servicios</a>
+  <a href="#" onclick="closeMobileMenu()">El estudio</a>
+  <a href="noticias.html" onclick="closeMobileMenu()">Noticias</a>
+  <a href="contacto.html" onclick="closeMobileMenu()">Contacto</a>
+  <a href="https://wa.me/51924333108" style="color:var(--gold)">Consulta gratuita</a>
+</div>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-logo">
+    <div class="nav-badge">VA</div>
+    <div>
+      <div class="nav-brand-name">Varoli-SLovsa Abogados</div>
+      <div class="nav-brand-sub">Estudio Jurídico · Lima</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="#" class="nav-active">El estudio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="noticias.html">Noticias</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="https://wa.me/51924333108?text=Hola,%20quisiera%20una%20consulta%20gratuita." class="nav-cta" target="_blank">Consulta gratuita</a>
+  </div>
+  <button class="nav-mobile-btn" onclick="openMobileMenu()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section class="page-hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-deco-circle"></div>
+  <div class="hero-inner">
+    <div class="breadcrumb fade-up">
+      <a href="index.html">Inicio</a>
+      <span class="breadcrumb-sep">·</span>
+      <span>El estudio</span>
+    </div>
+    <div class="eyebrow fade-up">
+      <div class="eyebrow-line"></div>
+      <span>Quiénes somos</span>
+    </div>
+    <h1 class="fade-up-2">Un estudio fundado<br>en la vocación<br>de servicio.</h1>
+    <p class="page-hero-sub fade-up-3">Acompañamos a personas y empresas con criterio jurídico, estrategia clara y compromiso real con cada caso. Sin intermediarios, sin burocracia — solo resultados.</p>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="historia-grid">
+    <div class="photo-col reveal">
+      <div class="photo-deco"></div>
+      <div class="photo-main">
+        <img src="img/sasha_perfil_nosotros.jpg" alt="Abogada Varoli-SLovsa Abogados" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="photo-fallback" style="display:none">
+          <div class="photo-fallback-icon">📸</div>
+          <div class="photo-fallback-text">Colocar aquí:<br><strong>sasha_perfil_nosotros.jpg</strong></div>
+        </div>
+      </div>
+      <div class="photo-overlay-badge">
+        <div class="badge-num">+5</div>
+        <div class="badge-label">Años de trayectoria</div>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="eyebrow-static" style="margin-bottom:16px">
+        <div class="eyebrow-line-static"></div>
+        <span>Nuestra historia</span>
+      </div>
+      <div class="gold-bar"></div>
+      <h2 class="section-title">Cinco años defendiendo derechos en Lima</h2>
+      <p style="font-family:var(--sans);font-size:13px;color:var(--text-mid);line-height:1.85;margin-bottom:16px;font-weight:300">Varoli-SLovsa Abogados nace con la convicción de que una defensa legal sólida debe ser accesible, transparente y estratégica — no un privilegio de pocos. Desde Lima, acompañamos a empresas y personas con la misma dedicación en cada expediente, sea cual sea su dimensión.</p>
+      <p style="font-family:var(--sans);font-size:13px;color:var(--text-mid);line-height:1.85;margin-bottom:16px;font-weight:300">Somos un estudio de perfil boutique: atención directa, actualización normativa permanente y honorarios acordados desde el inicio. No terciarizamos la comunicación con el cliente — el mismo profesional que recibe el caso lo trabaja y lo resuelve.</p>
+      <p style="font-family:var(--sans);font-size:13px;color:var(--text-mid);line-height:1.85;font-weight:300">Hoy cubrimos cinco áreas del derecho en Lima, con experiencia real en contrataciones del Estado, laboral, administrativo, penal y civil — lo que nos permite entender el caso desde múltiples perspectivas legales.</p>
+      <div class="historia-badges">
+        <div class="h-badge">
+          <div class="h-badge-num">+200</div>
+          <div class="h-badge-label">Casos atendidos</div>
+        </div>
+        <div class="h-badge">
+          <div class="h-badge-num">5</div>
+          <div class="h-badge-label">Áreas de práctica</div>
+        </div>
+        <div class="h-badge">
+          <div class="h-badge-num">24h</div>
+          <div class="h-badge-label">Tiempo de respuesta</div>
+        </div>
+        <div class="h-badge">
+          <div class="h-badge-num">100%</div>
+          <div class="h-badge-label">Atención directa</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-navy">
+  <div class="eyebrow-static reveal">
+    <div class="eyebrow-line-static"></div>
+    <span>Nuestros valores</span>
+  </div>
+  <h2 class="section-title section-title-white reveal">Cuatro principios<br>que guían cada caso</h2>
+  <div class="valores-grid">
+    <div class="valor-card reveal">
+      <div class="valor-num">01</div>
+      <h3>Integridad</h3>
+      <div class="valor-sep"></div>
+      <p>Honestidad y transparencia en cada acción, cada comunicación y cada decisión que tomamos junto al cliente. Sin ambigüedades.</p>
+    </div>
+    <div class="valor-card reveal reveal-delay-1">
+      <div class="valor-num">02</div>
+      <h3>Excelencia</h3>
+      <div class="valor-sep"></div>
+      <p>El más alto estándar jurídico aplicado sin excepciones. Actualización normativa permanente en cada área, cada resolución, cada argumento.</p>
+    </div>
+    <div class="valor-card reveal reveal-delay-2">
+      <div class="valor-num">03</div>
+      <h3>Compromiso</h3>
+      <div class="valor-sep"></div>
+      <p>Involucrados con cada cliente desde el primer día. El expediente no es un número — es una historia que merece atención real y estrategia genuina.</p>
+    </div>
+    <div class="valor-card reveal reveal-delay-3">
+      <div class="valor-num">04</div>
+      <h3>Prevención</h3>
+      <div class="valor-sep"></div>
+      <p>Anticipar el conflicto cuesta menos que resolverlo. Diseñamos estrategias que evitan problemas futuros, no solo soluciones reactivas.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="eyebrow-static reveal">
+    <div class="eyebrow-line-static"></div>
+    <span>Propósito del estudio</span>
+  </div>
+  <h2 class="section-title reveal">Misión y visión</h2>
+  <div style="height:48px"></div>
+  <div class="mv-grid reveal">
+    <div class="mv-block">
+      <div class="mv-eyebrow">Misión</div>
+      <p class="mv-quote">"Brindar soluciones jurídicas de excelencia, accesibles y estratégicas, que protejan los derechos e intereses de nuestros clientes con integridad, transparencia y compromiso real en cada caso."</p>
+    </div>
+    <div class="mv-sep"></div>
+    <div class="mv-block">
+      <div class="mv-eyebrow">Visión</div>
+      <p class="mv-quote">"Ser el estudio jurídico de referencia en Lima por la solidez de nuestras estrategias, la confianza que generamos y la diferencia que hacemos en la vida de cada persona y empresa que asesoramos."</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-cream">
+  <div class="eyebrow-static reveal">
+    <div class="eyebrow-line-static"></div>
+    <span>Cómo trabajamos</span>
+  </div>
+  <h2 class="section-title reveal">Nuestro proceso:<br>claro y sin sorpresas</h2>
+  <div class="proceso-steps">
+    <div class="p-step reveal">
+      <div class="p-step-num">01</div>
+      <h3>Diagnóstico</h3>
+      <p>Evaluación completa de tu situación legal, antecedentes, riesgos y plazos. Consulta inicial gratuita de 30 minutos.</p>
+    </div>
+    <div class="p-step reveal reveal-delay-1">
+      <div class="p-step-num">02</div>
+      <h3>Estrategia</h3>
+      <p>Plan a medida priorizando la solución más efectiva, con tiempos, costos y alternativas acordadas desde el inicio.</p>
+    </div>
+    <div class="p-step reveal reveal-delay-2">
+      <div class="p-step-num">03</div>
+      <h3>Ejecución</h3>
+      <p>Representación activa en todas las instancias con informes de avance permanentes al cliente en cada etapa.</p>
+    </div>
+    <div class="p-step reveal reveal-delay-3">
+      <div class="p-step-num">04</div>
+      <h3>Seguimiento</h3>
+      <p>Acompañamiento hasta la resolución final y asesoría post-caso cuando corresponde, sin costo adicional.</p>
+    </div>
+  </div>
+</section>
+
+<section class="stats-band">
+  <div class="stats-grid">
+    <div class="stats-item reveal">
+      <div class="stats-num">+200</div>
+      <div class="stats-label">Casos atendidos</div>
+    </div>
+    <div class="stats-item reveal reveal-delay-1">
+      <div class="stats-num">+5</div>
+      <div class="stats-label">Años de trayectoria</div>
+    </div>
+    <div class="stats-item reveal reveal-delay-2">
+      <div class="stats-num">5</div>
+      <div class="stats-label">Áreas de práctica</div>
+    </div>
+    <div class="stats-item reveal reveal-delay-3">
+      <div class="stats-num">24h</div>
+      <div class="stats-label">Tiempo de respuesta</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="gold-bar reveal" style="margin:0 auto 28px"></div>
+    <h2 class="reveal">"Analicemos juntos tu caso,<br>sin costo ni compromiso."</h2>
+    <p class="reveal">Primera consulta gratuita de 30 minutos · Respuesta en menos de 24 horas hábiles · Confidencialidad total</p>
+    <div class="cta-btns reveal">
+      <a href="https://wa.me/51924333108?text=Hola,%20quisiera%20agendar%20una%20consulta%20gratuita." class="btn-primary" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Consulta por WhatsApp
+      </a>
+      <a href="mailto:consultasvaroli@gmail.com" class="btn-outline">Enviar email →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-logo">
+        <div class="nav-badge" style="width:34px;height:34px;font-size:12px">VA</div>
+        <div>
+          <div class="nav-brand-name" style="font-size:13px">Varoli-SLovsa Abogados</div>
+          <div class="nav-brand-sub">Estudio Jurídico · Lima</div>
+        </div>
+      </div>
+      <p class="footer-desc">Soluciones jurídicas estratégicas para personas y empresas en Lima, Perú.</p>
+    </div>
+    <div>
+      <h4>Servicios</h4>
+      <a href="servicios.html">Contrataciones del Estado</a>
+      <a href="servicios.html">Laboral corporativo</a>
+      <a href="servicios.html">Derecho administrativo</a>
+      <a href="servicios.html">Derecho penal</a>
+      <a href="servicios.html">Civil y comercial</a>
+    </div>
+    <div>
+      <h4>Estudio</h4>
+      <a href="#">El estudio</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="https://wa.me/51924333108" target="_blank">WhatsApp directo</a>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <p>Av. José Leal 835, Of. 302</p>
+      <p>Lince — Lima, Perú</p>
+      <a href="tel:+51924333108">+51 924 333 108</a>
+      <a href="mailto:consultasvaroli@gmail.com">consultasvaroli@gmail.com</a>
+      <p>Lun–Vie 9am–6pm · Sáb 9am–1pm</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Estudio Jurídico Varoli-SLovsa Abogados · Todos los derechos reservados</div>
+    <div class="footer-bottom-links">
+      <a href="#">Política de privacidad</a>
+      <a href="#">Ley N° 29733</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>40)});
+function openMobileMenu(){document.getElementById('mobileMenu').classList.add('open');document.body.style.overflow='hidden'}
+function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow=''}
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>

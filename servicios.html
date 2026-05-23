@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Servicios jurídicos del Estudio Varoli-SLovsa Abogados en Lima: contrataciones del Estado, laboral, administrativo, penal y civil. Primera consulta gratuita.">
+<title>Servicios · Varoli-SLovsa Abogados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#F8F6F1;color:#2C2C2A;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none;color:inherit}
+
+:root{
+  --navy:#0A1F44;--navy-mid:#0d2550;--navy-dark:#071630;
+  --gold:#B5863A;--gold-light:#d4a85a;
+  --cream:#F8F6F1;--white:#fff;
+  --text-mid: #383830;--text-muted:#6a6a62;--text-subtle:#888880;
+  --border-light:#e4e0d8;--border-mid:#d4cfc5;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lineGrow{from{width:0}to{width:40px}}
+.fade-up{animation:fadeUp 0.8s ease forwards}
+.fade-up-2{animation:fadeUp 0.8s ease 0.15s forwards;opacity:0}
+.fade-up-3{animation:fadeUp 0.8s ease 0.3s forwards;opacity:0}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.rd1{transition-delay:0.1s}.rd2{transition-delay:0.2s}.rd3{transition-delay:0.3s}.rd4{transition-delay:0.4s}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:var(--navy);padding:0 48px;height:68px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(181,134,58,0.15)}
+.nav.scrolled{background:rgba(10,31,68,0.97);backdrop-filter:blur(8px)}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-badge{width:38px;height:38px;border:1.5px solid var(--gold);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;color:var(--gold);letter-spacing:1px;flex-shrink:0}
+.nav-brand-name{font-family:var(--serif);font-size:15px;color:#f5f7fb}
+.nav-brand-sub{font-family:var(--sans);font-size:10px;color:rgba(181,134,58,0.95);letter-spacing:1.5px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{
+  color: #c0cce0;font-family:var(--sans);font-size:12px;color:#dde2ec;letter-spacing:0.3px;transition:color 0.2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s}
+.nav-links a:hover{color:#f5f7fb}
+.nav-links a:hover::after,.nav-active::after{width:100%}
+.nav-active{color:#f5f7fb !important}
+.nav-cta{background:var(--gold)!important;color:#fff!important;padding:9px 20px;border-radius:3px;font-size:11px!important;letter-spacing:0.8px!important;text-transform:uppercase;transition:background 0.2s!important}
+.nav-cta:hover{background:var(--gold-light)!important}
+.nav-cta::after{display:none!important}
+.nav-mobile-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+.nav-mobile-btn span{display:block;width:22px;height:1.5px;background:#f0f2f5}
+.nav-mobile-menu{display:none;position:fixed;inset:0;background:var(--navy-dark);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.nav-mobile-menu.open{display:flex}
+.nav-mobile-menu a{font-family:var(--serif);font-size:28px;color:#F8F6F1;font-weight:300;transition:color 0.2s}
+.nav-mobile-menu a:hover{color:var(--gold)}
+.nav-mobile-close{position:absolute;top:20px;right:24px;background:none;border:none;color:rgba(200,208,220,0.6);font-size:28px;cursor:pointer}
+
+/* HERO */
+.page-hero{background:var(--navy);padding:72px 48px 80px;position:relative;overflow:hidden}
+.hero-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(181,134,58,0.05) 59px,rgba(181,134,58,0.05) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(181,134,58,0.05) 59px,rgba(181,134,58,0.05) 60px)}
+.hero-deco{position:absolute;right:-60px;top:50%;transform:translateY(-50%);width:400px;height:400px;border-radius:50%;border:1px solid rgba(181,134,58,0.07)}
+.hero-inner{position:relative;z-index:1;max-width:600px}
+.breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:24px;font-family:var(--sans);font-size:10px;color:#b8c4d8;letter-spacing:0.5px}
+.breadcrumb a{color:rgba(181,134,58,0.95)}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.eyebrow-line{width:0;height:1px;background:var(--gold);animation:lineGrow 0.6s ease 0.2s forwards}
+.eyebrow span,.eyebrow-s span{font-family:var(--sans);font-size:10px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase}
+.eyebrow-s{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.eyebrow-s-line{width:28px;height:1px;background:var(--gold);flex-shrink:0}
+.page-hero h1{font-family:var(--serif);font-size:clamp(32px,4.5vw,52px);font-weight:300;color:#F8F6F1;line-height:1.15;margin-bottom:20px;letter-spacing:-0.5px}
+.page-hero-sub{
+  color: #c8d8ec;font-family:var(--sans);font-size:14px;color:#d0d8ea;line-height:1.75;max-width:480px;font-weight:300}
+
+/* ÁREA TABS NAV */
+.area-nav{background:var(--white);border-bottom:1px solid var(--border-light);padding:0 48px;position:sticky;top:68px;z-index:90;overflow-x:auto}
+.area-nav-inner{display:flex;gap:0;white-space:nowrap}
+.area-tab{font-family:var(--sans);font-size:11px;color:#5a5a52;letter-spacing:0.5px;padding:16px 20px;border-bottom:2px solid transparent;cursor:pointer;transition:color 0.2s,border-color 0.2s;background:none;border-top:none;border-left:none;border-right:none;white-space:nowrap}
+.area-tab:hover{color:var(--navy)}
+.area-tab.active{color:var(--navy);border-bottom-color:var(--gold);font-weight:500}
+
+/* SECCIÓN ÍNDICE */
+.section{padding:80px 48px}
+.section-alt{background:var(--white)}
+.gold-bar{width:40px;height:2px;background:var(--gold);margin-bottom:18px}
+.section-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,38px);font-weight:300;color:var(--navy);line-height:1.2;margin-bottom:12px;letter-spacing:-0.3px}
+.section-title-w{color:#F8F6F1}
+.section-sub{font-family:var(--sans);font-size:13px;color:#5a5a52;line-height:1.7;margin-bottom:48px;max-width:480px;font-weight:300}
+
+/* CARDS ÍNDICE */
+.services-index{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-light);border:1px solid var(--border-light);border-radius:6px;overflow:hidden}
+.svc-card{background:var(--navy);padding:36px 28px;cursor:pointer;position:relative;overflow:hidden;transition:background 0.25s;display:flex;flex-direction:column}
+.svc-card:hover{background:var(--navy-mid)}
+.svc-card:hover .svc-arrow{opacity:1;transform:translateX(0)}
+.svc-card:hover .svc-num-bg{opacity:.18}
+.svc-num-bg{position:absolute;top:8px;right:14px;font-family:var(--serif);font-size:64px;color:rgba(181,134,58,0.1);line-height:1;pointer-events:none;transition:opacity .25s}
+.svc-area-tag{font-family:var(--sans);font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.svc-card h3{font-family:var(--serif);font-size:20px;font-weight:400;color:#F8F6F1;margin-bottom:10px;line-height:1.2}
+.svc-card p{
+  color: #b8cce0;font-family:var(--sans);font-size:11px;color:#c8d0e0;line-height:1.65;margin-bottom:20px;flex:1;font-weight:300}
+.svc-chips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
+.chip{font-family:var(--sans);font-size:9px;padding:3px 8px;border:1px solid rgba(181,134,58,0.25);color:#c49a4a;border-radius:2px}
+.svc-arrow{font-family:var(--sans);font-size:10px;color:var(--gold);opacity:0;transform:translateX(-8px);transition:opacity .25s,transform .25s;display:flex;align-items:center;gap:6px;letter-spacing:.3px}
+.svc-cta-card{background:var(--gold);padding:36px 28px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:background .25s}
+.svc-cta-card:hover{background:var(--gold-light)}
+.svc-cta-card p{font-family:var(--serif);font-size:18px;font-style:italic;color:#fff;line-height:1.5;margin-bottom:20px;font-weight:300}
+.svc-cta-card span{font-family:var(--sans);font-size:10px;color:rgba(255,255,255,.8);letter-spacing:1.5px;text-transform:uppercase}
+
+/* ── SUBPÁGINAS ── */
+.subpage{display:none;padding:0}
+.subpage.active{display:block}
+
+/* HERO SUBPÁGINA */
+.sub-hero{background:var(--navy);padding:64px 48px 72px;position:relative;overflow:hidden}
+.sub-hero-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(181,134,58,0.05) 59px,rgba(181,134,58,0.05) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(181,134,58,0.05) 59px,rgba(181,134,58,0.05) 60px)}
+.sub-hero-inner{position:relative;z-index:1;max-width:680px}
+.sub-area-tag{font-family:var(--sans);font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sub-area-tag::before{content:'';width:28px;height:1px;background:var(--gold)}
+.sub-hero h2{font-family:var(--serif);font-size:clamp(28px,4vw,46px);font-weight:300;color:#F8F6F1;line-height:1.15;margin-bottom:18px;letter-spacing:-0.4px}
+.sub-hero-sub{
+  color: #c8d8ec;font-family:var(--sans);font-size:14px;color:#d0d8ea;line-height:1.75;max-width:520px;font-weight:300}
+
+/* ALERTA */
+.alert-band{padding:20px 48px;display:flex;align-items:center;gap:14px}
+.alert-band.red{background:#fdf0ef;border-top:1px solid #f5c4c0;border-bottom:1px solid #f5c4c0}
+.alert-band.amber{background:#fdf8ec;border-top:1px solid #f5dfa0;border-bottom:1px solid #f5dfa0}
+.alert-icon{font-size:18px;flex-shrink:0}
+.alert-text{font-family:var(--sans);font-size:13px;color:#5a1f1c;line-height:1.6;font-weight:300}
+.alert-text strong{font-weight:500}
+
+/* SITUACIONES */
+.situaciones-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.sit-item{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--cream);border-radius:4px;border:1px solid var(--border-light)}
+.sit-check{width:20px;height:20px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.sit-check svg{width:10px;height:10px;stroke:var(--gold);stroke-width:2.5;fill:none}
+.sit-item p{font-family:var(--sans);font-size:12px;color:var(--text-mid);line-height:1.5;font-weight:300}
+
+/* SERVICIOS GRID */
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.srv-item{background:var(--white);border:1px solid var(--border-light);border-radius:4px;padding:24px 20px;transition:border-color .2s,transform .2s}
+.srv-item:hover{border-color:rgba(181,134,58,.4);transform:translateY(-3px)}
+.srv-icon{width:36px;height:36px;background:rgba(181,134,58,.08);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--gold);margin-bottom:14px}
+.srv-icon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
+.srv-item h4{font-family:var(--serif);font-size:16px;color:var(--navy);font-weight:400;margin-bottom:6px}
+.srv-item p{font-family:var(--sans);font-size:11px;color:#5a5a52;line-height:1.65;font-weight:300}
+
+/* PROCESO VERTICAL */
+.proceso-v{display:grid;grid-template-columns:1fr;gap:0}
+.pv-step{display:grid;grid-template-columns:48px 1fr;gap:20px;padding:28px 0;border-bottom:1px solid var(--border-light)}
+.pv-step:last-child{border-bottom:none}
+.pv-num{font-family:var(--serif);font-size:32px;color:rgba(181,134,58,.25);line-height:1;font-weight:300;padding-top:2px}
+.pv-content h4{font-family:var(--serif);font-size:18px;color:var(--navy);font-weight:400;margin-bottom:6px}
+.pv-content p{font-family:var(--sans);font-size:12px;color:#5a5a52;line-height:1.7;font-weight:300}
+
+/* PLAZOS */
+.plazos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.plazo-card{background:var(--navy);border-radius:4px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.plazo-name{font-family:var(--sans);font-size:12px;color:rgba(200,210,220,.85);font-weight:300;line-height:1.4}
+.plazo-badge{background:var(--gold);color:#fff;padding:6px 14px;border-radius:2px;font-family:var(--sans);font-size:11px;font-weight:500;white-space:nowrap;letter-spacing:.3px;flex-shrink:0}
+.plazo-badge.urgent{background:#c0392b}
+
+/* DIFERENCIADOR CALLOUT */
+.callout{background:rgba(181,134,58,.07);border-left:3px solid var(--gold);border-radius:0 4px 4px 0;padding:24px 28px;margin:32px 0}
+.callout p{font-family:var(--serif);font-size:17px;font-style:italic;color:var(--navy);line-height:1.6;font-weight:300}
+
+/* FAQ ACORDEÓN */
+.faq-list{display:grid;gap:8px}
+.faq-item{background:var(--white);border:1px solid var(--border-light);border-radius:4px;overflow:hidden}
+.faq-q{width:100%;background:none;border:none;padding:20px 24px;text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:background .2s}
+.faq-q:hover{background:rgba(181,134,58,.03)}
+.faq-q-text{font-family:var(--serif);font-size:16px;color:var(--navy);font-weight:400;line-height:1.3;text-align:left}
+.faq-icon{width:20px;height:20px;border:1px solid var(--border-mid);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold);transition:transform .3s,background .2s;font-size:16px;line-height:1}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--gold);border-color:var(--gold);color:#fff}
+.faq-a{display:none;padding:0 24px 20px;font-family:var(--sans);font-size:13px;color:var(--text-mid);line-height:1.75;font-weight:300;border-top:1px solid var(--border-light)}
+.faq-a-inner{padding-top:16px}
+.faq-item.open .faq-a{display:block}
+
+/* CTA SUBPÁGINA */
+.sub-cta{background:var(--navy-dark);padding:72px 48px;text-align:center;position:relative;overflow:hidden}
+.sub-cta::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(181,134,58,0.04) 39px,rgba(181,134,58,0.04) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(181,134,58,0.04) 39px,rgba(181,134,58,0.04) 40px)}
+.sub-cta-inner{position:relative;z-index:1}
+.sub-cta h3{font-family:var(--serif);font-size:clamp(24px,3.5vw,38px);font-weight:300;color:#F8F6F1;margin-bottom:10px;line-height:1.25}
+.sub-cta p{
+  color: #a0b0cc;font-family:var(--sans);font-size:12px;color:#b0bcd4;margin-bottom:32px;font-weight:300}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:#fff;padding:13px 26px;border-radius:3px;font-family:var(--sans);font-size:12px;letter-spacing:.8px;text-transform:uppercase;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .15s;text-decoration:none}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:rgba(240,242,245,.8);padding:13px 26px;border-radius:3px;font-family:var(--sans);font-size:12px;letter-spacing:.8px;text-transform:uppercase;border:1px solid rgba(248,246,241,.18);transition:border-color .2s,color .2s,transform .15s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn-ghost:hover{border-color:rgba(181,134,58,.5);color:#F8F6F1;transform:translateY(-2px)}
+.btn-red{background:#c0392b;color:#fff;padding:13px 26px;border-radius:3px;font-family:var(--sans);font-size:12px;letter-spacing:.8px;text-transform:uppercase;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .15s;text-decoration:none}
+.btn-red:hover{background:#a93226;transform:translateY(-2px)}
+
+/* STATS MINI */
+.stats-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--navy);padding:40px 48px;border-top:1px solid rgba(181,134,58,.1);border-bottom:1px solid rgba(181,134,58,.1)}
+.sm-item{text-align:center;padding:12px;border-right:1px solid rgba(181,134,58,.1)}
+.sm-item:last-child{border-right:none}
+.sm-num{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:6px}
+.sm-label{
+  color: #9aacc4;font-family:var(--sans);font-size:10px;color:#b8c4d8;letter-spacing:1px;text-transform:uppercase}
+
+/* WA FLOAT */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:999;width:52px;height:52px;background:#25a050;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,160,80,.35);text-decoration:none;transition:transform .2s,box-shadow .2s}
+.wa-float:hover{transform:scale(1.08) translateY(-2px);box-shadow:0 8px 24px rgba(37,160,80,.45)}
+.wa-float svg{width:26px;height:26px;fill:#fff}
+
+/* FOOTER */
+footer{background:var(--navy-dark);padding:56px 48px 28px;border-top:1px solid rgba(181,134,58,.08)}
+.footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1.4fr;gap:40px;margin-bottom:40px}
+.footer-desc{
+  color: #7a8aaa;font-family:var(--sans);font-size:11px;color:#8090aa;line-height:1.8;max-width:220px;font-weight:300}
+footer h4{font-family:var(--serif);font-size:13px;font-weight:400;color:rgba(220,228,240,0.9);margin-bottom:16px}
+footer a,footer p{display:block;font-family:var(--sans);font-size:11px;color:#8090aa;line-height:2.2;transition:color .2s;font-weight:300}
+footer a:hover{color:#c49a4a}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.04);padding-top:20px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{
+  color: #5a6a88;font-family:var(--sans);font-size:10px;color:#6a7a96}
+.footer-bl{display:flex;gap:20px}
+.footer-bl a{font-family:var(--sans);font-size:10px;color:#6a7a96;line-height:1}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nav{padding:0 24px}
+  .nav-links{display:none}
+  .nav-mobile-btn{display:flex}
+  .page-hero,.sub-hero{padding:48px 24px 56px}
+  .section{padding:56px 24px}
+  .services-index{grid-template-columns:1fr 1fr}
+  .situaciones-grid{grid-template-columns:1fr}
+  .srv-grid{grid-template-columns:1fr 1fr}
+  .plazos-grid{grid-template-columns:1fr}
+  .stats-mini{grid-template-columns:repeat(2,1fr);padding:36px 24px}
+  .sub-cta{padding:56px 24px}
+  .area-nav{padding:0 24px}
+  .alert-band{padding:16px 24px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+  footer{padding:40px 24px 24px}
+}
+@media(max-width:560px){
+  .services-index{grid-template-columns:1fr}
+  .srv-grid{grid-template-columns:1fr}
+  .stats-mini{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<a href="https://wa.me/51924333108?text=Hola,%20quisiera%20asesor%C3%ADa%20legal." class="wa-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<div class="nav-mobile-menu" id="mobileMenu">
+  <button class="nav-mobile-close" onclick="closeMobileMenu()">×</button>
+  <a href="index.html" onclick="closeMobileMenu()">Inicio</a>
+  <a href="estudio.html" onclick="closeMobileMenu()">El estudio</a>
+  <a href="#" onclick="closeMobileMenu()">Servicios</a>
+  <a href="noticias.html" onclick="closeMobileMenu()">Noticias</a>
+  <a href="contacto.html" onclick="closeMobileMenu()">Contacto</a>
+  <a href="https://wa.me/51924333108" style="color:var(--gold)">Consulta gratuita</a>
+</div>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-logo">
+    <div class="nav-badge">VA</div>
+    <div><div class="nav-brand-name">Varoli-SLovsa Abogados</div><div class="nav-brand-sub">Estudio Jurídico · Lima</div></div>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="estudio.html">El estudio</a>
+    <a href="#" class="nav-active">Servicios</a>
+    <a href="noticias.html">Noticias</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="https://wa.me/51924333108?text=Hola,%20quisiera%20una%20consulta%20gratuita." class="nav-cta" target="_blank">Consulta gratuita</a>
+  </div>
+  <button class="nav-mobile-btn" onclick="openMobileMenu()" aria-label="Menú"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-deco"></div>
+  <div class="hero-inner">
+    <div class="breadcrumb fade-up"><a href="index.html">Inicio</a> <span style="color:rgba(100,110,130,.5)">·</span> <span>Servicios</span></div>
+    <div class="eyebrow fade-up"><div class="eyebrow-line"></div><span>Lo que hacemos por vos</span></div>
+    <h1 class="fade-up-2">Defendemos tus derechos<br>y protegemos tus intereses.</h1>
+    <p class="page-hero-sub fade-up-3">Representamos a personas y empresas en Lima ante el Estado, tribunales, entidades laborales y procesos civiles. Contanos tu situación y diseñamos la estrategia legal más efectiva.</p>
+  </div>
+</section>
+
+<!-- TABS DE NAVEGACIÓN -->
+<div class="area-nav" id="areaTabs">
+  <div class="area-nav-inner">
+    <button class="area-tab active" onclick="showArea('index')">Todas las áreas</button>
+    <button class="area-tab" onclick="showArea('contrataciones')">01 · Contrataciones del Estado</button>
+    <button class="area-tab" onclick="showArea('laboral')">02 · Laboral corporativo</button>
+    <button class="area-tab" onclick="showArea('administrativo')">03 · Administrativo</button>
+    <button class="area-tab" onclick="showArea('penal')">04 · Derecho penal</button>
+    <button class="area-tab" onclick="showArea('civil')">05 · Civil y comercial</button>
+  </div>
+</div>
+
+<!-- ═══════════════ ÍNDICE ═══════════════ -->
+<div id="page-index" class="subpage active">
+  <section class="section">
+    <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>¿En qué podemos ayudarte?</span></div>
+    <h2 class="section-title reveal">Servicios jurídicos<br>a tu medida</h2>
+    <p class="section-sub reveal">Seleccioná el servicio que mejor describe tu situación. Si no sabés por dónde empezar, la última opción es para vos.</p>
+    <div class="services-index reveal">
+      <div class="svc-card" onclick="showArea('contrataciones')">
+        <div class="svc-num-bg">01</div>
+        <div class="svc-area-tag">Área 01</div>
+        <h3>Contrataciones del Estado</h3>
+        <p>Te ayudamos a ganar licitaciones, defenderte ante el OSCE y proteger tu posición como proveedor del Estado.</p>
+        <div class="svc-chips"><span class="chip">Licitaciones</span><span class="chip">OSCE</span><span class="chip">Apelaciones</span><span class="chip">Arbitraje</span></div>
+        <div class="svc-arrow">Ver detalle →</div>
+      </div>
+      <div class="svc-card" onclick="showArea('laboral')">
+        <div class="svc-num-bg">02</div>
+        <div class="svc-area-tag">Área 02</div>
+        <h3>Laboral corporativo</h3>
+        <p>Evitamos que una inspección SUNAFIL o un despido mal gestionado se convierta en un problema mayor para tu empresa.</p>
+        <div class="svc-chips"><span class="chip">SUNAFIL</span><span class="chip">Contratos</span><span class="chip">Despidos</span><span class="chip">Compliance</span></div>
+        <div class="svc-arrow">Ver detalle →</div>
+      </div>
+      <div class="svc-card" onclick="showArea('administrativo')">
+        <div class="svc-num-bg">03</div>
+        <div class="svc-area-tag">Área 03</div>
+        <h3>Derecho administrativo</h3>
+        <p>Impugnamos sanciones, recuperamos licencias y te defendemos cuando una entidad pública actúa de forma arbitraria.</p>
+        <div class="svc-chips"><span class="chip">Recursos</span><span class="chip">Licencias</span><span class="chip">Sanciones</span><span class="chip">Arbitraje</span></div>
+        <div class="svc-arrow">Ver detalle →</div>
+      </div>
+      <div class="svc-card" onclick="showArea('penal')">
+        <div class="svc-num-bg">04</div>
+        <div class="svc-area-tag">Área 04</div>
+        <h3>Derecho penal</h3>
+        <p>Si recibiste una citación fiscal o enfrentás una investigación, actuamos de inmediato para proteger tu libertad y reputación.</p>
+        <div class="svc-chips"><span class="chip">Investigaciones</span><span class="chip">Delitos económicos</span><span class="chip">Apelaciones</span></div>
+        <div class="svc-arrow">Ver detalle →</div>
+      </div>
+      <div class="svc-card" onclick="showArea('civil')">
+        <div class="svc-num-bg">05</div>
+        <div class="svc-area-tag">Área 05</div>
+        <h3>Civil y comercial</h3>
+        <p>Redactamos y revisamos contratos, resolvemos conflictos patrimoniales y acompañamos procesos de herencia o constitución de empresa.</p>
+        <div class="svc-chips"><span class="chip">Contratos</span><span class="chip">Sociedades</span><span class="chip">Inmobiliario</span><span class="chip">Sucesiones</span></div>
+        <div class="svc-arrow">Ver detalle →</div>
+      </div>
+      <div class="svc-cta-card" onclick="window.location.href='contacto.html'">
+        <p>"¿No sabés exactamente qué servicio necesitás? Contanos tu situación y te orientamos sin costo."</p>
+        <span>Consultar ahora →</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════ CONTRATACIONES ═══════════════ -->
+<div id="page-contrataciones" class="subpage">
+  <section class="sub-hero">
+    <div class="sub-hero-pattern"></div>
+    <div class="sub-hero-inner">
+      <div class="sub-area-tag">Área 01 · Contrataciones del Estado</div>
+      <h2>"Los plazos ante el OSCE no esperan.<br>Nosotros sí estamos."</h2>
+      <p class="sub-hero-sub">Acompañamos a proveedores del Estado en licitaciones, procesos sancionadores y apelaciones ante el Tribunal de Contrataciones del Estado — desde la postulación hasta la defensa.</p>
+    </div>
+  </section>
+  <div class="alert-band red">
+    <span class="alert-icon">⚠</span>
+    <p class="alert-text"><strong>Si recibiste una notificación de sanción OSCE o riesgo de inhabilitación,</strong> los plazos para presentar descargos son cortos y no se recuperan. Contáctanos antes de que venza el plazo.</p>
+  </div>
+  <section class="section">
+    <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>¿Cuándo nos necesitás?</span></div>
+    <h2 class="section-title reveal">Situaciones donde podemos ayudarte</h2>
+    <div class="situaciones-grid" style="margin-top:32px">
+      <div class="sit-item reveal"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Vas a participar en una licitación o proceso de selección</p></div>
+      <div class="sit-item reveal rd1"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Te observaron, descalificaron o impugnaron tu oferta</p></div>
+      <div class="sit-item reveal rd2"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Recibiste notificación de sanción o proceso ante el OSCE</p></div>
+      <div class="sit-item reveal rd3"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Riesgo de inhabilitación como proveedor del Estado</p></div>
+      <div class="sit-item reveal"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Necesitás presentar recurso de apelación ante el TCE</p></div>
+      <div class="sit-item reveal rd1"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Conflicto por adicional de obra, ampliación o resolución de contrato</p></div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>Nuestros servicios</span></div>
+    <h2 class="section-title reveal">Qué hacemos por vos</h2>
+    <div class="srv-grid" style="margin-top:32px">
+      <div class="srv-item reveal"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h4>Análisis de bases</h4><p>Revisión de bases de licitación, identificación de riesgos y elaboración de consultas y observaciones.</p></div>
+      <div class="srv-item reveal rd1"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h4>Preparación de propuestas</h4><p>Apoyo en subsanación de documentos, armado técnico-legal de la oferta y presentación ante la entidad.</p></div>
+      <div class="srv-item reveal rd2"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h4>Defensa ante sancionadores</h4><p>Descargos, pruebas y representación ante el Tribunal del OSCE frente a procesos de inhabilitación y multas.</p></div>
+      <div class="srv-item reveal"><div class="srv-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h4>Recursos de apelación</h4><p>Formulación y sustentación de recursos de apelación ante el Tribunal de Contrataciones del Estado.</p></div>
+      <div class="srv-item reveal rd1"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div><h4>Arbitraje OSCE</h4><p>Representación en procesos arbitrales derivados de contratos públicos, incluyendo laudos y ejecución.</p></div>
+      <div class="srv-item reveal rd2"><div class="srv-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h4>Contratos públicos</h4><p>Revisión y negociación de contratos, adicionales de obra, ampliaciones de plazo y resolución de contrato.</p></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>Plazos críticos</span></div>
+    <h2 class="section-title reveal">Conocé los plazos legales</h2>
+    <div class="plazos-grid" style="margin-top:32px">
+      <div class="plazo-card reveal"><div class="plazo-name">Recurso de apelación ante el TCE</div><div class="plazo-badge urgent">8 días hábiles</div></div>
+      <div class="plazo-card reveal rd1"><div class="plazo-name">Descargos en proceso sancionador OSCE</div><div class="plazo-badge urgent">10 días hábiles</div></div>
+      <div class="plazo-card reveal rd2"><div class="plazo-name">Recurso de reconsideración</div><div class="plazo-badge">15 días hábiles</div></div>
+      <div class="plazo-card reveal rd3"><div class="plazo-name">Acción contencioso-administrativa</div><div class="plazo-badge">3 meses</div></div>
+    </div>
+    <div class="callout reveal"><p>"Prevenir un sancionador cuesta menos que defenderse en uno. Si tenés dudas sobre tu situación como proveedor del Estado, consultanos antes de que el problema escale."</p></div>
+  </section>
+  <div class="stats-mini">
+    <div class="sm-item reveal"><div class="sm-num">+80</div><div class="sm-label">Procesos TCE</div></div>
+    <div class="sm-item reveal rd1"><div class="sm-num">8d</div><div class="sm-label">Plazo apelación</div></div>
+    <div class="sm-item reveal rd2"><div class="sm-num">24h</div><div class="sm-label">Respuesta urgente</div></div>
+    <div class="sm-item reveal rd3"><div class="sm-num">100%</div><div class="sm-label">Atención directa</div></div>
+  </div>
+  <section class="section section-alt">
+    <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>Preguntas frecuentes</span></div>
+    <h2 class="section-title reveal">Dudas comunes</h2>
+    <div class="faq-list" style="margin-top:32px">
+      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">¿Puedo apelar si ya me notificaron la descalificación?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-inner">Sí, pero el plazo es corto — 8 días hábiles desde la notificación. Es fundamental actuar rápido. Contactanos en cuanto recibas la notificación y evaluamos la viabilidad del recurso sin costo.</div></div></div>
+      <div class="faq-item reveal rd1"><button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">¿Qué pasa si no presento descargos a tiempo?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-inner">El plazo para presentar descargos en un proceso sancionador OSCE es fatal — vencido el plazo, se pierde el derecho a defenderse y el proceso continúa sin tu versión. Por eso es crítico actuar desde el primer día.</div></div></div>
+      <div class="faq-item reveal rd2"><button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">¿También asesoran durante la ejecución del contrato?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-inner">Sí. Acompañamos en toda la vida del contrato público: adicionales, ampliaciones de plazo, liquidaciones, resoluciones de contrato y cualquier controversia que surja durante la ejecución.</div></div></div>
+    </div>
+  </section>
+  <section class="sub-cta">
+    <div class="sub-cta-inner">
+      <div style="width:40px;height:2px;background:var(--gold);margin:0 auto 24px"></div>
+      <h3>"Los plazos en contrataciones<br>son cortos. Actuemos hoy."</h3>
+      <p>Primera consulta gratuita · Respuesta en menos de 24 horas · Casos urgentes atendidos fuera de horario</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/51924333108?text=Hola,%20tengo%20un%20caso%20urgente%20de%20contrataciones%20del%20Estado." class="btn-red" target="_blank">WhatsApp urgente</a>
+        <a href="contacto.html" class="btn-ghost">Agendar consulta →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════ LABORAL ═══════════════ -->
+<div id="page-laboral" class="subpage">
+  <section class="sub-hero">
+    <div class="sub-hero-pattern"></div>
+    <div class="sub-hero-inner">
+      <div class="sub-area-tag">Área 02 · Laboral corporativo</div>
+      <h2>"Gestioná tus relaciones<br>laborales con estrategia,<br>no con improvisación."</h2>
+      <p class="sub-hero-sub">Asesoría preventiva y defensa activa en inspecciones SUNAFIL, despidos, contratos y compliance laboral para empresas en Lima.</p>
+    </div>
+  </section>
+  <div class="alert-band amber">
+    <span class="alert-icon">💡</span>
+    <p class="alert-text"><strong>Prevenir un conflicto laboral cuesta 10 veces menos que resolverlo.</strong> Te ayudamos antes de que escale — desde el diseño de contratos hasta la gestión de una inspección.</p>
+  </div>
+  <section class="section">
+    <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>¿Cuándo nos necesitás?</span></div>
+    <h2 class="section-title reveal">Situaciones donde podemos ayudarte</h2>
+    <div class="situaciones-grid" style="margin-top:32px">
+      <div class="sit-item reveal"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Inspección o fiscalización SUNAFIL notificada o en curso</p></div>
+      <div class="sit-item reveal rd1"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Necesitás estructurar contratos, planillas y beneficios correctamente</p></div>
+      <div class="sit-item reveal rd2"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Despido con riesgo de demanda laboral o arbitraje</p></div>
+      <div class="sit-item reveal rd3"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Proceso de conciliación laboral ante el MTPE</p></div>
+      <div class="sit-item reveal"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Querés diseñar políticas internas de compliance laboral</p></div>
+      <div class="sit-item reveal rd1"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Actas de infracción o sanciones laborales que impugnar</p></div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>Nuestros servicios</span></div>
+    <h2 class="section-title reveal">Qué hacemos por vos</h2>
+    <div class="srv-grid" style="margin-top:32px">
+      <div class="srv-item reveal"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h4>Contratos y planillas</h4><p>Diseño y revisión de contratos de trabajo, modalidades especiales, CAS y estructuración de planillas.</p></div>
+      <div class="srv-item reveal rd1"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h4>Inspecciones SUNAFIL</h4><p>Preparación, acompañamiento y defensa técnica ante fiscalizaciones e inspecciones laborales.</p></div>
+      <div class="srv-item reveal rd2"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h4>Compliance laboral</h4><p>Auditorías laborales, políticas internas, reglamentos de trabajo y protocolos de prevención.</p></div>
+      <div class="srv-item reveal"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h4>Despidos y liquidaciones</h4><p>Estrategia, documentación y ejecución de ceses laborales minimizando el riesgo de demandas.</p></div>
+      <div class="srv-item reveal rd1"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h4>Conciliación MTPE</h4><p>Representación y estrategia en conciliaciones ante el Ministerio de Trabajo y entidades laborales.</p></div>
+      <div class="srv-item reveal rd2"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div><h4>Arbitraje laboral</h4><p>Defensa y representación en procesos arbitrales derivados de conflictos colectivos e individuales.</p></div>
+    </div>
+  </section>
+  <div class="stats-mini">
+    <div class="sm-item reveal"><div class="sm-num">+60</div><div class="sm-label">Casos laborales</div></div>
+    <div class="sm-item reveal rd1"><div class="sm-num">10x</div><div class="sm-label">Más barato prevenir</div></div>
+    <div class="sm-item reveal rd2"><div class="sm-num">24h</div><div class="sm-label">Tiempo de respuesta</div></div>
+    <div class="sm-item reveal rd3"><div class="sm-num">100%</div><div class="sm-label">Atención directa</div></div>
+  </div>
+  <section class="sub-cta">
+    <div class="sub-cta-inner">
+      <div style="width:40px;height:2px;background:var(--gold);margin:0 auto 24px"></div>
+      <h3>"Revisamos tu situación<br>laboral sin costo."</h3>
+      <p>Primera consulta gratuita · Diagnóstico en 24 horas · Sin compromiso</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/51924333108?text=Hola,%20necesito%20asesor%C3%ADa%20en%20derecho%20laboral." class="btn-gold" target="_blank">WhatsApp directo</a>
+        <a href="contacto.html" class="btn-ghost">Agendar consulta →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════ ADMINISTRATIVO ═══════════════ -->
+<div id="page-administrativo" class="subpage">
+  <section class="sub-hero">
+    <div class="sub-hero-pattern"></div>
+    <div class="sub-hero-inner">
+      <div class="sub-area-tag">Área 03 · Derecho administrativo</div>
+      <h2>"Cuando el Estado actúa,<br>la defensa técnica<br>marca la diferencia."</h2>
+      <p class="sub-hero-sub">Recursos, licencias, sanciones, procedimientos contencioso-administrativos y arbitraje frente a entidades públicas peruanas.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>¿Cuándo nos necesitás?</span></div>
+    <h2 class="section-title reveal">Situaciones donde podemos ayudarte</h2>
+    <div class="situaciones-grid" style="margin-top:32px">
+      <div class="sit-item reveal"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Te sancionaron o multaron sin fundamento legal suficiente</p></div>
+      <div class="sit-item reveal rd1"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Denegaron, suspendieron o cancelaron una licencia o autorización</p></div>
+      <div class="sit-item reveal rd2"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Necesitás impugnar una resolución administrativa</p></div>
+      <div class="sit-item reveal rd3"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Proceso contencioso-administrativo ante el Poder Judicial</p></div>
+      <div class="sit-item reveal"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Conflicto con entidad pública que requiere arbitraje sectorial</p></div>
+      <div class="sit-item reveal rd1"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Regulación sectorial: salud, educación, seguros, seguridad</p></div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>Nuestros servicios</span></div>
+    <h2 class="section-title reveal">Qué hacemos por vos</h2>
+    <div class="srv-grid" style="margin-top:32px">
+      <div class="srv-item reveal"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><h4>Recursos administrativos</h4><p>Reconsideración y apelación ante entidades públicas con argumentación técnico-legal sólida.</p></div>
+      <div class="srv-item reveal rd1"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/></svg></div><h4>Licencias y autorizaciones</h4><p>Gestión, impugnación y recuperación de licencias denegadas o canceladas ante entidades reguladoras.</p></div>
+      <div class="srv-item reveal rd2"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h4>Defensa en sancionadores</h4><p>Descargos, pruebas y representación en procedimientos administrativos sancionadores.</p></div>
+      <div class="srv-item reveal"><div class="srv-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg></div><h4>Contencioso-administrativo</h4><p>Demandas ante el Poder Judicial para impugnar actos administrativos que lesionan derechos.</p></div>
+      <div class="srv-item reveal rd1"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div><h4>Arbitraje sectorial</h4><p>Representación en arbitrajes frente a organismos reguladores y entidades públicas supervisoras.</p></div>
+      <div class="srv-item reveal rd2"><div class="srv-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/></svg></div><h4>Compliance regulatorio</h4><p>Diagnóstico, adaptación y monitoreo del cumplimiento normativo sectorial de la empresa.</p></div>
+    </div>
+  </section>
+  <section class="sub-cta">
+    <div class="sub-cta-inner">
+      <div style="width:40px;height:2px;background:var(--gold);margin:0 auto 24px"></div>
+      <h3>"Cuéntanos tu caso antes<br>de que venza el plazo."</h3>
+      <p>Primera consulta gratuita · Sin compromiso · Respuesta en 24 horas hábiles</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/51924333108?text=Hola,%20necesito%20asesor%C3%ADa%20en%20derecho%20administrativo." class="btn-gold" target="_blank">WhatsApp directo</a>
+        <a href="contacto.html" class="btn-ghost">Agendar consulta →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════ PENAL ═══════════════ -->
+<div id="page-penal" class="subpage">
+  <section class="sub-hero">
+    <div class="sub-hero-pattern"></div>
+    <div class="sub-hero-inner">
+      <div class="sub-area-tag">Área 04 · Derecho penal</div>
+      <h2>"Defensa penal estratégica<br>desde el primer minuto."</h2>
+      <p class="sub-hero-sub">Si enfrentás una denuncia o investigación, el tiempo es crítico. Contamos con el rigor técnico para diseñar tu mejor línea de defensa en cada etapa del proceso.</p>
+    </div>
+  </section>
+  <div class="alert-band red">
+    <span class="alert-icon">⚠</span>
+    <p class="alert-text"><strong>Si recibiste una citación fiscal, policial o existe riesgo de prisión preventiva,</strong> contactanos ahora. Los primeros pasos determinan el resultado de todo el proceso.</p>
+  </div>
+  <section class="section">
+    <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>¿Cuándo nos necesitás?</span></div>
+    <h2 class="section-title reveal">Situaciones donde podemos ayudarte</h2>
+    <div class="situaciones-grid" style="margin-top:32px">
+      <div class="sit-item reveal"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Citación fiscal o policial — investigación en curso</p></div>
+      <div class="sit-item reveal rd1"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Riesgo de prisión preventiva o medida cautelar</p></div>
+      <div class="sit-item reveal rd2"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Investigación por delitos económicos o contra la administración pública</p></div>
+      <div class="sit-item reveal rd3"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Necesitás apelar una sentencia o resolución judicial</p></div>
+      <div class="sit-item reveal"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Sos víctima y querés presentar una denuncia penal</p></div>
+      <div class="sit-item reveal rd1"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Empresa bajo investigación penal corporativa o delitos informáticos</p></div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>Nuestros servicios</span></div>
+    <h2 class="section-title reveal">Qué hacemos por vos</h2>
+    <div class="srv-grid" style="margin-top:32px">
+      <div class="srv-item reveal"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><h4>Investigación preliminar</h4><p>Defensa desde la etapa policial y fiscal, control de plazos y estrategia de actuación inicial.</p></div>
+      <div class="srv-item reveal rd1"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h4>Medidas cautelares</h4><p>Oposición a prisión preventiva, detención domiciliaria y otras medidas restrictivas de libertad.</p></div>
+      <div class="srv-item reveal rd2"><div class="srv-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg></div><h4>Delitos económicos</h4><p>Defensa en casos de estafa, fraude, apropiación ilícita, lavado de activos y delitos tributarios.</p></div>
+      <div class="srv-item reveal"><div class="srv-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/></svg></div><h4>Delitos informáticos</h4><p>Defensa y asesoría en casos de ciberdelitos, acceso ilegal a sistemas y fraude electrónico.</p></div>
+      <div class="srv-item reveal rd1"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><h4>Administración pública</h4><p>Defensa en delitos contra la administración pública: peculado, colusión, malversación y afines.</p></div>
+      <div class="srv-item reveal rd2"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/></svg></div><h4>Apelaciones y recursos</h4><p>Formulación y sustentación de recursos de apelación, nulidad y queja ante instancias superiores.</p></div>
+    </div>
+  </section>
+  <section class="sub-cta" style="background:#0d1a2e">
+    <div class="sub-cta-inner">
+      <div style="width:40px;height:2px;background:var(--gold);margin:0 auto 24px"></div>
+      <h3>"Atendemos casos urgentes<br>fuera de horario.<br>Escribinos ahora."</h3>
+      <p>Primera consulta gratuita · Confidencialidad total · Casos urgentes: WhatsApp disponible 24/7</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/51924333108?text=Hola,%20tengo%20un%20caso%20penal%20urgente." class="btn-red" target="_blank">WhatsApp urgente — 24/7</a>
+        <a href="contacto.html" class="btn-ghost">Agendar consulta →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════ CIVIL ═══════════════ -->
+<div id="page-civil" class="subpage">
+  <section class="sub-hero">
+    <div class="sub-hero-pattern"></div>
+    <div class="sub-hero-inner">
+      <div class="sub-area-tag">Área 05 · Civil y comercial</div>
+      <h2>"Protegemos tu patrimonio<br>y tus relaciones<br>comerciales."</h2>
+      <p class="sub-hero-sub">Asesoría integral en contratos, sociedades, herencias y conflictos patrimoniales con enfoque preventivo, estratégico y orientado a resultados.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>¿Cuándo nos necesitás?</span></div>
+    <h2 class="section-title reveal">Situaciones donde podemos ayudarte</h2>
+    <div class="situaciones-grid" style="margin-top:32px">
+      <div class="sit-item reveal"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Vas a firmar un contrato importante y querés revisarlo antes</p></div>
+      <div class="sit-item reveal rd1"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Querés constituir una empresa o sociedad en Perú</p></div>
+      <div class="sit-item reveal rd2"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Conflicto por compra-venta de inmueble o incumplimiento de contrato</p></div>
+      <div class="sit-item reveal rd3"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Proceso de sucesión, herencia o conflicto familiar patrimonial</p></div>
+      <div class="sit-item reveal"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Reclamar daños e indemnización por responsabilidad civil</p></div>
+      <div class="sit-item reveal rd1"><div class="sit-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><p>Litigio civil o proceso de ejecución de sentencia</p></div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>Nuestros servicios</span></div>
+    <h2 class="section-title reveal">Qué hacemos por vos</h2>
+    <div class="srv-grid" style="margin-top:32px">
+      <div class="srv-item reveal"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><h4>Contratos civiles y mercantiles</h4><p>Redacción, revisión y negociación de contratos: compraventa, servicios, arrendamiento, asociación y otros.</p></div>
+      <div class="srv-item reveal rd1"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><h4>Constitución de sociedades</h4><p>Constitución de SAC, SA, EIRL y otras formas societarias con asesoría en estructura y gobierno corporativo.</p></div>
+      <div class="srv-item reveal rd2"><div class="srv-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg></div><h4>Responsabilidad civil</h4><p>Demandas de indemnización por daños materiales, morales y extracontractuales ante el Poder Judicial.</p></div>
+      <div class="srv-item reveal"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><h4>Derechos reales e inmobiliario</h4><p>Compraventa, hipotecas, usufructo, posesión, saneamiento registral y conflictos de propiedad.</p></div>
+      <div class="srv-item reveal rd1"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h4>Derecho de sucesiones</h4><p>Sucesión intestada, testamentos, partición de bienes y resolución de conflictos hereditarios familiares.</p></div>
+      <div class="srv-item reveal rd2"><div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div><h4>Litigación civil</h4><p>Representación en procesos de conocimiento, abreviados, sumarísimos y ejecución de sentencias.</p></div>
+    </div>
+  </section>
+  <section class="sub-cta">
+    <div class="sub-cta-inner">
+      <div style="width:40px;height:2px;background:var(--gold);margin:0 auto 24px"></div>
+      <h3>"Primera consulta sin costo.<br>Te orientamos con claridad."</h3>
+      <p>Sin compromiso · Respuesta en 24 horas hábiles · Confidencialidad garantizada</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/51924333108?text=Hola,%20necesito%20asesor%C3%ADa%20en%20derecho%20civil%20o%20comercial." class="btn-gold" target="_blank">WhatsApp directo</a>
+        <a href="contacto.html" class="btn-ghost">Agendar consulta →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+        <div class="nav-badge" style="width:34px;height:34px;font-size:12px">VA</div>
+        <div><div class="nav-brand-name" style="font-size:13px">Varoli-SLovsa Abogados</div><div class="nav-brand-sub">Estudio Jurídico · Lima</div></div>
+      </div>
+      <p class="footer-desc">Soluciones jurídicas estratégicas para personas y empresas en Lima, Perú.</p>
+    </div>
+    <div>
+      <h4>Servicios</h4>
+      <a href="#" onclick="showArea('contrataciones');return false">Contrataciones del Estado</a>
+      <a href="#" onclick="showArea('laboral');return false">Laboral corporativo</a>
+      <a href="#" onclick="showArea('administrativo');return false">Derecho administrativo</a>
+      <a href="#" onclick="showArea('penal');return false">Derecho penal</a>
+      <a href="#" onclick="showArea('civil');return false">Civil y comercial</a>
+    </div>
+    <div>
+      <h4>Estudio</h4>
+      <a href="estudio.html">El estudio</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="https://wa.me/51924333108" target="_blank">WhatsApp directo</a>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <p>Av. José Leal 835, Of. 302</p>
+      <p>Lince — Lima, Perú</p>
+      <a href="tel:+51924333108">+51 924 333 108</a>
+      <a href="mailto:consultasvaroli@gmail.com">consultasvaroli@gmail.com</a>
+      <p>Lun–Vie 9am–6pm · Sáb 9am–1pm</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Estudio Jurídico Varoli-SLovsa Abogados · Todos los derechos reservados</div>
+    <div class="footer-bl"><a href="#">Política de privacidad</a><a href="#">Ley N° 29733</a></div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40));
+function openMobileMenu(){document.getElementById('mobileMenu').classList.add('open');document.body.style.overflow='hidden'}
+function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow=''}
+
+function showArea(id){
+  document.querySelectorAll('.subpage').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.area-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const tabs=document.querySelectorAll('.area-tab');
+  const map={index:0,contrataciones:1,laboral:2,administrativo:3,penal:4,civil:5};
+  if(tabs[map[id]])tabs[map[id]].classList.add('active');
+  window.scrollTo({top:document.getElementById('areaTabs').offsetTop-68,behavior:'smooth'});
+  setTimeout(()=>{
+    document.querySelectorAll('#page-'+id+' .reveal').forEach(el=>observer.observe(el));
+  },100);
+}
+
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}});
+},{threshold:0.1});
+document.querySelectorAll('#page-index .reveal').forEach(el=>observer.observe(el));
+
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item');
+  const isOpen=item.classList.contains('open');
+  btn.closest('.faq-list').querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+
+const urlParams=new URLSearchParams(window.location.search);
+const areaParam=urlParams.get('area');
+if(areaParam&&['contrataciones','laboral','administrativo','penal','civil'].includes(areaParam)){
+  showArea(areaParam);
+}
+</script>
+</body>
+</html>
