@@ -91,7 +91,7 @@ a{text-decoration:none;color:inherit}
 .hero-name .line1{font-size:clamp(56px,9vw,118px);display:block;opacity:0;animation:titleReveal 1.2s cubic-bezier(.16,1,.3,1) 0.3s forwards;font-weight:500}
 .hero-name .line2{font-size:clamp(56px,9vw,118px);display:block;opacity:0;animation:titleReveal 1.2s cubic-bezier(.16,1,.3,1) 0.5s forwards;color:var(--gold);font-style:italic;font-weight:400}
 .hero-name .line3{font-size:clamp(16px,2.2vw,28px);display:block;opacity:0;animation:titleReveal 1.2s cubic-bezier(.16,1,.3,1) 0.7s forwards;letter-spacing:10px;text-transform:uppercase;color:rgba(220,210,190,0.75);font-style:normal;margin-top:12px;font-family:var(--sans);font-weight:300}
-.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:32px}
+.hero-bottom{display:flex;align-items:flex-start;flex-direction:column;gap:28px}
 .hero-sub{font-family:var(--sans);font-size:14px;color:var(--text-on-dark);line-height:1.75;max-width:400px;font-weight:300;opacity:0;animation:fadeUp 1s ease 1s forwards}
 .hero-btns{display:flex;gap:12px;flex-shrink:0;opacity:0;animation:fadeUp 1s ease 1.1s forwards}
 .btn-gold-solid{background:var(--gold);color:var(--black);padding:14px 28px;border-radius:2px;font-family:var(--sans);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background 0.2s,transform 0.15s;text-decoration:none;font-weight:500}
@@ -177,7 +177,7 @@ a{text-decoration:none;color:inherit}
 .foto-ambiente-img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%);transition:transform 8s ease}
 .foto-ambiente:hover .foto-ambiente-img{transform:scale(1.04)}
 .foto-ambiente-placeholder{width:100%;height:100%;background:url('img/frase-bg.jpg') center/cover no-repeat;filter:grayscale(20%) brightness(0.85)}
-.foto-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,24,48,0.95) 0%,rgba(10,24,48,0.6) 40%,rgba(10,24,48,0.25) 100%)}
+.foto-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,24,48,0.98) 0%,rgba(10,24,48,0.82) 35%,rgba(10,24,48,0.55) 65%,rgba(10,24,48,0.2) 100%)}
 .foto-quote{position:absolute;bottom:56px;left:56px;right:56px;z-index:1}
 .foto-quote blockquote{font-family:var(--serif);font-size:clamp(22px,3vw,36px);font-weight:300;color:var(--cream);font-style:italic;line-height:1.35;max-width:640px}
 .foto-quote cite{display:block;font-family:var(--sans);font-size:10px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:16px;font-style:normal}
@@ -191,30 +191,39 @@ a{text-decoration:none;color:inherit}
 .test-sep{width:24px;height:1px;background:var(--brown);margin-bottom:12px;opacity:0.4}
 .test-author{font-family:var(--sans);font-size:10px;color:var(--text-on-light-muted);letter-spacing:1px;text-transform:uppercase}
 
-/* ── FOTO GRID ── */
-.foto-grid{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:280px 280px;gap:4px}
-.fg-item{overflow:hidden;position:relative}
-.fg-item:first-child{grid-row:1/3}
-.fg-img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%);transition:transform 0.6s ease,filter 0.4s}
-.fg-item:hover .fg-img{transform:scale(1.06);filter:grayscale(0%)}
-.fg-p1{background:url('img/galeria-01.jpg') center/cover no-repeat;filter:grayscale(15%)}
-.fg-p2{background:url('img/galeria-02.jpg') center/cover no-repeat;filter:grayscale(15%)}
-.fg-p3{background:url('img/galeria-03.jpg') center/cover no-repeat;filter:grayscale(15%)}
-.fg-p4{background:url('img/galeria-04.jpg') center/cover no-repeat;filter:grayscale(15%)}
-.fg-p5{background:url('img/galeria-05.jpg') center/cover no-repeat;filter:grayscale(15%)}
-.fg-item:hover .fg-p1,.fg-item:hover .fg-p2,.fg-item:hover .fg-p3,.fg-item:hover .fg-p4,.fg-item:hover .fg-p5{filter:grayscale(0%) brightness(1.05)}
+/* ── COMPROMISOS BAND ── */
+.compromisos-band{background:var(--black-soft);padding:72px 56px;border-top:1px solid rgba(196,154,108,0.08);border-bottom:1px solid rgba(196,154,108,0.08)}
+.compromisos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px}
+.compromiso-item{padding:32px 36px;border-right:1px solid rgba(196,154,108,0.1);position:relative}
+.compromiso-item:last-child{border-right:none}
+.compromiso-icon{font-size:28px;margin-bottom:16px;display:block}
+.compromiso-item h3{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--cream);margin-bottom:10px}
+.compromiso-item p{font-family:var(--sans);font-size:12px;color:var(--text-on-dark);line-height:1.75;font-weight:300}
+.compromiso-num{font-family:var(--serif);font-size:56px;color:rgba(196,154,108,0.07);position:absolute;top:12px;right:20px;line-height:1;font-weight:300}
 
 /* ── NOTICIAS PREVIEW ── */
-.noticias-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
-.noticia-card{background:var(--white);border:1px solid var(--border-light);border-radius:2px;overflow:hidden;cursor:pointer;transition:transform 0.2s,border-color 0.2s}
-.noticia-card:hover{transform:translateY(-4px);border-color:var(--brown)}
-.noticia-img{height:160px;overflow:hidden}
-.noticia-img-placeholder{width:100%;height:100%;background:#e8e2d8;display:flex;align-items:center;justify-content:center;font-size:28px;opacity:0.3;color:var(--brown)}
-.noticia-body{padding:20px}
+.noticias-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
+.noticia-card{background:var(--white);border:1px solid var(--border-light);border-radius:3px;overflow:hidden;cursor:pointer;transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s}
+.noticia-card:hover{transform:translateY(-5px);border-color:var(--brown);box-shadow:0 12px 36px rgba(139,94,60,0.12)}
+.noticia-img{height:180px;overflow:hidden;position:relative}
+.noticia-img-ilustrada{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;position:relative}
+.noticia-img-ilustrada::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,0.15) 100%)}
+.noticia-img-icon{font-size:42px;position:relative;z-index:1}
+.noticia-img-label{font-family:var(--sans);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:500;position:relative;z-index:1;opacity:0.8}
+.ni-contrataciones{background:linear-gradient(135deg,#1a3a6e 0%,#0d2550 100%)}
+.ni-contrataciones .noticia-img-label{color:rgba(196,154,108,0.9)}
+.ni-laboral{background:linear-gradient(135deg,#2d4a2d 0%,#1a321a 100%)}
+.ni-laboral .noticia-img-label{color:rgba(180,220,150,0.85)}
+.ni-civil{background:linear-gradient(135deg,#4a3520 0%,#2d1f0d 100%)}
+.ni-civil .noticia-img-label{color:rgba(220,180,120,0.9)}
+.noticia-body{padding:22px}
 .noticia-tag{font-family:var(--sans);font-size:9px;color:var(--brown);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
-.noticia-card h4{font-family:var(--serif);font-size:17px;color:var(--text-on-light);font-weight:400;line-height:1.3;margin-bottom:8px}
-.noticia-card p{font-family:var(--sans);font-size:11px;color:var(--text-on-light-muted);line-height:1.65;font-weight:300;margin-bottom:14px}
+.noticia-card h4{font-family:var(--serif);font-size:18px;color:var(--text-on-light);font-weight:400;line-height:1.3;margin-bottom:10px}
+.noticia-card p{font-family:var(--sans);font-size:12px;color:var(--text-on-light-muted);line-height:1.7;font-weight:300;margin-bottom:16px}
+.noticia-actions{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .noticia-link{font-family:var(--sans);font-size:10px;color:var(--brown);letter-spacing:1px;text-transform:uppercase}
+.noticia-dl{font-family:var(--sans);font-size:9px;color:rgba(139,94,60,0.65);letter-spacing:0.8px;text-transform:uppercase;border:1px solid rgba(139,94,60,0.25);padding:5px 10px;border-radius:2px;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.noticia-dl:hover{background:var(--brown);color:white;border-color:var(--brown)}
 
 /* ── CTA FINAL ── */
 .cta-final{background:var(--navy);padding:112px 56px;text-align:center;position:relative;overflow:hidden}
@@ -267,8 +276,9 @@ footer a:hover{color:var(--gold)}
   .proceso-grid{grid-template-columns:repeat(2,1fr);gap:32px}
   .proceso-grid::before{display:none}
   .test-grid{grid-template-columns:1fr}
-  .foto-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
-  .fg-item:first-child{grid-row:auto}
+  .compromisos-band{padding:56px 24px}
+  .compromisos-grid{grid-template-columns:1fr 1fr}
+  .compromiso-item{border-right:none;border-bottom:1px solid rgba(196,154,108,0.1)}
   .noticias-grid{grid-template-columns:1fr 1fr}
   .stats-band{padding:0 24px}
   .stat-item{padding:28px 16px}
@@ -281,8 +291,6 @@ footer a:hover{color:var(--gold)}
   .hero-name .line1,.hero-name .line2{font-size:clamp(52px,14vw,80px)}
   .servicios-grid{grid-template-columns:1fr}
   .noticias-grid{grid-template-columns:1fr}
-  .foto-grid{grid-template-columns:1fr}
-  .fg-item{height:220px}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .footer-top{grid-template-columns:1fr}
 }
@@ -309,7 +317,7 @@ footer a:hover{color:var(--gold)}
 <!-- NAV -->
 <nav class="nav" id="mainNav">
   <div class="nav-logo">
-    <div class="nav-badge">VA</div>
+    <div class="nav-badge">VS</div>
     <div>
       <div class="nav-brand-name">Varoli - Slovsa Abogados</div>
       <div class="nav-brand-sub">Estudio Jurídico · Lima</div>
@@ -330,7 +338,6 @@ footer a:hover{color:var(--gold)}
 <section class="hero">
   <div class="hero-bg-img"></div>
   <div class="hero-overlay"></div>
-  <div class="hero-side-text">Lima, Perú · Estudio Jurídico</div>
   <div class="hero-inner">
     <div class="hero-eyebrow fade-up">
       <div class="hero-eyebrow-line"></div>
@@ -477,13 +484,48 @@ footer a:hover{color:var(--gold)}
   </div>
 </section>
 
-<!-- ═══ GALERÍA FOTOS ═══ -->
-<div class="foto-grid">
-  <div class="fg-item fg-p1"></div>
-  <div class="fg-item fg-p2"></div>
-  <div class="fg-item fg-p3"></div>
-  <div class="fg-item fg-p4"></div>
-  <div class="fg-item fg-p5"></div>
+<!-- ═══ COMPROMISOS ═══ -->
+<div class="compromisos-band">
+  <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>Por qué elegirnos</span></div>
+  <h2 class="section-title-dark reveal">Compromisos que<br>nos definen.</h2>
+  <div class="compromisos-grid">
+    <div class="compromiso-item reveal">
+      <span class="compromiso-icon">⚖</span>
+      <div class="compromiso-num">01</div>
+      <h3>Integridad</h3>
+      <p>Honorarios transparentes desde la primera reunión. Sin costos ocultos, sin sorpresas. Lo que acordamos es lo que pagás.</p>
+    </div>
+    <div class="compromiso-item reveal rd1">
+      <span class="compromiso-icon">📋</span>
+      <div class="compromiso-num">02</div>
+      <h3>Excelencia técnica</h3>
+      <p>Actualización normativa permanente en cada área de práctica. Aplicamos el más alto estándar jurídico sin excepciones.</p>
+    </div>
+    <div class="compromiso-item reveal rd2">
+      <span class="compromiso-icon">🤝</span>
+      <div class="compromiso-num">03</div>
+      <h3>Atención directa</h3>
+      <p>El abogado que recibe tu caso lo trabaja y lo resuelve. Sin intermediarios, sin delegaciones, sin perder el hilo de tu situación.</p>
+    </div>
+    <div class="compromiso-item reveal rd1" style="border-top:1px solid rgba(196,154,108,0.1)">
+      <span class="compromiso-icon">⏱</span>
+      <div class="compromiso-num">04</div>
+      <h3>Respuesta en 24h</h3>
+      <p>Toda consulta recibida en horario laboral se responde el mismo día. Fuera de horario, en menos de 24 horas hábiles.</p>
+    </div>
+    <div class="compromiso-item reveal rd2" style="border-top:1px solid rgba(196,154,108,0.1)">
+      <span class="compromiso-icon">🔒</span>
+      <div class="compromiso-num">05</div>
+      <h3>Confidencialidad total</h3>
+      <p>Secreto profesional estricto desde el primer contacto. Tu información está protegida por ley y por nuestro compromiso ético.</p>
+    </div>
+    <div class="compromiso-item reveal rd3" style="border-top:1px solid rgba(196,154,108,0.1)">
+      <span class="compromiso-icon">🛡</span>
+      <div class="compromiso-num">06</div>
+      <h3>Enfoque preventivo</h3>
+      <p>Te ayudamos a evitar conflictos antes de que escalen. Prevenir cuesta diez veces menos que resolver.</p>
+    </div>
+  </div>
 </div>
 
 <!-- ═══ TESTIMONIOS ═══ -->
@@ -512,30 +554,54 @@ footer a:hover{color:var(--gold)}
   <h2 class="section-title-light reveal">Últimas noticias</h2>
   <div class="noticias-grid">
     <div class="noticia-card reveal">
-      <div class="noticia-img"><div class="noticia-img-placeholder">⚖</div></div>
+      <div class="noticia-img">
+        <div class="noticia-img-ilustrada ni-contrataciones">
+          <span class="noticia-img-icon">⚖️</span>
+          <span class="noticia-img-label">Contrataciones del Estado</span>
+        </div>
+      </div>
       <div class="noticia-body">
-        <div class="noticia-tag">Contrataciones del Estado · Mayo 2026</div>
+        <div class="noticia-tag">Mayo 2026</div>
         <h4>Nueva Ley N° 32069: cambios clave que todo proveedor debe conocer</h4>
-        <p>La nueva normativa modifica plazos, habilitación y el proceso de apelación ante el TCE.</p>
-        <a href="noticias.html" class="noticia-link">Leer nota →</a>
+        <p>La nueva normativa modifica plazos, habilitación y el proceso de apelación ante el Tribunal de Contrataciones del Estado.</p>
+        <div class="noticia-actions">
+          <a href="noticias.html" class="noticia-link">Leer nota →</a>
+          <a href="docs/guia-contratos-comerciales.pdf" download class="noticia-dl">⬇ Guía PDF</a>
+        </div>
       </div>
     </div>
     <div class="noticia-card reveal rd1">
-      <div class="noticia-img"><div class="noticia-img-placeholder">👔</div></div>
+      <div class="noticia-img">
+        <div class="noticia-img-ilustrada ni-laboral">
+          <span class="noticia-img-icon">👔</span>
+          <span class="noticia-img-label">Derecho Laboral</span>
+        </div>
+      </div>
       <div class="noticia-body">
-        <div class="noticia-tag">Laboral · Abril 2026</div>
+        <div class="noticia-tag">Abril 2026</div>
         <h4>SUNAFIL amplía sus facultades de fiscalización: qué deben saber las empresas</h4>
-        <p>El nuevo reglamento otorga mayores atribuciones a los inspectores de trabajo.</p>
-        <a href="noticias.html" class="noticia-link">Leer nota →</a>
+        <p>El nuevo reglamento otorga mayores atribuciones a los inspectores para revisar contratos y planillas sin previo aviso.</p>
+        <div class="noticia-actions">
+          <a href="noticias.html" class="noticia-link">Leer nota →</a>
+          <a href="docs/checklist-sunafil.pdf" download class="noticia-dl">⬇ Checklist</a>
+        </div>
       </div>
     </div>
     <div class="noticia-card reveal rd2">
-      <div class="noticia-img"><div class="noticia-img-placeholder">📋</div></div>
+      <div class="noticia-img">
+        <div class="noticia-img-ilustrada ni-civil">
+          <span class="noticia-img-icon">📋</span>
+          <span class="noticia-img-label">Derecho Civil</span>
+        </div>
+      </div>
       <div class="noticia-body">
-        <div class="noticia-tag">Civil · Marzo 2026</div>
+        <div class="noticia-tag">Marzo 2026</div>
         <h4>5 cláusulas que nunca deberías firmar en un contrato comercial</h4>
-        <p>Las cláusulas abusivas más frecuentes y cómo identificarlas antes de firmar.</p>
-        <a href="noticias.html" class="noticia-link">Leer nota →</a>
+        <p>Las cláusulas abusivas más frecuentes y cómo identificarlas antes de firmar cualquier acuerdo.</p>
+        <div class="noticia-actions">
+          <a href="noticias.html" class="noticia-link">Leer nota →</a>
+          <a href="docs/modelo-carta-notarial.pdf" download class="noticia-dl">⬇ Modelo</a>
+        </div>
       </div>
     </div>
   </div>
@@ -564,7 +630,7 @@ footer a:hover{color:var(--gold)}
   <div class="footer-top">
     <div class="footer-brand">
       <div class="footer-logo">
-        <div class="nav-badge">VA</div>
+        <div class="nav-badge">VS</div>
         <div>
           <div class="footer-brand-name">Varoli - Slovsa Abogados</div>
           <div class="footer-brand-sub">Estudio Jurídico · Lima</div>

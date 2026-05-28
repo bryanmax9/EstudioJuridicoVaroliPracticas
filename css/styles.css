@@ -1,0 +1,43 @@
+/* ═══════════════════════════════════════════════
+   VAROLI - SLOVSA ABOGADOS
+   Hoja de estilos global compartida
+   Versión 1.0 — Mayo 2026
+═══════════════════════════════════════════════ */
+
+:root {
+  --navy:        #0A1F44;
+  --navy-mid:    #0d2550;
+  --navy-dark:   #071630;
+  --brown:       #8B5E3C;
+  --brown-light: #b07d52;
+  --gold:        #C49A6C;
+  --gold-light:  #d4b090;
+  --black:       #0c1e3a;
+  --cream:       #F8F6F1;
+  --cream-mid:   #e8e2d8;
+  --white:       #ffffff;
+  --text-dark:   #1a1610;
+  --text-mid:    #383830;
+  --text-muted:  #585850;
+  --text-subtle: #787870;
+  --border-light:#e4e0d8;
+  --border-mid:  #d4cfc5;
+  --serif:       'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --sans:        'DM Sans', sans-serif;
+}
+
+/* Fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* Reset base */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); overflow-x: hidden; }
+img  { max-width: 100%; height: auto; display: block; }
+a    { text-decoration: none; color: inherit; }
+
+/* Utilidades comunes */
+.serif  { font-family: var(--serif); }
+.gold   { color: var(--gold); }
+.navy   { color: var(--navy); }
+.center { text-align: center; }

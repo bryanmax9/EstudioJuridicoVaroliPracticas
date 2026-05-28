@@ -107,12 +107,23 @@ a{text-decoration:none;color:inherit}
 /* GRID NOTICIAS */
 .noticias-section{padding:48px 48px 80px}
 .noticias-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.nota-card{background:var(--white);border:1px solid var(--border-light);border-radius:6px;overflow:hidden;cursor:pointer;transition:transform 0.2s,border-color 0.2s;display:flex;flex-direction:column}
-.nota-card:hover{transform:translateY(-4px);border-color:rgba(181,134,58,0.3)}
-.nota-card-img{height:180px;background:#e8e4dc;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.nota-card-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:32px;opacity:0.25}
-.nota-card-img img{width:100%;height:100%;object-fit:cover}
-.nota-card-cat{position:absolute;top:14px;left:14px}
+.nota-card{background:var(--white);border:1px solid var(--border-light);border-radius:6px;overflow:hidden;cursor:pointer;transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s;display:flex;flex-direction:column}
+.nota-card:hover{transform:translateY(-4px);border-color:rgba(181,134,58,0.35);box-shadow:0 10px 32px rgba(0,0,0,0.08)}
+.nota-card-img{height:200px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px}
+.nota-card-img-ilustrada{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:absolute;inset:0}
+.nota-card-img-icon{font-size:44px;position:relative;z-index:1}
+.nota-card-img-cat-label{font-family:var(--sans);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:500;position:relative;z-index:1;opacity:0.75}
+.ni-contrataciones{background:linear-gradient(135deg,#1a3a6e 0%,#0d2040 100%)}
+.ni-contrataciones .nota-card-img-cat-label{color:rgba(196,154,108,0.9)}
+.ni-laboral{background:linear-gradient(135deg,#1e3a1e 0%,#0d1f0d 100%)}
+.ni-laboral .nota-card-img-cat-label{color:rgba(160,220,130,0.85)}
+.ni-penal{background:linear-gradient(135deg,#3a1a1a 0%,#200d0d 100%)}
+.ni-penal .nota-card-img-cat-label{color:rgba(220,150,150,0.85)}
+.ni-civil{background:linear-gradient(135deg,#3a2a10 0%,#201508 100%)}
+.ni-civil .nota-card-img-cat-label{color:rgba(220,180,100,0.9)}
+.ni-administrativo{background:linear-gradient(135deg,#1a2a3a 0%,#0d1820 100%)}
+.ni-administrativo .nota-card-img-cat-label{color:rgba(140,190,240,0.85)}
+.nota-card-cat{position:absolute;top:14px;left:14px;z-index:2}
 .nota-card-body{padding:22px 20px;flex:1;display:flex;flex-direction:column}
 .nota-card-meta{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .nota-card-fecha{font-family:var(--sans);font-size:10px;color:var(--text-subtle);letter-spacing:0.5px}
@@ -121,6 +132,25 @@ a{text-decoration:none;color:inherit}
 .nota-card p{font-family:var(--sans);font-size:12px;color:var(--text-muted);line-height:1.7;font-weight:300;flex:1;margin-bottom:18px}
 .nota-card-link{font-family:var(--sans);font-size:10px;color:var(--gold);letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:5px;margin-top:auto;transition:gap 0.2s}
 .nota-card:hover .nota-card-link{gap:8px}
+
+/* PANEL EXPANDIBLE */
+.nota-panel{display:none;position:fixed;inset:0;z-index:500;background:rgba(10,20,44,0.85);backdrop-filter:blur(6px);overflow-y:auto;padding:40px 24px}
+.nota-panel.open{display:flex;align-items:flex-start;justify-content:center}
+.nota-panel-inner{background:#fff;border-radius:8px;max-width:720px;width:100%;margin:auto;overflow:hidden;box-shadow:0 24px 72px rgba(0,0,0,0.35);animation:panelIn 0.35s cubic-bezier(.16,1,.3,1)}
+@keyframes panelIn{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+.nota-panel-img{height:260px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;position:relative}
+.nota-panel-img-icon{font-size:64px;position:relative;z-index:1}
+.nota-panel-img-label{font-family:var(--sans);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;position:relative;z-index:1;opacity:0.75}
+.nota-panel-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.15);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:background 0.2s}
+.nota-panel-close:hover{background:rgba(255,255,255,0.3)}
+.nota-panel-body{padding:36px 40px 40px}
+.nota-panel-cat{font-family:var(--sans);font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.nota-panel-body h2{font-family:var(--serif);font-size:clamp(22px,3vw,28px);font-weight:400;color:var(--navy);line-height:1.25;margin-bottom:16px}
+.nota-panel-meta{font-family:var(--sans);font-size:10px;color:var(--text-subtle);margin-bottom:24px;letter-spacing:0.3px}
+.nota-panel-body p{font-family:var(--sans);font-size:13px;color:var(--text-mid);line-height:1.85;font-weight:300;margin-bottom:14px}
+.nota-panel-cta{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+.nota-panel-wa{background:var(--gold);color:#fff;padding:11px 22px;border-radius:3px;font-family:var(--sans);font-size:11px;letter-spacing:0.8px;text-transform:uppercase;text-decoration:none;transition:background 0.2s;display:inline-flex;align-items:center;gap:8px}
+.nota-panel-wa:hover{background:var(--gold-light)}
 
 /* RECURSOS DESCARGABLES */
 .recursos-section{background:var(--white);padding:72px 48px}
@@ -241,7 +271,7 @@ footer a:hover{color:rgba(181,134,58,0.9)}
 <!-- NAV -->
 <nav class="nav" id="mainNav">
   <div class="nav-logo">
-    <div class="nav-badge">VA</div>
+    <div class="nav-badge">VS</div>
     <div><div class="nav-brand-name">Varoli-SLovsa Abogados</div><div class="nav-brand-sub">Estudio Jurídico · Lima</div></div>
   </div>
   <div class="nav-links">
@@ -281,10 +311,9 @@ footer a:hover{color:rgba(181,134,58,0.9)}
 
 <!-- NOTA DESTACADA -->
 <div class="nota-destacada reveal" id="notaDestacada">
-  <div class="nota-dest-card" data-categoria="contrataciones">
-    <div class="nota-dest-img">
-      <div class="nota-dest-img-placeholder"><div class="nota-dest-img-icon">⚖</div></div>
-      <!-- Reemplazar con imagen: <img src="img/hero-bg.jpg" alt=""> -->
+  <div class="nota-dest-card" data-categoria="contrataciones" onclick="abrirPanel(0)" style="cursor:pointer">
+    <div class="nota-dest-img ni-contrataciones" style="background:linear-gradient(135deg,#1a3a6e 0%,#0d2040 100%)">
+      <div class="nota-dest-img-placeholder" style="background:transparent"><div class="nota-dest-img-icon" style="opacity:0.2;font-size:72px">⚖️</div></div>
       <div class="nota-dest-cat">
         <span class="cat-badge cat-contrataciones">Contrataciones del Estado</span>
       </div>
@@ -296,8 +325,28 @@ footer a:hover{color:rgba(181,134,58,0.9)}
         <span class="nota-meta-lectura">5 min de lectura</span>
       </div>
       <h2>Nueva Ley N° 32069: los cambios clave en contrataciones del Estado que todo proveedor debe conocer</h2>
-      <p>La nueva normativa modifica plazos, requisitos de habilitación y el proceso de apelación ante el Tribunal de Contrataciones. Te explicamos qué cambia y cómo impacta en tu empresa.</p>
-      <span class="nota-leer">Leer nota completa →</span>
+      <p>La nueva normativa modifica plazos, requisitos de habilitación y el proceso de apelación ante el Tribunal de Contrataciones. Tocá para ver el resumen completo.</p>
+      <span class="nota-leer">Ver resumen →</span>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL EXPANDIBLE -->
+<div class="nota-panel" id="notaPanel" onclick="cerrarPanel(event)">
+  <div class="nota-panel-inner" id="notaPanelInner">
+    <div class="nota-panel-img" id="panelImg">
+      <button class="nota-panel-close" onclick="cerrarPanel(null)">×</button>
+      <span class="nota-panel-img-icon" id="panelIcon">⚖️</span>
+      <span class="nota-panel-img-label" id="panelLabel">Contrataciones del Estado</span>
+    </div>
+    <div class="nota-panel-body">
+      <div class="nota-panel-cat" id="panelCat">Contrataciones del Estado · Mayo 2026</div>
+      <h2 id="panelTitle">Título</h2>
+      <div class="nota-panel-meta" id="panelMeta">Lectura estimada: 5 min</div>
+      <div id="panelContent"></div>
+      <div class="nota-panel-cta">
+        <a href="https://wa.me/51924333108?text=Hola,%20leí%20una%20noticia%20y%20tengo%20una%20consulta." class="nota-panel-wa" target="_blank">Consultar por WhatsApp →</a>
+      </div>
     </div>
   </div>
 </div>
@@ -306,9 +355,12 @@ footer a:hover{color:rgba(181,134,58,0.9)}
 <section class="noticias-section">
   <div class="noticias-grid" id="noticiasGrid">
 
-    <div class="nota-card reveal" data-categoria="laboral">
+    <div class="nota-card reveal" data-categoria="laboral" onclick="abrirPanel(1)">
       <div class="nota-card-img">
-        <div class="nota-card-img-placeholder">👔</div>
+        <div class="nota-card-img-ilustrada ni-laboral">
+          <span class="nota-card-img-icon">👔</span>
+          <span class="nota-card-img-cat-label">Derecho Laboral</span>
+        </div>
         <div class="nota-card-cat"><span class="cat-badge cat-laboral">Laboral</span></div>
       </div>
       <div class="nota-card-body">
@@ -318,14 +370,17 @@ footer a:hover{color:rgba(181,134,58,0.9)}
           <span class="nota-card-lectura">4 min</span>
         </div>
         <h3>SUNAFIL amplía sus facultades de fiscalización: qué deben saber las empresas</h3>
-        <p>El nuevo reglamento otorga a los inspectores de trabajo mayores atribuciones para revisar contratos, planillas y beneficios sociales sin previo aviso.</p>
-        <span class="nota-card-link">Leer más →</span>
+        <p>El nuevo reglamento otorga a los inspectores mayores atribuciones para revisar contratos y planillas sin previo aviso.</p>
+        <span class="nota-card-link">Ver resumen →</span>
       </div>
     </div>
 
-    <div class="nota-card reveal rd1" data-categoria="penal">
+    <div class="nota-card reveal rd1" data-categoria="penal" onclick="abrirPanel(2)">
       <div class="nota-card-img">
-        <div class="nota-card-img-placeholder">🔒</div>
+        <div class="nota-card-img-ilustrada ni-penal">
+          <span class="nota-card-img-icon">🔒</span>
+          <span class="nota-card-img-cat-label">Derecho Penal</span>
+        </div>
         <div class="nota-card-cat"><span class="cat-badge cat-penal">Penal</span></div>
       </div>
       <div class="nota-card-body">
@@ -335,14 +390,17 @@ footer a:hover{color:rgba(181,134,58,0.9)}
           <span class="nota-card-lectura">3 min</span>
         </div>
         <h3>Prisión preventiva: cuándo procede y cómo defenderse efectivamente</h3>
-        <p>Analizamos los presupuestos legales que el Ministerio Público debe acreditar y las estrategias de defensa más efectivas ante esta medida cautelar.</p>
-        <span class="nota-card-link">Leer más →</span>
+        <p>Los presupuestos legales que el Ministerio Público debe acreditar y las estrategias de defensa más efectivas.</p>
+        <span class="nota-card-link">Ver resumen →</span>
       </div>
     </div>
 
-    <div class="nota-card reveal rd2" data-categoria="civil">
+    <div class="nota-card reveal rd2" data-categoria="civil" onclick="abrirPanel(3)">
       <div class="nota-card-img">
-        <div class="nota-card-img-placeholder">📋</div>
+        <div class="nota-card-img-ilustrada ni-civil">
+          <span class="nota-card-img-icon">📋</span>
+          <span class="nota-card-img-cat-label">Derecho Civil</span>
+        </div>
         <div class="nota-card-cat"><span class="cat-badge cat-civil">Civil</span></div>
       </div>
       <div class="nota-card-body">
@@ -352,14 +410,17 @@ footer a:hover{color:rgba(181,134,58,0.9)}
           <span class="nota-card-lectura">5 min</span>
         </div>
         <h3>5 cláusulas que nunca deberías firmar en un contrato comercial</h3>
-        <p>Desde penalidades desproporcionadas hasta renuncias encubiertas a derechos: las cláusulas abusivas más frecuentes y cómo identificarlas antes de firmar.</p>
-        <span class="nota-card-link">Leer más →</span>
+        <p>Las cláusulas abusivas más frecuentes y cómo identificarlas antes de firmar cualquier acuerdo.</p>
+        <span class="nota-card-link">Ver resumen →</span>
       </div>
     </div>
 
-    <div class="nota-card reveal" data-categoria="administrativo">
+    <div class="nota-card reveal" data-categoria="administrativo" onclick="abrirPanel(4)">
       <div class="nota-card-img">
-        <div class="nota-card-img-placeholder">🏛</div>
+        <div class="nota-card-img-ilustrada ni-administrativo">
+          <span class="nota-card-img-icon">🏛️</span>
+          <span class="nota-card-img-cat-label">Derecho Administrativo</span>
+        </div>
         <div class="nota-card-cat"><span class="cat-badge cat-administrativo">Administrativo</span></div>
       </div>
       <div class="nota-card-body">
@@ -369,15 +430,18 @@ footer a:hover{color:rgba(181,134,58,0.9)}
           <span class="nota-card-lectura">4 min</span>
         </div>
         <h3>Cómo impugnar una multa administrativa: plazos y estrategias que funcionan</h3>
-        <p>Muchas sanciones impuestas por entidades del Estado son impugnables. Te explicamos el proceso, los plazos y qué argumentos tienen mayor probabilidad de éxito.</p>
-        <span class="nota-card-link">Leer más →</span>
+        <p>Muchas sanciones del Estado son impugnables. Te explicamos el proceso, los plazos y los argumentos más efectivos.</p>
+        <span class="nota-card-link">Ver resumen →</span>
       </div>
     </div>
 
-    <div class="nota-card reveal rd1" data-categoria="contrataciones">
+    <div class="nota-card reveal rd1" data-categoria="contrataciones" onclick="abrirPanel(5)">
       <div class="nota-card-img">
-        <div class="nota-card-img-placeholder">📑</div>
-        <div class="nota-card-cat"><span class="cat-badge cat-contrataciones">Contrataciones del Estado</span></div>
+        <div class="nota-card-img-ilustrada ni-contrataciones">
+          <span class="nota-card-img-icon">📑</span>
+          <span class="nota-card-img-cat-label">Contrataciones del Estado</span>
+        </div>
+        <div class="nota-card-cat"><span class="cat-badge cat-contrataciones">Contrataciones</span></div>
       </div>
       <div class="nota-card-body">
         <div class="nota-card-meta">
@@ -386,14 +450,17 @@ footer a:hover{color:rgba(181,134,58,0.9)}
           <span class="nota-card-lectura">6 min</span>
         </div>
         <h3>Proceso sancionador OSCE: cómo presentar descargos que realmente funcionen</h3>
-        <p>La calidad técnica y jurídica de los descargos es determinante. Analizamos los errores más comunes y las claves para una defensa efectiva ante el Tribunal.</p>
-        <span class="nota-card-link">Leer más →</span>
+        <p>La calidad técnica de los descargos es determinante. Los errores más comunes y las claves para una defensa efectiva.</p>
+        <span class="nota-card-link">Ver resumen →</span>
       </div>
     </div>
 
-    <div class="nota-card reveal rd2" data-categoria="laboral">
+    <div class="nota-card reveal rd2" data-categoria="laboral" onclick="abrirPanel(6)">
       <div class="nota-card-img">
-        <div class="nota-card-img-placeholder">📊</div>
+        <div class="nota-card-img-ilustrada ni-laboral">
+          <span class="nota-card-img-icon">📊</span>
+          <span class="nota-card-img-cat-label">Derecho Laboral</span>
+        </div>
         <div class="nota-card-cat"><span class="cat-badge cat-laboral">Laboral</span></div>
       </div>
       <div class="nota-card-body">
@@ -402,9 +469,9 @@ footer a:hover{color:rgba(181,134,58,0.9)}
           <span class="nota-meta-sep" style="background:var(--border-mid);width:3px;height:3px;border-radius:50%"></span>
           <span class="nota-card-lectura">4 min</span>
         </div>
-        <h3>Liquidación de beneficios sociales: los errores de cálculo que más generan demandas</h3>
-        <p>CTS, vacaciones truncas, gratificaciones proporcionales — los conceptos que las empresas calculan mal y que terminan en procesos judiciales evitables.</p>
-        <span class="nota-card-link">Leer más →</span>
+        <h3>Liquidación de beneficios sociales: los errores que más generan demandas</h3>
+        <p>CTS, vacaciones truncas, gratificaciones — los conceptos que las empresas calculan mal y terminan en juicios evitables.</p>
+        <span class="nota-card-link">Ver resumen →</span>
       </div>
     </div>
 
@@ -483,10 +550,7 @@ footer a:hover{color:rgba(181,134,58,0.9)}
     <h2 class="reveal">"¿Tenés una consulta<br>después de leer esto?"</h2>
     <p class="reveal">Primera consulta gratuita de 30 minutos · Respuesta en menos de 24 horas hábiles</p>
     <div class="cta-btns reveal">
-      <a href="https://wa.me/51924333108?text=Hola,%20leí%20una%20noticia%20y%20tengo%20una%20consulta." class="btn-gold" target="_blank">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Consultar por WhatsApp
-      </a>
+      <a href="https://wa.me/51924333108?text=Hola,%20le%C3%AD%20una%20noticia%20y%20tengo%20una%20consulta." class="btn-gold" target="_blank">Consultar por WhatsApp</a>
       <a href="contacto.html" class="btn-ghost">Enviar consulta →</a>
     </div>
   </div>
@@ -497,18 +561,18 @@ footer a:hover{color:rgba(181,134,58,0.9)}
   <div class="footer-grid">
     <div>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-        <div class="nav-badge" style="width:34px;height:34px;font-size:12px">VA</div>
+        <div class="nav-badge" style="width:34px;height:34px;font-size:12px">VS</div>
         <div><div class="nav-brand-name" style="font-size:13px">Varoli-SLovsa Abogados</div><div class="nav-brand-sub">Estudio Jurídico · Lima</div></div>
       </div>
       <p class="footer-desc">Soluciones jurídicas estratégicas para personas y empresas en Lima, Perú.</p>
     </div>
     <div>
       <h4>Servicios</h4>
-      <a href="servicios.html?area=contrataciones">Contrataciones del Estado</a>
-      <a href="servicios.html?area=laboral">Laboral corporativo</a>
-      <a href="servicios.html?area=administrativo">Derecho administrativo</a>
-      <a href="servicios.html?area=penal">Derecho penal</a>
-      <a href="servicios.html?area=civil">Civil y comercial</a>
+      <a href="servicios.html">Contrataciones del Estado</a>
+      <a href="servicios.html">Laboral corporativo</a>
+      <a href="servicios.html">Derecho administrativo</a>
+      <a href="servicios.html">Derecho penal</a>
+      <a href="servicios.html">Civil y comercial</a>
     </div>
     <div>
       <h4>Estudio</h4>
@@ -528,65 +592,154 @@ footer a:hover{color:rgba(181,134,58,0.9)}
   </div>
   <div class="footer-bottom">
     <div class="footer-copy">© 2026 Estudio Jurídico Varoli-SLovsa Abogados · Todos los derechos reservados</div>
-    <div class="footer-bl"><a href="#">Política de privacidad</a><a href="#">Ley N° 29733</a></div>
+    <div class="footer-bl">
+      <a href="#">Política de privacidad</a>
+      <a href="#">Ley N° 29733</a>
+    </div>
   </div>
 </footer>
 
 <script>
-const nav=document.getElementById('mainNav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40));
-function openMobileMenu(){document.getElementById('mobileMenu').classList.add('open');document.body.style.overflow='hidden'}
-function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow=''}
 
-const observer=new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}});
-},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-function filtrar(categoria, btn){
-  document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-
-  const cards = document.querySelectorAll('.nota-card');
-  const destacada = document.getElementById('notaDestacada');
-  let visibles = 0;
-
-  cards.forEach(card=>{
-    const cat = card.dataset.categoria;
-    const mostrar = categoria === 'todos' || cat === categoria;
-    card.style.display = mostrar ? 'flex' : 'none';
-    if(mostrar) visibles++;
-  });
-
-  // Nota destacada
-  if(destacada){
-    const destCat = destacada.querySelector('[data-categoria]')?.dataset.categoria;
-    destacada.style.display = (categoria === 'todos' || destCat === categoria) ? 'block' : 'none';
+const noticias = [
+  {
+    icon:'⚖️', label:'Contrataciones del Estado', cat:'Contrataciones del Estado · Mayo 2026',
+    bg:'linear-gradient(135deg,#1a3a6e 0%,#0d2040 100%)',
+    title:'Nueva Ley N° 32069: los cambios clave en contrataciones del Estado que todo proveedor debe conocer',
+    meta:'Mayo 2026 · 5 min de lectura',
+    content:`<p>La <strong>Ley N° 32069</strong> introduce modificaciones significativas al régimen de contrataciones del Estado en Perú. Los cambios principales incluyen:</p>
+<p><strong>1. Plazos de apelación:</strong> El plazo para interponer recursos de apelación ante el Tribunal de Contrataciones del Estado (TCE) se modifica, con nuevas reglas para el cómputo de días hábiles.</p>
+<p><strong>2. Requisitos de habilitación:</strong> Se actualizan los requisitos para participar en procesos de selección, incluyendo nuevas exigencias de capacidad técnica y financiera.</p>
+<p><strong>3. Proceso de apelación:</strong> El procedimiento ante el TCE incorpora etapas de conciliación previa y nuevos criterios de admisibilidad.</p>
+<p><strong>¿Qué debe hacer tu empresa?</strong> Revisar tus contratos vigentes, actualizar tu documentación de habilitación y consultar con un especialista antes de participar en nuevos procesos de selección.</p>`
+  },
+  {
+    icon:'👔', label:'Derecho Laboral', cat:'Laboral · Abril 2026',
+    bg:'linear-gradient(135deg,#1e3a1e 0%,#0d1f0d 100%)',
+    title:'SUNAFIL amplía sus facultades de fiscalización: qué deben saber las empresas',
+    meta:'Abril 2026 · 4 min de lectura',
+    content:`<p>El nuevo reglamento de SUNAFIL otorga a los inspectores de trabajo <strong>mayores atribuciones</strong> para revisar el cumplimiento laboral en las empresas:</p>
+<p><strong>1. Inspecciones sin previo aviso:</strong> Los inspectores pueden presentarse en cualquier momento dentro del horario laboral sin notificación previa.</p>
+<p><strong>2. Acceso a documentación digital:</strong> Ahora pueden requerir acceso a sistemas de planillas electrónicas y contratos digitalizados.</p>
+<p><strong>3. Sanciones ampliadas:</strong> Las multas por infracciones muy graves pueden alcanzar hasta 200 UIT para empresas con más de 100 trabajadores.</p>
+<p><strong>¿Cómo prepararse?</strong> Realizar una auditoría laboral preventiva, verificar contratos, planillas y beneficios sociales antes de recibir una inspección.</p>`
+  },
+  {
+    icon:'🔒', label:'Derecho Penal', cat:'Penal · Abril 2026',
+    bg:'linear-gradient(135deg,#3a1a1a 0%,#200d0d 100%)',
+    title:'Prisión preventiva: cuándo procede y cómo defenderse efectivamente',
+    meta:'Abril 2026 · 3 min de lectura',
+    content:`<p>La prisión preventiva es una medida cautelar que el Ministerio Público puede solicitar en determinadas circunstancias. Es fundamental conocer sus presupuestos legales:</p>
+<p><strong>1. Requisitos legales (Art. 268 CPP):</strong> Existen fundados y graves elementos de convicción, sanción superior a 4 años, y peligro de fuga u obstaculización probatoria.</p>
+<p><strong>2. Estrategias de defensa:</strong> Desvirtuar los elementos de convicción, demostrar arraigo domiciliario, laboral y familiar, y cuestionar el peligro procesal invocado.</p>
+<p><strong>3. Recursos disponibles:</strong> Apelación ante la Sala Penal, variación de la medida, y solicitud de comparecencia con restricciones como alternativa.</p>
+<p><strong>Actuar en las primeras horas es crítico.</strong> Si recibiste una citación fiscal o existe riesgo de prisión preventiva, contactanos de inmediato.</p>`
+  },
+  {
+    icon:'📋', label:'Derecho Civil', cat:'Civil · Marzo 2026',
+    bg:'linear-gradient(135deg,#3a2a10 0%,#201508 100%)',
+    title:'5 cláusulas que nunca deberías firmar en un contrato comercial',
+    meta:'Marzo 2026 · 5 min de lectura',
+    content:`<p>Antes de firmar cualquier contrato comercial, verificá que no contenga estas cláusulas problemáticas:</p>
+<p><strong>1. Penalidades desproporcionadas:</strong> Cláusulas que establecen multas excesivas sin proporcionalidad con el daño real causado por el incumplimiento.</p>
+<p><strong>2. Renuncia encubierta a derechos:</strong> Frases como "el proveedor renuncia a toda acción legal" que eliminan tu capacidad de reclamar.</p>
+<p><strong>3. Jurisdicción desfavorable:</strong> Someterse a tribunales de otras ciudades o países sin justificación, generando costos procesales elevados.</p>
+<p><strong>4. Prórroga automática indefinida:</strong> Contratos que se renuevan solos sin aviso previo, generando obligaciones no deseadas.</p>
+<p><strong>5. Exclusividad sin compensación:</strong> Cláusulas que te impiden trabajar con otros clientes sin reconocerte un beneficio económico a cambio.</p>`
+  },
+  {
+    icon:'🏛️', label:'Derecho Administrativo', cat:'Administrativo · Marzo 2026',
+    bg:'linear-gradient(135deg,#1a2a3a 0%,#0d1820 100%)',
+    title:'Cómo impugnar una multa administrativa: plazos y estrategias que funcionan',
+    meta:'Marzo 2026 · 4 min de lectura',
+    content:`<p>Muchas sanciones administrativas son impugnables. Conocé el proceso y los plazos para defenderte:</p>
+<p><strong>1. Recurso de reconsideración:</strong> Se interpone ante la misma entidad que emitió la sanción. Plazo: 15 días hábiles desde la notificación. Requiere nueva prueba instrumental.</p>
+<p><strong>2. Recurso de apelación:</strong> Ante el superior jerárquico. Plazo: 15 días hábiles. Se puede plantear cuestiones de puro derecho sin necesidad de nueva prueba.</p>
+<p><strong>3. Acción contencioso-administrativa:</strong> Ante el Poder Judicial. Plazo: 3 meses desde que se agotó la vía administrativa.</p>
+<p><strong>Argumentos más efectivos:</strong> Vicios de procedimiento, falta de motivación, desproporcionalidad de la sanción, prescripción de la infracción.</p>`
+  },
+  {
+    icon:'📑', label:'Contrataciones del Estado', cat:'Contrataciones del Estado · Febrero 2026',
+    bg:'linear-gradient(135deg,#1a3a6e 0%,#0d2040 100%)',
+    title:'Proceso sancionador OSCE: cómo presentar descargos que realmente funcionen',
+    meta:'Febrero 2026 · 6 min de lectura',
+    content:`<p>La calidad técnica y jurídica de los descargos ante el OSCE es determinante para el resultado del proceso sancionador:</p>
+<p><strong>1. Errores más comunes:</strong> Presentar descargos genéricos sin abordar los cargos específicos, no acompañar prueba documental suficiente, y superar el plazo de 10 días hábiles.</p>
+<p><strong>2. Estructura efectiva:</strong> Encabezado identificatorio, resumen ejecutivo, análisis de cada cargo, ofrecimiento de pruebas y petitorio concreto.</p>
+<p><strong>3. Pruebas clave:</strong> Documentación contractual completa, correos electrónicos, actas de reuniones, constancias de entrega y cualquier comunicación formal con la entidad.</p>
+<p><strong>4. Argumentos jurídicos:</strong> Incumplimiento sin dolo, caso fortuito o fuerza mayor, responsabilidad de la entidad, y proporcionalidad de la sanción.</p>
+<p><strong>El plazo es fatal:</strong> Vencidos los 10 días hábiles, el derecho a defenderse se pierde y el proceso continúa sin tu versión.</p>`
+  },
+  {
+    icon:'📊', label:'Derecho Laboral', cat:'Laboral · Febrero 2026',
+    bg:'linear-gradient(135deg,#1e3a1e 0%,#0d1f0d 100%)',
+    title:'Liquidación de beneficios sociales: los errores que más generan demandas',
+    meta:'Febrero 2026 · 4 min de lectura',
+    content:`<p>Los errores en el cálculo de beneficios sociales son una de las principales causas de demandas laborales en Perú. Los conceptos más conflictivos:</p>
+<p><strong>1. CTS (Compensación por Tiempo de Servicios):</strong> Error frecuente: no incluir gratificaciones en el cálculo de la remuneración computable. El error acumulado puede ser significativo.</p>
+<p><strong>2. Vacaciones truncas:</strong> Muchas empresas no pagan el proporcional de vacaciones al cese. Es obligatorio si el trabajador completó más de un mes de servicios.</p>
+<p><strong>3. Gratificaciones proporcionales:</strong> En caso de cese antes de julio o diciembre, corresponde el proporcional de la gratificación según los meses trabajados.</p>
+<p><strong>4. Horas extras no reconocidas:</strong> El no registro y pago de horas extras genera intereses y multas SUNAFIL además de la demanda laboral.</p>
+<p><strong>Prevención:</strong> Una auditoría laboral periódica detecta estos errores antes de que generen conflictos judiciales costosos.</p>`
   }
+];
 
-  document.getElementById('emptyState').style.display = visibles === 0 ? 'block' : 'none';
 
-  // Re-observar cards visibles
-  setTimeout(()=>{
-    document.querySelectorAll('.nota-card[style*="flex"]').forEach(el=>{
-      el.classList.remove('visible');
-      observer.observe(el);
-    });
-  },50);
+function abrirPanel(idx) {
+  const n = noticias[idx];
+  document.getElementById('panelImg').style.background = n.bg;
+  document.getElementById('panelIcon').textContent = n.icon;
+  document.getElementById('panelLabel').textContent = n.label;
+  document.getElementById('panelCat').textContent = n.cat;
+  document.getElementById('panelTitle').textContent = n.title;
+  document.getElementById('panelMeta').textContent = 'Lectura estimada: ' + n.meta;
+  document.getElementById('panelContent').innerHTML = n.content;
+  document.getElementById('notaPanel').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
-function suscribir(){
+function cerrarPanel(e) {
+  if (e && e.target !== document.getElementById('notaPanel')) return;
+  document.getElementById('notaPanel').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') cerrarPanel(null);
+});
+
+const nav = document.getElementById('mainNav');
+if (nav) window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+function openMobileMenu() { document.getElementById('mobileMenu').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow = ''; }
+
+function filtrar(cat, btn) {
+  document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.querySelectorAll('.nota-card');
+  let visible = 0;
+  cards.forEach(c => {
+    const show = cat === 'todos' || c.dataset.categoria === cat;
+    c.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  document.getElementById('emptyState').style.display = visible === 0 ? 'block' : 'none';
+  const dest = document.getElementById('notaDestacada');
+  if (dest) dest.style.display = (cat === 'todos' || cat === 'contrataciones') ? '' : 'none';
+}
+
+function suscribir() {
   const email = document.getElementById('newsletterEmail').value.trim();
   const msg = document.getElementById('newsletterMsg');
-  if(!email || !email.includes('@')){
-    msg.textContent = 'Por favor ingresá un correo válido.';
-    msg.style.color = '#e07060';
-    return;
-  }
-  msg.textContent = '✓ ¡Te suscribiste exitosamente! Pronto recibirás nuestras novedades.';
-  msg.style.color = '#4ab870';
+  if (!email || !email.includes('@')) { msg.textContent = 'Por favor ingresá un correo válido.'; return; }
+  msg.textContent = '¡Gracias! Te contactaremos con nuestras novedades jurídicas.';
   document.getElementById('newsletterEmail').value = '';
 }
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>

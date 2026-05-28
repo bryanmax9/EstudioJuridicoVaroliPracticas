@@ -91,23 +91,22 @@ a{text-decoration:none;color:inherit}
 .section-sub{font-family:var(--sans);font-size:13px;color:#5a5a52;line-height:1.7;margin-bottom:48px;max-width:480px;font-weight:300}
 
 /* CARDS ÍNDICE */
-.services-index{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-light);border:1px solid var(--border-light);border-radius:6px;overflow:hidden}
-.svc-card{background:var(--navy);padding:36px 28px;cursor:pointer;position:relative;overflow:hidden;transition:background 0.25s;display:flex;flex-direction:column}
+.services-index{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border-light);border:1px solid var(--border-light);border-radius:6px;overflow:hidden}
+.svc-card{background:var(--navy);padding:52px 40px;cursor:pointer;position:relative;overflow:hidden;transition:background 0.25s;display:flex;flex-direction:column;min-height:280px}
 .svc-card:hover{background:var(--navy-mid)}
 .svc-card:hover .svc-arrow{opacity:1;transform:translateX(0)}
 .svc-card:hover .svc-num-bg{opacity:.18}
-.svc-num-bg{position:absolute;top:8px;right:14px;font-family:var(--serif);font-size:64px;color:rgba(181,134,58,0.1);line-height:1;pointer-events:none;transition:opacity .25s}
-.svc-area-tag{font-family:var(--sans);font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
-.svc-card h3{font-family:var(--serif);font-size:20px;font-weight:400;color:#F8F6F1;margin-bottom:10px;line-height:1.2}
-.svc-card p{
-  color: #b8cce0;font-family:var(--sans);font-size:11px;color:#c8d0e0;line-height:1.65;margin-bottom:20px;flex:1;font-weight:300}
-.svc-chips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
-.chip{font-family:var(--sans);font-size:9px;padding:3px 8px;border:1px solid rgba(181,134,58,0.25);color:#c49a4a;border-radius:2px}
-.svc-arrow{font-family:var(--sans);font-size:10px;color:var(--gold);opacity:0;transform:translateX(-8px);transition:opacity .25s,transform .25s;display:flex;align-items:center;gap:6px;letter-spacing:.3px}
-.svc-cta-card{background:var(--gold);padding:36px 28px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:background .25s}
+.svc-num-bg{position:absolute;top:14px;right:18px;font-family:var(--serif);font-size:80px;color:rgba(181,134,58,0.08);line-height:1;pointer-events:none;transition:opacity .25s}
+.svc-area-tag{font-family:var(--sans);font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;opacity:0.8}
+.svc-card h3{font-family:var(--serif);font-size:26px;font-weight:400;color:#F8F6F1;margin-bottom:14px;line-height:1.2}
+.svc-card p{font-family:var(--sans);font-size:13px;color:#c8d0e0;line-height:1.75;margin-bottom:24px;flex:1;font-weight:300}
+.svc-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.chip{font-family:var(--sans);font-size:9px;padding:5px 11px;border:1px solid rgba(181,134,58,0.25);color:#c49a4a;border-radius:2px;letter-spacing:0.5px}
+.svc-arrow{font-family:var(--sans);font-size:11px;color:var(--gold);opacity:0;transform:translateX(-8px);transition:opacity .25s,transform .25s;display:flex;align-items:center;gap:6px;letter-spacing:.3px}
+.svc-cta-card{background:var(--gold);padding:52px 40px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:background .25s;min-height:280px}
 .svc-cta-card:hover{background:var(--gold-light)}
-.svc-cta-card p{font-family:var(--serif);font-size:18px;font-style:italic;color:#fff;line-height:1.5;margin-bottom:20px;font-weight:300}
-.svc-cta-card span{font-family:var(--sans);font-size:10px;color:rgba(255,255,255,.8);letter-spacing:1.5px;text-transform:uppercase}
+.svc-cta-card p{font-family:var(--serif);font-size:22px;font-style:italic;color:#fff;line-height:1.5;margin-bottom:24px;font-weight:300}
+.svc-cta-card span{font-family:var(--sans);font-size:10px;color:rgba(255,255,255,.85);letter-spacing:1.5px;text-transform:uppercase}
 
 /* ── SUBPÁGINAS ── */
 .subpage{display:none;padding:0}
@@ -264,7 +263,7 @@ footer a:hover{color:#c49a4a}
 
 <nav class="nav" id="mainNav">
   <div class="nav-logo">
-    <div class="nav-badge">VA</div>
+    <div class="nav-badge">VS</div>
     <div><div class="nav-brand-name">Varoli-SLovsa Abogados</div><div class="nav-brand-sub">Estudio Jurídico · Lima</div></div>
   </div>
   <div class="nav-links">
@@ -641,7 +640,7 @@ footer a:hover{color:#c49a4a}
   <div class="footer-grid">
     <div>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-        <div class="nav-badge" style="width:34px;height:34px;font-size:12px">VA</div>
+        <div class="nav-badge" style="width:34px;height:34px;font-size:12px">VS</div>
         <div><div class="nav-brand-name" style="font-size:13px">Varoli-SLovsa Abogados</div><div class="nav-brand-sub">Estudio Jurídico · Lima</div></div>
       </div>
       <p class="footer-desc">Soluciones jurídicas estratégicas para personas y empresas en Lima, Perú.</p>
