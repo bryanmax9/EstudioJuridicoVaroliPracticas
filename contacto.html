@@ -57,6 +57,9 @@ a{text-decoration:none;color:inherit}
 .nav-cta{background:var(--gold) !important;color:#fff !important;padding:9px 20px;border-radius:3px;font-size:11px !important;letter-spacing:0.8px !important;text-transform:uppercase;transition:background 0.2s !important}
 .nav-cta:hover{background:var(--gold-light) !important}
 .nav-cta::after{display:none !important}
+.nav-secondary{background:transparent !important;color:var(--gold) !important;border:1px solid var(--gold);padding:9px 20px;border-radius:3px;font-size:11px !important;letter-spacing:0.8px !important;text-transform:uppercase;transition:background 0.2s,color 0.2s !important}
+.nav-secondary:hover{background:var(--gold) !important;color:#fff !important}
+.nav-secondary::after{display:none !important}
 .nav-mobile-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
 .nav-mobile-btn span{display:block;width:22px;height:1.5px;background:#f0f2f5}
 
@@ -228,6 +231,7 @@ footer a:hover{color:#c49a4a}
   <a href="servicios.html" onclick="closeMobileMenu()">Servicios</a>
   <a href="noticias.html" onclick="closeMobileMenu()">Noticias</a>
   <a href="#" onclick="closeMobileMenu()">Contacto</a>
+  <a href="panel/" onclick="closeMobileMenu()" style="font-size:20px">Sistema de Arbitraje</a>
   <a href="https://wa.me/51924333108" style="color:var(--gold)">Consulta gratuita</a>
 </div>
 
@@ -246,6 +250,7 @@ footer a:hover{color:#c49a4a}
     <a href="servicios.html">Servicios</a>
     <a href="noticias.html">Noticias</a>
     <a href="#" class="nav-active">Contacto</a>
+    <a href="panel/" class="nav-secondary">Sistema de Arbitraje</a>
     <a href="https://wa.me/51924333108?text=Hola,%20quisiera%20una%20consulta%20gratuita." class="nav-cta" target="_blank">Consulta gratuita</a>
   </div>
   <button class="nav-mobile-btn" onclick="openMobileMenu()" aria-label="Menú">

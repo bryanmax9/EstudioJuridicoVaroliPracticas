@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel de Gestión · Varoli - Slovsa Abogados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="panel.css">
+<style>
+  #checkingSession{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--p-sidebar);color:#C4C9D2;font-family:var(--sans);font-size:13px}
+  .app{display:none}
+</style>
+</head>
+<body>
+
+<div id="checkingSession">Verificando sesión…</div>
+
+<div class="app" id="appMain">
+
+  <!-- ================= SIDEBAR ================= -->
+  <div class="sidebar">
+    <div class="brand">
+      <div class="mono">VS</div>
+      <div>
+        <div class="word">Varoli · Slovsa</div>
+        <div class="sub">Sistema de Arbitraje</div>
+      </div>
+    </div>
+
+    <div class="nav-section">General</div>
+    <div class="nav">
+      <button class="nav-btn active" data-view="dashboard"><span class="icon">◧</span><span class="lbl">Panel principal</span></button>
+      <button class="nav-btn" data-view="clientes"><span class="icon">◍</span><span class="lbl">Clientes</span></button>
+      <button class="nav-btn" data-view="expedientes"><span class="icon">◫</span><span class="lbl">Expedientes</span></button>
+      <button class="nav-btn" data-view="agenda"><span class="icon">▦</span><span class="lbl">Agenda</span></button>
+      <button class="nav-btn" data-view="plantillas"><span class="icon">▤</span><span class="lbl">Raven</span></button>
+    </div>
+    <div class="nav-section">Estudio</div>
+    <div class="nav">
+      <button class="nav-btn" data-view="configuracion"><span class="icon">⚙</span><span class="lbl">Configuración</span></button>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="avatar" id="footerAvatar">JE</div>
+      <div>
+        <div id="footerName">Jefe de Estudio</div>
+        <button class="logout-link" id="logoutBtn" type="button">Cerrar sesión</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN ================= -->
+  <div class="main">
+    <div class="topbar">
+      <div class="search">🔍&nbsp;Buscar cliente, expediente o plantilla…</div>
+      <div class="topbar-right">
+        <div class="bell">🔔<span class="dot"></span></div>
+        <div id="topbarDate"></div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ============ DASHBOARD ============ -->
+      <div class="view active" id="view-dashboard">
+        <div class="demo-banner">🧪 <span>Este panel muestra <b>datos de ejemplo</b> para validar el diseño. La próxima fase conecta Clientes y Expedientes a datos reales del estudio.</span></div>
+        <div class="page-head">
+          <div>
+            <h1>Buenos días</h1>
+            <div class="desc">Esto es lo que necesita tu atención hoy en el estudio.</div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn secondary">+ Registrar audiencia</button>
+            <button class="btn secondary">+ Nuevo expediente</button>
+            <button class="btn gold">+ Nuevo pendiente</button>
+          </div>
+        </div>
+
+        <div class="kpi-row">
+          <div class="kpi warn"><div class="num">6</div><div class="lbl">Pendientes · por hacer</div></div>
+          <div class="kpi gold"><div class="num">4</div><div class="lbl">Pendientes · en trámite</div></div>
+          <div class="kpi success"><div class="num">31</div><div class="lbl">Expedientes activos</div></div>
+          <div class="kpi ink"><div class="num">S/ 186,400</div><div class="lbl">Facturación del mes (ejemplo)</div></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Pendientes</h3>
+              <span style="font-size:12px;color:var(--p-muted);">10 en total</span>
+            </div>
+            <div style="padding:12px 18px 0 18px;display:flex;gap:8px;flex-wrap:wrap;">
+              <div class="filter-chip active">Todos</div>
+              <div class="filter-chip">Pendiente</div>
+              <div class="filter-chip">En trámite</div>
+              <div class="filter-chip">Completo</div>
+            </div>
+            <div class="panel-body" style="margin-top:6px;">
+              <div class="row-item">
+                <div><div class="rl">Presentar apelación ante el Tribunal OSCE</div><div class="rsub">Consorcio Vial del Norte S.A.C. · EXP-2026-014</div></div>
+                <span class="tag danger">Pendiente</span>
+              </div>
+              <div class="row-item">
+                <div><div class="rl">Redactar escrito de conciliación</div><div class="rsub">Textiles Andinos S.A. · EXP-2026-021</div></div>
+                <span class="tag gold">En trámite</span>
+              </div>
+              <div class="row-item">
+                <div><div class="rl">Recopilar planillas para descargo SUNAFIL</div><div class="rsub">Grupo Inmobiliario Rímac · EXP-2026-019</div></div>
+                <span class="tag gold">En trámite</span>
+              </div>
+              <div class="row-item">
+                <div><div class="rl">Coordinar reunión de seguimiento mensual</div><div class="rsub">Estudio Contable Paredes · EXP-2025-087</div></div>
+                <span class="tag danger">Pendiente</span>
+              </div>
+              <div class="row-item">
+                <div><div class="rl">Enviar cargo de notificación al cliente</div><div class="rsub">Panificadora San Luis · sin expediente asociado</div></div>
+                <span class="tag success">Completo</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><h3>Expedientes por área</h3></div>
+            <div class="panel-body">
+              <div class="row-item"><div class="rl">Contrataciones del Estado</div><span class="tag gold">11</span></div>
+              <div class="row-item"><div class="rl">Laboral corporativo</div><span class="tag neutral">9</span></div>
+              <div class="row-item"><div class="rl">Derecho administrativo</div><span class="tag neutral">6</span></div>
+              <div class="row-item"><div class="rl">Civil y comercial</div><span class="tag neutral">4</span></div>
+              <div class="row-item"><div class="rl">Derecho penal</div><span class="tag neutral">1</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ CLIENTES ============ -->
+      <div class="view" id="view-clientes">
+        <div class="page-head">
+          <div><h1>Clientes</h1><div class="desc">32 clientes registrados (ejemplo)</div></div>
+          <button class="btn gold">+ Nuevo cliente</button>
+        </div>
+        <div class="toolbar">
+          <div class="filter-chip active">Todos</div>
+          <div class="filter-chip">Activos</div>
+          <div class="filter-chip">Personas jurídicas</div>
+          <div class="filter-chip">Personas naturales</div>
+        </div>
+        <div class="panel">
+          <table>
+            <thead><tr><th>Cliente</th><th>Tipo</th><th>Expedientes activos</th><th>Estado</th></tr></thead>
+            <tbody>
+              <tr onclick="showProfile()">
+                <td><div class="client-name">Consorcio Vial del Norte S.A.C.</div><div class="client-sub">RUC 20601122334</div></td>
+                <td>Jurídica</td><td>2</td>
+                <td><span class="tag success">Activo</span></td>
+              </tr>
+              <tr onclick="showProfile()">
+                <td><div class="client-name">Textiles Andinos S.A.</div><div class="client-sub">RUC 20554478812</div></td>
+                <td>Jurídica</td><td>1</td>
+                <td><span class="tag success">Activo</span></td>
+              </tr>
+              <tr onclick="showProfile()">
+                <td><div class="client-name">Grupo Inmobiliario Rímac</div><div class="client-sub">RUC 20609981234</div></td>
+                <td>Jurídica</td><td>1</td>
+                <td><span class="tag success">Activo</span></td>
+              </tr>
+              <tr onclick="showProfile()">
+                <td><div class="client-name">Estudio Contable Paredes</div><div class="client-sub">RUC 20512309988</div></td>
+                <td>Jurídica</td><td>1</td>
+                <td><span class="tag success">Activo</span></td>
+              </tr>
+              <tr onclick="showProfile()">
+                <td><div class="client-name">Rosa Elena Guzmán Ttito</div><div class="client-sub">DNI 29881245</div></td>
+                <td>Natural</td><td>0</td>
+                <td><span class="tag neutral">Inactivo</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ============ PERFIL DE CLIENTE ============ -->
+      <div class="view" id="view-perfil">
+        <div class="profile-header">
+          <div>
+            <h2 class="profile-title">Consorcio Vial del Norte S.A.C.</h2>
+            <div class="profile-meta">
+              <span>RUC 20601122334</span>
+              <span>Persona jurídica</span>
+              <span>Contacto: Jorge Nieva, Gerente Legal</span>
+            </div>
+          </div>
+          <span class="tag success">Cliente activo</span>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <div class="panel" style="margin-bottom:16px;">
+              <div class="panel-head"><h3>Expedientes asociados</h3></div>
+              <div class="panel-body">
+                <div class="row-item"><div><div class="rl">EXP-2026-014 — Apelación ante el Tribunal de Contrataciones</div><div class="rsub">Contrataciones del Estado · OSCE</div></div><span class="tag warn">En trámite</span></div>
+                <div class="row-item"><div><div class="rl">EXP-2025-098 — Revisión de bases de licitación</div><div class="rsub">Contrataciones del Estado</div></div><span class="tag success">Cerrado</span></div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><h3>Pendientes vinculados a este cliente</h3><button class="btn gold" style="padding:5px 11px;font-size:11.5px;">+ Nuevo</button></div>
+              <div class="panel-body">
+                <div class="row-item"><div class="rl">Presentar apelación ante el Tribunal</div><span class="tag danger">Pendiente</span></div>
+                <div class="row-item"><div class="rl">Coordinar reunión de seguimiento mensual</div><span class="tag gold">En trámite</span></div>
+                <div class="row-item"><div class="rl">Enviar acuse de recibo de notificación</div><span class="tag success">Completo</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><h3>Documentos (Google Drive)</h3></div>
+            <div class="panel-body" style="padding:14px;">
+              <div class="drive-card">
+                <div class="drive-file"><span class="drive-icon">📄</span> Contrato_marco_2026.pdf</div>
+                <span class="drive-link">Ver en Drive ↗</span>
+              </div>
+              <div class="drive-card">
+                <div class="drive-file"><span class="drive-icon">📁</span> /EXP-2026-014</div>
+                <span class="drive-link">Abrir carpeta ↗</span>
+              </div>
+              <div class="drive-card">
+                <div class="drive-file"><span class="drive-icon">📎</span> Poder_representacion.pdf</div>
+                <span class="drive-link">Ver en Drive ↗</span>
+              </div>
+              <div style="text-align:center;margin-top:10px;">
+                <span style="font-size:11.5px;color:var(--p-muted);">Integración con Google Drive prevista para una fase posterior</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ EXPEDIENTES ============ -->
+      <div class="view" id="view-expedientes">
+        <div class="page-head">
+          <div><h1>Expedientes</h1><div class="desc">31 expedientes activos (ejemplo)</div></div>
+          <button class="btn gold">+ Nuevo expediente</button>
+        </div>
+        <div class="toolbar">
+          <div class="filter-chip active">Todos</div>
+          <div class="filter-chip">Contrataciones del Estado</div>
+          <div class="filter-chip">Laboral</div>
+          <div class="filter-chip">Administrativo</div>
+          <div class="view-toggle">
+            <button class="active" onclick="setExpView('list')">Lista</button>
+            <button onclick="setExpView('kanban')">Kanban</button>
+          </div>
+        </div>
+
+        <div class="kview active" id="kview-list">
+          <div class="panel">
+            <table>
+              <thead><tr><th>Expediente</th><th>Cliente</th><th>Materia</th><th>Etapa</th><th>Responsable</th></tr></thead>
+              <tbody>
+                <tr onclick="showProfile()">
+                  <td class="client-name">EXP-2026-014</td>
+                  <td>Consorcio Vial del Norte<div class="client-sub">Apelación · OSCE</div></td>
+                  <td>Contrataciones del Estado</td><td><span class="tag warn">Ejecución</span></td><td>María V.</td>
+                </tr>
+                <tr>
+                  <td class="client-name">EXP-2026-021</td>
+                  <td>Textiles Andinos S.A.<div class="client-sub">Conciliación laboral</div></td>
+                  <td>Laboral corporativo</td><td><span class="tag gold">Estrategia</span></td><td>Rodrigo S.</td>
+                </tr>
+                <tr>
+                  <td class="client-name">EXP-2026-019</td>
+                  <td>Grupo Inmobiliario Rímac<div class="client-sub">Inspección SUNAFIL</div></td>
+                  <td>Laboral corporativo</td><td><span class="tag neutral">Diagnóstico</span></td><td>Camila T.</td>
+                </tr>
+                <tr>
+                  <td class="client-name">EXP-2025-087</td>
+                  <td>Estudio Contable Paredes<div class="client-sub">Revisión contractual</div></td>
+                  <td>Civil y comercial</td><td><span class="tag success">Seguimiento</span></td><td>María V.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="kview" id="kview-kanban">
+          <div class="kanban">
+            <div class="kcol">
+              <div class="kcol-head">Diagnóstico <span class="count">3</span></div>
+              <div class="kcard"><div class="kexp">EXP-2026-019</div><div class="kclient">Grupo Inmobiliario Rímac</div><div class="kfoot"><span class="tag neutral">Laboral</span><div class="kavatar">CT</div></div></div>
+              <div class="kcard"><div class="kexp">EXP-2026-025</div><div class="kclient">Panificadora San Luis</div><div class="kfoot"><span class="tag neutral">Civil</span><div class="kavatar">RS</div></div></div>
+              <div class="kcard"><div class="kexp">EXP-2026-026</div><div class="kclient">Comercial Andahuasi</div><div class="kfoot"><span class="tag neutral">Administrativo</span><div class="kavatar">MV</div></div></div>
+            </div>
+            <div class="kcol">
+              <div class="kcol-head">Estrategia <span class="count">2</span></div>
+              <div class="kcard"><div class="kexp">EXP-2026-021</div><div class="kclient">Textiles Andinos S.A.</div><div class="kfoot"><span class="tag neutral">Laboral</span><div class="kavatar">RS</div></div></div>
+              <div class="kcard"><div class="kexp">EXP-2026-011</div><div class="kclient">Constructora Belén</div><div class="kfoot"><span class="tag neutral">Contrataciones</span><div class="kavatar">MV</div></div></div>
+            </div>
+            <div class="kcol">
+              <div class="kcol-head">Ejecución <span class="count">2</span></div>
+              <div class="kcard"><div class="kexp">EXP-2026-014</div><div class="kclient">Consorcio Vial del Norte</div><div class="kfoot"><span class="tag gold">Contrataciones</span><div class="kavatar">MV</div></div></div>
+              <div class="kcard"><div class="kexp">EXP-2026-017</div><div class="kclient">Distribuidora Alameda</div><div class="kfoot"><span class="tag neutral">Penal</span><div class="kavatar">MV</div></div></div>
+            </div>
+            <div class="kcol">
+              <div class="kcol-head">Seguimiento <span class="count">1</span></div>
+              <div class="kcard"><div class="kexp">EXP-2025-087</div><div class="kclient">Estudio Contable Paredes</div><div class="kfoot"><span class="tag success">Civil</span><div class="kavatar">MV</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ AGENDA ============ -->
+      <div class="view" id="view-agenda">
+        <div class="page-head">
+          <div><h1>Agenda</h1><div class="desc">Septiembre 2026 (ejemplo)</div></div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn secondary">Mes</button>
+            <button class="btn secondary">Semana</button>
+          </div>
+        </div>
+        <div class="cal-legend">
+          <div class="leg"><span class="dotc" style="background:var(--p-danger-soft);border:1px solid var(--p-danger);"></span> Audiencias</div>
+          <div class="leg"><span class="dotc" style="background:var(--p-gold-soft);border:1px solid var(--p-gold);"></span> Pericias</div>
+          <div class="leg"><span class="dotc" style="background:var(--p-warn-soft);border:1px solid var(--p-warn);"></span> Vencimientos de escritos</div>
+          <div class="leg"><span class="dotc" style="background:var(--p-success-soft);border:1px solid var(--p-success);"></span> Reuniones con clientes</div>
+        </div>
+        <div class="cal-grid">
+          <div class="cal-dow">Lun</div><div class="cal-dow">Mar</div><div class="cal-dow">Mié</div><div class="cal-dow">Jue</div><div class="cal-dow">Vie</div><div class="cal-dow">Sáb</div><div class="cal-dow">Dom</div>
+          <div class="cal-cell mute"><div class="dnum">31</div></div>
+          <div class="cal-cell"><div class="dnum">1</div><div class="cal-evt" style="background:var(--p-warn-soft);color:var(--p-warn);">Vence apelación OSCE</div></div>
+          <div class="cal-cell"><div class="dnum">2</div><div class="cal-evt" style="background:var(--p-success-soft);color:var(--p-success);">Reunión · Paredes</div></div>
+          <div class="cal-cell"><div class="dnum">3</div><div class="cal-evt" style="background:var(--p-danger-soft);color:var(--p-danger);">Audiencia conciliación</div></div>
+          <div class="cal-cell"><div class="dnum">4</div></div>
+          <div class="cal-cell"><div class="dnum">5</div><div class="cal-evt" style="background:var(--p-gold-soft);color:var(--p-gold);">Pericia técnica</div></div>
+          <div class="cal-cell mute"><div class="dnum">6</div></div>
+          <div class="cal-cell mute"><div class="dnum">7</div></div>
+          <div class="cal-cell"><div class="dnum">8</div></div>
+          <div class="cal-cell"><div class="dnum">9</div><div class="cal-evt" style="background:var(--p-warn-soft);color:var(--p-warn);">Vence descargo SUNAFIL</div></div>
+          <div class="cal-cell"><div class="dnum">10</div></div>
+          <div class="cal-cell"><div class="dnum">11</div></div>
+          <div class="cal-cell"><div class="dnum">12</div></div>
+          <div class="cal-cell mute"><div class="dnum">13</div></div>
+        </div>
+      </div>
+
+      <!-- ============ RAVEN ============ -->
+      <div class="view" id="view-plantillas">
+        <div class="page-head"><div><h1>Raven</h1><div class="desc">Biblioteca de modelos de escritos, demandas, contratos y cartas documento</div></div><button class="btn gold">+ Subir modelo</button></div>
+        <div class="demo-banner">📁 <span>Todo el material de <b>Raven</b> vivirá en Google Drive, organizado por materia. Por ahora se muestran modelos de ejemplo, algunos enlazados a los documentos reales ya publicados en el sitio.</span></div>
+        <div class="toolbar">
+          <div class="filter-chip active">Todas</div>
+          <div class="filter-chip">/Raven/Laboral</div>
+          <div class="filter-chip">/Raven/Contratos</div>
+          <div class="filter-chip">/Raven/Civil</div>
+          <div class="filter-chip">/Raven/Penal</div>
+          <div class="filter-chip">/Raven/Administrativo</div>
+        </div>
+        <div class="doc-grid">
+          <a class="doc-card" href="../docs/modelo-carta-notarial.pdf" target="_blank" rel="noopener"><div class="doc-icon">📄</div><div class="doc-name">Carta notarial — Incumplimiento contractual</div><div class="doc-meta">/Raven/Contratos</div><span class="tag gold doc-cat">Carta notarial</span></a>
+          <a class="doc-card" href="../docs/checklist-sunafil.pdf" target="_blank" rel="noopener"><div class="doc-icon">📄</div><div class="doc-name">Checklist de descargo ante inspección SUNAFIL</div><div class="doc-meta">/Raven/Laboral</div><span class="tag gold doc-cat">Checklist</span></a>
+          <a class="doc-card" href="../docs/guia-contratos-comerciales.pdf" target="_blank" rel="noopener"><div class="doc-icon">📄</div><div class="doc-name">Guía de contratos comerciales</div><div class="doc-meta">/Raven/Contratos</div><span class="tag gold doc-cat">Guía</span></a>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-name">Modelo de apelación — Tribunal OSCE</div><div class="doc-meta">/Raven/Administrativo</div><span class="tag gold doc-cat">Demanda</span></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-name">Recurso de reconsideración — entidad pública</div><div class="doc-meta">/Raven/Administrativo</div><span class="tag gold doc-cat">Demanda</span></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-name">Telegrama de preaviso de despido</div><div class="doc-meta">/Raven/Laboral</div><span class="tag gold doc-cat">Telegrama</span></div>
+        </div>
+      </div>
+
+      <!-- ============ CONFIGURACIÓN ============ -->
+      <div class="view" id="view-configuracion">
+        <div class="page-head"><div><h1>Configuración</h1><div class="desc">Usuarios, roles y ajustes generales</div></div></div>
+        <div class="demo-banner">🔒 <span>El sistema arranca con <b>un único usuario</b> (Jefe de Estudio, acceso total). El soporte para más usuarios y roles restringidos (Asistente Legal) llega en una fase posterior.</span></div>
+        <div class="panel">
+          <table>
+            <thead><tr><th>Usuario</th><th>Rol</th><th>Acceso</th><th>Estado</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="client-name" id="cfgEmail">—</td><td>Jefe de Estudio</td><td>Todos los clientes y expedientes</td>
+                <td><span class="tag success">Activo</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const checking = document.getElementById('checkingSession');
+  const app = document.getElementById('appMain');
+
+  fetch('/.netlify/functions/panel-session', { credentials: 'same-origin' })
+    .then((r) => r.json())
+    .then((data) => {
+      if (!data || !data.authenticated) {
+        window.location.replace('index.html');
+        return;
+      }
+      document.getElementById('cfgEmail').textContent = data.email;
+      document.getElementById('footerName').textContent = data.email;
+      document.getElementById('footerAvatar').textContent = data.email.slice(0, 2).toUpperCase();
+      checking.style.display = 'none';
+      app.style.display = 'flex';
+      init();
+    })
+    .catch(() => window.location.replace('index.html'));
+
+  function init() {
+    document.getElementById('topbarDate').textContent = new Date().toLocaleDateString('es-PE', {
+      day: 'numeric', month: 'long', year: 'numeric',
+    });
+
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const views = document.querySelectorAll('.view');
+
+    function switchView(name) {
+      views.forEach((v) => v.classList.remove('active'));
+      document.getElementById('view-' + name).classList.add('active');
+      navButtons.forEach((b) => b.classList.toggle('active', b.dataset.view === name));
+    }
+    navButtons.forEach((btn) => btn.addEventListener('click', () => switchView(btn.dataset.view)));
+
+    window.showProfile = function () {
+      views.forEach((v) => v.classList.remove('active'));
+      document.getElementById('view-perfil').classList.add('active');
+      navButtons.forEach((b) => b.classList.remove('active'));
+      document.querySelector('.nav-btn[data-view="clientes"]').classList.add('active');
+    };
+
+    window.setExpView = function (mode) {
+      document.querySelectorAll('.view-toggle button').forEach((b) => b.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('kview-list').classList.toggle('active', mode === 'list');
+      document.getElementById('kview-kanban').classList.toggle('active', mode === 'kanban');
+    };
+
+    document.querySelectorAll('.filter-chip').forEach((chip) => {
+      chip.addEventListener('click', function () {
+        this.parentElement.querySelectorAll('.filter-chip').forEach((c) => c.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', function () {
+      fetch('/.netlify/functions/panel-logout', { method: 'POST', credentials: 'same-origin' })
+        .finally(() => window.location.replace('index.html'));
+    });
+  }
+})();
+</script>
+</body>
+</html>

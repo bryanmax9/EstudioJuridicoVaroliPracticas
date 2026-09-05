@@ -7,3 +7,13 @@
 # CORS is handled per-request inside each function using the ALLOWED_ORIGINS env var.
 # Set ALLOWED_ORIGINS in Netlify dashboard → Site settings → Environment variables.
 # Example value: https://yoursite.netlify.app,https://www.tudominio.com
+
+# Panel de gestión ("Sistema de Arbitraje") — keep it out of search engines
+# and browser framing. Auth itself is enforced by the panel-* functions,
+# these headers just harden the static pages that serve the UI shell.
+[[headers]]
+  for = "/panel/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"

@@ -76,6 +76,9 @@ footer,.compromisos-band{padding-left:clamp(24px,5vw,80px);padding-right:clamp(2
 .nav-cta{background:transparent !important;color:var(--gold) !important;border:1px solid rgba(196,154,108,0.5);padding:9px 20px;border-radius:2px;font-size:10px !important;letter-spacing:1.5px !important;transition:background 0.2s,border-color 0.2s !important}
 .nav-cta:hover{background:var(--gold) !important;color:var(--black) !important;border-color:var(--gold) !important}
 .nav-cta::after{display:none !important}
+.nav-secondary{background:transparent !important;color:rgba(208,200,188,0.85) !important;border:1px solid var(--border-dark);padding:9px 18px;border-radius:2px;font-size:10px !important;letter-spacing:1.5px !important;transition:border-color 0.2s,color 0.2s !important}
+.nav-secondary:hover{border-color:var(--gold) !important;color:var(--gold) !important}
+.nav-secondary::after{display:none !important}
 .nav-mobile-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
 .nav-mobile-btn span{display:block;width:22px;height:1px;background:var(--cream)}
 .nav-mobile-menu{display:none;position:fixed;inset:0;background:#0c1e3a;z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:32px}
@@ -317,6 +320,7 @@ footer a:hover{color:var(--gold)}
   <a href="servicios.html" onclick="closeMobileMenu()">Servicios</a>
   <a href="noticias.html" onclick="closeMobileMenu()">Noticias</a>
   <a href="contacto.html" onclick="closeMobileMenu()">Contacto</a>
+  <a href="panel/" onclick="closeMobileMenu()" style="font-size:20px;color:rgba(208,200,188,0.85)">Sistema de Arbitraje</a>
   <a href="https://wa.me/51924333108" style="color:var(--gold)">Consulta gratuita</a>
 </div>
 
@@ -335,6 +339,7 @@ footer a:hover{color:var(--gold)}
     <a href="servicios.html">Servicios</a>
     <a href="noticias.html">Noticias</a>
     <a href="contacto.html">Contacto</a>
+    <a href="panel/" class="nav-secondary">Sistema de Arbitraje</a>
     <a href="https://wa.me/51924333108?text=Hola,%20quisiera%20una%20consulta%20gratuita." class="nav-cta" target="_blank">Consulta gratuita</a>
   </div>
   <button class="nav-mobile-btn" onclick="openMobileMenu()" aria-label="Menú"><span></span><span></span><span></span></button>
