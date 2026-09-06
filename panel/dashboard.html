@@ -40,7 +40,7 @@
     </div>
     <div class="nav-section">Estudio</div>
     <div class="nav">
-      <button class="nav-btn" data-view="configuracion"><span class="icon">⚙</span><span class="lbl">Configuración</span></button>
+      <button class="nav-btn" id="nav-config" data-view="configuracion"><span class="icon">⚙</span><span class="lbl">Configuración</span></button>
     </div>
 
     <div class="sidebar-footer">
@@ -66,71 +66,43 @@
 
       <!-- ============ DASHBOARD ============ -->
       <div class="view active" id="view-dashboard">
-        <div class="demo-banner">🧪 <span>Este panel muestra <b>datos de ejemplo</b> para validar el diseño. La próxima fase conecta Clientes y Expedientes a datos reales del estudio.</span></div>
         <div class="page-head">
           <div>
-            <h1>Buenos días</h1>
+            <h1 id="dashGreeting">Buenos días</h1>
             <div class="desc">Esto es lo que necesita tu atención hoy en el estudio.</div>
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <button class="btn secondary">+ Registrar audiencia</button>
-            <button class="btn secondary">+ Nuevo expediente</button>
-            <button class="btn gold">+ Nuevo pendiente</button>
+            <button class="btn secondary" id="btnNuevoExpedienteQuick">+ Nuevo expediente</button>
+            <button class="btn gold" id="btnNuevoClienteQuick">+ Nuevo cliente</button>
+            <button class="btn gold" id="btnNuevoPendienteQuick">+ Nuevo pendiente</button>
           </div>
         </div>
 
         <div class="kpi-row">
-          <div class="kpi warn"><div class="num">6</div><div class="lbl">Pendientes · por hacer</div></div>
-          <div class="kpi gold"><div class="num">4</div><div class="lbl">Pendientes · en trámite</div></div>
-          <div class="kpi success"><div class="num">31</div><div class="lbl">Expedientes activos</div></div>
-          <div class="kpi ink"><div class="num">S/ 186,400</div><div class="lbl">Facturación del mes (ejemplo)</div></div>
+          <div class="kpi warn"><div class="num" id="kpiPorHacer">–</div><div class="lbl">Pendientes · por hacer</div></div>
+          <div class="kpi gold"><div class="num" id="kpiEnTramite">–</div><div class="lbl">Pendientes · en trámite</div></div>
+          <div class="kpi success"><div class="num" id="kpiExpActivos">–</div><div class="lbl">Expedientes activos</div></div>
+          <div class="kpi ink"><div class="num" id="kpiCompletos">–</div><div class="lbl">Pendientes completados</div></div>
         </div>
 
         <div class="grid-2">
           <div class="panel">
             <div class="panel-head">
-              <h3>Pendientes</h3>
-              <span style="font-size:12px;color:var(--p-muted);">10 en total</span>
+              <h3>Pendientes recientes</h3>
+              <span style="font-size:12px;color:var(--p-muted);" id="pendientesTotalLbl"></span>
             </div>
-            <div style="padding:12px 18px 0 18px;display:flex;gap:8px;flex-wrap:wrap;">
-              <div class="filter-chip active">Todos</div>
-              <div class="filter-chip">Pendiente</div>
-              <div class="filter-chip">En trámite</div>
-              <div class="filter-chip">Completo</div>
+            <div style="padding:12px 18px 0 18px;display:flex;gap:8px;flex-wrap:wrap;" id="pendientesFilterChips">
+              <div class="filter-chip active" data-f="todos">Todos</div>
+              <div class="filter-chip" data-f="pendiente">Pendiente</div>
+              <div class="filter-chip" data-f="en_tramite">En trámite</div>
+              <div class="filter-chip" data-f="completo">Completo</div>
             </div>
-            <div class="panel-body" style="margin-top:6px;">
-              <div class="row-item">
-                <div><div class="rl">Presentar apelación ante el Tribunal OSCE</div><div class="rsub">Consorcio Vial del Norte S.A.C. · EXP-2026-014</div></div>
-                <span class="tag danger">Pendiente</span>
-              </div>
-              <div class="row-item">
-                <div><div class="rl">Redactar escrito de conciliación</div><div class="rsub">Textiles Andinos S.A. · EXP-2026-021</div></div>
-                <span class="tag gold">En trámite</span>
-              </div>
-              <div class="row-item">
-                <div><div class="rl">Recopilar planillas para descargo SUNAFIL</div><div class="rsub">Grupo Inmobiliario Rímac · EXP-2026-019</div></div>
-                <span class="tag gold">En trámite</span>
-              </div>
-              <div class="row-item">
-                <div><div class="rl">Coordinar reunión de seguimiento mensual</div><div class="rsub">Estudio Contable Paredes · EXP-2025-087</div></div>
-                <span class="tag danger">Pendiente</span>
-              </div>
-              <div class="row-item">
-                <div><div class="rl">Enviar cargo de notificación al cliente</div><div class="rsub">Panificadora San Luis · sin expediente asociado</div></div>
-                <span class="tag success">Completo</span>
-              </div>
-            </div>
+            <div class="panel-body" id="pendientesList" style="margin-top:6px;"></div>
           </div>
 
           <div class="panel">
             <div class="panel-head"><h3>Expedientes por área</h3></div>
-            <div class="panel-body">
-              <div class="row-item"><div class="rl">Contrataciones del Estado</div><span class="tag gold">11</span></div>
-              <div class="row-item"><div class="rl">Laboral corporativo</div><span class="tag neutral">9</span></div>
-              <div class="row-item"><div class="rl">Derecho administrativo</div><span class="tag neutral">6</span></div>
-              <div class="row-item"><div class="rl">Civil y comercial</div><span class="tag neutral">4</span></div>
-              <div class="row-item"><div class="rl">Derecho penal</div><span class="tag neutral">1</span></div>
-            </div>
+            <div class="panel-body" id="expedientesPorAreaList"></div>
           </div>
         </div>
       </div>
@@ -138,45 +110,19 @@
       <!-- ============ CLIENTES ============ -->
       <div class="view" id="view-clientes">
         <div class="page-head">
-          <div><h1>Clientes</h1><div class="desc">32 clientes registrados (ejemplo)</div></div>
-          <button class="btn gold">+ Nuevo cliente</button>
+          <div><h1>Clientes</h1><div class="desc" id="clientesCountDesc"></div></div>
+          <button class="btn gold" id="btnNuevoCliente">+ Nuevo cliente</button>
         </div>
-        <div class="toolbar">
-          <div class="filter-chip active">Todos</div>
-          <div class="filter-chip">Activos</div>
-          <div class="filter-chip">Personas jurídicas</div>
-          <div class="filter-chip">Personas naturales</div>
+        <div class="toolbar" id="clientesFilterChips">
+          <div class="filter-chip active" data-f="todos">Todos</div>
+          <div class="filter-chip" data-f="activo">Activos</div>
+          <div class="filter-chip" data-f="juridica">Personas jurídicas</div>
+          <div class="filter-chip" data-f="natural">Personas naturales</div>
         </div>
         <div class="panel">
           <table>
             <thead><tr><th>Cliente</th><th>Tipo</th><th>Expedientes activos</th><th>Estado</th></tr></thead>
-            <tbody>
-              <tr onclick="showProfile()">
-                <td><div class="client-name">Consorcio Vial del Norte S.A.C.</div><div class="client-sub">RUC 20601122334</div></td>
-                <td>Jurídica</td><td>2</td>
-                <td><span class="tag success">Activo</span></td>
-              </tr>
-              <tr onclick="showProfile()">
-                <td><div class="client-name">Textiles Andinos S.A.</div><div class="client-sub">RUC 20554478812</div></td>
-                <td>Jurídica</td><td>1</td>
-                <td><span class="tag success">Activo</span></td>
-              </tr>
-              <tr onclick="showProfile()">
-                <td><div class="client-name">Grupo Inmobiliario Rímac</div><div class="client-sub">RUC 20609981234</div></td>
-                <td>Jurídica</td><td>1</td>
-                <td><span class="tag success">Activo</span></td>
-              </tr>
-              <tr onclick="showProfile()">
-                <td><div class="client-name">Estudio Contable Paredes</div><div class="client-sub">RUC 20512309988</div></td>
-                <td>Jurídica</td><td>1</td>
-                <td><span class="tag success">Activo</span></td>
-              </tr>
-              <tr onclick="showProfile()">
-                <td><div class="client-name">Rosa Elena Guzmán Ttito</div><div class="client-sub">DNI 29881245</div></td>
-                <td>Natural</td><td>0</td>
-                <td><span class="tag neutral">Inactivo</span></td>
-              </tr>
-            </tbody>
+            <tbody id="clientesTbody"></tbody>
           </table>
         </div>
       </div>
@@ -185,53 +131,28 @@
       <div class="view" id="view-perfil">
         <div class="profile-header">
           <div>
-            <h2 class="profile-title">Consorcio Vial del Norte S.A.C.</h2>
-            <div class="profile-meta">
-              <span>RUC 20601122334</span>
-              <span>Persona jurídica</span>
-              <span>Contacto: Jorge Nieva, Gerente Legal</span>
-            </div>
+            <h2 class="profile-title" id="perfilNombre">—</h2>
+            <div class="profile-meta" id="perfilMeta"></div>
           </div>
-          <span class="tag success">Cliente activo</span>
+          <span id="perfilEstadoTag"></span>
         </div>
 
         <div class="grid-2">
           <div>
             <div class="panel" style="margin-bottom:16px;">
               <div class="panel-head"><h3>Expedientes asociados</h3></div>
-              <div class="panel-body">
-                <div class="row-item"><div><div class="rl">EXP-2026-014 — Apelación ante el Tribunal de Contrataciones</div><div class="rsub">Contrataciones del Estado · OSCE</div></div><span class="tag warn">En trámite</span></div>
-                <div class="row-item"><div><div class="rl">EXP-2025-098 — Revisión de bases de licitación</div><div class="rsub">Contrataciones del Estado</div></div><span class="tag success">Cerrado</span></div>
-              </div>
+              <div class="panel-body" id="perfilExpedientes"></div>
             </div>
             <div class="panel">
-              <div class="panel-head"><h3>Pendientes vinculados a este cliente</h3><button class="btn gold" style="padding:5px 11px;font-size:11.5px;">+ Nuevo</button></div>
-              <div class="panel-body">
-                <div class="row-item"><div class="rl">Presentar apelación ante el Tribunal</div><span class="tag danger">Pendiente</span></div>
-                <div class="row-item"><div class="rl">Coordinar reunión de seguimiento mensual</div><span class="tag gold">En trámite</span></div>
-                <div class="row-item"><div class="rl">Enviar acuse de recibo de notificación</div><span class="tag success">Completo</span></div>
-              </div>
+              <div class="panel-head"><h3>Pendientes vinculados a este cliente</h3><button class="btn gold" id="btnNuevoPendientePerfil" style="padding:5px 11px;font-size:11.5px;">+ Nuevo</button></div>
+              <div class="panel-body" id="perfilTareas"></div>
             </div>
           </div>
 
           <div class="panel">
             <div class="panel-head"><h3>Documentos (Google Drive)</h3></div>
             <div class="panel-body" style="padding:14px;">
-              <div class="drive-card">
-                <div class="drive-file"><span class="drive-icon">📄</span> Contrato_marco_2026.pdf</div>
-                <span class="drive-link">Ver en Drive ↗</span>
-              </div>
-              <div class="drive-card">
-                <div class="drive-file"><span class="drive-icon">📁</span> /EXP-2026-014</div>
-                <span class="drive-link">Abrir carpeta ↗</span>
-              </div>
-              <div class="drive-card">
-                <div class="drive-file"><span class="drive-icon">📎</span> Poder_representacion.pdf</div>
-                <span class="drive-link">Ver en Drive ↗</span>
-              </div>
-              <div style="text-align:center;margin-top:10px;">
-                <span style="font-size:11.5px;color:var(--p-muted);">Integración con Google Drive prevista para una fase posterior</span>
-              </div>
+              <div class="empty-hint">📁 La integración con Google Drive (carpetas automáticas, subida y previsualización de archivos) llega en la próxima fase.</div>
             </div>
           </div>
         </div>
@@ -240,73 +161,33 @@
       <!-- ============ EXPEDIENTES ============ -->
       <div class="view" id="view-expedientes">
         <div class="page-head">
-          <div><h1>Expedientes</h1><div class="desc">31 expedientes activos (ejemplo)</div></div>
-          <button class="btn gold">+ Nuevo expediente</button>
+          <div><h1>Expedientes</h1><div class="desc" id="expedientesCountDesc"></div></div>
+          <button class="btn gold" id="btnNuevoExpediente">+ Nuevo expediente</button>
         </div>
-        <div class="toolbar">
-          <div class="filter-chip active">Todos</div>
-          <div class="filter-chip">Contrataciones del Estado</div>
-          <div class="filter-chip">Laboral</div>
-          <div class="filter-chip">Administrativo</div>
+        <div class="toolbar" id="expedientesFilterChips">
+          <div class="filter-chip active" data-f="todas">Todas</div>
+          <div class="filter-chip" data-f="Contrataciones del Estado">Contrataciones del Estado</div>
+          <div class="filter-chip" data-f="Laboral corporativo">Laboral</div>
+          <div class="filter-chip" data-f="Derecho administrativo">Administrativo</div>
+          <div class="filter-chip" data-f="Derecho penal">Penal</div>
+          <div class="filter-chip" data-f="Civil y comercial">Civil</div>
           <div class="view-toggle">
-            <button class="active" onclick="setExpView('list')">Lista</button>
-            <button onclick="setExpView('kanban')">Kanban</button>
+            <button class="active" data-mode="list">Lista</button>
+            <button data-mode="kanban">Kanban</button>
           </div>
         </div>
 
         <div class="kview active" id="kview-list">
           <div class="panel">
             <table>
-              <thead><tr><th>Expediente</th><th>Cliente</th><th>Materia</th><th>Etapa</th><th>Responsable</th></tr></thead>
-              <tbody>
-                <tr onclick="showProfile()">
-                  <td class="client-name">EXP-2026-014</td>
-                  <td>Consorcio Vial del Norte<div class="client-sub">Apelación · OSCE</div></td>
-                  <td>Contrataciones del Estado</td><td><span class="tag warn">Ejecución</span></td><td>María V.</td>
-                </tr>
-                <tr>
-                  <td class="client-name">EXP-2026-021</td>
-                  <td>Textiles Andinos S.A.<div class="client-sub">Conciliación laboral</div></td>
-                  <td>Laboral corporativo</td><td><span class="tag gold">Estrategia</span></td><td>Rodrigo S.</td>
-                </tr>
-                <tr>
-                  <td class="client-name">EXP-2026-019</td>
-                  <td>Grupo Inmobiliario Rímac<div class="client-sub">Inspección SUNAFIL</div></td>
-                  <td>Laboral corporativo</td><td><span class="tag neutral">Diagnóstico</span></td><td>Camila T.</td>
-                </tr>
-                <tr>
-                  <td class="client-name">EXP-2025-087</td>
-                  <td>Estudio Contable Paredes<div class="client-sub">Revisión contractual</div></td>
-                  <td>Civil y comercial</td><td><span class="tag success">Seguimiento</span></td><td>María V.</td>
-                </tr>
-              </tbody>
+              <thead><tr><th>Expediente</th><th>Cliente</th><th>Materia</th><th>Etapa</th><th>Estado</th></tr></thead>
+              <tbody id="expedientesTbody"></tbody>
             </table>
           </div>
         </div>
 
         <div class="kview" id="kview-kanban">
-          <div class="kanban">
-            <div class="kcol">
-              <div class="kcol-head">Diagnóstico <span class="count">3</span></div>
-              <div class="kcard"><div class="kexp">EXP-2026-019</div><div class="kclient">Grupo Inmobiliario Rímac</div><div class="kfoot"><span class="tag neutral">Laboral</span><div class="kavatar">CT</div></div></div>
-              <div class="kcard"><div class="kexp">EXP-2026-025</div><div class="kclient">Panificadora San Luis</div><div class="kfoot"><span class="tag neutral">Civil</span><div class="kavatar">RS</div></div></div>
-              <div class="kcard"><div class="kexp">EXP-2026-026</div><div class="kclient">Comercial Andahuasi</div><div class="kfoot"><span class="tag neutral">Administrativo</span><div class="kavatar">MV</div></div></div>
-            </div>
-            <div class="kcol">
-              <div class="kcol-head">Estrategia <span class="count">2</span></div>
-              <div class="kcard"><div class="kexp">EXP-2026-021</div><div class="kclient">Textiles Andinos S.A.</div><div class="kfoot"><span class="tag neutral">Laboral</span><div class="kavatar">RS</div></div></div>
-              <div class="kcard"><div class="kexp">EXP-2026-011</div><div class="kclient">Constructora Belén</div><div class="kfoot"><span class="tag neutral">Contrataciones</span><div class="kavatar">MV</div></div></div>
-            </div>
-            <div class="kcol">
-              <div class="kcol-head">Ejecución <span class="count">2</span></div>
-              <div class="kcard"><div class="kexp">EXP-2026-014</div><div class="kclient">Consorcio Vial del Norte</div><div class="kfoot"><span class="tag gold">Contrataciones</span><div class="kavatar">MV</div></div></div>
-              <div class="kcard"><div class="kexp">EXP-2026-017</div><div class="kclient">Distribuidora Alameda</div><div class="kfoot"><span class="tag neutral">Penal</span><div class="kavatar">MV</div></div></div>
-            </div>
-            <div class="kcol">
-              <div class="kcol-head">Seguimiento <span class="count">1</span></div>
-              <div class="kcard"><div class="kexp">EXP-2025-087</div><div class="kclient">Estudio Contable Paredes</div><div class="kfoot"><span class="tag success">Civil</span><div class="kavatar">MV</div></div></div>
-            </div>
-          </div>
+          <div class="kanban" id="kanbanBoard"></div>
         </div>
       </div>
 
@@ -319,6 +200,7 @@
             <button class="btn secondary">Semana</button>
           </div>
         </div>
+        <div class="demo-banner">🗓️ <span>La Agenda con audiencias, pericias y vencimientos reales llega en la próxima fase. Esto es una vista de ejemplo.</span></div>
         <div class="cal-legend">
           <div class="leg"><span class="dotc" style="background:var(--p-danger-soft);border:1px solid var(--p-danger);"></span> Audiencias</div>
           <div class="leg"><span class="dotc" style="background:var(--p-gold-soft);border:1px solid var(--p-gold);"></span> Pericias</div>
@@ -368,17 +250,11 @@
 
       <!-- ============ CONFIGURACIÓN ============ -->
       <div class="view" id="view-configuracion">
-        <div class="page-head"><div><h1>Configuración</h1><div class="desc">Usuarios, roles y ajustes generales</div></div></div>
-        <div class="demo-banner">🔒 <span>El sistema arranca con <b>un único usuario</b> (Jefe de Estudio, acceso total). El soporte para más usuarios y roles restringidos (Asistente Legal) llega en una fase posterior.</span></div>
+        <div class="page-head"><div><h1>Configuración</h1><div class="desc">Usuarios, roles y ajustes generales — solo Jefe de Estudio</div></div><button class="btn gold" id="btnNuevoUsuario">+ Nuevo usuario</button></div>
         <div class="panel">
           <table>
-            <thead><tr><th>Usuario</th><th>Rol</th><th>Acceso</th><th>Estado</th></tr></thead>
-            <tbody>
-              <tr>
-                <td class="client-name" id="cfgEmail">—</td><td>Jefe de Estudio</td><td>Todos los clientes y expedientes</td>
-                <td><span class="tag success">Activo</span></td>
-              </tr>
-            </tbody>
+            <thead><tr><th>Usuario</th><th>Rol</th><th>Estado</th><th></th></tr></thead>
+            <tbody id="usuariosTbody"></tbody>
           </table>
         </div>
       </div>
@@ -387,10 +263,102 @@
   </div>
 </div>
 
+<!-- ================= MODALES ================= -->
+<div class="modal-overlay" id="modalCliente">
+  <div class="modal-card">
+    <button class="modal-close" data-close>×</button>
+    <h3>Nuevo cliente</h3>
+    <div class="desc">Se registra en el panel; la carpeta de Google Drive se crea en una fase posterior.</div>
+    <div id="clienteFormError"></div>
+    <form id="formCliente">
+      <div class="field"><label>Nombre / Razón social</label><input type="text" id="clienteNombre" required maxlength="200"></div>
+      <div class="field"><label>Tipo de persona</label>
+        <select id="clienteTipo"><option value="natural">Persona natural</option><option value="juridica">Persona jurídica</option></select>
+      </div>
+      <div class="field"><label>Documento (DNI / RUC)</label><input type="text" id="clienteDocumento" required maxlength="40"></div>
+      <div class="field"><label>Contacto</label><input type="text" id="clienteContacto" maxlength="200" placeholder="Nombre, teléfono o correo de contacto"></div>
+      <div class="field"><label>Dirección</label><input type="text" id="clienteDireccion" maxlength="300"></div>
+      <div class="form-actions">
+        <button type="button" class="btn secondary" data-close>Cancelar</button>
+        <button type="submit" class="btn gold">Guardar cliente</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalExpediente">
+  <div class="modal-card">
+    <button class="modal-close" data-close>×</button>
+    <h3>Nuevo expediente</h3>
+    <div class="desc">El número de expediente se genera automáticamente.</div>
+    <div id="expedienteFormError"></div>
+    <form id="formExpediente">
+      <div class="field"><label>Cliente</label><select id="expedienteCliente" required></select></div>
+      <div class="field"><label>Materia</label>
+        <select id="expedienteMateria" required>
+          <option value="Contrataciones del Estado">Contrataciones del Estado</option>
+          <option value="Laboral corporativo">Laboral corporativo</option>
+          <option value="Derecho administrativo">Derecho administrativo</option>
+          <option value="Derecho penal">Derecho penal</option>
+          <option value="Civil y comercial">Civil y comercial</option>
+        </select>
+      </div>
+      <div class="field"><label>Juzgado / Tribunal</label><input type="text" id="expedienteJuzgado" maxlength="200"></div>
+      <div class="field"><label>Fuero</label><input type="text" id="expedienteFuero" maxlength="100"></div>
+      <div class="field"><label>Partes involucradas</label><textarea id="expedientePartes" maxlength="500"></textarea></div>
+      <div class="form-actions">
+        <button type="button" class="btn secondary" data-close>Cancelar</button>
+        <button type="submit" class="btn gold">Crear expediente</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalPendiente">
+  <div class="modal-card">
+    <button class="modal-close" data-close>×</button>
+    <h3>Nuevo pendiente</h3>
+    <div id="pendienteFormError"></div>
+    <form id="formPendiente">
+      <div class="field"><label>Título</label><input type="text" id="pendienteTitulo" required maxlength="200"></div>
+      <div class="field"><label>Descripción</label><textarea id="pendienteDescripcion" maxlength="1000"></textarea></div>
+      <div class="field"><label>Cliente (opcional)</label><select id="pendienteCliente"><option value="">— Sin cliente asociado —</option></select></div>
+      <div class="field"><label>Expediente (opcional)</label><select id="pendienteExpediente"><option value="">— Sin expediente asociado —</option></select></div>
+      <div class="field"><label>Fecha límite (opcional)</label><input type="date" id="pendienteFecha"></div>
+      <div class="form-actions">
+        <button type="button" class="btn secondary" data-close>Cancelar</button>
+        <button type="submit" class="btn gold">Crear pendiente</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalUsuario">
+  <div class="modal-card">
+    <button class="modal-close" data-close>×</button>
+    <h3>Nuevo usuario</h3>
+    <div class="desc">El usuario empieza inactivo hasta que lo actives desde esta pantalla.</div>
+    <div id="usuarioFormError"></div>
+    <form id="formUsuario">
+      <div class="field"><label>Nombre completo</label><input type="text" id="usuarioNombre" required maxlength="120"></div>
+      <div class="field"><label>Correo</label><input type="email" id="usuarioCorreo" required maxlength="200"></div>
+      <div class="field"><label>Rol</label>
+        <select id="usuarioRol"><option value="asistente_legal">Asistente Legal</option><option value="jefe_estudio">Jefe de Estudio</option></select>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn secondary" data-close>Cancelar</button>
+        <button type="submit" class="btn gold">Crear usuario</button>
+      </div>
+    </form>
+    <div id="usuarioTempPassword" style="display:none;margin-top:16px;"></div>
+  </div>
+</div>
+
 <script>
 (function () {
   const checking = document.getElementById('checkingSession');
   const app = document.getElementById('appMain');
+  const state = { session: null, clientes: [], expedientes: [], tareas: [], usuarios: [], perfilClienteId: null };
 
   fetch('/.netlify/functions/panel-session', { credentials: 'same-origin' })
     .then((r) => r.json())
@@ -399,55 +367,429 @@
         window.location.replace('index.html');
         return;
       }
-      document.getElementById('cfgEmail').textContent = data.email;
-      document.getElementById('footerName').textContent = data.email;
-      document.getElementById('footerAvatar').textContent = data.email.slice(0, 2).toUpperCase();
+      state.session = data;
+      document.getElementById('footerName').textContent = data.nombre || data.email;
+      document.getElementById('footerAvatar').textContent = (data.nombre || data.email).slice(0, 2).toUpperCase();
+      document.getElementById('dashGreeting').textContent = 'Buenos días, ' + (data.nombre || data.email).split(' ')[0];
+      if (data.role !== 'jefe_estudio') {
+        document.getElementById('nav-config').classList.add('locked-nav');
+      }
       checking.style.display = 'none';
       app.style.display = 'flex';
       init();
     })
     .catch(() => window.location.replace('index.html'));
 
-  function init() {
+  // ---------- fetch helpers ----------
+  async function api(path, opts) {
+    const res = await fetch('/.netlify/functions/' + path, {
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      ...opts,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Ocurrió un error inesperado.');
+    return data;
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  function tagFor(estado) {
+    const map = { pendiente: 'danger', en_tramite: 'gold', completo: 'success', activo: 'success', inactivo: 'neutral', cerrado: 'neutral' };
+    const labelMap = { pendiente: 'Pendiente', en_tramite: 'En trámite', completo: 'Completo', activo: 'Activo', inactivo: 'Inactivo', cerrado: 'Cerrado' };
+    return `<span class="tag ${map[estado] || 'neutral'}">${labelMap[estado] || estado}</span>`;
+  }
+
+  function clienteNombre(id) {
+    const c = state.clientes.find((x) => x.id === id);
+    return c ? c.nombre : '—';
+  }
+
+  // ---------- modal helpers ----------
+  function openModal(id) { document.getElementById(id).classList.add('open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+  document.querySelectorAll('[data-close]').forEach((btn) => {
+    btn.addEventListener('click', () => btn.closest('.modal-overlay').classList.remove('open'));
+  });
+  document.querySelectorAll('.modal-overlay').forEach((ov) => {
+    ov.addEventListener('click', (e) => { if (e.target === ov) ov.classList.remove('open'); });
+  });
+
+  function showError(elId, msg) {
+    document.getElementById(elId).innerHTML = `<div class="alert-box error">${esc(msg)}</div>`;
+  }
+  function clearError(elId) {
+    document.getElementById(elId).innerHTML = '';
+  }
+
+  // ---------- loaders ----------
+  async function loadClientesAndExpedientes() {
+    const [cRes, eRes, tRes] = await Promise.all([
+      api('panel-clientes'),
+      api('panel-expedientes'),
+      api('panel-tareas'),
+    ]);
+    state.clientes = cRes.clientes;
+    state.expedientes = eRes.expedientes;
+    state.tareas = tRes.tareas;
+  }
+
+  async function loadDashboard() {
+    const d = await api('panel-dashboard');
+    document.getElementById('kpiPorHacer').textContent = d.pendientesPorHacer;
+    document.getElementById('kpiEnTramite').textContent = d.pendientesEnTramite;
+    document.getElementById('kpiExpActivos').textContent = d.expedientesActivos;
+    document.getElementById('kpiCompletos').textContent = d.pendientesCompletos;
+    document.getElementById('pendientesTotalLbl').textContent = d.totalPendientes + ' en total';
+
+    state._pendientesRecientes = d.pendientesRecientes;
+    renderPendientesList('todos');
+
+    const areaList = document.getElementById('expedientesPorAreaList');
+    const entries = Object.entries(d.expedientesPorArea);
+    areaList.innerHTML = entries.length
+      ? entries.map(([materia, count]) => `<div class="row-item"><div class="rl">${esc(materia)}</div><span class="tag gold">${count}</span></div>`).join('')
+      : '<div class="empty-hint">Todavía no hay expedientes activos.</div>';
+  }
+
+  function renderPendientesList(filter) {
+    const list = state._pendientesRecientes || [];
+    const filtered = filter === 'todos' ? list : list.filter((t) => t.estado === filter);
+    const el = document.getElementById('pendientesList');
+    el.innerHTML = filtered.length
+      ? filtered.map((t) => `
+        <div class="row-item">
+          <div><div class="rl">${esc(t.titulo)}</div><div class="rsub">${esc(t.clienteNombre || t.expedienteNumero || 'sin cliente/expediente asociado')}</div></div>
+          ${tagFor(t.estado)}
+        </div>`).join('')
+      : '<div class="empty-hint">No hay pendientes en esta categoría.</div>';
+  }
+
+  function renderClientes() {
+    const activeChip = document.querySelector('#clientesFilterChips .filter-chip.active').dataset.f;
+    let list = state.clientes;
+    if (activeChip === 'activo') list = list.filter((c) => c.estado === 'activo');
+    if (activeChip === 'juridica' || activeChip === 'natural') list = list.filter((c) => c.tipoPersona === activeChip);
+
+    document.getElementById('clientesCountDesc').textContent = `${state.clientes.length} clientes registrados`;
+    const tbody = document.getElementById('clientesTbody');
+    tbody.innerHTML = list.length
+      ? list.map((c) => `
+        <tr data-id="${c.id}">
+          <td><div class="client-name">${esc(c.nombre)}</div><div class="client-sub">${esc(c.documento)}</div></td>
+          <td>${c.tipoPersona === 'juridica' ? 'Jurídica' : 'Natural'}</td>
+          <td>${c.expedientesActivos}</td>
+          <td>${tagFor(c.estado)}</td>
+        </tr>`).join('')
+      : '<tr><td colspan="4"><div class="empty-hint">Todavía no hay clientes. Crea el primero con "+ Nuevo cliente".</div></td></tr>';
+
+    tbody.querySelectorAll('tr[data-id]').forEach((tr) => {
+      tr.addEventListener('click', () => showPerfil(Number(tr.dataset.id)));
+    });
+
+    // keep the "nuevo expediente" / "nuevo pendiente" client dropdowns in sync
+    fillSelect('expedienteCliente', state.clientes, (c) => c.id, (c) => c.nombre, false);
+    fillSelect('pendienteCliente', state.clientes, (c) => c.id, (c) => c.nombre, true, '— Sin cliente asociado —');
+  }
+
+  function fillSelect(id, items, valueFn, labelFn, includeEmpty, emptyLabel) {
+    const sel = document.getElementById(id);
+    const current = sel.value;
+    sel.innerHTML = (includeEmpty ? `<option value="">${esc(emptyLabel)}</option>` : '') +
+      items.map((it) => `<option value="${valueFn(it)}">${esc(labelFn(it))}</option>`).join('');
+    if ([...sel.options].some((o) => o.value === current)) sel.value = current;
+  }
+
+  function showPerfil(clienteId) {
+    const cliente = state.clientes.find((c) => c.id === clienteId);
+    if (!cliente) return;
+    state.perfilClienteId = clienteId;
+
+    document.getElementById('perfilNombre').textContent = cliente.nombre;
+    document.getElementById('perfilMeta').innerHTML =
+      `<span>${esc(cliente.documento)}</span><span>${cliente.tipoPersona === 'juridica' ? 'Persona jurídica' : 'Persona natural'}</span>` +
+      (cliente.contacto ? `<span>Contacto: ${esc(cliente.contacto)}</span>` : '');
+    document.getElementById('perfilEstadoTag').innerHTML = tagFor(cliente.estado);
+
+    const misExpedientes = state.expedientes.filter((e) => e.clienteId === clienteId);
+    document.getElementById('perfilExpedientes').innerHTML = misExpedientes.length
+      ? misExpedientes.map((e) => `
+        <div class="row-item"><div><div class="rl">${esc(e.numero)} — ${esc(e.materia)}</div><div class="rsub">Etapa: ${esc(e.etapaKanban)}</div></div>${tagFor(e.estado)}</div>`).join('')
+      : '<div class="empty-hint">Sin expedientes asociados todavía.</div>';
+
+    const expIds = new Set(misExpedientes.map((e) => e.id));
+    const misTareas = state.tareas.filter((t) => t.clienteId === clienteId || expIds.has(t.expedienteId));
+    document.getElementById('perfilTareas').innerHTML = misTareas.length
+      ? misTareas.map((t) => `<div class="row-item"><div class="rl">${esc(t.titulo)}</div>${tagFor(t.estado)}</div>`).join('')
+      : '<div class="empty-hint">Sin pendientes vinculados.</div>';
+
+    switchView('perfil', false);
+    document.querySelectorAll('.nav-btn').forEach((b) => b.classList.toggle('active', b.dataset.view === 'clientes'));
+  }
+
+  function renderExpedientes() {
+    const activeChip = document.querySelector('#expedientesFilterChips .filter-chip.active').dataset.f;
+    let list = state.expedientes;
+    if (activeChip !== 'todas') list = list.filter((e) => e.materia === activeChip);
+
+    document.getElementById('expedientesCountDesc').textContent =
+      `${state.expedientes.filter((e) => e.estado === 'activo').length} expedientes activos`;
+
+    const tbody = document.getElementById('expedientesTbody');
+    tbody.innerHTML = list.length
+      ? list.map((e) => `
+        <tr>
+          <td class="client-name">${esc(e.numero)}</td>
+          <td>${esc(clienteNombre(e.clienteId))}</td>
+          <td>${esc(e.materia)}</td>
+          <td><span class="tag warn">${esc(e.etapaKanban)}</span></td>
+          <td>${tagFor(e.estado)}</td>
+        </tr>`).join('')
+      : '<tr><td colspan="5"><div class="empty-hint">Todavía no hay expedientes en esta materia.</div></td></tr>';
+
+    renderKanban(list.filter((e) => e.estado === 'activo'));
+
+    fillSelect('pendienteExpediente', state.expedientes, (e) => e.id, (e) => `${e.numero} — ${clienteNombre(e.clienteId)}`, true, '— Sin expediente asociado —');
+  }
+
+  const ETAPAS = ['Diagnóstico', 'Estrategia', 'Ejecución', 'Seguimiento'];
+
+  function renderKanban(list) {
+    const board = document.getElementById('kanbanBoard');
+    board.innerHTML = ETAPAS.map((etapa) => {
+      const cards = list.filter((e) => e.etapaKanban === etapa);
+      return `
+        <div class="kcol">
+          <div class="kcol-head">${etapa} <span class="count">${cards.length}</span></div>
+          ${cards.map((e) => `
+            <div class="kcard">
+              <div class="kexp">${esc(e.numero)}</div>
+              <div class="kclient">${esc(clienteNombre(e.clienteId))}</div>
+              <select class="ketapa" data-id="${e.id}">
+                ${ETAPAS.concat('Cerrado').map((et) => `<option value="${et}" ${et === e.etapaKanban ? 'selected' : ''}>${et}</option>`).join('')}
+              </select>
+            </div>`).join('')}
+        </div>`;
+    }).join('');
+
+    board.querySelectorAll('.ketapa').forEach((sel) => {
+      sel.addEventListener('change', async () => {
+        const id = Number(sel.dataset.id);
+        try {
+          const { expediente } = await api('panel-expedientes', { method: 'PATCH', body: JSON.stringify({ id, etapaKanban: sel.value }) });
+          const idx = state.expedientes.findIndex((e) => e.id === id);
+          if (idx !== -1) state.expedientes[idx] = expediente;
+          renderExpedientes();
+        } catch (err) {
+          alert(err.message);
+          renderExpedientes();
+        }
+      });
+    });
+  }
+
+  async function loadUsuarios() {
+    if (state.session.role !== 'jefe_estudio') return;
+    const { usuarios } = await api('panel-usuarios');
+    state.usuarios = usuarios;
+    const tbody = document.getElementById('usuariosTbody');
+    tbody.innerHTML = usuarios.map((u) => `
+      <tr>
+        <td class="client-name">${esc(u.nombre)}<div class="client-sub">${esc(u.correo)}</div></td>
+        <td>${u.rol === 'jefe_estudio' ? 'Jefe de Estudio' : 'Asistente Legal'}</td>
+        <td>${tagFor(u.estado)}</td>
+        <td><button class="btn secondary toggle-estado" data-id="${u.id}" data-estado="${u.estado}" style="padding:5px 11px;font-size:11.5px;">
+          ${u.estado === 'activo' ? 'Desactivar' : 'Activar'}
+        </button></td>
+      </tr>`).join('');
+
+    tbody.querySelectorAll('.toggle-estado').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const id = Number(btn.dataset.id);
+        const nuevoEstado = btn.dataset.estado === 'activo' ? 'inactivo' : 'activo';
+        await api('panel-usuarios', { method: 'PATCH', body: JSON.stringify({ id, estado: nuevoEstado }) });
+        loadUsuarios();
+      });
+    });
+  }
+
+  // ---------- view switching ----------
+  const navButtons = document.querySelectorAll('.nav-btn');
+  const views = document.querySelectorAll('.view');
+
+  function switchView(name, updateNav = true) {
+    views.forEach((v) => v.classList.remove('active'));
+    document.getElementById('view-' + name).classList.add('active');
+    if (updateNav) navButtons.forEach((b) => b.classList.toggle('active', b.dataset.view === name));
+    if (name === 'clientes') renderClientes();
+    if (name === 'expedientes') renderExpedientes();
+    if (name === 'configuracion') loadUsuarios();
+  }
+  navButtons.forEach((btn) => btn.addEventListener('click', () => switchView(btn.dataset.view)));
+
+  // ---------- filter chip wiring ----------
+  document.getElementById('pendientesFilterChips').addEventListener('click', (e) => {
+    const chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    chip.parentElement.querySelectorAll('.filter-chip').forEach((c) => c.classList.remove('active'));
+    chip.classList.add('active');
+    renderPendientesList(chip.dataset.f);
+  });
+  document.getElementById('clientesFilterChips').addEventListener('click', (e) => {
+    const chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    chip.parentElement.querySelectorAll('.filter-chip').forEach((c) => c.classList.remove('active'));
+    chip.classList.add('active');
+    renderClientes();
+  });
+  document.getElementById('expedientesFilterChips').addEventListener('click', (e) => {
+    const chip = e.target.closest('.filter-chip');
+    const modeBtn = e.target.closest('.view-toggle button');
+    if (modeBtn) {
+      document.querySelectorAll('.view-toggle button').forEach((b) => b.classList.remove('active'));
+      modeBtn.classList.add('active');
+      document.getElementById('kview-list').classList.toggle('active', modeBtn.dataset.mode === 'list');
+      document.getElementById('kview-kanban').classList.toggle('active', modeBtn.dataset.mode === 'kanban');
+      return;
+    }
+    if (!chip) return;
+    chip.parentElement.querySelectorAll('.filter-chip').forEach((c) => c.classList.remove('active'));
+    chip.classList.add('active');
+    renderExpedientes();
+  });
+
+  // ---------- create forms ----------
+  document.getElementById('btnNuevoCliente').addEventListener('click', () => openModal('modalCliente'));
+  document.getElementById('btnNuevoClienteQuick').addEventListener('click', () => openModal('modalCliente'));
+  document.getElementById('formCliente').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError('clienteFormError');
+    try {
+      await api('panel-clientes', {
+        method: 'POST',
+        body: JSON.stringify({
+          nombre: document.getElementById('clienteNombre').value.trim(),
+          tipoPersona: document.getElementById('clienteTipo').value,
+          documento: document.getElementById('clienteDocumento').value.trim(),
+          contacto: document.getElementById('clienteContacto').value.trim(),
+          direccion: document.getElementById('clienteDireccion').value.trim(),
+        }),
+      });
+      await loadClientesAndExpedientes();
+      renderClientes();
+      closeModal('modalCliente');
+      e.target.reset();
+    } catch (err) {
+      showError('clienteFormError', err.message);
+    }
+  });
+
+  document.getElementById('btnNuevoExpediente').addEventListener('click', () => openModal('modalExpediente'));
+  document.getElementById('btnNuevoExpedienteQuick').addEventListener('click', () => openModal('modalExpediente'));
+  document.getElementById('formExpediente').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError('expedienteFormError');
+    try {
+      await api('panel-expedientes', {
+        method: 'POST',
+        body: JSON.stringify({
+          clienteId: Number(document.getElementById('expedienteCliente').value),
+          materia: document.getElementById('expedienteMateria').value,
+          juzgadoTribunal: document.getElementById('expedienteJuzgado').value.trim(),
+          fuero: document.getElementById('expedienteFuero').value.trim(),
+          partesInvolucradas: document.getElementById('expedientePartes').value.trim(),
+        }),
+      });
+      await loadClientesAndExpedientes();
+      renderClientes();
+      renderExpedientes();
+      closeModal('modalExpediente');
+      e.target.reset();
+    } catch (err) {
+      showError('expedienteFormError', err.message);
+    }
+  });
+
+  function openPendienteModal(fromPerfil) {
+    state.pendienteFromPerfil = !!fromPerfil;
+    fillSelect('pendienteCliente', state.clientes, (c) => c.id, (c) => c.nombre, true, '— Sin cliente asociado —');
+    fillSelect('pendienteExpediente', state.expedientes, (e) => e.id, (e) => `${e.numero} — ${clienteNombre(e.clienteId)}`, true, '— Sin expediente asociado —');
+    if (fromPerfil && state.perfilClienteId) document.getElementById('pendienteCliente').value = state.perfilClienteId;
+    openModal('modalPendiente');
+  }
+  document.getElementById('btnNuevoPendienteQuick').addEventListener('click', () => openPendienteModal(false));
+  document.getElementById('btnNuevoPendientePerfil').addEventListener('click', () => openPendienteModal(true));
+  document.getElementById('formPendiente').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError('pendienteFormError');
+    try {
+      await api('panel-tareas', {
+        method: 'POST',
+        body: JSON.stringify({
+          titulo: document.getElementById('pendienteTitulo').value.trim(),
+          descripcion: document.getElementById('pendienteDescripcion').value.trim(),
+          clienteId: document.getElementById('pendienteCliente').value || null,
+          expedienteId: document.getElementById('pendienteExpediente').value || null,
+          fechaLimite: document.getElementById('pendienteFecha').value,
+        }),
+      });
+      await loadClientesAndExpedientes();
+      await loadDashboard();
+      if (state.pendienteFromPerfil && state.perfilClienteId) showPerfil(state.perfilClienteId);
+      closeModal('modalPendiente');
+      e.target.reset();
+    } catch (err) {
+      showError('pendienteFormError', err.message);
+    }
+  });
+
+  document.getElementById('btnNuevoUsuario').addEventListener('click', () => {
+    document.getElementById('usuarioTempPassword').style.display = 'none';
+    document.getElementById('formUsuario').style.display = 'block';
+    openModal('modalUsuario');
+  });
+  document.getElementById('formUsuario').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError('usuarioFormError');
+    try {
+      const { tempPassword, usuario } = await api('panel-usuarios', {
+        method: 'POST',
+        body: JSON.stringify({
+          nombre: document.getElementById('usuarioNombre').value.trim(),
+          correo: document.getElementById('usuarioCorreo').value.trim(),
+          rol: document.getElementById('usuarioRol').value,
+        }),
+      });
+      e.target.reset();
+      e.target.style.display = 'none';
+      const box = document.getElementById('usuarioTempPassword');
+      box.style.display = 'block';
+      box.innerHTML = `<div class="alert-box info">Cuenta creada para <b>${esc(usuario.correo)}</b>, inactiva hasta que la actives desde Configuración.<br>Contraseña temporal (compártela ahora, no se mostrará de nuevo):<code>${esc(tempPassword)}</code></div>
+        <div class="form-actions"><button type="button" class="btn gold" data-close>Listo</button></div>`;
+      box.querySelector('[data-close]').addEventListener('click', () => closeModal('modalUsuario'));
+      loadUsuarios();
+    } catch (err) {
+      showError('usuarioFormError', err.message);
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', function () {
+    fetch('/.netlify/functions/panel-logout', { method: 'POST', credentials: 'same-origin' })
+      .finally(() => window.location.replace('index.html'));
+  });
+
+  async function init() {
     document.getElementById('topbarDate').textContent = new Date().toLocaleDateString('es-PE', {
       day: 'numeric', month: 'long', year: 'numeric',
     });
-
-    const navButtons = document.querySelectorAll('.nav-btn');
-    const views = document.querySelectorAll('.view');
-
-    function switchView(name) {
-      views.forEach((v) => v.classList.remove('active'));
-      document.getElementById('view-' + name).classList.add('active');
-      navButtons.forEach((b) => b.classList.toggle('active', b.dataset.view === name));
+    try {
+      await loadClientesAndExpedientes();
+      await loadDashboard();
+    } catch (err) {
+      console.error(err);
     }
-    navButtons.forEach((btn) => btn.addEventListener('click', () => switchView(btn.dataset.view)));
-
-    window.showProfile = function () {
-      views.forEach((v) => v.classList.remove('active'));
-      document.getElementById('view-perfil').classList.add('active');
-      navButtons.forEach((b) => b.classList.remove('active'));
-      document.querySelector('.nav-btn[data-view="clientes"]').classList.add('active');
-    };
-
-    window.setExpView = function (mode) {
-      document.querySelectorAll('.view-toggle button').forEach((b) => b.classList.remove('active'));
-      event.target.classList.add('active');
-      document.getElementById('kview-list').classList.toggle('active', mode === 'list');
-      document.getElementById('kview-kanban').classList.toggle('active', mode === 'kanban');
-    };
-
-    document.querySelectorAll('.filter-chip').forEach((chip) => {
-      chip.addEventListener('click', function () {
-        this.parentElement.querySelectorAll('.filter-chip').forEach((c) => c.classList.remove('active'));
-        this.classList.add('active');
-      });
-    });
-
-    document.getElementById('logoutBtn').addEventListener('click', function () {
-      fetch('/.netlify/functions/panel-logout', { method: 'POST', credentials: 'same-origin' })
-        .finally(() => window.location.replace('index.html'));
-    });
   }
 })();
 </script>

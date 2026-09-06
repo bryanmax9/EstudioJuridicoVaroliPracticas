@@ -164,6 +164,27 @@ tbody tr:hover{background:#FAF8F3}
 .kview{display:none}
 .kview.active{display:block}
 
+/* ---------- MODAL / FORMS ---------- */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(12,20,38,0.55);z-index:500;align-items:center;justify-content:center;padding:24px}
+.modal-overlay.open{display:flex}
+.modal-card{background:var(--p-paper);border-radius:6px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;padding:24px 26px 22px;box-shadow:0 24px 60px rgba(0,0,0,0.3)}
+.modal-card h3{font-size:17px;margin:0 0 4px 0}
+.modal-card .desc{color:var(--p-muted);font-size:12.5px;margin-bottom:18px}
+.modal-close{float:right;background:none;border:none;font-size:20px;color:var(--p-muted);cursor:pointer;line-height:1}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11.5px;color:var(--p-muted);margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;padding:9px 11px;border:1px solid var(--p-line);border-radius:4px;font-size:13px;font-family:var(--sans);color:var(--p-ink);background:var(--p-bg)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--p-gold);background:#fff}
+.field textarea{resize:vertical;min-height:70px}
+.form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.alert-box{padding:10px 13px;border-radius:4px;font-size:12.5px;margin-bottom:14px;line-height:1.6}
+.alert-box.info{background:var(--p-gold-soft);color:#6b4f1c}
+.alert-box.error{background:var(--p-danger-soft);color:var(--p-danger)}
+.alert-box code{display:block;margin-top:6px;font-size:13px;font-weight:600;user-select:all}
+.empty-hint{padding:24px;text-align:center;color:var(--p-muted);font-size:13px}
+.kcard select.ketapa{width:100%;font-size:11px;padding:4px 6px;border:1px solid var(--p-line);border-radius:3px;background:var(--p-paper);margin-top:6px}
+.locked-nav{display:none !important}
+
 @media(max-width:960px){
   .kpi-row{grid-template-columns:1fr 1fr}
   .grid-2{grid-template-columns:1fr}
