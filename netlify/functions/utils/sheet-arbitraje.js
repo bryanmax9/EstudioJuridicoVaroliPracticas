@@ -8,7 +8,7 @@
 
 const { google } = require('googleapis');
 const XLSX = require('xlsx');
-const { getStore } = require('@netlify/blobs');
+const { getPanelStore } = require('./panel-store');
 
 const DEFAULT_FILE_ID = '1EwQ5TjPc2JpKn2Q0IRS3Kx6NqcLBFUJe'; // "Templo 2- Clientes"
 const CACHE_KEY = 'arbitraje-sheet-cache';
@@ -299,7 +299,7 @@ async function fetchArbitrajeData() {
 }
 
 async function getArbitrajeData({ forceRefresh } = {}) {
-  const store = getStore('panel');
+  const store = getPanelStore('panel');
   let cached = null;
   try {
     cached = await store.get(CACHE_KEY, { type: 'json' });
