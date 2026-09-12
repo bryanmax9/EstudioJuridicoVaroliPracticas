@@ -1,0 +1,196 @@
+[RECUPERADO POR CLAUDE — este archivo reemplaza a Especificacion_Intranet_Panel_Gestion.docx,
+que fue borrado por error. Este .txt tiene el texto completo del documento original
+(extraído previamente para lectura), pero perdió el formato de Word original: estilos,
+tabla real, saltos de página, etc. Si tenés otra copia del .docx original (correo,
+Drive, backup), usá esa en vez de este archivo.]
+
+ESPECIFICACIÓN TÉCNICA
+Intranet — Panel de Gestión Interna
+Módulo privado integrado a la web pública del estudio
+Varoli - Slovsa Abogados
+varoli-slovsaabogados.com
+Documento preparado para el equipo de desarrollo
+Versión 1.0 · Agosto 2026
+
+Índice
+0. Resumen ejecutivo y contexto
+1. Arquitectura de roles y permisos (RBAC)
+2. Mapa del sitio (sitemap) y flujo de navegación
+3. Dashboard principal
+4. Módulos funcionales
+5. Integración con Google Drive
+6. Especificación del modelo de datos
+7. Stack tecnológico recomendado
+8. Fases de desarrollo (roadmap MVP)
+9. Diseño y experiencia de usuario
+10. Próximos pasos
+
+Resumen ejecutivo y contexto
+Este documento especifica el desarrollo de una intranet privada ("Panel de Gestión Interna") integrada dentro del sitio web público de Varoli - Slovsa Abogados. El objetivo es centralizar en un solo lugar la gestión de clientes, expedientes, agenda, tareas y modelos de escritos del estudio, con una interfaz visualmente acorde a la identidad del sitio público.
+
+En esta primera fase, el almacenamiento de archivos no se construye desde cero: se integra con Google Drive, que actuará como repositorio documental. La intranet debe verse y sentirse como una extensión natural del sitio existente, no como una herramienta externa desconectada de la marca.
+
+Referencia | Detalle
+Sitio público | varoli-slovsaabogados.com — 5 áreas de práctica (Contrataciones del Estado, Laboral corporativo, Derecho administrativo, Derecho penal, Civil y comercial)
+Nombre del estudio | Varoli - Slovsa Abogados
+Tono de marca | Profesional, directo, cercano — "Atención directa, sin intermediarios", honorarios transparentes, respuesta en 24h
+Almacenamiento Fase 1 | Google Drive (vía API), sin backend de archivos propio
+
+Nota para el programador: El sitio público ya usa una identidad visual definida (isotipo "VS", paleta y tipografía propias). Antes de iniciar el desarrollo del front-end de la intranet, pedir al equipo de diseño/marketing los activos de marca exactos (paleta hexadecimal, tipografías, logo en alta resolución) para que el panel interno se sienta parte del mismo sitio y no una plantilla genérica superpuesta.
+
+1. Arquitectura de roles y permisos (RBAC)
+
+Roles del sistema
+Rol 1 — Jefe de Estudio / Socio (Administrador absoluto): acceso total e ilimitado a toda la información: clientes, expedientes, finanzas, métricas y configuración general del sistema.
+Rol 2 — Asistente Legal (usuario restringido): acceso limitado según los clientes/expedientes que se le asignen explícitamente.
+
+Matriz de permisos por módulo
+Módulo / Acción | Jefe de Estudio | Asistente Legal
+Ver clientes y expedientes | Todos | Solo los asignados
+Crear cliente / expediente | Sí | Sí
+Eliminar expediente | Sí | No — requiere autorización del Jefe de Estudio
+Ver honorarios / costos | Sí | No visible por defecto
+Exportación masiva de datos | Sí, sin límite | Restringida / bloqueada
+Configuración general del sistema | Sí | No
+Métricas y finanzas del estudio | Sí | No
+
+Flujo de autenticación
+Fase 1: inicio de sesión con usuario y contraseña (hash seguro), sesión gestionada por JWT o cookies seguras.
+Fase 2 (roadmap): integración con OAuth / Google Workspace, para que el equipo inicie sesión con su cuenta corporativa de Google.
+Fase 2 (roadmap): autenticación multifactor (MFA), especialmente para el rol de Jefe de Estudio dado el acceso a información sensible.
+
+Nota para el programador: Diseñar la tabla de permisos desde el inicio como una matriz configurable (rol → módulo → acción → permitido/denegado) en base de datos, no como reglas fijas en el código. Esto evita reescribir lógica cuando el estudio decida agregar un tercer rol en el futuro (ej. "Abogado colaborador").
+
+2. Mapa del sitio (sitemap) y flujo de navegación
+La intranet vive dentro del mismo dominio, bajo una ruta protegida (por ejemplo /panel o /intranet), separada del sitio público pero compartiendo cabecera de marca.
+
+Estructura de rutas
+/panel/login  →  Pantalla de acceso
+/panel  →  Dashboard principal (resumen ejecutivo del día y del mes)
+/panel/clientes  →  Listado de clientes (tabla con filtros)
+/panel/clientes/:id  →  Ficha individual del cliente
+/panel/expedientes  →  Listado de expedientes (vista lista)
+/panel/expedientes/kanban  →  Vista tablero, por etapa procesal
+/panel/expedientes/:id  →  Ficha detallada del expediente
+/panel/agenda  →  Calendario de audiencias y vencimientos (mes/semana/día)
+/panel/plantillas  →  Biblioteca de modelos de escritos
+/panel/plantillas/:categoria  →  Modelos filtrados por materia
+/panel/configuracion  →  Usuarios, roles y ajustes generales (solo Jefe de Estudio)
+
+Flujo de navegación principal
+El usuario inicia sesión en /panel/login.
+Es redirigido al Dashboard (/panel), que actúa como punto de partida de toda sesión.
+Desde el Dashboard, los accesos rápidos llevan directamente a los formularios de creación (nuevo cliente, nuevo expediente, subir documento, registrar audiencia), sin pasar por el listado intermedio.
+Desde el listado de Clientes, un clic sobre una fila abre la ficha del cliente, que a su vez enlaza a sus expedientes asociados y a su carpeta en Google Drive.
+Desde el listado de Expedientes, el usuario alterna entre vista de lista y vista Kanban sin perder los filtros aplicados.
+El Asistente Legal ve el mismo mapa de navegación, pero los módulos y filas a los que no tiene acceso quedan ocultos o deshabilitados, nunca visibles con datos que no le corresponden.
+
+3. Dashboard principal
+Vista de aterrizaje tras iniciar sesión. Su contenido varía según el rol del usuario.
+
+Vista Jefe de Estudio
+Resumen diario: tareas críticas del día, plazos procesales que vencen hoy o en los próximos días, recordatorios prioritarios.
+Métricas mensuales: cantidad de audiencias programadas en el mes, expedientes nuevos vs. cerrados, estado global de los casos (activos/finalizados/archivados).
+Accesos rápidos: Crear nuevo cliente · Añadir nuevo expediente · Subir documento o modelo · Registrar audiencia.
+
+Vista Asistente Legal
+La misma estructura de dashboard, pero acotada a los clientes y expedientes asignados a esa persona.
+Sin bloque de métricas globales del estudio ni indicadores financieros.
+
+Nota para el programador: Las métricas mensuales (audiencias, expedientes nuevos vs. cerrados) deben calcularse mediante consultas agregadas programadas, no en tiempo real sobre toda la base, para que el dashboard cargue rápido a medida que crezca el volumen de expedientes.
+
+4. Módulos funcionales
+
+A. Módulo de Clientes
+Vista lista: tabla interactiva con búsqueda rápida por nombre, DNI/RUC, tipo de cliente y estado (activo/inactivo).
+Ficha individual: datos personales y de contacto, historial de expedientes clasificados por materia (Judicial, Laboral, Arbitral, Civil, Comercial), historial de tareas/actividades vinculadas específicamente a ese cliente, y enlace directo a su carpeta en Google Drive.
+
+B. Módulo de Expedientes / Casos
+Doble visualización: lista tabular y tablero Kanban organizado por etapa procesal (configurable: Diagnóstico, Presentado, En trámite, A la espera de resolución, Cerrado, etc., alineado a las etapas descritas en el sitio público — Diagnóstico, Estrategia, Ejecución, Seguimiento).
+Ficha detallada: número de expediente, juzgado/tribunal, fuero, partes involucradas, bitácora cronológica de actuaciones, fechas límite y vencimientos vinculados, y acceso directo a la carpeta de Drive del expediente.
+
+C. Módulo de Agenda y Calendario de Audiencias
+Vistas mensual, semanal y diaria.
+Categorización por color: Audiencias, Pericias, Vencimientos de escritos, Reuniones con clientes.
+Preparado para sincronización con Google Calendar (lectura y escritura bidireccional) en una fase posterior.
+
+D. Módulo de Modelos de Escritos y Plantillas (Biblioteca Legal)
+Gestor interno de plantillas frecuentes: demandas, contestaciones, cartas notariales, contratos, telegramas.
+Clasificación por categoría/materia, con vista previa rápida y opción de descarga o copia de texto.
+
+Nota para el programador: El sitio público ya distribuye documentos descargables (guías, checklists, modelos) vinculados a sus notas de "Actualidad jurídica". Vale la pena evaluar si la Biblioteca Legal interna puede reutilizar esos mismos documentos como plantillas base, evitando duplicar contenido entre el sitio público y la intranet.
+
+5. Integración con Google Drive
+En esta Fase 1, toda la documentación (adjuntos de expedientes, contratos, escritos) se almacena en Google Drive; la base de datos propia solo guarda metadatos y referencias (ID de archivo/carpeta de Drive), no los archivos en sí.
+
+Estructura automática de carpetas
+/Estudio (carpeta raíz compartida, gestionada por cuenta de servicio)
+  /Clientes/[Nombre del cliente]
+    /Expedientes/[N° de expediente]
+    /Documentos generales del cliente
+
+Al dar de alta un nuevo cliente, la intranet crea automáticamente su carpeta bajo /Clientes/.
+Al dar de alta un nuevo expediente, se crea automáticamente la subcarpeta correspondiente bajo el cliente.
+
+Funcionalidad dentro de la interfaz
+Previsualización de archivos (PDF, Word, imágenes) embebida en la ficha del cliente/expediente, sin abrir Google Drive en una pestaña externa.
+Subida de archivos directamente desde la intranet (drag-and-drop), que internamente sube el archivo a la carpeta correspondiente vía API.
+Descarga directa de archivos desde la ficha.
+
+Consideraciones técnicas
+Usar una cuenta de servicio (Service Account) de Google Cloud con acceso a una unidad compartida (Shared Drive), en vez de la cuenta personal de un socio, para que el acceso no dependa de una persona.
+Definir permisos de Drive por carpeta, replicando en la medida de lo posible la matriz de roles de la sección 1 (el Asistente Legal solo debería poder navegar las carpetas de sus clientes/expedientes asignados).
+Prever límites de cuota y rate limits de la API de Google Drive en operaciones masivas (ej. carga de muchos documentos históricos en la migración inicial).
+
+Nota para el programador: La API de Google Drive (googleapis en Node.js, o google-api-python-client en Python) soporta creación de carpetas, subida resumible de archivos, generación de enlaces de previsualización y control de permisos por archivo/carpeta. Todo lo descrito en esta sección es alcanzable sin necesidad de que el estudio cambie su forma actual de organizar documentos en Drive, siempre que se defina la convención de carpetas antes de empezar a programar.
+
+6. Especificación del modelo de datos
+La base de datos propia guarda la información estructurada del negocio (clientes, expedientes, tareas) y referencias a Google Drive, no los archivos en sí.
+
+Entidad | Campos clave sugeridos | Relaciones
+Usuario | id, nombre, correo, rol (jefe_estudio / asistente_legal), estado, contraseña_hash | N:M con Cliente y Expediente (asignaciones)
+Cliente | id, tipo_persona, nombre/razón_social, documento, contacto, dirección, estado, drive_folder_id | 1:N con Expediente; N:M con Usuario (asignado a)
+Expediente | id, número_expediente, cliente_id, materia (Judicial/Laboral/Arbitral/Civil/Comercial), juzgado_tribunal, fuero, partes_involucradas, etapa_kanban, estado, drive_folder_id | N:1 con Cliente; 1:N con Tarea, Actuación; N:M con Usuario
+Actuación | id, expediente_id, fecha, autor_id, descripción | N:1 con Expediente y Usuario
+Tarea | id, cliente_id (nullable), expediente_id (nullable), título, descripción, responsable_id, estado, fecha_límite | N:1 con Cliente/Expediente; N:1 con Usuario
+Documento (metadato) | id, cliente_id, expediente_id, nombre, tipo, drive_file_id, drive_url, fecha_carga, autor_id | N:1 con Cliente y Expediente
+Audiencia/Vencimiento | id, expediente_id, tipo (audiencia/pericia/vencimiento/reunión), fecha, hora, color_categoría, estado | N:1 con Expediente
+Plantilla | id, nombre, categoría/materia, tipo_documento, drive_file_id, descripción_corta | Independiente (biblioteca compartida)
+
+Nota para el programador: Guardar drive_folder_id y drive_file_id como columnas explícitas (no reconstruir rutas por nombre) evita que el sistema se rompa si alguien renombra una carpeta manualmente desde Google Drive.
+
+7. Stack tecnológico recomendado
+Capa | Recomendación | Motivo
+Frontend | Next.js (React + TypeScript) | Permite integrar la intranet como rutas protegidas dentro del mismo proyecto del sitio público, compartiendo componentes de marca
+Backend | Node.js (NestJS) o API routes de Next.js | Mismo lenguaje que el frontend; SDK oficial de Google (googleapis) con soporte de primera clase en Node.js
+Base de datos | PostgreSQL | Relacional, robusta, con buen soporte para permisos a nivel de fila (row-level security) útiles para el RBAC
+Autenticación | NextAuth.js / Auth.js con proveedor de credenciales; preparado para sumar proveedor Google OAuth | Facilita la migración futura a login con Google Workspace sin rehacer el sistema de sesiones
+Almacenamiento de archivos | Google Drive API (googleapis) | Requerimiento explícito de la Fase 1; sin necesidad de infraestructura de almacenamiento propia
+Calendario | Google Calendar API (fase posterior) | Sincronización directa con las cuentas de Google que ya usa el estudio
+Hosting | Vercel (frontend/API) + base de datos gestionada (ej. Neon, Supabase o RDS) | Despliegue simple, buen soporte nativo para Next.js
+
+Esta combinación permite que el sitio público y la intranet convivan en el mismo repositorio y dominio, con la intranet como un área protegida (middleware de autenticación) en vez de una aplicación separada — lo que ayuda a mantener consistencia visual con el sitio actual.
+
+8. Fases de desarrollo (roadmap MVP)
+Fase | Contenido | Objetivo
+Fase 1 — MVP | Login y RBAC (2 roles), Clientes, Expedientes (vista lista), Tareas, Dashboard básico, integración Drive (carpetas automáticas + subir/previsualizar/descargar) | Reemplazar el manejo manual actual y centralizar clientes y expedientes con sus documentos
+Fase 2 | Vista Kanban de expedientes, Agenda/calendario con categorías por color, Biblioteca de plantillas | Cubrir seguimiento procesal y estandarizar escritos frecuentes
+Fase 3 | Sincronización con Google Calendar, modo oscuro, métricas mensuales avanzadas, exportaciones controladas por rol | Reducir trabajo manual adicional y mejorar reporting
+Fase 4 (a evaluar) | OAuth / Google Workspace login, MFA, segundo nivel de roles (ej. Abogado colaborador) | Reforzar seguridad y escalar el equipo del estudio
+
+Nota para el programador: Se recomienda cerrar la Fase 1 con datos reales de al menos un área de práctica (por ejemplo, Contrataciones del Estado) antes de migrar el resto, para validar la estructura de carpetas de Drive y el modelo de datos con casos reales.
+
+9. Diseño y experiencia de usuario
+Estética moderna, limpia y profesional, coherente con el tono del sitio público (directo, transparente, sin "relleno" visual).
+Modo claro por defecto, con modo oscuro opcional.
+Componentes: tablas dinámicas con filtros, tarjetas (cards) de resumen para el dashboard, gráficas simples para las métricas mensuales.
+Diseño responsive: el Asistente Legal y el Jefe de Estudio deben poder revisar pendientes desde el celular, no solo desde escritorio.
+
+Nota para el programador: Antes de construir las pantallas definitivas, se sugiere una maqueta de baja fricción (wireframe o prototipo navegable) usando la paleta y tipografía reales del sitio público, para validar con el estudio antes de invertir tiempo de desarrollo en el diseño final. Puedo prepararte esa maqueta visual si me compartes la paleta/tipografía exacta del sitio, o directamente a partir de capturas del sitio público.
+
+10. Próximos pasos
+Confirmar con el equipo de diseño la paleta de colores y tipografía exactas del sitio público para replicarlas en la intranet.
+Definir la convención final de nombres y estructura de carpetas en Google Drive antes de programar la integración automática.
+Crear la cuenta de servicio de Google Cloud y habilitar la API de Drive (y Calendar, si se adelanta) en el proyecto.
+Validar la matriz de permisos de la sección 1 con el Jefe de Estudio antes de iniciar el desarrollo del RBAC.
+Iniciar el desarrollo de la Fase 1 (MVP) según el roadmap de la sección 8.
