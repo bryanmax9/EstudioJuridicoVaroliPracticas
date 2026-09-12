@@ -516,7 +516,9 @@
     const entries = Object.entries(d.expedientesPorArea);
     areaList.innerHTML = entries.length
       ? entries.map(([materia, count]) => `<div class="row-item"><div class="rl">${esc(materia)}</div><span class="tag gold">${count}</span></div>`).join('')
-      : '<div class="empty-hint">Todavía no hay expedientes activos.</div>';
+      : d.areaPendienteDeSheet
+        ? '<div class="empty-hint">Hay expedientes activos (ver arriba), pero el Excel todavía no tiene una columna ÁREA para agruparlos por materia.</div>'
+        : '<div class="empty-hint">Todavía no hay expedientes activos.</div>';
   }
 
   function renderPendientesList(filter) {

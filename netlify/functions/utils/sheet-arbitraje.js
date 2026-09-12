@@ -91,6 +91,16 @@ function isEstadoAbierto(estado) {
   return !CLOSED_ESTADOS.includes(norm);
 }
 
+// Buckets an expediente's ESTADO into the same three categories the panel's
+// dashboard already uses for internally-created tareas (pendiente/en_tramite/
+// completo), so Excel-sourced and internally-created items can share one KPI.
+function categorizeEstado(estado) {
+  const norm = normalize(estado);
+  if (CLOSED_ESTADOS.includes(norm)) return 'completo';
+  if (norm === 'pendiente') return 'pendiente';
+  return 'en_tramite';
+}
+
 function findHeaderRow(rows, matchesFirstCol, matchesSecondCol) {
   for (let i = 0; i < rows.length; i += 1) {
     const row = rows[i];
@@ -347,4 +357,4 @@ async function getArbitrajeData({ forceRefresh } = {}) {
   }
 }
 
-module.exports = { getArbitrajeData };
+module.exports = { getArbitrajeData, categorizeEstado };
