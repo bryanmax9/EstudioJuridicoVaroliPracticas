@@ -77,6 +77,20 @@ function cellLink(sheet, r, c) {
   return cell && cell.l && cell.l.Target ? cell.l.Target : null;
 }
 
+// Confirmed with the person who maintains the workbook: each row in a
+// client's tab is one expediente/proceso (not a loose task) — a client can
+// have several open in parallel. ESTADO is the case status; ACCIÓN is a
+// separate "next step" column (HACER/REVISAR/RECORDAR) that isn't part of
+// open/closed logic. Only COMPLETADO/LISTO count as closed; everything else
+// (including a case whose ESTADO is literally "URGENTE") is open.
+const CLOSED_ESTADOS = ['completado', 'listo'];
+
+function isEstadoAbierto(estado) {
+  const norm = normalize(estado);
+  if (!norm) return true;
+  return !CLOSED_ESTADOS.includes(norm);
+}
+
 function findHeaderRow(rows, matchesFirstCol, matchesSecondCol) {
   for (let i = 0; i < rows.length; i += 1) {
     const row = rows[i];
@@ -128,6 +142,7 @@ function parsePendientesSheet(sheet, clienteFallback) {
     if (!descripcion || /sin pendientes registrados/i.test(descripcion)) continue;
 
     const linkCol = colFor.link;
+    const estado = colFor.estado !== undefined ? String(row[colFor.estado] || '').trim() : '';
     pendientes.push({
       numero: colFor.numero !== undefined ? String(row[colFor.numero] || '').trim() : '',
       cliente: colFor.cliente !== undefined ? String(row[colFor.cliente] || '').trim() : clienteFallback,
@@ -140,7 +155,8 @@ function parsePendientesSheet(sheet, clienteFallback) {
       fechaLimite: colFor.fechaLimite !== undefined ? String(row[colFor.fechaLimite] || '').trim() : '',
       diasRestantes: colFor.diasRestantes !== undefined ? String(row[colFor.diasRestantes] || '').trim() : '',
       horario: colFor.horario !== undefined ? String(row[colFor.horario] || '').trim() : '',
-      estado: colFor.estado !== undefined ? String(row[colFor.estado] || '').trim() : '',
+      estado,
+      abierto: isEstadoAbierto(estado),
       prioridad: colFor.prioridad !== undefined ? String(row[colFor.prioridad] || '').trim() : '',
       link: linkCol !== undefined ? String(row[linkCol] || '').trim() : '',
       linkUrl: linkCol !== undefined ? cellLink(sheet, r, linkCol) : null,
@@ -277,7 +293,16 @@ async function fetchArbitrajeData() {
     const sheet = workbook.Sheets[sheetName];
     const pendientes = sheet ? parsePendientesSheet(sheet, c.nombre) : [];
     const urgentes = pendientes.filter((p) => /urgente/i.test(p.prioridad)).length;
-    return { ...c, sheetName, pendientes, pendientesCount: pendientes.length, urgentes };
+    const expedientesActivos = pendientes.filter((p) => p.abierto).length;
+    return {
+      ...c,
+      sheetName,
+      pendientes,
+      pendientesCount: pendientes.length,
+      urgentes,
+      expedientesActivos,
+      expedientesCerrados: pendientes.length - expedientesActivos,
+    };
   });
 
   const otrosSheet = workbook.Sheets['OTROS CLIENTES'];
@@ -294,6 +319,8 @@ async function fetchArbitrajeData() {
     otrosClientes,
     arbitrajes,
     agenda,
+    totalExpedientesActivos: clientes.reduce((s, c) => s + c.expedientesActivos, 0),
+    totalExpedientesCerrados: clientes.reduce((s, c) => s + c.expedientesCerrados, 0),
     fetchedAt: new Date().toISOString(),
   };
 }
