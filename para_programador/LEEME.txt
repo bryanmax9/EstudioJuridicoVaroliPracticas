@@ -1,0 +1,25 @@
+PANEL DE GESTIÓN — VAROLI · SLOVSA ABOGADOS
+Material para el equipo de desarrollo
+
+CONTENIDO PRINCIPAL (usar estos dos archivos como referencia principal):
+
+1) Especificacion_Intranet_Panel_Gestion.docx
+   Documento de especificación funcional y técnica vigente: roles y permisos,
+   sitemap, modelo de datos, stack tecnológico sugerido, integración con
+   Google Drive, módulo "Raven" y roadmap por fases.
+
+2) Intranet_Previsualizacion.html
+   Maqueta navegable de cómo debería verse la aplicación (abrir directamente
+   en cualquier navegador, no requiere instalación). Incluye pantalla de
+   login, dashboard con módulo de Pendientes, Clientes, Expedientes
+   (lista y Kanban), Agenda, Raven y Configuración. El código HTML/CSS/JS
+   está todo en este mismo archivo y puede usarse como referencia visual
+   y de estructura.
+
+CARPETA "version_preliminar":
+   Contiene una primera versión más general del proyecto (antes de enfocarlo
+   como intranet integrada al sitio público). Se deja como referencia por si
+   es útil, pero el documento y la maqueta principales (arriba) son la
+   versión más actualizada y la que se recomienda seguir.
+
+Cualquier duda sobre el contenido, contactar con Sasha.

@@ -21,9 +21,12 @@ function sign(encodedPayload, secret) {
   return crypto.createHmac('sha256', secret).update(encodedPayload).digest('hex');
 }
 
-function createSessionToken(email, secret) {
+function createSessionToken(user, secret) {
   const payload = JSON.stringify({
-    sub: email,
+    sub: user.correo,
+    uid: user.id,
+    role: user.rol,
+    nombre: user.nombre,
     exp: Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS,
   });
   const encoded = base64UrlEncode(payload);
@@ -80,6 +83,32 @@ function hashPassword(password, salt) {
   return crypto.scryptSync(password, salt, 64).toString('hex');
 }
 
+function verifyPassword(password, storedHash) {
+  const [salt, hex] = (storedHash || '').split(':');
+  if (!salt || !hex) return false;
+  const computed = hashPassword(password, salt);
+  const a = Buffer.from(computed, 'hex');
+  const b = Buffer.from(hex, 'hex');
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
+
+// Reads and verifies the session cookie from a function event.
+// Returns the decoded session payload ({sub, uid, role, nombre}) or null.
+function requireSession(event) {
+  const secret = process.env.PANEL_SESSION_SECRET || '';
+  if (!secret) return null;
+  const cookies = parseCookies(event.headers['cookie'] || event.headers['Cookie'] || '');
+  return verifySessionToken(cookies[COOKIE_NAME], secret);
+}
+
+function jsonResponse(statusCode, body, extraHeaders) {
+  return {
+    statusCode,
+    headers: { 'Content-Type': 'application/json', ...extraHeaders },
+    body: JSON.stringify(body),
+  };
+}
+
 module.exports = {
   COOKIE_NAME,
   SESSION_TTL_SECONDS,
@@ -89,4 +118,7 @@ module.exports = {
   buildSessionCookie,
   buildClearCookie,
   hashPassword,
+  verifyPassword,
+  requireSession,
+  jsonResponse,
 };

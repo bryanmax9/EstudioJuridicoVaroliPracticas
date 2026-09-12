@@ -5,3 +5,6 @@
 # Local env
 .env
 .env.local
+
+# Dependencies — Netlify installs these from package.json on deploy
+node_modules/
