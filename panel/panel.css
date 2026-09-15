@@ -33,9 +33,10 @@ a{color:inherit}
 .brand .sub{font-size:9px;color:#8892A0;letter-spacing:0.08em;text-transform:uppercase;margin-top:2px}
 .nav-section{font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;color:#6E7889;padding:15px 22px 6px 22px}
 .nav{display:flex;flex-direction:column;gap:1px;padding:0 12px}
-.nav button{display:flex;align-items:center;gap:10px;background:none;border:none;color:#C4C9D2;font-family:var(--sans);font-size:13.5px;text-align:left;padding:9px 12px;border-radius:3px;cursor:pointer;transition:background .12s ease,color .12s ease;width:100%}
+.nav button{display:flex;align-items:center;gap:10px;background:none;border:none;color:#C4C9D2;font-family:var(--sans);font-size:13.5px;text-align:left;padding:9px 12px;border-radius:3px;cursor:pointer;transition:background .12s ease,color .12s ease,transform 140ms ease-out;width:100%}
 .nav button:hover{background:#132a4d;color:#F0EDE5}
 .nav button.active{background:var(--p-gold);color:#1B1607}
+.nav button:active{transform:scale(0.98)}
 .nav .icon{width:16px;text-align:center;opacity:.9;font-size:13.5px}
 
 .sidebar-footer{margin-top:auto;padding:14px 22px 2px 22px;border-top:1px solid var(--p-sidebar-line);display:flex;align-items:center;gap:10px;font-size:12.5px;color:#C4C9D2}
@@ -71,9 +72,27 @@ a{color:inherit}
 .page-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px}
 .page-head h1{font-size:25px;margin:0}
 .page-head .desc{color:var(--p-muted);font-size:13px;margin-top:4px}
-.btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:9px 15px;border-radius:3px;border:1px solid var(--p-ink);background:var(--p-ink);color:#fff;cursor:pointer}
+.btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:9px 15px;border-radius:3px;border:1px solid var(--p-ink);background:var(--p-ink);color:#fff;cursor:pointer;transition:transform 140ms ease-out,background .12s ease,opacity .12s ease}
 .btn.secondary{background:transparent;color:var(--p-ink);border-color:var(--p-line)}
 .btn.gold{background:var(--p-gold);border-color:var(--p-gold);color:#1B1607}
+.btn:active{transform:scale(0.97)}
+.btn:disabled{opacity:.5;cursor:default;transform:none}
+
+/* ---------- SKELETON LOADING ---------- */
+@keyframes skel-shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.skel{background:linear-gradient(90deg,#EBE6D8 25%,#F6F3EA 37%,#EBE6D8 63%);background-size:400% 100%;animation:skel-shimmer 1.5s ease-in-out infinite;border-radius:4px;display:inline-block}
+.skel-line{height:11px;display:block}
+.skel-kpi{height:28px;width:56px;border-radius:5px}
+.skel-chip{height:23px;width:64px;border-radius:20px}
+
+@keyframes content-reveal{from{opacity:0;filter:blur(3px)}to{opacity:1;filter:blur(0)}}
+.content-reveal{animation:content-reveal 240ms cubic-bezier(0.23,1,0.32,1)}
+
+@media (prefers-reduced-motion: reduce){
+  .skel{animation:none}
+  .content-reveal{animation:none}
+  .btn,.filter-chip,.nav button,.view-toggle button{transition:none!important}
+}
 
 .demo-banner{background:var(--p-sidebar);color:#E9E2CE;border-radius:4px;padding:11px 16px;font-size:12.5px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
 .demo-banner b{color:var(--p-gold)}
@@ -111,11 +130,13 @@ tbody tr:hover{background:#FAF8F3}
 .client-name{font-weight:500}
 .client-sub{font-size:12px;color:var(--p-muted);margin-top:2px}
 .toolbar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
-.filter-chip{font-size:12.5px;padding:7px 13px;border:1px solid var(--p-line);border-radius:20px;background:var(--p-paper);color:var(--p-muted);cursor:pointer}
+.filter-chip{font-size:12.5px;padding:7px 13px;border:1px solid var(--p-line);border-radius:20px;background:var(--p-paper);color:var(--p-muted);cursor:pointer;transition:transform 140ms ease-out,background .12s ease,color .12s ease,border-color .12s ease}
 .filter-chip.active{background:var(--p-ink);color:#fff;border-color:var(--p-ink)}
+.filter-chip:active{transform:scale(0.96)}
 .view-toggle{display:flex;border:1px solid var(--p-line);border-radius:4px;overflow:hidden;margin-left:auto}
-.view-toggle button{border:none;background:var(--p-paper);padding:7px 14px;font-size:12.5px;color:var(--p-muted);cursor:pointer}
+.view-toggle button{border:none;background:var(--p-paper);padding:7px 14px;font-size:12.5px;color:var(--p-muted);cursor:pointer;transition:transform 140ms ease-out,background .12s ease,color .12s ease}
 .view-toggle button.active{background:var(--p-ink);color:#fff}
+.view-toggle button:active{transform:scale(0.96)}
 
 /* ---------- KANBAN ---------- */
 .kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}

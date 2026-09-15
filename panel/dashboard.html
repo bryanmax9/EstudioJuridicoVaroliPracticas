@@ -506,6 +506,7 @@
     session: null, clientes: [], expedientes: [], tareas: [], usuarios: [], perfilClienteId: null,
     arbitraje: null, arbSub: 'tipo', arbTipoActual: 'PROCESO JUDICIAL',
     eventos: null, calCursor: new Date(today.getFullYear(), today.getMonth(), 1), editingEventoId: null,
+    dataLoaded: false,
   };
 
   fetch('/.netlify/functions/panel-session', { credentials: 'same-origin' })
@@ -550,6 +551,32 @@
     return `<span class="tag ${map[estado] || 'neutral'}">${labelMap[estado] || estado}</span>`;
   }
 
+  // ---------- loading skeletons ----------
+  // A handful of varied widths so skeleton rows read as "content-shaped"
+  // rather than a row of identical robotic bars.
+  const SKEL_WIDTHS = [92, 78, 85, 65, 72, 88, 60];
+  function skeletonRows(cols, rows) {
+    rows = rows || 5;
+    let out = '';
+    for (let r = 0; r < rows; r += 1) {
+      out += '<tr class="skel-row">';
+      for (let c = 0; c < cols; c += 1) {
+        const w = SKEL_WIDTHS[(r + c) % SKEL_WIDTHS.length];
+        out += `<td><div class="skel skel-line" style="width:${w}%"></div></td>`;
+      }
+      out += '</tr>';
+    }
+    return out;
+  }
+  // Swaps a container's content in with a brief fade+blur, masking the
+  // skeleton→real-content swap instead of letting it snap.
+  function revealContent(el, html) {
+    if (html !== undefined) el.innerHTML = html;
+    el.classList.remove('content-reveal');
+    void el.offsetWidth; // force reflow so the animation re-triggers
+    el.classList.add('content-reveal');
+  }
+
   function clienteNombre(id) {
     const c = state.clientes.find((x) => x.id === id);
     return c ? c.nombre : '—';
@@ -582,15 +609,25 @@
     state.clientes = cRes.clientes;
     state.expedientes = eRes.expedientes;
     state.tareas = tRes.tareas;
+    state.dataLoaded = true;
   }
 
+  const KPI_IDS = ['kpiPorHacer', 'kpiEnTramite', 'kpiExpActivos', 'kpiCompletos'];
+
   async function loadDashboard() {
+    KPI_IDS.forEach((id) => { document.getElementById(id).innerHTML = '<div class="skel skel-kpi"></div>'; });
+    document.getElementById('pendientesList').innerHTML = skeletonRows(7, 4);
+
     const d = await api('panel-dashboard');
+
     document.getElementById('kpiPorHacer').textContent = d.pendientesPorHacer;
     document.getElementById('kpiEnTramite').textContent = d.pendientesEnTramite;
     document.getElementById('kpiExpActivos').textContent = d.expedientesActivos;
     document.getElementById('kpiCompletos').textContent = d.pendientesCompletos;
     document.getElementById('pendientesTotalLbl').textContent = d.totalPendientes + ' en total';
+    document.querySelector('.kpi-row').classList.remove('content-reveal');
+    void document.querySelector('.kpi-row').offsetWidth;
+    document.querySelector('.kpi-row').classList.add('content-reveal');
 
     state._pendientesRecientes = d.pendientesRecientes;
     renderPendientesList('todos');
@@ -600,7 +637,7 @@
     const list = state._pendientesRecientes || [];
     const filtered = filter === 'todos' ? list : list.filter((t) => t.estado === filter);
     const el = document.getElementById('pendientesList');
-    el.innerHTML = filtered.length
+    const html = filtered.length
       ? filtered.map((t) => `
         <tr>
           <td>${esc(t.idTarea || '—')}</td>
@@ -612,17 +649,24 @@
           <td>${tagFor(t.estado)}</td>
         </tr>`).join('')
       : '<tr><td colspan="7"><div class="empty-hint">No hay pendientes en esta categoría.</div></td></tr>';
+    revealContent(el, html);
   }
 
   function renderClientes() {
+    const tbody = document.getElementById('clientesTbody');
+    if (!state.dataLoaded) {
+      document.getElementById('clientesCountDesc').innerHTML = '<div class="skel skel-line" style="width:120px;"></div>';
+      tbody.innerHTML = skeletonRows(4, 5);
+      return;
+    }
+
     const activeChip = document.querySelector('#clientesFilterChips .filter-chip.active').dataset.f;
     let list = state.clientes;
     if (activeChip === 'activo') list = list.filter((c) => c.source === 'excel' || c.estado === 'activo');
     if (activeChip === 'juridica' || activeChip === 'natural') list = list.filter((c) => c.tipoPersona === activeChip);
 
     document.getElementById('clientesCountDesc').textContent = `${state.clientes.length} clientes registrados`;
-    const tbody = document.getElementById('clientesTbody');
-    tbody.innerHTML = list.length
+    const html = list.length
       ? list.map((c) => `
         <tr data-id="${c.id}" data-source="${c.source}">
           <td><div class="client-name">${esc(c.nombre)}</div><div class="client-sub">${esc(c.documento || '')}</div></td>
@@ -631,6 +675,7 @@
           <td>${c.source === 'excel' ? '<span class="tag gold">Sincronizado</span>' : tagFor(c.estado)}</td>
         </tr>`).join('')
       : '<tr><td colspan="4"><div class="empty-hint">Todavía no hay clientes. Crea el primero con "+ Nuevo cliente".</div></td></tr>';
+    revealContent(tbody, html);
 
     tbody.querySelectorAll('tr[data-source="interno"]').forEach((tr) => {
       tr.addEventListener('click', () => showPerfil(Number(tr.dataset.id)));
@@ -733,6 +778,14 @@
   }
 
   function renderExpedientes() {
+    const tbody = document.getElementById('expedientesTbody');
+    if (!state.dataLoaded) {
+      document.getElementById('expedientesCountDesc').innerHTML = '<div class="skel skel-line" style="width:130px;"></div>';
+      tbody.innerHTML = skeletonRows(5, 5);
+      document.getElementById('kanbanBoard').innerHTML = '';
+      return;
+    }
+
     const activeChip = document.querySelector('#expedientesFilterChips .filter-chip.active').dataset.f;
     let list = state.expedientes;
     if (activeChip !== 'todas') list = list.filter((e) => e.materia === activeChip);
@@ -740,8 +793,7 @@
     document.getElementById('expedientesCountDesc').textContent =
       `${state.expedientes.filter((e) => e.activo).length} expedientes activos`;
 
-    const tbody = document.getElementById('expedientesTbody');
-    tbody.innerHTML = list.length
+    const html = list.length
       ? list.map((e) => `
         <tr data-id="${esc(e.id)}" data-source="${e.source}">
           <td><div class="client-name">${esc(e.numero)}</div>${e.tipo ? `<div class="client-sub">${esc(e.tipo)}</div>` : ''}</td>
@@ -751,6 +803,7 @@
           <td>${e.source === 'excel' ? arbTag(e.estado, 'estado') : tagFor(e.estado)}</td>
         </tr>`).join('')
       : '<tr><td colspan="5"><div class="empty-hint">Todavía no hay expedientes en esta materia.</div></td></tr>';
+    revealContent(tbody, html);
 
     tbody.querySelectorAll('tr[data-source="excel"]').forEach((tr) => {
       tr.addEventListener('click', () => showExpedienteExcelDetalle(tr.dataset.id));
@@ -926,6 +979,11 @@
   async function loadArbitraje(force) {
     const box = document.getElementById('arbErrorBox');
     box.innerHTML = '';
+    if (!force) {
+      document.getElementById('arbTipoTbody').innerHTML = skeletonRows(8, 5);
+      document.getElementById('arbAgendaTbody').innerHTML = skeletonRows(6, 4);
+      document.getElementById('arbSyncMeta').innerHTML = '<div class="skel skel-line" style="width:150px;display:inline-block;"></div>';
+    }
     try {
       const data = await api('panel-arbitraje' + (force ? '?refresh=1' : ''));
       state.arbitraje = data;
@@ -974,7 +1032,7 @@
       ...data.tareas.map((t) => ({ ...t, origen: 'Pendiente', descripcion: t.tarea })),
     ].filter((item) => normalizeTipoValue(item.tipoProceso) === normalizeTipoValue(tipo));
 
-    tbody.innerHTML = items.length
+    const html = items.length
       ? items.map((item) => `
         <tr>
           <td class="client-name">${esc(item.cliente)}</td>
@@ -987,6 +1045,7 @@
           <td>${esc(item.responsable || item.accionPendiente || '—')}</td>
         </tr>`).join('')
       : `<tr><td colspan="8"><div class="empty-hint">No hay casos de tipo "${esc(tipo)}" registrados en el libro.</div></td></tr>`;
+    revealContent(tbody, html);
   }
 
   function renderArbitrajeAgenda() {
@@ -994,7 +1053,7 @@
     const tbody = document.getElementById('arbAgendaTbody');
     if (!data) { tbody.innerHTML = ''; return; }
     const list = data.reuniones || [];
-    tbody.innerHTML = list.length
+    const html = list.length
       ? list.map((r) => `
         <tr>
           <td>${shortDate(r.fecha)}</td>
@@ -1005,6 +1064,7 @@
           <td>${arbTag(r.estado, 'estado')}</td>
         </tr>`).join('')
       : '<tr><td colspan="6"><div class="empty-hint">No hay reuniones registradas en el libro.</div></td></tr>';
+    revealContent(tbody, html);
   }
 
   document.getElementById('arbSubnav').addEventListener('click', (e) => {
@@ -1043,9 +1103,18 @@
     return pad2(h) + ':' + m[2];
   }
 
+  function skeletonCalendarCells() {
+    let out = '';
+    for (let i = 0; i < 42; i += 1) {
+      out += `<div class="cal-cell"><div class="dnum">&nbsp;</div><div class="skel skel-line" style="width:${60 + (i % 4) * 8}%;height:9px;"></div></div>`;
+    }
+    return out;
+  }
+
   async function loadEventos() {
     const box = document.getElementById('agendaErrorBox');
     box.innerHTML = '';
+    document.getElementById('calCells').innerHTML = skeletonCalendarCells();
     try {
       const { eventos } = await api('panel-eventos');
       state.eventos = eventos;
@@ -1077,7 +1146,7 @@
 
     const todayIso = isoDate(today.getFullYear(), today.getMonth(), today.getDate());
 
-    document.getElementById('calCells').innerHTML = cells.map((c) => {
+    const calHtml = cells.map((c) => {
       const realM = ((c.m % 12) + 12) % 12;
       const realY = c.y + Math.floor(c.m / 12) - (c.m < 0 ? 1 : 0);
       const iso = isoDate(realY, realM, c.day);
@@ -1085,12 +1154,19 @@
       const evs = (byDate[iso] || []).slice().sort((a, b) => (a.hora || '').localeCompare(b.hora || ''));
       const shown = evs.slice(0, 3);
       const rest = evs.length - shown.length;
-      return `<div class="cal-cell ${c.other ? 'mute' : ''} ${isToday ? 'today' : ''}" data-fecha="${iso}">
+      return `<div class="cal-cell content-reveal ${c.other ? 'mute' : ''} ${isToday ? 'today' : ''}" data-fecha="${iso}">
         <div class="dnum">${c.day}</div>
         ${shown.map((e) => `<div class="cal-evt" data-id="${esc(e.id)}" style="background:var(--p-${TIPO_TAG_CLASS[e.tipo] || 'gold'}-soft);color:var(--p-${TIPO_TAG_CLASS[e.tipo] || 'gold'});">${e.hora ? esc(e.hora) + ' · ' : ''}${esc(e.titulo)}</div>`).join('')}
         ${rest > 0 ? `<div class="cal-more">+${rest} más</div>` : ''}
       </div>`;
     }).join('');
+    // Elements are brand-new on insertion, so the animation class just plays
+    // — no reflow-forcing needed here (unlike revealContent(), which reuses
+    // an existing element and must force one to retrigger the animation).
+    // display:contents on #calCells means IT can't itself fade (elements
+    // with that display value generate no paintable box), so each cell
+    // animates individually instead.
+    document.getElementById('calCells').innerHTML = calHtml;
 
     document.querySelectorAll('#calCells .cal-evt').forEach((el) => {
       el.addEventListener('click', (ev) => { ev.stopPropagation(); openEditEvento(el.dataset.id); });
@@ -1372,6 +1448,12 @@
     });
     try {
       await loadClientesAndExpedientes();
+      // if the user already navigated to Clientes/Expedientes while this was
+      // still loading, they were shown a skeleton (not a misleading "no data"
+      // empty state) — refresh it now that real data is in.
+      const activeViewId = document.querySelector('.view.active')?.id;
+      if (activeViewId === 'view-clientes') renderClientes();
+      if (activeViewId === 'view-expedientes') renderExpedientes();
       await loadDashboard();
     } catch (err) {
       console.error(err);
