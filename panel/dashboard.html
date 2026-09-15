@@ -7,7 +7,7 @@
 <title>Panel de Gestión · Varoli - Slovsa Abogados</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="panel.css">
 <style>
   #checkingSession{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--p-sidebar);color:#C4C9D2;font-family:var(--sans);font-size:13px}
@@ -322,7 +322,7 @@
           </div>
           <div class="cal-legend" style="margin-bottom:0;">
             <div class="leg"><span class="dotc" style="background:var(--p-danger-soft);border:1px solid var(--p-danger);"></span> Vencimiento</div>
-            <div class="leg"><span class="dotc" style="background:var(--p-success-soft);border:1px solid var(--p-success);"></span> Reunión / Audiencia</div>
+            <div class="leg"><span class="dotc" style="background:var(--p-info-soft);border:1px solid var(--p-info);"></span> Reunión / Audiencia</div>
             <div class="leg"><span class="dotc" style="background:var(--p-gold-soft);border:1px solid var(--p-gold);"></span> Tarea</div>
           </div>
         </div>
@@ -1138,7 +1138,7 @@
 
   // ---------- Agenda (calendar: internal eventos + Excel-synced reuniones/vencimientos/tareas) ----------
   const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-  const TIPO_TAG_CLASS = { 'Vencimiento': 'danger', 'Reunión': 'success', 'Audiencia': 'success', 'Tarea': 'gold' };
+  const TIPO_TAG_CLASS = { 'Vencimiento': 'danger', 'Reunión': 'info', 'Audiencia': 'info', 'Tarea': 'gold' };
 
   function pad2(n) { return n < 10 ? '0' + n : '' + n; }
   function isoDate(y, m, d) { return `${y}-${pad2(m + 1)}-${pad2(d)}`; }
@@ -1211,7 +1211,11 @@
       const rest = evs.length - shown.length;
       return `<div class="cal-cell content-reveal ${c.other ? 'mute' : ''} ${isToday ? 'today' : ''}" data-fecha="${iso}">
         <div class="dnum">${c.day}</div>
-        ${shown.map((e) => `<div class="cal-evt" data-id="${esc(e.id)}" style="background:var(--p-${TIPO_TAG_CLASS[e.tipo] || 'gold'}-soft);color:var(--p-${TIPO_TAG_CLASS[e.tipo] || 'gold'});">${e.hora ? esc(e.hora) + ' · ' : ''}${esc(e.titulo)}</div>`).join('')}
+        ${shown.map((e) => {
+          const c = TIPO_TAG_CLASS[e.tipo] || 'gold';
+          const ink = c === 'gold' ? 'var(--p-gold-ink)' : `var(--p-${c})`;
+          return `<div class="cal-evt" data-id="${esc(e.id)}" style="background:var(--p-${c}-soft);color:${ink};">${e.hora ? esc(e.hora) + ' · ' : ''}${esc(e.titulo)}</div>`;
+        }).join('')}
         ${rest > 0 ? `<div class="cal-more">+${rest} más</div>` : ''}
       </div>`;
     }).join('');
