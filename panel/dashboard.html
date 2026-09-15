@@ -235,8 +235,7 @@
 
         <div class="toolbar" id="arbSubnav">
           <div class="view-toggle" style="margin-left:0;flex-wrap:wrap;">
-            <button class="active" data-sub="clientes">Clientes</button>
-            <button data-sub="tipo" data-tipo="PROCESO JUDICIAL">Proceso judicial</button>
+            <button class="active" data-sub="tipo" data-tipo="PROCESO JUDICIAL">Proceso judicial</button>
             <button data-sub="tipo" data-tipo="PROCESO ARBITRAL">Proceso arbitral</button>
             <button data-sub="tipo" data-tipo="PROCESO ADMINISTRATIVO">Proceso administrativo</button>
             <button data-sub="tipo" data-tipo="PROCESO SANCIONADOR">Proceso sancionador</button>
@@ -249,37 +248,7 @@
           </div>
         </div>
 
-        <div class="kview active" id="arbview-clientes">
-          <div class="panel">
-            <table>
-              <thead><tr><th>Cliente</th><th>RUC</th><th>Responsable</th><th>Casos judiciales</th><th>Casos arbitrales</th><th>Otros</th><th>Total</th></tr></thead>
-              <tbody id="arbClientesTbody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="kview" id="arbview-detalle">
-          <button class="btn secondary" id="btnArbDetalleVolver" style="margin-bottom:14px;">← Volver a clientes</button>
-          <div class="profile-header">
-            <div><h2 class="profile-title" id="arbDetalleNombre">—</h2><div class="profile-meta" id="arbDetalleMeta"></div></div>
-          </div>
-          <div class="panel" style="margin-bottom:16px;">
-            <div class="panel-head"><h3>Procesos (judiciales y arbitrales)</h3></div>
-            <table>
-              <thead><tr><th>Asunto / expediente</th><th>Tipo</th><th>Estado</th><th>Prioridad</th><th>F. límite</th><th>Semáforo</th></tr></thead>
-              <tbody id="arbDetalleProcesosTbody"></tbody>
-            </table>
-          </div>
-          <div class="panel">
-            <div class="panel-head"><h3>Pendientes</h3></div>
-            <table>
-              <thead><tr><th>Tarea</th><th>Estado</th><th>Prioridad</th><th>F. límite</th></tr></thead>
-              <tbody id="arbDetalleTareasTbody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="kview" id="arbview-tipo">
+        <div class="kview active" id="arbview-tipo">
           <div class="panel">
             <div class="panel-head"><h3 id="arbTipoTitulo">—</h3></div>
             <table>
@@ -466,7 +435,7 @@
 (function () {
   const checking = document.getElementById('checkingSession');
   const app = document.getElementById('appMain');
-  const state = { session: null, clientes: [], expedientes: [], tareas: [], usuarios: [], perfilClienteId: null, arbitraje: null, arbSub: 'clientes', arbTipoActual: 'PROCESO JUDICIAL' };
+  const state = { session: null, clientes: [], expedientes: [], tareas: [], usuarios: [], perfilClienteId: null, arbitraje: null, arbSub: 'tipo', arbTipoActual: 'PROCESO JUDICIAL' };
 
   fetch('/.netlify/functions/panel-session', { credentials: 'same-origin' })
     .then((r) => r.json())
@@ -823,82 +792,15 @@
     } catch (err) {
       state.arbitraje = null;
       box.innerHTML = `<div class="alert-box error">${esc(err.message)}</div>`;
-      ['arbClientesTbody', 'arbTipoTbody', 'arbAgendaTbody'].forEach((id) => {
+      ['arbTipoTbody', 'arbAgendaTbody'].forEach((id) => {
         document.getElementById(id).innerHTML = '';
       });
     }
   }
 
   function renderArbitrajeAll() {
-    renderArbitrajeClientes();
     renderArbitrajeTipo(state.arbTipoActual || 'PROCESO JUDICIAL');
     renderArbitrajeAgenda();
-  }
-
-  function renderArbitrajeClientes() {
-    const data = state.arbitraje;
-    const tbody = document.getElementById('arbClientesTbody');
-    if (!data) { tbody.innerHTML = ''; return; }
-    const list = data.clientes || [];
-    tbody.innerHTML = list.length
-      ? list.map((c) => `
-        <tr data-nombre="${esc(c.nombre)}">
-          <td><div class="client-name">${esc(c.nombre)}</div>${c.responsable ? `<div class="client-sub">${esc(c.responsable)}</div>` : ''}</td>
-          <td>${esc(c.ruc || '—')}</td>
-          <td>${esc(c.responsable || '—')}</td>
-          <td>${c.casosJudiciales}</td>
-          <td>${c.casosArbitrales}</td>
-          <td>${c.otrosCasos}</td>
-          <td><span class="tag gold">${c.totalCasos}</span></td>
-        </tr>`).join('')
-      : '<tr><td colspan="7"><div class="empty-hint">No hay clientes en la pestaña CLIENTES de este libro.</div></td></tr>';
-
-    tbody.querySelectorAll('tr[data-nombre]').forEach((tr) => {
-      tr.addEventListener('click', () => showArbitrajeDetalle(tr.dataset.nombre));
-    });
-  }
-
-  function showArbitrajeDetalle(nombreCliente) {
-    const data = state.arbitraje;
-    if (!data) return;
-    const cliente = (data.clientes || []).find((c) => c.nombre === nombreCliente);
-    if (!cliente) return;
-
-    const procesos = [...data.procesosJudiciales, ...data.procesosArbitrales].filter((p) => p.cliente === nombreCliente);
-    const tareas = data.tareas.filter((t) => t.cliente === nombreCliente);
-
-    document.getElementById('arbDetalleNombre').textContent = cliente.nombre;
-    document.getElementById('arbDetalleMeta').innerHTML =
-      `<span>${procesos.length} proceso(s)</span><span>${tareas.length} pendiente(s)</span>` +
-      (cliente.ruc ? `<span>RUC: ${esc(cliente.ruc)}</span>` : '') +
-      (cliente.driveLinkUrl ? `<span><a class="drive-link" href="${esc(cliente.driveLinkUrl)}" target="_blank" rel="noopener">📁 Ver en Drive</a></span>` : '');
-
-    const procTbody = document.getElementById('arbDetalleProcesosTbody');
-    procTbody.innerHTML = procesos.length
-      ? procesos.map((p) => `
-        <tr>
-          <td><div class="client-name">${esc(p.numeroExpediente || p.codigo || p.idCaso)}</div>${p.observaciones ? `<div class="client-sub">${esc(p.observaciones)}</div>` : ''}${p.linkUrl && /^https:\/\//.test(p.linkUrl) ? `<a class="drive-link" href="${esc(p.linkUrl)}" target="_blank" rel="noopener">📁 Ver en Drive</a>` : ''}</td>
-          <td>${p.tipo === 'judicial' ? 'Judicial' : 'Arbitral'}</td>
-          <td>${arbTag(p.estado, 'estado')}</td>
-          <td>${arbTag(p.prioridad, 'prioridad')}</td>
-          <td>${shortDate(p.fechaLimite)}</td>
-          <td>${arbTag(p.semaforo, 'semaforo')}</td>
-        </tr>`).join('')
-      : '<tr><td colspan="6"><div class="empty-hint">Sin procesos registrados.</div></td></tr>';
-
-    const tarTbody = document.getElementById('arbDetalleTareasTbody');
-    tarTbody.innerHTML = tareas.length
-      ? tareas.map((t) => `
-        <tr>
-          <td>${esc(t.tarea)}${t.observaciones ? `<div class="client-sub">${esc(t.observaciones)}</div>` : ''}</td>
-          <td>${arbTag(t.estado, 'estado')}</td>
-          <td>${arbTag(t.prioridad, 'prioridad')}</td>
-          <td>${shortDate(t.fechaLimite)}</td>
-        </tr>`).join('')
-      : '<tr><td colspan="4"><div class="empty-hint">Sin pendientes registrados.</div></td></tr>';
-
-    document.querySelectorAll('#view-arbitraje .kview').forEach((v) => v.classList.remove('active'));
-    document.getElementById('arbview-detalle').classList.add('active');
   }
 
   // Groups rows from PROCESOS JUDICIALES, PROCESOS ARBITRALES, and PENDIENTES
@@ -970,10 +872,6 @@
     }
     document.querySelectorAll('#view-arbitraje .kview').forEach((v) => v.classList.remove('active'));
     document.getElementById('arbview-' + btn.dataset.sub).classList.add('active');
-  });
-  document.getElementById('btnArbDetalleVolver').addEventListener('click', () => {
-    document.querySelectorAll('#view-arbitraje .kview').forEach((v) => v.classList.remove('active'));
-    document.getElementById('arbview-clientes').classList.add('active');
   });
   document.getElementById('btnArbRefresh').addEventListener('click', () => loadArbitraje(true));
 
