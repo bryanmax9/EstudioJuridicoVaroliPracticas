@@ -41,16 +41,6 @@ exports.handler = async (event) => {
   const expedientesActivos =
     expedientes.filter((e) => e.estado === 'activo').length + (arbitrajeData ? arbitrajeData.totalExpedientesActivos : 0);
 
-  // "Por área" only has data from the internal DB (materia field) for now —
-  // the Excel sheet has no ÁREA column yet, so we don't fabricate one.
-  const porArea = {};
-  expedientes
-    .filter((e) => e.estado === 'activo')
-    .forEach((e) => {
-      porArea[e.materia] = (porArea[e.materia] || 0) + 1;
-    });
-  const areaPendienteDeSheet = Object.keys(porArea).length === 0 && expedientesActivos > 0;
-
   const pendientesInternos = tareas
     .slice()
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
@@ -78,8 +68,6 @@ exports.handler = async (event) => {
     pendientesEnTramite,
     pendientesCompletos,
     expedientesActivos,
-    expedientesPorArea: porArea,
-    areaPendienteDeSheet,
     pendientesRecientes,
     totalPendientes: tareas.length + excelTareas.length,
   });

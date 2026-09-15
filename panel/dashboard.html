@@ -86,25 +86,18 @@
           <div class="kpi ink"><div class="num" id="kpiCompletos">–</div><div class="lbl">Pendientes completados</div></div>
         </div>
 
-        <div class="grid-2">
-          <div class="panel">
-            <div class="panel-head">
-              <h3>Pendientes recientes</h3>
-              <span style="font-size:12px;color:var(--p-muted);" id="pendientesTotalLbl"></span>
-            </div>
-            <div style="padding:12px 18px 0 18px;display:flex;gap:8px;flex-wrap:wrap;" id="pendientesFilterChips">
-              <div class="filter-chip active" data-f="todos">Todos</div>
-              <div class="filter-chip" data-f="pendiente">Pendiente</div>
-              <div class="filter-chip" data-f="en_tramite">En trámite</div>
-              <div class="filter-chip" data-f="completo">Completo</div>
-            </div>
-            <div class="panel-body" id="pendientesList" style="margin-top:6px;"></div>
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Pendientes recientes</h3>
+            <span style="font-size:12px;color:var(--p-muted);" id="pendientesTotalLbl"></span>
           </div>
-
-          <div class="panel">
-            <div class="panel-head"><h3>Expedientes por área</h3></div>
-            <div class="panel-body" id="expedientesPorAreaList"></div>
+          <div style="padding:12px 18px 0 18px;display:flex;gap:8px;flex-wrap:wrap;" id="pendientesFilterChips">
+            <div class="filter-chip active" data-f="todos">Todos</div>
+            <div class="filter-chip" data-f="pendiente">Pendiente</div>
+            <div class="filter-chip" data-f="en_tramite">En trámite</div>
+            <div class="filter-chip" data-f="completo">Completo</div>
           </div>
+          <div class="panel-body" id="pendientesList" style="margin-top:6px;"></div>
         </div>
       </div>
 
@@ -539,14 +532,6 @@
 
     state._pendientesRecientes = d.pendientesRecientes;
     renderPendientesList('todos');
-
-    const areaList = document.getElementById('expedientesPorAreaList');
-    const entries = Object.entries(d.expedientesPorArea);
-    areaList.innerHTML = entries.length
-      ? entries.map(([materia, count]) => `<div class="row-item"><div class="rl">${esc(materia)}</div><span class="tag gold">${count}</span></div>`).join('')
-      : d.areaPendienteDeSheet
-        ? '<div class="empty-hint">Hay expedientes activos (ver arriba), pero el Excel todavía no tiene una columna ÁREA para agruparlos por materia.</div>'
-        : '<div class="empty-hint">Todavía no hay expedientes activos.</div>';
   }
 
   function renderPendientesList(filter) {
