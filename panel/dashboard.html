@@ -305,35 +305,29 @@
       <!-- ============ AGENDA ============ -->
       <div class="view" id="view-agenda">
         <div class="page-head">
-          <div><h1>Agenda</h1><div class="desc">Septiembre 2026 (ejemplo)</div></div>
-          <div style="display:flex;gap:8px;">
-            <button class="btn secondary">Mes</button>
-            <button class="btn secondary">Semana</button>
+          <div><h1>Agenda</h1><div class="desc">Reuniones, vencimientos y pendientes con fecha límite, en un solo calendario.</div></div>
+          <button class="btn gold" id="btnNuevoEvento">+ Nuevo evento</button>
+        </div>
+
+        <div id="agendaErrorBox"></div>
+
+        <div class="toolbar" style="justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <button class="btn secondary" id="btnMesAnterior" style="padding:6px 12px;">‹</button>
+            <div class="serif" id="calLabel" style="min-width:170px;text-align:center;font-size:17px;"></div>
+            <button class="btn secondary" id="btnMesSiguiente" style="padding:6px 12px;">›</button>
+            <button class="btn secondary" id="btnHoy">Hoy</button>
+          </div>
+          <div class="cal-legend" style="margin-bottom:0;">
+            <div class="leg"><span class="dotc" style="background:var(--p-danger-soft);border:1px solid var(--p-danger);"></span> Vencimiento</div>
+            <div class="leg"><span class="dotc" style="background:var(--p-success-soft);border:1px solid var(--p-success);"></span> Reunión / Audiencia</div>
+            <div class="leg"><span class="dotc" style="background:var(--p-gold-soft);border:1px solid var(--p-gold);"></span> Tarea</div>
           </div>
         </div>
-        <div class="demo-banner">🗓️ <span>La Agenda con audiencias, pericias y vencimientos reales llega en la próxima fase. Esto es una vista de ejemplo.</span></div>
-        <div class="cal-legend">
-          <div class="leg"><span class="dotc" style="background:var(--p-danger-soft);border:1px solid var(--p-danger);"></span> Audiencias</div>
-          <div class="leg"><span class="dotc" style="background:var(--p-gold-soft);border:1px solid var(--p-gold);"></span> Pericias</div>
-          <div class="leg"><span class="dotc" style="background:var(--p-warn-soft);border:1px solid var(--p-warn);"></span> Vencimientos de escritos</div>
-          <div class="leg"><span class="dotc" style="background:var(--p-success-soft);border:1px solid var(--p-success);"></span> Reuniones con clientes</div>
-        </div>
+
         <div class="cal-grid">
           <div class="cal-dow">Lun</div><div class="cal-dow">Mar</div><div class="cal-dow">Mié</div><div class="cal-dow">Jue</div><div class="cal-dow">Vie</div><div class="cal-dow">Sáb</div><div class="cal-dow">Dom</div>
-          <div class="cal-cell mute"><div class="dnum">31</div></div>
-          <div class="cal-cell"><div class="dnum">1</div><div class="cal-evt" style="background:var(--p-warn-soft);color:var(--p-warn);">Vence apelación OSCE</div></div>
-          <div class="cal-cell"><div class="dnum">2</div><div class="cal-evt" style="background:var(--p-success-soft);color:var(--p-success);">Reunión · Paredes</div></div>
-          <div class="cal-cell"><div class="dnum">3</div><div class="cal-evt" style="background:var(--p-danger-soft);color:var(--p-danger);">Audiencia conciliación</div></div>
-          <div class="cal-cell"><div class="dnum">4</div></div>
-          <div class="cal-cell"><div class="dnum">5</div><div class="cal-evt" style="background:var(--p-gold-soft);color:var(--p-gold);">Pericia técnica</div></div>
-          <div class="cal-cell mute"><div class="dnum">6</div></div>
-          <div class="cal-cell mute"><div class="dnum">7</div></div>
-          <div class="cal-cell"><div class="dnum">8</div></div>
-          <div class="cal-cell"><div class="dnum">9</div><div class="cal-evt" style="background:var(--p-warn-soft);color:var(--p-warn);">Vence descargo SUNAFIL</div></div>
-          <div class="cal-cell"><div class="dnum">10</div></div>
-          <div class="cal-cell"><div class="dnum">11</div></div>
-          <div class="cal-cell"><div class="dnum">12</div></div>
-          <div class="cal-cell mute"><div class="dnum">13</div></div>
+          <div id="calCells" style="display:contents;"></div>
         </div>
       </div>
 
@@ -465,11 +459,54 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="modalEvento">
+  <div class="modal-card">
+    <button class="modal-close" data-close>×</button>
+    <h3 id="eventoModalTitulo">Nuevo evento</h3>
+    <div class="desc" id="eventoModalDesc"></div>
+    <div id="eventoFormError"></div>
+    <form id="formEvento">
+      <div class="field"><label>Título</label><input type="text" id="eventoTitulo" required maxlength="200" placeholder="Ej: Audiencia — Rocer Security"></div>
+      <div class="field"><label>Fecha</label><input type="date" id="eventoFecha" required></div>
+      <div class="field"><label>Hora</label><input type="time" id="eventoHora"></div>
+      <div class="field"><label>Tipo</label>
+        <select id="eventoTipo">
+          <option>Reunión</option>
+          <option>Audiencia</option>
+          <option>Vencimiento</option>
+          <option>Tarea</option>
+        </select>
+      </div>
+      <div class="field"><label>Modalidad</label>
+        <select id="eventoModalidad">
+          <option value="">—</option>
+          <option value="PRESENCIAL">Presencial</option>
+          <option value="VIRTUAL">Virtual</option>
+          <option value="TELEFÓNICA">Telefónica</option>
+        </select>
+      </div>
+      <div class="field"><label>Cliente</label><input type="text" id="eventoCliente" maxlength="200" placeholder="Ej: Correos del Perú"></div>
+      <div class="field"><label>Descripción</label><textarea id="eventoDescripcion" maxlength="1000"></textarea></div>
+      <div class="field"><label>Enlace (Meet / Drive)</label><input type="text" id="eventoLink" maxlength="300" placeholder="https://meet.google.com/..."></div>
+      <div class="form-actions">
+        <button type="button" class="btn secondary" id="btnEliminarEvento" style="display:none;margin-right:auto;color:var(--p-danger);border-color:var(--p-danger);">Eliminar</button>
+        <button type="button" class="btn secondary" data-close>Cancelar</button>
+        <button type="submit" class="btn gold" id="btnGuardarEvento">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
 (function () {
   const checking = document.getElementById('checkingSession');
   const app = document.getElementById('appMain');
-  const state = { session: null, clientes: [], expedientes: [], tareas: [], usuarios: [], perfilClienteId: null, arbitraje: null, arbSub: 'tipo', arbTipoActual: 'PROCESO JUDICIAL' };
+  const today = new Date();
+  const state = {
+    session: null, clientes: [], expedientes: [], tareas: [], usuarios: [], perfilClienteId: null,
+    arbitraje: null, arbSub: 'tipo', arbTipoActual: 'PROCESO JUDICIAL',
+    eventos: null, calCursor: new Date(today.getFullYear(), today.getMonth(), 1), editingEventoId: null,
+  };
 
   fetch('/.netlify/functions/panel-session', { credentials: 'same-origin' })
     .then((r) => r.json())
@@ -985,6 +1022,180 @@
   });
   document.getElementById('btnArbRefresh').addEventListener('click', () => loadArbitraje(true));
 
+  // ---------- Agenda (calendar: internal eventos + Excel-synced reuniones/vencimientos/tareas) ----------
+  const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const TIPO_TAG_CLASS = { 'Vencimiento': 'danger', 'Reunión': 'success', 'Audiencia': 'success', 'Tarea': 'gold' };
+
+  function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+  function isoDate(y, m, d) { return `${y}-${pad2(m + 1)}-${pad2(d)}`; }
+
+  // Sheet times like "10:30 AM" → the 24h "HH:MM" a <input type="time"> needs.
+  function to24h(t) {
+    if (!t) return '';
+    const m = String(t).match(/(\d{1,2}):(\d{2})\s*([AP]M)?/i);
+    if (!m) return '';
+    let h = parseInt(m[1], 10);
+    if (m[3]) {
+      const ap = m[3].toUpperCase();
+      if (ap === 'PM' && h < 12) h += 12;
+      if (ap === 'AM' && h === 12) h = 0;
+    }
+    return pad2(h) + ':' + m[2];
+  }
+
+  async function loadEventos() {
+    const box = document.getElementById('agendaErrorBox');
+    box.innerHTML = '';
+    try {
+      const { eventos } = await api('panel-eventos');
+      state.eventos = eventos;
+      renderAgenda();
+    } catch (err) {
+      state.eventos = [];
+      box.innerHTML = `<div class="alert-box error">${esc(err.message)}</div>`;
+      renderAgenda();
+    }
+  }
+
+  function renderAgenda() {
+    const cursor = state.calCursor;
+    const y = cursor.getFullYear(), m = cursor.getMonth();
+    document.getElementById('calLabel').textContent = `${MESES[m]} ${y}`;
+
+    const firstDay = new Date(y, m, 1);
+    const startOffset = (firstDay.getDay() + 6) % 7; // Monday = 0
+    const daysInMonth = new Date(y, m + 1, 0).getDate();
+    const daysInPrev = new Date(y, m, 0).getDate();
+
+    const cells = [];
+    for (let i = startOffset - 1; i >= 0; i -= 1) cells.push({ day: daysInPrev - i, other: true, y, m: m - 1 });
+    for (let d = 1; d <= daysInMonth; d += 1) cells.push({ day: d, other: false, y, m });
+    while (cells.length % 7 !== 0 || cells.length < 42) cells.push({ day: cells.length - startOffset - daysInMonth + 1, other: true, y, m: m + 1 });
+
+    const byDate = {};
+    (state.eventos || []).forEach((e) => { (byDate[e.fecha] = byDate[e.fecha] || []).push(e); });
+
+    const todayIso = isoDate(today.getFullYear(), today.getMonth(), today.getDate());
+
+    document.getElementById('calCells').innerHTML = cells.map((c) => {
+      const realM = ((c.m % 12) + 12) % 12;
+      const realY = c.y + Math.floor(c.m / 12) - (c.m < 0 ? 1 : 0);
+      const iso = isoDate(realY, realM, c.day);
+      const isToday = !c.other && iso === todayIso;
+      const evs = (byDate[iso] || []).slice().sort((a, b) => (a.hora || '').localeCompare(b.hora || ''));
+      const shown = evs.slice(0, 3);
+      const rest = evs.length - shown.length;
+      return `<div class="cal-cell ${c.other ? 'mute' : ''} ${isToday ? 'today' : ''}" data-fecha="${iso}">
+        <div class="dnum">${c.day}</div>
+        ${shown.map((e) => `<div class="cal-evt" data-id="${esc(e.id)}" style="background:var(--p-${TIPO_TAG_CLASS[e.tipo] || 'gold'}-soft);color:var(--p-${TIPO_TAG_CLASS[e.tipo] || 'gold'});">${e.hora ? esc(e.hora) + ' · ' : ''}${esc(e.titulo)}</div>`).join('')}
+        ${rest > 0 ? `<div class="cal-more">+${rest} más</div>` : ''}
+      </div>`;
+    }).join('');
+
+    document.querySelectorAll('#calCells .cal-evt').forEach((el) => {
+      el.addEventListener('click', (ev) => { ev.stopPropagation(); openEditEvento(el.dataset.id); });
+    });
+    document.querySelectorAll('#calCells .cal-cell').forEach((el) => {
+      el.addEventListener('click', () => openNuevoEvento(el.dataset.fecha));
+    });
+  }
+
+  document.getElementById('btnMesAnterior').addEventListener('click', () => {
+    state.calCursor = new Date(state.calCursor.getFullYear(), state.calCursor.getMonth() - 1, 1);
+    renderAgenda();
+  });
+  document.getElementById('btnMesSiguiente').addEventListener('click', () => {
+    state.calCursor = new Date(state.calCursor.getFullYear(), state.calCursor.getMonth() + 1, 1);
+    renderAgenda();
+  });
+  document.getElementById('btnHoy').addEventListener('click', () => {
+    state.calCursor = new Date(today.getFullYear(), today.getMonth(), 1);
+    renderAgenda();
+  });
+
+  function setEventoFormDisabled(disabled) {
+    ['eventoTitulo', 'eventoFecha', 'eventoHora', 'eventoTipo', 'eventoModalidad', 'eventoCliente', 'eventoDescripcion', 'eventoLink'].forEach((id) => {
+      document.getElementById(id).disabled = disabled;
+    });
+    document.getElementById('btnGuardarEvento').style.display = disabled ? 'none' : '';
+  }
+
+  function openNuevoEvento(fechaPrefill) {
+    state.editingEventoId = null;
+    clearError('eventoFormError');
+    setEventoFormDisabled(false);
+    document.getElementById('eventoModalTitulo').textContent = 'Nuevo evento';
+    document.getElementById('eventoModalDesc').textContent = '';
+    document.getElementById('formEvento').reset();
+    document.getElementById('eventoFecha').value = fechaPrefill || '';
+    document.getElementById('btnEliminarEvento').style.display = 'none';
+    openModal('modalEvento');
+  }
+
+  function openEditEvento(id) {
+    const e = (state.eventos || []).find((x) => x.id === id);
+    if (!e) return;
+    state.editingEventoId = id;
+    clearError('eventoFormError');
+
+    const esExcel = e.source === 'excel';
+    setEventoFormDisabled(esExcel);
+    document.getElementById('eventoModalTitulo').textContent = esExcel ? 'Evento sincronizado' : 'Editar evento';
+    document.getElementById('eventoModalDesc').textContent = esExcel
+      ? 'Este evento viene del Excel — no se puede editar aquí, solo desde la hoja de cálculo.'
+      : '';
+    document.getElementById('eventoTitulo').value = e.titulo || '';
+    document.getElementById('eventoFecha').value = e.fecha || '';
+    document.getElementById('eventoHora').value = to24h(e.hora) || '';
+    document.getElementById('eventoTipo').value = ['Reunión', 'Audiencia', 'Vencimiento', 'Tarea'].includes(e.tipo) ? e.tipo : 'Tarea';
+    document.getElementById('eventoModalidad').value = e.modalidad || '';
+    document.getElementById('eventoCliente').value = e.cliente || '';
+    document.getElementById('eventoDescripcion').value = e.descripcion || '';
+    document.getElementById('eventoLink').value = e.link || '';
+    document.getElementById('btnEliminarEvento').style.display = esExcel ? 'none' : '';
+    openModal('modalEvento');
+  }
+
+  document.getElementById('btnNuevoEvento').addEventListener('click', () => openNuevoEvento(''));
+
+  document.getElementById('formEvento').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (state.editingEventoId && String(state.editingEventoId).startsWith('excel-')) return; // read-only, guarded by disabled inputs too
+    clearError('eventoFormError');
+    const body = {
+      titulo: document.getElementById('eventoTitulo').value.trim(),
+      fecha: document.getElementById('eventoFecha').value,
+      hora: document.getElementById('eventoHora').value,
+      tipo: document.getElementById('eventoTipo').value,
+      modalidad: document.getElementById('eventoModalidad').value,
+      cliente: document.getElementById('eventoCliente').value.trim(),
+      descripcion: document.getElementById('eventoDescripcion').value.trim(),
+      link: document.getElementById('eventoLink').value.trim(),
+    };
+    try {
+      if (state.editingEventoId) {
+        await api('panel-eventos', { method: 'PATCH', body: JSON.stringify({ id: state.editingEventoId, ...body }) });
+      } else {
+        await api('panel-eventos', { method: 'POST', body: JSON.stringify(body) });
+      }
+      await loadEventos();
+      closeModal('modalEvento');
+    } catch (err) {
+      showError('eventoFormError', err.message);
+    }
+  });
+
+  document.getElementById('btnEliminarEvento').addEventListener('click', async () => {
+    if (!state.editingEventoId || !confirm('¿Eliminar este evento?')) return;
+    try {
+      await api('panel-eventos', { method: 'DELETE', body: JSON.stringify({ id: state.editingEventoId }) });
+      await loadEventos();
+      closeModal('modalEvento');
+    } catch (err) {
+      showError('eventoFormError', err.message);
+    }
+  });
+
   // ---------- view switching ----------
   const navButtons = document.querySelectorAll('.nav-btn');
   const views = document.querySelectorAll('.view');
@@ -997,6 +1208,7 @@
     if (name === 'expedientes') renderExpedientes();
     if (name === 'configuracion') loadUsuarios();
     if (name === 'arbitraje' && !state.arbitraje) loadArbitraje(false);
+    if (name === 'agenda' && !state.eventos) loadEventos();
   }
   navButtons.forEach((btn) => btn.addEventListener('click', () => switchView(btn.dataset.view)));
 

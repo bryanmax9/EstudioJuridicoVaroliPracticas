@@ -430,4 +430,18 @@ async function getArbitrajeData({ forceRefresh } = {}) {
   }
 }
 
-module.exports = { getArbitrajeData, categorizeEstado };
+// The sheet's date columns render as "YYYY-MM-DD H:MM:SS" (ISO-ish, with a
+// trailing time this app never needs), but a few older columns elsewhere
+// used "D/M/YYYY" — handle both, and return null for anything else rather
+// than guess a wrong date.
+function normalizeSheetDate(v) {
+  const s = String(v || '').trim();
+  if (!s) return null;
+  const iso = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (iso) return `${iso[1]}-${iso[2]}-${iso[3]}`;
+  const dmy = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (dmy) return `${dmy[3]}-${String(dmy[2]).padStart(2, '0')}-${String(dmy[1]).padStart(2, '0')}`;
+  return null;
+}
+
+module.exports = { getArbitrajeData, categorizeEstado, normalizeSheetDate };
