@@ -97,7 +97,12 @@
             <div class="filter-chip" data-f="en_tramite">En trámite</div>
             <div class="filter-chip" data-f="completo">Completo</div>
           </div>
-          <div class="panel-body" id="pendientesList" style="margin-top:6px;"></div>
+          <div style="margin-top:6px;overflow-x:auto;">
+            <table>
+              <thead><tr><th>ID</th><th>Tarea</th><th>Cliente</th><th>Tipo de proceso</th><th>Expediente</th><th>Responsable</th><th>Estado</th></tr></thead>
+              <tbody id="pendientesList"></tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -540,11 +545,16 @@
     const el = document.getElementById('pendientesList');
     el.innerHTML = filtered.length
       ? filtered.map((t) => `
-        <div class="row-item">
-          <div><div class="rl">${esc(t.titulo)}</div><div class="rsub">${esc(t.clienteNombre || t.expedienteNumero || 'sin cliente/expediente asociado')}</div></div>
-          ${tagFor(t.estado)}
-        </div>`).join('')
-      : '<div class="empty-hint">No hay pendientes en esta categoría.</div>';
+        <tr>
+          <td>${esc(t.idTarea || '—')}</td>
+          <td class="client-name">${esc(t.titulo)}</td>
+          <td>${esc(t.clienteNombre || '—')}</td>
+          <td>${esc(t.tipoProceso || '—')}</td>
+          <td>${esc(t.expediente || '—')}</td>
+          <td>${esc(t.responsable || '—')}</td>
+          <td>${tagFor(t.estado)}</td>
+        </tr>`).join('')
+      : '<tr><td colspan="7"><div class="empty-hint">No hay pendientes en esta categoría.</div></td></tr>';
   }
 
   function renderClientes() {
