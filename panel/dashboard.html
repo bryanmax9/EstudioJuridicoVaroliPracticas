@@ -234,11 +234,17 @@
         <div id="arbErrorBox"></div>
 
         <div class="toolbar" id="arbSubnav">
-          <div class="view-toggle" style="margin-left:0;">
+          <div class="view-toggle" style="margin-left:0;flex-wrap:wrap;">
             <button class="active" data-sub="clientes">Clientes</button>
-            <button data-sub="judiciales">Judiciales</button>
-            <button data-sub="arbitrales">Arbitrales</button>
-            <button data-sub="pendientes">Pendientes</button>
+            <button data-sub="tipo" data-tipo="PROCESO JUDICIAL">Proceso judicial</button>
+            <button data-sub="tipo" data-tipo="PROCESO ARBITRAL">Proceso arbitral</button>
+            <button data-sub="tipo" data-tipo="PROCESO ADMINISTRATIVO">Proceso administrativo</button>
+            <button data-sub="tipo" data-tipo="PROCESO SANCIONADOR">Proceso sancionador</button>
+            <button data-sub="tipo" data-tipo="PROCESO DE LICITACIONES">Proceso de licitaciones</button>
+            <button data-sub="tipo" data-tipo="SUNAFIL">Sunafil</button>
+            <button data-sub="tipo" data-tipo="PROCESO PENAL">Proceso penal</button>
+            <button data-sub="tipo" data-tipo="CONSULTA / CASO GENERAL">Consulta / caso general</button>
+            <button data-sub="tipo" data-tipo="OTRO">Otro</button>
             <button data-sub="agenda">Reuniones</button>
           </div>
         </div>
@@ -273,29 +279,12 @@
           </div>
         </div>
 
-        <div class="kview" id="arbview-judiciales">
+        <div class="kview" id="arbview-tipo">
           <div class="panel">
+            <div class="panel-head"><h3 id="arbTipoTitulo">—</h3></div>
             <table>
-              <thead><tr><th>Cliente</th><th>N° expediente</th><th>Sede / juzgado</th><th>Estado</th><th>Prioridad</th><th>F. límite</th><th>Semáforo</th><th>Responsable</th></tr></thead>
-              <tbody id="arbJudicialesTbody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="kview" id="arbview-arbitrales">
-          <div class="panel">
-            <table>
-              <thead><tr><th>Cliente</th><th>N° expediente</th><th>Centro / sede</th><th>Estado</th><th>Prioridad</th><th>F. límite</th><th>Semáforo</th><th>Acción pendiente</th></tr></thead>
-              <tbody id="arbArbitralesTbody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="kview" id="arbview-pendientes">
-          <div class="panel">
-            <table>
-              <thead><tr><th>Cliente</th><th>Tarea</th><th>Estado</th><th>Prioridad</th><th>F. límite</th><th>Semáforo</th></tr></thead>
-              <tbody id="arbPendientesTbody"></tbody>
+              <thead><tr><th>Cliente</th><th>Descripción / expediente</th><th>Origen</th><th>Estado</th><th>Prioridad</th><th>F. límite</th><th>Semáforo</th><th>Responsable</th></tr></thead>
+              <tbody id="arbTipoTbody"></tbody>
             </table>
           </div>
         </div>
@@ -477,7 +466,7 @@
 (function () {
   const checking = document.getElementById('checkingSession');
   const app = document.getElementById('appMain');
-  const state = { session: null, clientes: [], expedientes: [], tareas: [], usuarios: [], perfilClienteId: null, arbitraje: null, arbSub: 'clientes' };
+  const state = { session: null, clientes: [], expedientes: [], tareas: [], usuarios: [], perfilClienteId: null, arbitraje: null, arbSub: 'clientes', arbTipoActual: 'PROCESO JUDICIAL' };
 
   fetch('/.netlify/functions/panel-session', { credentials: 'same-origin' })
     .then((r) => r.json())
@@ -832,7 +821,7 @@
     } catch (err) {
       state.arbitraje = null;
       box.innerHTML = `<div class="alert-box error">${esc(err.message)}</div>`;
-      ['arbClientesTbody', 'arbJudicialesTbody', 'arbArbitralesTbody', 'arbPendientesTbody', 'arbAgendaTbody'].forEach((id) => {
+      ['arbClientesTbody', 'arbTipoTbody', 'arbAgendaTbody'].forEach((id) => {
         document.getElementById(id).innerHTML = '';
       });
     }
@@ -840,9 +829,7 @@
 
   function renderArbitrajeAll() {
     renderArbitrajeClientes();
-    renderArbitrajeProcesos('judicial', 'arbJudicialesTbody');
-    renderArbitrajeProcesos('arbitral', 'arbArbitralesTbody');
-    renderArbitrajePendientes();
+    renderArbitrajeTipo(state.arbTipoActual || 'PROCESO JUDICIAL');
     renderArbitrajeAgenda();
   }
 
@@ -912,58 +899,43 @@
     document.getElementById('arbview-detalle').classList.add('active');
   }
 
-  function renderArbitrajeProcesos(tipo, tbodyId) {
-    const data = state.arbitraje;
-    const tbody = document.getElementById(tbodyId);
-    if (!data) { tbody.innerHTML = ''; return; }
-    const list = (tipo === 'judicial' ? data.procesosJudiciales : data.procesosArbitrales) || [];
-    if (tipo === 'judicial') {
-      tbody.innerHTML = list.length
-        ? list.map((p) => `
-          <tr>
-            <td class="client-name">${esc(p.cliente)}</td>
-            <td>${esc(p.numeroExpediente || p.codigo || '—')}</td>
-            <td>${esc(p.sedeJuzgado || '—')}</td>
-            <td>${arbTag(p.estado, 'estado')}</td>
-            <td>${arbTag(p.prioridad, 'prioridad')}</td>
-            <td>${shortDate(p.fechaLimite)}</td>
-            <td>${arbTag(p.semaforo, 'semaforo')}</td>
-            <td>${esc(p.responsable || '—')}</td>
-          </tr>`).join('')
-        : '<tr><td colspan="8"><div class="empty-hint">No hay procesos judiciales registrados en el libro.</div></td></tr>';
-    } else {
-      tbody.innerHTML = list.length
-        ? list.map((p) => `
-          <tr>
-            <td class="client-name">${esc(p.cliente)}</td>
-            <td>${esc(p.numeroExpediente || p.codigo || '—')}</td>
-            <td>${esc(p.sedeJuzgado || '—')}</td>
-            <td>${arbTag(p.estado, 'estado')}</td>
-            <td>${arbTag(p.prioridad, 'prioridad')}</td>
-            <td>${shortDate(p.fechaLimite)}</td>
-            <td>${arbTag(p.semaforo, 'semaforo')}</td>
-            <td>${esc(p.accionPendiente || '—')}</td>
-          </tr>`).join('')
-        : '<tr><td colspan="8"><div class="empty-hint">No hay procesos arbitrales registrados en el libro.</div></td></tr>';
-    }
+  // Groups rows from PROCESOS JUDICIALES, PROCESOS ARBITRALES, and PENDIENTES
+  // by their shared TIPO DE PROCESO column (from the CATALOGOS list), instead
+  // of by which sheet tab they came from — matching how the firm actually
+  // categorizes a case, since e.g. a "SUNAFIL" or "PROCESO ADMINISTRATIVO"
+  // matter can show up as a PENDIENTES row without ever having its own
+  // PROCESOS entry.
+  function normalizeTipoValue(v) {
+    return String(v || '').trim().toUpperCase();
   }
 
-  function renderArbitrajePendientes() {
+  function renderArbitrajeTipo(tipo) {
     const data = state.arbitraje;
-    const tbody = document.getElementById('arbPendientesTbody');
+    const tbody = document.getElementById('arbTipoTbody');
+    const titulo = document.getElementById('arbTipoTitulo');
     if (!data) { tbody.innerHTML = ''; return; }
-    const list = data.tareas || [];
-    tbody.innerHTML = list.length
-      ? list.map((t) => `
+
+    titulo.textContent = tipo;
+
+    const items = [
+      ...data.procesosJudiciales.map((p) => ({ ...p, origen: 'Judicial', descripcion: p.numeroExpediente || p.codigo || p.idCaso })),
+      ...data.procesosArbitrales.map((p) => ({ ...p, origen: 'Arbitral', descripcion: p.numeroExpediente || p.codigo || p.idCaso })),
+      ...data.tareas.map((t) => ({ ...t, origen: 'Pendiente', descripcion: t.tarea })),
+    ].filter((item) => normalizeTipoValue(item.tipoProceso) === normalizeTipoValue(tipo));
+
+    tbody.innerHTML = items.length
+      ? items.map((item) => `
         <tr>
-          <td class="client-name">${esc(t.cliente)}</td>
-          <td>${esc(t.tarea)}</td>
-          <td>${arbTag(t.estado, 'estado')}</td>
-          <td>${arbTag(t.prioridad, 'prioridad')}</td>
-          <td>${shortDate(t.fechaLimite)}</td>
-          <td>${arbTag(t.semaforo, 'semaforo')}</td>
+          <td class="client-name">${esc(item.cliente)}</td>
+          <td>${esc(item.descripcion || '—')}${item.observaciones ? `<div class="client-sub">${esc(item.observaciones)}</div>` : ''}${item.linkUrl && /^https:\/\//.test(item.linkUrl) ? `<a class="drive-link" href="${esc(item.linkUrl)}" target="_blank" rel="noopener">📁 Ver en Drive</a>` : ''}</td>
+          <td>${esc(item.origen)}</td>
+          <td>${arbTag(item.estado, 'estado')}</td>
+          <td>${arbTag(item.prioridad, 'prioridad')}</td>
+          <td>${shortDate(item.fechaLimite)}</td>
+          <td>${arbTag(item.semaforo, 'semaforo')}</td>
+          <td>${esc(item.responsable || item.accionPendiente || '—')}</td>
         </tr>`).join('')
-      : '<tr><td colspan="6"><div class="empty-hint">No hay pendientes registrados en el libro.</div></td></tr>';
+      : `<tr><td colspan="8"><div class="empty-hint">No hay casos de tipo "${esc(tipo)}" registrados en el libro.</div></td></tr>`;
   }
 
   function renderArbitrajeAgenda() {
@@ -990,6 +962,10 @@
     document.querySelectorAll('#arbSubnav .view-toggle button').forEach((b) => b.classList.remove('active'));
     btn.classList.add('active');
     state.arbSub = btn.dataset.sub;
+    if (btn.dataset.sub === 'tipo') {
+      state.arbTipoActual = btn.dataset.tipo;
+      renderArbitrajeTipo(btn.dataset.tipo);
+    }
     document.querySelectorAll('#view-arbitraje .kview').forEach((v) => v.classList.remove('active'));
     document.getElementById('arbview-' + btn.dataset.sub).classList.add('active');
   });
