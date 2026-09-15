@@ -13,6 +13,26 @@ const VALID_MATERIAS = [
 const VALID_ETAPAS = ['Diagnóstico', 'Estrategia', 'Ejecución', 'Seguimiento', 'Cerrado'];
 const MAX_BODY_BYTES = 8 * 1024;
 
+// ESPECIALIDAD (PROCESOS JUDICIALES) → one of the panel's 5 fixed materias.
+// Verified against every judicial row in the live sheet — every value maps
+// cleanly to one of these. An unmapped/blank value falls back to null
+// (shown as "—", never guessed). All arbitral cases are procurement
+// disputes in practice, so they map to Contrataciones del Estado directly.
+const ESPECIALIDAD_A_MATERIA = {
+  'comercial': 'Civil y comercial',
+  'civil': 'Civil y comercial',
+  'laboral': 'Laboral corporativo',
+  'contencioso administrativo': 'Derecho administrativo',
+  'administrativo': 'Derecho administrativo',
+  'penal': 'Derecho penal',
+};
+
+function materiaDeProceso(p) {
+  if (p.tipo === 'arbitral') return 'Contrataciones del Estado';
+  const key = String(p.especialidad || '').trim().toLowerCase();
+  return ESPECIALIDAD_A_MATERIA[key] || null;
+}
+
 exports.handler = async (event) => {
   const session = requireSession(event);
   if (!session) return jsonResponse(401, { error: 'No autenticado.' });
@@ -22,14 +42,16 @@ exports.handler = async (event) => {
       readList('expedientes'),
       getArbitrajeData().catch(() => null), // Excel sync is a bonus, not a hard dependency
     ]);
-    const internos = filterExpedientes(session, expedientes).map((e) => ({ ...e, source: 'interno' }));
+    const internos = filterExpedientes(session, expedientes).map((e) => ({ ...e, source: 'interno', activo: e.estado === 'activo' }));
 
     // Excel-sourced expedientes: one row per PROCESOS JUDICIALES/ARBITRALES
-    // case plus one per PENDIENTES task (read-only, sheet stays their source
-    // of truth). The "Expediente" column falls back to ID CASO / ID TAREA
-    // when the sheet's own EXPEDIENTE value is blank, so nothing shows up
-    // empty. clienteId is built the same way panel-clientes.js builds it for
-    // Excel clients, so name lookups on the frontend resolve correctly.
+    // case (read-only, sheet stays their source of truth) — matches the
+    // "expedientes-panel.html" reference, which sources these two tabs only,
+    // not PENDIENTES (that's a separate task concept, not a case). The
+    // "Expediente" number falls back to ID CASO when the sheet's own
+    // EXPEDIENTE value is blank, so nothing ever shows up empty. clienteId
+    // is built the same way panel-clientes.js builds it for Excel clients,
+    // so name lookups on the frontend resolve correctly.
     const excelExpedientes = [];
     if (arbitrajeData) {
       const clienteIdByNombre = new Map(arbitrajeData.clientes.map((c) => [c.nombre, `excel-${c.id || c.nombre}`]));
@@ -39,20 +61,26 @@ exports.handler = async (event) => {
           source: 'excel',
           numero: p.numeroExpediente || p.codigo || p.idCaso || '—',
           clienteId: clienteIdByNombre.get(p.cliente) || null,
-          materia: p.tipoProceso || (p.tipo === 'judicial' ? 'Proceso judicial' : 'Proceso arbitral'),
-          etapaKanban: null,
-          estado: p.abierto ? 'activo' : 'cerrado',
-        });
-      });
-      arbitrajeData.tareas.forEach((t) => {
-        excelExpedientes.push({
-          id: `excel-tarea-${t.id}`,
-          source: 'excel',
-          numero: t.expediente || t.idCaso || t.id || '—',
-          clienteId: clienteIdByNombre.get(t.cliente) || null,
-          materia: t.tipoProceso || null,
-          etapaKanban: null,
-          estado: t.categoria === 'completo' ? 'cerrado' : 'activo',
+          clienteNombre: p.cliente,
+          tipo: p.tipo === 'judicial' ? 'Judicial' : 'Arbitral',
+          materia: materiaDeProceso(p),
+          sede: p.sedeJuzgado,
+          partes: p.partes,
+          demandante: p.demandante,
+          demandado: p.demandado,
+          posicion: p.posicionCliente,
+          etapaKanban: p.etapa || p.estado || null,
+          estado: p.estado,
+          activo: p.abierto,
+          prioridad: p.prioridad,
+          ultimoMovimiento: p.ultimoMovimiento,
+          fechaUltimoMovimiento: p.fechaUltimoMovimiento,
+          proximaActuacion: p.proximaActuacion,
+          accionPendiente: p.accionPendiente,
+          observaciones: p.observaciones,
+          link: p.link,
+          linkUrl: p.linkUrl,
+          abogado: p.responsable,
         });
       });
     }

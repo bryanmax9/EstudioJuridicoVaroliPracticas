@@ -218,6 +218,40 @@
         </div>
       </div>
 
+      <!-- ============ DETALLE DE EXPEDIENTE (SINCRONIZADO DESDE EXCEL) ============ -->
+      <div class="view" id="view-expediente-excel">
+        <button class="btn secondary" id="btnExpedienteExcelVolver" style="margin-bottom:14px;">← Volver a expedientes</button>
+        <div class="profile-header">
+          <div>
+            <h2 class="profile-title" id="expExcelNumero">—</h2>
+            <div class="profile-meta" id="expExcelSubtitulo"></div>
+          </div>
+          <span id="expExcelEstadoTag"></span>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <div class="panel" style="margin-bottom:16px;">
+              <div class="panel-head"><h3>Datos del expediente</h3></div>
+              <div class="panel-body" id="expExcelDatos"></div>
+            </div>
+            <div class="panel" style="margin-bottom:16px;">
+              <div class="panel-head"><h3>Avance del expediente</h3></div>
+              <div class="panel-body" id="expExcelAvance"></div>
+            </div>
+            <div class="panel" id="expExcelObservacionesPanel" style="display:none;">
+              <div class="panel-head"><h3>Observaciones</h3></div>
+              <div class="panel-body" style="padding:14px 18px;" id="expExcelObservaciones"></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><h3>Documentos presentados</h3></div>
+            <div class="panel-body" id="expExcelDocumentos"></div>
+          </div>
+        </div>
+      </div>
+
       <!-- ============ ARBITRAJE ============ -->
       <div class="view" id="view-arbitraje">
         <div class="page-head">
@@ -667,21 +701,25 @@
     if (activeChip !== 'todas') list = list.filter((e) => e.materia === activeChip);
 
     document.getElementById('expedientesCountDesc').textContent =
-      `${state.expedientes.filter((e) => e.estado === 'activo').length} expedientes activos`;
+      `${state.expedientes.filter((e) => e.activo).length} expedientes activos`;
 
     const tbody = document.getElementById('expedientesTbody');
     tbody.innerHTML = list.length
       ? list.map((e) => `
-        <tr>
-          <td class="client-name">${esc(e.numero)}</td>
-          <td>${esc(clienteNombre(e.clienteId))}</td>
-          <td>${esc(e.materia || '—')}</td>
-          <td>${e.etapaKanban ? `<span class="tag warn">${esc(e.etapaKanban)}</span>` : (e.source === 'excel' ? '<span class="tag gold">Sincronizado</span>' : '—')}</td>
-          <td>${tagFor(e.estado)}</td>
+        <tr data-id="${esc(e.id)}" data-source="${e.source}">
+          <td><div class="client-name">${esc(e.numero)}</div>${e.tipo ? `<div class="client-sub">${esc(e.tipo)}</div>` : ''}</td>
+          <td>${esc(e.source === 'excel' ? (e.clienteNombre || '—') : clienteNombre(e.clienteId))}</td>
+          <td>${e.materia ? `<span class="tag gold">${esc(e.materia)}</span>` : '—'}</td>
+          <td>${e.etapaKanban ? `<span class="tag warn">${esc(e.etapaKanban)}</span>` : '—'}</td>
+          <td>${e.source === 'excel' ? arbTag(e.estado, 'estado') : tagFor(e.estado)}</td>
         </tr>`).join('')
       : '<tr><td colspan="5"><div class="empty-hint">Todavía no hay expedientes en esta materia.</div></td></tr>';
 
-    renderKanban(list.filter((e) => e.estado === 'activo' && e.source !== 'excel'));
+    tbody.querySelectorAll('tr[data-source="excel"]').forEach((tr) => {
+      tr.addEventListener('click', () => showExpedienteExcelDetalle(tr.dataset.id));
+    });
+
+    renderKanban(list.filter((e) => e.activo));
 
     // internal-only: creating a pendiente links to an internal numeric expedienteId
     const internos = state.expedientes.filter((e) => e.source !== 'excel');
@@ -690,14 +728,24 @@
 
   const ETAPAS = ['Diagnóstico', 'Estrategia', 'Ejecución', 'Seguimiento'];
 
+  // Groups internal expedientes by their fixed etapaKanban stage (interactive
+  // — can be dragged forward via the select), and Excel-sourced ones by their
+  // real sheet ETAPA/ESTADO text as additional read-only columns alongside.
   function renderKanban(list) {
     const board = document.getElementById('kanbanBoard');
-    board.innerHTML = ETAPAS.map((etapa) => {
-      const cards = list.filter((e) => e.etapaKanban === etapa);
+    const dynamicKeys = [...new Set(list.filter((e) => e.source === 'excel').map((e) => e.etapaKanban || 'Sin estado'))];
+    const columnas = [...ETAPAS, ...dynamicKeys.filter((k) => !ETAPAS.includes(k))];
+
+    board.innerHTML = columnas.map((etapa) => {
+      const cards = list.filter((e) => (e.etapaKanban || (e.source === 'excel' ? 'Sin estado' : null)) === etapa);
       return `
         <div class="kcol">
-          <div class="kcol-head">${etapa} <span class="count">${cards.length}</span></div>
-          ${cards.map((e) => `
+          <div class="kcol-head">${esc(etapa)} <span class="count">${cards.length}</span></div>
+          ${cards.map((e) => e.source === 'excel' ? `
+            <div class="kcard" data-id="${esc(e.id)}" style="cursor:pointer;">
+              <div class="kexp">${esc(e.numero)}</div>
+              <div class="kclient">${esc(e.clienteNombre || '—')}${e.materia ? ' · ' + esc(e.materia) : ''}</div>
+            </div>` : `
             <div class="kcard">
               <div class="kexp">${esc(e.numero)}</div>
               <div class="kclient">${esc(clienteNombre(e.clienteId))}</div>
@@ -708,13 +756,17 @@
         </div>`;
     }).join('');
 
+    board.querySelectorAll('.kcard[data-id]').forEach((card) => {
+      card.addEventListener('click', () => showExpedienteExcelDetalle(card.dataset.id));
+    });
+
     board.querySelectorAll('.ketapa').forEach((sel) => {
       sel.addEventListener('change', async () => {
         const id = Number(sel.dataset.id);
         try {
           const { expediente } = await api('panel-expedientes', { method: 'PATCH', body: JSON.stringify({ id, etapaKanban: sel.value }) });
           const idx = state.expedientes.findIndex((e) => e.id === id);
-          if (idx !== -1) state.expedientes[idx] = expediente;
+          if (idx !== -1) state.expedientes[idx] = { ...expediente, source: 'interno', activo: expediente.estado === 'activo' };
           renderExpedientes();
         } catch (err) {
           alert(err.message);
@@ -723,6 +775,64 @@
       });
     });
   }
+
+  // Expediente detail (Excel-sourced) — mirrors expedientes-panel.html: datos
+  // del expediente, avance (timeline), observaciones, and documentos.
+  function showExpedienteExcelDetalle(id) {
+    const e = state.expedientes.find((x) => x.id === id);
+    if (!e) return;
+
+    document.getElementById('expExcelNumero').textContent = e.numero;
+    document.getElementById('expExcelSubtitulo').innerHTML =
+      `<span>${esc(e.clienteNombre || '—')}</span><span>${esc(e.tipo || '—')}</span>` +
+      (e.clienteId ? `<span><a href="#" id="expExcelVerCliente" style="text-decoration:underline;">ver todos los expedientes del cliente</a></span>` : '');
+    document.getElementById('expExcelEstadoTag').innerHTML = arbTag(e.estado, 'estado');
+
+    const datos = document.getElementById('expExcelDatos');
+    const filas = [
+      ['Materia', e.materia ? `<span class="tag gold">${esc(e.materia)}</span>` : '—'],
+      ['Sede', esc(e.sede || '—')],
+      ['Partes', esc(e.partes || '—')],
+      e.demandante ? ['Demandante', esc(e.demandante) + (normalizeTipoValue(e.posicion) === 'DEMANDANTE' ? ' (nuestro cliente)' : '')] : null,
+      e.demandado ? ['Demandado', esc(e.demandado) + (normalizeTipoValue(e.posicion) === 'DEMANDADO' ? ' (nuestro cliente)' : '')] : null,
+      ['Etapa actual', esc(e.etapaKanban || '—')],
+      ['Prioridad', esc(e.prioridad || '—')],
+      ['Responsable', e.abogado ? esc(e.abogado) : '<span class="empty-hint" style="padding:0;">sin asignar</span>'],
+    ].filter(Boolean);
+    datos.innerHTML = filas.map(([label, value]) => `<div class="row-item"><div class="rl">${label}</div><div>${value}</div></div>`).join('');
+
+    const avance = document.getElementById('expExcelAvance');
+    const hitos = [
+      e.fechaUltimoMovimiento ? { fecha: shortDate(e.fechaUltimoMovimiento), texto: e.ultimoMovimiento || 'Último movimiento registrado.' } : null,
+      e.proximaActuacion ? { fecha: 'Próxima actuación', texto: e.proximaActuacion } : null,
+      e.accionPendiente ? { fecha: 'Acción pendiente', texto: e.accionPendiente } : null,
+    ].filter(Boolean);
+    avance.innerHTML = hitos.length
+      ? hitos.map((h) => `<div class="row-item" style="display:block;"><div class="rsub" style="color:var(--p-gold);font-weight:600;margin-bottom:3px;">${esc(h.fecha)}</div><div class="rl" style="font-weight:400;">${esc(h.texto)}</div></div>`).join('')
+      : '<div class="empty-hint">Sin movimientos registrados todavía.</div>';
+
+    const obsPanel = document.getElementById('expExcelObservacionesPanel');
+    if (e.observaciones) {
+      obsPanel.style.display = '';
+      document.getElementById('expExcelObservaciones').textContent = e.observaciones;
+    } else {
+      obsPanel.style.display = 'none';
+    }
+
+    const docs = document.getElementById('expExcelDocumentos');
+    docs.innerHTML = (e.linkUrl && /^https:\/\//.test(e.linkUrl))
+      ? `<div class="row-item"><div class="rl">Carpeta / expediente</div><a class="drive-link" href="${esc(e.linkUrl)}" target="_blank" rel="noopener">📁 Ver en Drive</a></div>`
+      : e.link
+        ? `<div class="row-item"><div class="rl">Carpeta / expediente</div><div class="rsub">${esc(e.link)}</div></div>`
+        : '<div class="empty-hint">Aún no hay documentos vinculados desde Drive para este expediente.</div>';
+
+    switchView('expediente-excel', false);
+    document.querySelectorAll('.nav-btn').forEach((b) => b.classList.toggle('active', b.dataset.view === 'expedientes'));
+
+    const verCliente = document.getElementById('expExcelVerCliente');
+    if (verCliente) verCliente.addEventListener('click', (ev) => { ev.preventDefault(); showPerfilExcel(e.clienteNombre); });
+  }
+  document.getElementById('btnExpedienteExcelVolver').addEventListener('click', () => switchView('expedientes'));
 
   async function loadUsuarios() {
     if (state.session.role !== 'jefe_estudio') return;
