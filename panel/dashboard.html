@@ -79,11 +79,13 @@
           </div>
         </div>
 
+        <div id="dashErrorBox"></div>
+
         <div class="kpi-row">
-          <div class="kpi warn"><div class="num" id="kpiPorHacer">–</div><div class="lbl">Pendientes · por hacer</div></div>
-          <div class="kpi gold"><div class="num" id="kpiEnTramite">–</div><div class="lbl">Pendientes · en trámite</div></div>
-          <div class="kpi success"><div class="num" id="kpiExpActivos">–</div><div class="lbl">Expedientes activos</div></div>
-          <div class="kpi ink"><div class="num" id="kpiCompletos">–</div><div class="lbl">Pendientes completados</div></div>
+          <div class="kpi warn"><div class="num" id="kpiPorHacer"><div class="skel skel-kpi"></div></div><div class="lbl">Pendientes · por hacer</div></div>
+          <div class="kpi gold"><div class="num" id="kpiEnTramite"><div class="skel skel-kpi"></div></div><div class="lbl">Pendientes · en trámite</div></div>
+          <div class="kpi success"><div class="num" id="kpiExpActivos"><div class="skel skel-kpi"></div></div><div class="lbl">Expedientes activos</div></div>
+          <div class="kpi ink"><div class="num" id="kpiCompletos"><div class="skel skel-kpi"></div></div><div class="lbl">Pendientes completados</div></div>
         </div>
 
         <div class="panel">
@@ -100,7 +102,7 @@
           <div style="margin-top:6px;overflow-x:auto;">
             <table>
               <thead><tr><th>ID</th><th>Tarea</th><th>Cliente</th><th>Tipo de proceso</th><th>Expediente</th><th>Responsable</th><th>Estado</th></tr></thead>
-              <tbody id="pendientesList"></tbody>
+              <tbody id="pendientesList"><tr><td colspan="7"><div class="skel skel-line" style="width:70%;"></div></td></tr><tr><td colspan="7"><div class="skel skel-line" style="width:55%;"></div></td></tr><tr><td colspan="7"><div class="skel skel-line" style="width:80%;"></div></td></tr></tbody>
             </table>
           </div>
         </div>
@@ -506,7 +508,7 @@
     session: null, clientes: [], expedientes: [], tareas: [], usuarios: [], perfilClienteId: null,
     arbitraje: null, arbSub: 'tipo', arbTipoActual: 'PROCESO JUDICIAL',
     eventos: null, calCursor: new Date(today.getFullYear(), today.getMonth(), 1), editingEventoId: null,
-    dataLoaded: false,
+    dataLoaded: false, dataLoadError: null,
   };
 
   fetch('/.netlify/functions/panel-session', { credentials: 'same-origin' })
@@ -577,6 +579,12 @@
     el.classList.add('content-reveal');
   }
 
+  // A table body's "this failed to load" state — never leave a view stuck
+  // on a skeleton forever when the fetch actually failed.
+  function errorRowHtml(colspan, message, retryId) {
+    return `<tr><td colspan="${colspan}"><div class="alert-box error" style="margin:14px 18px;">No se pudo cargar (${esc(message)}). <button type="button" class="btn secondary" data-retry="${retryId}" style="margin-left:8px;padding:5px 12px;font-size:12px;">Reintentar</button></div></td></tr>`;
+  }
+
   function clienteNombre(id) {
     const c = state.clientes.find((x) => x.id === id);
     return c ? c.nombre : '—';
@@ -600,25 +608,51 @@
   }
 
   // ---------- loaders ----------
+  // Clientes/Expedientes both wait on the Excel sync server-side (cold Drive
+  // fetch + parse), which occasionally takes long enough to fail outright.
+  // This must never silently strand the rest of init() — every load here
+  // stands on its own, with a real error + retry state instead of leaving
+  // the UI stuck on a skeleton (or worse, the raw static placeholder)
+  // forever.
   async function loadClientesAndExpedientes() {
-    const [cRes, eRes, tRes] = await Promise.all([
-      api('panel-clientes'),
-      api('panel-expedientes'),
-      api('panel-tareas'),
-    ]);
-    state.clientes = cRes.clientes;
-    state.expedientes = eRes.expedientes;
-    state.tareas = tRes.tareas;
-    state.dataLoaded = true;
+    state.dataLoadError = null;
+    try {
+      const [cRes, eRes, tRes] = await Promise.all([
+        api('panel-clientes'),
+        api('panel-expedientes'),
+        api('panel-tareas'),
+      ]);
+      state.clientes = cRes.clientes;
+      state.expedientes = eRes.expedientes;
+      state.tareas = tRes.tareas;
+      state.dataLoaded = true;
+    } catch (err) {
+      console.error(err);
+      state.dataLoadError = err.message;
+    }
+    const activeViewId = document.querySelector('.view.active')?.id;
+    if (activeViewId === 'view-clientes') renderClientes();
+    if (activeViewId === 'view-expedientes') renderExpedientes();
   }
 
   const KPI_IDS = ['kpiPorHacer', 'kpiEnTramite', 'kpiExpActivos', 'kpiCompletos'];
 
   async function loadDashboard() {
+    document.getElementById('dashErrorBox').innerHTML = '';
     KPI_IDS.forEach((id) => { document.getElementById(id).innerHTML = '<div class="skel skel-kpi"></div>'; });
     document.getElementById('pendientesList').innerHTML = skeletonRows(7, 4);
 
-    const d = await api('panel-dashboard');
+    let d;
+    try {
+      d = await api('panel-dashboard');
+    } catch (err) {
+      console.error(err);
+      document.getElementById('dashErrorBox').innerHTML =
+        `<div class="alert-box error">No se pudo cargar el panel principal (${esc(err.message)}). <button type="button" class="btn secondary" data-retry="dashboard" style="margin-left:8px;padding:5px 12px;font-size:12px;">Reintentar</button></div>`;
+      KPI_IDS.forEach((id) => { document.getElementById(id).textContent = '—'; });
+      document.getElementById('pendientesList').innerHTML = '<tr><td colspan="7"><div class="empty-hint">No se pudo cargar.</div></td></tr>';
+      return;
+    }
 
     document.getElementById('kpiPorHacer').textContent = d.pendientesPorHacer;
     document.getElementById('kpiEnTramite').textContent = d.pendientesEnTramite;
@@ -632,6 +666,16 @@
     state._pendientesRecientes = d.pendientesRecientes;
     renderPendientesList('todos');
   }
+
+  // Delegated so it works for retry buttons rendered anywhere, anytime.
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-retry]');
+    if (!btn) return;
+    if (btn.dataset.retry === 'dashboard') loadDashboard();
+    if (btn.dataset.retry === 'clientes-expedientes') loadClientesAndExpedientes();
+    if (btn.dataset.retry === 'arbitraje') loadArbitraje(true);
+    if (btn.dataset.retry === 'agenda') loadEventos();
+  });
 
   function renderPendientesList(filter) {
     const list = state._pendientesRecientes || [];
@@ -655,8 +699,13 @@
   function renderClientes() {
     const tbody = document.getElementById('clientesTbody');
     if (!state.dataLoaded) {
-      document.getElementById('clientesCountDesc').innerHTML = '<div class="skel skel-line" style="width:120px;"></div>';
-      tbody.innerHTML = skeletonRows(4, 5);
+      if (state.dataLoadError) {
+        document.getElementById('clientesCountDesc').textContent = '';
+        tbody.innerHTML = errorRowHtml(4, state.dataLoadError, 'clientes-expedientes');
+      } else {
+        document.getElementById('clientesCountDesc').innerHTML = '<div class="skel skel-line" style="width:120px;"></div>';
+        tbody.innerHTML = skeletonRows(4, 5);
+      }
       return;
     }
 
@@ -780,8 +829,13 @@
   function renderExpedientes() {
     const tbody = document.getElementById('expedientesTbody');
     if (!state.dataLoaded) {
-      document.getElementById('expedientesCountDesc').innerHTML = '<div class="skel skel-line" style="width:130px;"></div>';
-      tbody.innerHTML = skeletonRows(5, 5);
+      if (state.dataLoadError) {
+        document.getElementById('expedientesCountDesc').textContent = '';
+        tbody.innerHTML = errorRowHtml(5, state.dataLoadError, 'clientes-expedientes');
+      } else {
+        document.getElementById('expedientesCountDesc').innerHTML = '<div class="skel skel-line" style="width:130px;"></div>';
+        tbody.innerHTML = skeletonRows(5, 5);
+      }
       document.getElementById('kanbanBoard').innerHTML = '';
       return;
     }
@@ -979,7 +1033,7 @@
   async function loadArbitraje(force) {
     const box = document.getElementById('arbErrorBox');
     box.innerHTML = '';
-    if (!force) {
+    if (!state.arbitraje) {
       document.getElementById('arbTipoTbody').innerHTML = skeletonRows(8, 5);
       document.getElementById('arbAgendaTbody').innerHTML = skeletonRows(6, 4);
       document.getElementById('arbSyncMeta').innerHTML = '<div class="skel skel-line" style="width:150px;display:inline-block;"></div>';
@@ -996,10 +1050,10 @@
       renderArbitrajeAll();
     } catch (err) {
       state.arbitraje = null;
-      box.innerHTML = `<div class="alert-box error">${esc(err.message)}</div>`;
-      ['arbTipoTbody', 'arbAgendaTbody'].forEach((id) => {
-        document.getElementById(id).innerHTML = '';
-      });
+      box.innerHTML = `<div class="alert-box error">${esc(err.message)} <button type="button" class="btn secondary" data-retry="arbitraje" style="margin-left:8px;padding:5px 12px;font-size:12px;">Reintentar</button></div>`;
+      document.getElementById('arbTipoTbody').innerHTML = errorRowHtml(8, err.message, 'arbitraje');
+      document.getElementById('arbAgendaTbody').innerHTML = errorRowHtml(6, err.message, 'arbitraje');
+      document.getElementById('arbSyncMeta').textContent = '—';
     }
   }
 
@@ -1120,9 +1174,10 @@
       state.eventos = eventos;
       renderAgenda();
     } catch (err) {
-      state.eventos = [];
-      box.innerHTML = `<div class="alert-box error">${esc(err.message)}</div>`;
-      renderAgenda();
+      console.error(err);
+      state.eventos = null;
+      box.innerHTML = `<div class="alert-box error">${esc(err.message)} <button type="button" class="btn secondary" data-retry="agenda" style="margin-left:8px;padding:5px 12px;font-size:12px;">Reintentar</button></div>`;
+      document.getElementById('calCells').innerHTML = '';
     }
   }
 
@@ -1442,22 +1497,15 @@
       .finally(() => window.location.replace('index.html'));
   });
 
-  async function init() {
+  function init() {
     document.getElementById('topbarDate').textContent = new Date().toLocaleDateString('es-PE', {
       day: 'numeric', month: 'long', year: 'numeric',
     });
-    try {
-      await loadClientesAndExpedientes();
-      // if the user already navigated to Clientes/Expedientes while this was
-      // still loading, they were shown a skeleton (not a misleading "no data"
-      // empty state) — refresh it now that real data is in.
-      const activeViewId = document.querySelector('.view.active')?.id;
-      if (activeViewId === 'view-clientes') renderClientes();
-      if (activeViewId === 'view-expedientes') renderExpedientes();
-      await loadDashboard();
-    } catch (err) {
-      console.error(err);
-    }
+    // Deliberately not awaited in sequence: each load handles its own
+    // errors and retry, so one failing (e.g. a slow/cold Excel sync) must
+    // never block or delay the other.
+    loadClientesAndExpedientes();
+    loadDashboard();
   }
 })();
 </script>
