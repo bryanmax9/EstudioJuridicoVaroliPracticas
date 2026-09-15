@@ -1,6 +1,7 @@
 const { requireSession, jsonResponse } = require('./utils/panel-auth');
 const { readList, writeList, nextId } = require('./utils/panel-store');
 const { filterClientes } = require('./utils/panel-rbac');
+const { getArbitrajeData } = require('./utils/sheet-arbitraje');
 
 const VALID_TIPOS = ['juridica', 'natural'];
 const MAX_BODY_BYTES = 8 * 1024;
@@ -10,15 +11,40 @@ exports.handler = async (event) => {
   if (!session) return jsonResponse(401, { error: 'No autenticado.' });
 
   if (event.httpMethod === 'GET') {
-    const [clientes, expedientes] = await Promise.all([readList('clientes'), readList('expedientes')]);
+    const [clientes, expedientes, arbitrajeData] = await Promise.all([
+      readList('clientes'),
+      readList('expedientes'),
+      getArbitrajeData().catch(() => null), // Excel sync is a bonus, not a hard dependency
+    ]);
     const visible = filterClientes(session, clientes, expedientes);
 
     const withCounts = visible.map((c) => ({
       ...c,
+      source: 'interno',
       expedientesActivos: expedientes.filter((e) => e.clienteId === c.id && e.estado === 'activo').length,
     }));
 
-    return jsonResponse(200, { clientes: withCounts });
+    // Clients that only exist in the Excel workbook (the real, actively-used
+    // caseload) — read-only here, since the sheet stays their source of
+    // truth.
+    const excelClientes = arbitrajeData
+      ? arbitrajeData.clientes.map((c) => {
+          return {
+            id: `excel-${c.id || c.nombre}`,
+            source: 'excel',
+            nombre: c.nombre,
+            documento: c.ruc,
+            tipoPersona: null,
+            contacto: c.contacto || c.correo || c.telefono || '',
+            responsable: c.responsable,
+            estado: c.estado,
+            driveLink: c.driveLinkUrl || c.driveLink || null,
+            expedientesActivos: c.casosAbiertos,
+          };
+        })
+      : [];
+
+    return jsonResponse(200, { clientes: [...withCounts, ...excelClientes] });
   }
 
   if (event.httpMethod === 'POST') {

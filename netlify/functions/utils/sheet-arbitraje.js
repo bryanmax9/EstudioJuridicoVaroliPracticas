@@ -1,21 +1,26 @@
-// Live read-only sync from the "Templo 2- Clientes" Google Drive workbook
-// (an .xlsx file, not a native Google Sheet) into the panel's Arbitraje view.
+// Live read-only sync from the "Templo 2 - Sistema de Gestión" Google Drive
+// workbook (an .xlsx file, not a native Google Sheet) into the panel.
 //
 // Requires GOOGLE_SERVICE_ACCOUNT_KEY (same service account already used for
-// Drive uploads elsewhere in this repo) to have been granted Viewer access to
-// the workbook by its owner, since it's a binary Office file the Sheets API
-// can't read directly — we pull the raw bytes via Drive and parse them here.
+// Drive uploads elsewhere in this repo) to be able to read the workbook —
+// either shared directly with the service account, or (as with this file)
+// shared as "anyone with the link" — since it's a binary Office file the
+// Sheets API can't read directly, we pull the raw bytes via Drive and parse
+// them here.
+//
+// This replaces an earlier, messier workbook ("Templo 2- Clientes") that had
+// one tab per client with inconsistent columns. This one has a proper single
+// table per concept (CLIENTES, PROCESOS JUDICIALES, PROCESOS ARBITRALES,
+// PENDIENTES, REUNIONES) plus a CATALOGOS tab with the authoritative list of
+// valid ESTADO/PRIORIDAD/etc. values.
 
 const { google } = require('googleapis');
 const XLSX = require('xlsx');
 const { getPanelStore } = require('./panel-store');
 
-const DEFAULT_FILE_ID = '1EwQ5TjPc2JpKn2Q0IRS3Kx6NqcLBFUJe'; // "Templo 2- Clientes"
+const DEFAULT_FILE_ID = '1QwCh2xetKfB4plca6kPjMu1j4e1P02RU'; // "Templo 2 - Sistema de Gestión"
 const CACHE_KEY = 'arbitraje-sheet-cache';
 const CACHE_TTL_MS = 5 * 60 * 1000;
-
-const SKIP_TABS = new Set(['INICIO', 'PROCESOS JUDICIALES', 'PRACTICANTES', 'INSTRUCCIONES']);
-const SPECIAL_TABS = new Set(['ARBITRAJES', 'AGENDA', 'OTROS CLIENTES']);
 
 function normalize(s) {
   return String(s == null ? '' : s)
@@ -24,6 +29,28 @@ function normalize(s) {
     .replace(/[̀-ͯ]/g, '')
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
+}
+
+// Per CATALOGOS: only these ESTADO DEL CASO values are closed. A few legacy
+// synonyms ("LISTO", etc.) show up in real rows despite not being in the
+// official list — treat those as closed too. Anything else (including a
+// blank or unrecognized value) is treated as open, so a typo never silently
+// drops a case from "activos".
+const CLOSED_ESTADO_CASO = ['culminado', 'archivado', 'listo', 'finalizado', 'cerrado'];
+const CLOSED_ESTADO_TAREA = ['completado', 'cancelado', 'listo', 'finalizado', 'cerrado'];
+
+function isCasoAbierto(estado) {
+  return !CLOSED_ESTADO_CASO.includes(normalize(estado));
+}
+
+// Buckets a tarea's ESTADO into the same three categories the panel's
+// dashboard uses for internally-created tareas (pendiente/en_tramite/
+// completo).
+function categorizeEstado(estado) {
+  const norm = normalize(estado);
+  if (CLOSED_ESTADO_TAREA.includes(norm)) return 'completo';
+  if (norm === 'pendiente') return 'pendiente';
+  return 'en_tramite';
 }
 
 function getFileId() {
@@ -59,7 +86,7 @@ async function downloadWorkbook(fileId) {
     if (status === 404 || status === 403) {
       throw new Error(
         'No se pudo leer la hoja de cálculo. Verifica que el archivo esté compartido (como Lector) ' +
-        'con la cuenta de servicio configurada en GOOGLE_SERVICE_ACCOUNT_KEY.'
+        'con la cuenta de servicio configurada en GOOGLE_SERVICE_ACCOUNT_KEY, o que el enlace siga activo.'
       );
     }
     throw err;
@@ -68,6 +95,7 @@ async function downloadWorkbook(fileId) {
 }
 
 function sheetRows(sheet) {
+  if (!sheet) return [];
   return XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '', raw: false });
 }
 
@@ -77,260 +105,301 @@ function cellLink(sheet, r, c) {
   return cell && cell.l && cell.l.Target ? cell.l.Target : null;
 }
 
-// Confirmed with the person who maintains the workbook: each row in a
-// client's tab is one expediente/proceso (not a loose task) — a client can
-// have several open in parallel. ESTADO is the case status; ACCIÓN is a
-// separate "next step" column (HACER/REVISAR/RECORDAR) that isn't part of
-// open/closed logic. Only COMPLETADO/LISTO count as closed; everything else
-// (including a case whose ESTADO is literally "URGENTE") is open.
-const CLOSED_ESTADOS = ['completado', 'listo'];
-
-function isEstadoAbierto(estado) {
-  const norm = normalize(estado);
-  if (!norm) return true;
-  return !CLOSED_ESTADOS.includes(norm);
-}
-
-// Buckets an expediente's ESTADO into the same three categories the panel's
-// dashboard already uses for internally-created tareas (pendiente/en_tramite/
-// completo), so Excel-sourced and internally-created items can share one KPI.
-function categorizeEstado(estado) {
-  const norm = normalize(estado);
-  if (CLOSED_ESTADOS.includes(norm)) return 'completo';
-  if (norm === 'pendiente') return 'pendiente';
-  return 'en_tramite';
-}
-
-function findHeaderRow(rows, matchesFirstCol, matchesSecondCol) {
+function findHeaderRow(rows, matchesFirstCol) {
   for (let i = 0; i < rows.length; i += 1) {
-    const row = rows[i];
-    const a = normalize(row[0]);
-    const b = normalize(row[1]);
-    if (matchesFirstCol(a) && (!matchesSecondCol || matchesSecondCol(b))) return i;
+    if (matchesFirstCol(normalize(rows[i][0]))) return i;
   }
   return -1;
 }
 
-// Column header → canonical field, matched by normalized substring.
-const PENDIENTE_HEADER_RULES = [
-  ['numero', (h) => h === 'n' || h === 'no'],
-  ['cliente', (h) => h === 'cliente'],
-  ['fechaSolicitud', (h) => h.includes('fecha') && h.includes('solicitud')],
-  ['descripcion', (h) => h.includes('descripcion') && h.includes('servicio')],
-  ['hechos', (h) => h === 'hechos'],
-  ['procedimiento', (h) => h.includes('procedimiento')],
-  ['accion', (h) => h === 'accion'],
-  ['fechaActual', (h) => h.includes('fecha') && h.includes('actual')],
-  ['fechaLimite', (h) => h.includes('fecha') && h.includes('limite')],
-  ['diasRestantes', (h) => h.includes('dias') && h.includes('rest')],
-  ['horario', (h) => h === 'horario'],
-  ['estado', (h) => h === 'estado'],
-  ['prioridad', (h) => h === 'prioridad'],
-  ['link', (h) => h.includes('link') || h.includes('expediente')],
-  ['observaciones', (h) => h.includes('observacion')],
-];
+function isBlankRow(row) {
+  return !row || row.every((cell) => !String(cell || '').trim());
+}
 
-function parsePendientesSheet(sheet, clienteFallback) {
-  const rows = sheetRows(sheet);
-  const headerIdx = findHeaderRow(rows, (a) => a === 'n' || a === 'no');
-  if (headerIdx === -1) return [];
-
-  const header = rows[headerIdx].map(normalize);
+// Builds a column-index map for a header row using a set of [canonicalKey,
+// normalizedHeaderTest] rules — first matching rule per column wins, first
+// matching column per key wins (matches by header name, not position, since
+// column order isn't guaranteed to be identical across tabs/rows).
+function mapHeader(headerRow, rules) {
+  const header = headerRow.map(normalize);
   const colFor = {};
   header.forEach((h, i) => {
     if (!h) return;
-    const rule = PENDIENTE_HEADER_RULES.find(([, test]) => test(h));
+    const rule = rules.find(([, test]) => test(h));
     if (rule && colFor[rule[0]] === undefined) colFor[rule[0]] = i;
   });
+  return colFor;
+}
 
-  const pendientes = [];
+function cell(row, colFor, key) {
+  return colFor[key] !== undefined ? String(row[colFor[key]] || '').trim() : '';
+}
+
+// ---------- CLIENTES ----------
+const CLIENTE_RULES = [
+  ['id', (h) => h.includes('id') && h.includes('cliente')],
+  ['nombre', (h) => h === 'cliente'],
+  ['ruc', (h) => h === 'ruc'],
+  ['contacto', (h) => h === 'contacto'],
+  ['telefono', (h) => h.includes('telefono')],
+  ['correo', (h) => h === 'correo'],
+  ['responsable', (h) => h === 'responsable'],
+  ['fechaIngreso', (h) => h.includes('fecha') && h.includes('ingreso')],
+  ['estado', (h) => h.includes('estado') && h.includes('cliente')],
+  ['totalCasos', (h) => (h.includes('total') || h.includes('numero')) && h.includes('casos')],
+  ['casosJudiciales', (h) => h.includes('casos') && h.includes('judicial')],
+  ['casosArbitrales', (h) => h.includes('casos') && h.includes('arbitral')],
+  ['otrosCasos', (h) => h.includes('otros') && h.includes('casos')],
+  ['driveLink', (h) => h.includes('link')],
+  ['observaciones', (h) => h.includes('observacion')],
+];
+
+function parseClientesSheet(sheet) {
+  const rows = sheetRows(sheet);
+  const headerIdx = findHeaderRow(rows, (h) => h.includes('id') && h.includes('cliente'));
+  if (headerIdx === -1) return [];
+  const colFor = mapHeader(rows[headerIdx], CLIENTE_RULES);
+
+  const out = [];
   for (let r = headerIdx + 1; r < rows.length; r += 1) {
     const row = rows[r];
-    if (!row || row.every((cell) => !String(cell || '').trim())) continue;
+    if (isBlankRow(row)) continue;
+    const nombre = cell(row, colFor, 'nombre');
+    if (!nombre) continue;
+    const linkCol = colFor.driveLink;
+    out.push({
+      id: cell(row, colFor, 'id'),
+      nombre,
+      ruc: cell(row, colFor, 'ruc'),
+      contacto: cell(row, colFor, 'contacto'),
+      telefono: cell(row, colFor, 'telefono'),
+      correo: cell(row, colFor, 'correo'),
+      responsable: cell(row, colFor, 'responsable'),
+      fechaIngreso: cell(row, colFor, 'fechaIngreso'),
+      estado: cell(row, colFor, 'estado'),
+      totalCasos: Number(cell(row, colFor, 'totalCasos')) || 0,
+      casosJudiciales: Number(cell(row, colFor, 'casosJudiciales')) || 0,
+      casosArbitrales: Number(cell(row, colFor, 'casosArbitrales')) || 0,
+      otrosCasos: Number(cell(row, colFor, 'otrosCasos')) || 0,
+      driveLink: cell(row, colFor, 'driveLink'),
+      driveLinkUrl: linkCol !== undefined ? cellLink(sheet, r, linkCol) : null,
+      observaciones: cell(row, colFor, 'observaciones'),
+    });
+  }
+  return out;
+}
 
-    const descripcion = colFor.descripcion !== undefined ? String(row[colFor.descripcion] || '').trim() : '';
-    if (!descripcion || /sin pendientes registrados/i.test(descripcion)) continue;
+// ---------- PROCESOS (JUDICIALES + ARBITRALES share most columns) ----------
+const PROCESO_RULES = [
+  ['idCaso', (h) => h.includes('id') && h.includes('caso')],
+  ['cliente', (h) => h === 'cliente'],
+  ['sedeJuzgado', (h) => h.includes('sede') || h.includes('juzgado') || h.includes('centro')],
+  ['especialidad', (h) => h === 'especialidad'],
+  ['tipoProceso', (h) => h.includes('tipo') && h.includes('proceso')],
+  ['codigo', (h) => h === 'codigo'],
+  ['numeroExpediente', (h) => h.includes('numero') && h.includes('expediente')],
+  ['demandante', (h) => h.includes('demandante')],
+  ['demandado', (h) => h.includes('demandado')],
+  ['posicionCliente', (h) => h.includes('posicion')],
+  ['arbitro', (h) => h.includes('arbitro')],
+  ['estado', (h) => h.includes('estado') && (h.includes('proceso') || h.includes('arbitraje'))],
+  ['prioridad', (h) => h === 'prioridad'],
+  ['fechaInicio', (h) => h.includes('fecha') && h.includes('inicio')],
+  ['ultimoMovimiento', (h) => h.includes('ultimo') && h.includes('movimiento') && !h.includes('fecha')],
+  ['fechaUltimoMovimiento', (h) => h.includes('fecha') && h.includes('ultimo')],
+  ['proximaActuacion', (h) => h.includes('proxima') && !h.includes('fecha')],
+  ['fechaProximaActuacion', (h) => h.includes('fecha') && h.includes('proxima')],
+  ['fechaLimite', (h) => h.includes('fecha') && h.includes('limite')],
+  ['diasRestantes', (h) => h.includes('dias') && h.includes('rest')],
+  ['semaforo', (h) => h === 'semaforo'],
+  ['responsable', (h) => h.includes('responsable')],
+  ['accionPendiente', (h) => h.includes('accion')],
+  ['link', (h) => h.includes('link')],
+  ['observaciones', (h) => h.includes('observacion')],
+];
 
+function parseProcesosSheet(sheet, tipo) {
+  const rows = sheetRows(sheet);
+  const headerIdx = findHeaderRow(rows, (h) => h.includes('id') && h.includes('caso'));
+  if (headerIdx === -1) return [];
+  const colFor = mapHeader(rows[headerIdx], PROCESO_RULES);
+
+  const out = [];
+  for (let r = headerIdx + 1; r < rows.length; r += 1) {
+    const row = rows[r];
+    if (isBlankRow(row)) continue;
+    const cliente = cell(row, colFor, 'cliente');
+    if (!cliente) continue;
     const linkCol = colFor.link;
-    const estado = colFor.estado !== undefined ? String(row[colFor.estado] || '').trim() : '';
-    pendientes.push({
-      numero: colFor.numero !== undefined ? String(row[colFor.numero] || '').trim() : '',
-      cliente: colFor.cliente !== undefined ? String(row[colFor.cliente] || '').trim() : clienteFallback,
-      fechaSolicitud: colFor.fechaSolicitud !== undefined ? String(row[colFor.fechaSolicitud] || '').trim() : '',
-      descripcion,
-      hechos: colFor.hechos !== undefined ? String(row[colFor.hechos] || '').trim() : '',
-      procedimiento: colFor.procedimiento !== undefined ? String(row[colFor.procedimiento] || '').trim() : '',
-      accion: colFor.accion !== undefined ? String(row[colFor.accion] || '').trim() : '',
-      fechaActual: colFor.fechaActual !== undefined ? String(row[colFor.fechaActual] || '').trim() : '',
-      fechaLimite: colFor.fechaLimite !== undefined ? String(row[colFor.fechaLimite] || '').trim() : '',
-      diasRestantes: colFor.diasRestantes !== undefined ? String(row[colFor.diasRestantes] || '').trim() : '',
-      horario: colFor.horario !== undefined ? String(row[colFor.horario] || '').trim() : '',
+    const estado = cell(row, colFor, 'estado');
+    out.push({
+      tipo,
+      idCaso: cell(row, colFor, 'idCaso'),
+      cliente,
+      sedeJuzgado: cell(row, colFor, 'sedeJuzgado'),
+      especialidad: cell(row, colFor, 'especialidad'),
+      tipoProceso: cell(row, colFor, 'tipoProceso'),
+      codigo: cell(row, colFor, 'codigo'),
+      numeroExpediente: cell(row, colFor, 'numeroExpediente'),
+      demandante: cell(row, colFor, 'demandante'),
+      demandado: cell(row, colFor, 'demandado'),
+      posicionCliente: cell(row, colFor, 'posicionCliente'),
+      arbitro: cell(row, colFor, 'arbitro'),
       estado,
-      abierto: isEstadoAbierto(estado),
-      prioridad: colFor.prioridad !== undefined ? String(row[colFor.prioridad] || '').trim() : '',
+      abierto: isCasoAbierto(estado),
+      prioridad: cell(row, colFor, 'prioridad'),
+      fechaInicio: cell(row, colFor, 'fechaInicio'),
+      ultimoMovimiento: cell(row, colFor, 'ultimoMovimiento'),
+      fechaUltimoMovimiento: cell(row, colFor, 'fechaUltimoMovimiento'),
+      proximaActuacion: cell(row, colFor, 'proximaActuacion'),
+      fechaProximaActuacion: cell(row, colFor, 'fechaProximaActuacion'),
+      fechaLimite: cell(row, colFor, 'fechaLimite'),
+      diasRestantes: cell(row, colFor, 'diasRestantes'),
+      semaforo: cell(row, colFor, 'semaforo'),
+      responsable: cell(row, colFor, 'responsable'),
+      accionPendiente: cell(row, colFor, 'accionPendiente'),
       link: linkCol !== undefined ? String(row[linkCol] || '').trim() : '',
       linkUrl: linkCol !== undefined ? cellLink(sheet, r, linkCol) : null,
-      observaciones: colFor.observaciones !== undefined ? String(row[colFor.observaciones] || '').trim() : '',
-    });
-  }
-  return pendientes;
-}
-
-function parseArbitrajesSheet(sheet) {
-  const rows = sheetRows(sheet);
-  const headerIdx = findHeaderRow(rows, (a) => a === 'cliente', (b) => b.includes('expediente'));
-  if (headerIdx === -1) return [];
-
-  const header = rows[headerIdx].map(normalize);
-  const idx = (test) => header.findIndex(test);
-  const col = {
-    cliente: idx((h) => h === 'cliente'),
-    expediente: idx((h) => h.includes('expediente')),
-    demandante: idx((h) => h.includes('demandante')),
-    demandado: idx((h) => h.includes('demandado')),
-    tipo: idx((h) => h.includes('tipo') && h.includes('arbitraje')),
-    estadoActual: idx((h) => h.includes('estado') && h.includes('proceso')),
-    proximoHito: idx((h) => h.includes('proximo') || h.includes('hito') || h.includes('accion')),
-    responsable: idx((h) => h.includes('responsable')),
-  };
-
-  const out = [];
-  for (let r = headerIdx + 1; r < rows.length; r += 1) {
-    const row = rows[r];
-    if (!row || row.every((cell) => !String(cell || '').trim())) continue;
-    const cliente = col.cliente !== -1 ? String(row[col.cliente] || '').trim() : '';
-    if (!cliente) continue;
-    out.push({
-      cliente,
-      expediente: col.expediente !== -1 ? String(row[col.expediente] || '').trim() : '',
-      demandante: col.demandante !== -1 ? String(row[col.demandante] || '').trim() : '',
-      demandado: col.demandado !== -1 ? String(row[col.demandado] || '').trim() : '',
-      tipo: col.tipo !== -1 ? String(row[col.tipo] || '').trim() : '',
-      estadoActual: col.estadoActual !== -1 ? String(row[col.estadoActual] || '').trim() : '',
-      proximoHito: col.proximoHito !== -1 ? String(row[col.proximoHito] || '').trim() : '',
-      responsable: col.responsable !== -1 ? String(row[col.responsable] || '').trim() : '',
+      observaciones: cell(row, colFor, 'observaciones'),
     });
   }
   return out;
 }
 
-function parseAgendaSheet(sheet) {
-  const rows = sheetRows(sheet);
-  const headerIdx = findHeaderRow(rows, (a) => a === 'fecha', (b) => b.includes('hora'));
-  if (headerIdx === -1) return [];
+// ---------- PENDIENTES (tareas) ----------
+const TAREA_RULES = [
+  ['id', (h) => h.includes('id') && h.includes('tarea')],
+  ['fechaRegistro', (h) => h.includes('fecha') && h.includes('registro')],
+  ['cliente', (h) => h === 'cliente'],
+  ['idCaso', (h) => h.includes('id') && h.includes('caso')],
+  ['tipoProceso', (h) => h.includes('tipo') && h.includes('proceso')],
+  ['expediente', (h) => h === 'expediente'],
+  ['tarea', (h) => h.includes('tarea') || h.includes('accion')],
+  ['responsable', (h) => h === 'responsable'],
+  ['prioridad', (h) => h === 'prioridad'],
+  ['fechaLimite', (h) => h.includes('fecha') && h.includes('limite')],
+  ['diasRestantes', (h) => h.includes('dias') && h.includes('rest')],
+  ['semaforo', (h) => h === 'semaforo'],
+  ['estado', (h) => h === 'estado'],
+  ['fechaFinalizacion', (h) => h.includes('fecha') && h.includes('finalizacion')],
+  ['observaciones', (h) => h.includes('observacion')],
+  ['link', (h) => h.includes('link') || h.includes('documento')],
+];
 
-  const header = rows[headerIdx].map(normalize);
-  const idx = (test) => header.findIndex(test);
-  const col = {
-    fecha: idx((h) => h === 'fecha'),
-    hora: idx((h) => h === 'hora'),
-    cliente: idx((h) => h === 'cliente'),
-    tipo: idx((h) => h === 'tipo'),
-    descripcion: idx((h) => h.includes('descripcion')),
-    lugar: idx((h) => h.includes('lugar') || h.includes('link')),
-    responsable: idx((h) => h.includes('responsable')),
-    estado: idx((h) => h === 'estado'),
-  };
+function parseTareasSheet(sheet) {
+  const rows = sheetRows(sheet);
+  const headerIdx = findHeaderRow(rows, (h) => h.includes('id') && h.includes('tarea'));
+  if (headerIdx === -1) return [];
+  const colFor = mapHeader(rows[headerIdx], TAREA_RULES);
 
   const out = [];
   for (let r = headerIdx + 1; r < rows.length; r += 1) {
     const row = rows[r];
-    if (!row || row.every((cell) => !String(cell || '').trim())) continue;
-    const fecha = col.fecha !== -1 ? String(row[col.fecha] || '').trim() : '';
-    const cliente = col.cliente !== -1 ? String(row[col.cliente] || '').trim() : '';
-    if (!fecha && !cliente) continue;
+    if (isBlankRow(row)) continue;
+    const tarea = cell(row, colFor, 'tarea');
+    const cliente = cell(row, colFor, 'cliente');
+    if (!tarea && !cliente) continue;
+    const estado = cell(row, colFor, 'estado');
     out.push({
+      id: cell(row, colFor, 'id'),
+      fechaRegistro: cell(row, colFor, 'fechaRegistro'),
+      cliente,
+      idCaso: cell(row, colFor, 'idCaso'),
+      tipoProceso: cell(row, colFor, 'tipoProceso'),
+      expediente: cell(row, colFor, 'expediente'),
+      tarea,
+      responsable: cell(row, colFor, 'responsable'),
+      prioridad: cell(row, colFor, 'prioridad'),
+      fechaLimite: cell(row, colFor, 'fechaLimite'),
+      diasRestantes: cell(row, colFor, 'diasRestantes'),
+      semaforo: cell(row, colFor, 'semaforo'),
+      estado,
+      categoria: categorizeEstado(estado),
+      fechaFinalizacion: cell(row, colFor, 'fechaFinalizacion'),
+      observaciones: cell(row, colFor, 'observaciones'),
+      link: cell(row, colFor, 'link'),
+    });
+  }
+  return out;
+}
+
+// ---------- REUNIONES ----------
+const REUNION_RULES = [
+  ['id', (h) => h.includes('id') && h.includes('reunion')],
+  ['cliente', (h) => h === 'cliente'],
+  ['asunto', (h) => h.includes('expediente') || h.includes('asunto')],
+  ['fecha', (h) => h === 'fecha'],
+  ['hora', (h) => h === 'hora'],
+  ['modalidad', (h) => h === 'modalidad'],
+  ['link', (h) => h.includes('link')],
+  ['responsable', (h) => h === 'responsable'],
+  ['estado', (h) => h === 'estado'],
+  ['observaciones', (h) => h.includes('observacion')],
+];
+
+function parseReunionesSheet(sheet) {
+  const rows = sheetRows(sheet);
+  const headerIdx = findHeaderRow(rows, (h) => h.includes('id') && h.includes('reunion'));
+  if (headerIdx === -1) return [];
+  const colFor = mapHeader(rows[headerIdx], REUNION_RULES);
+
+  const out = [];
+  for (let r = headerIdx + 1; r < rows.length; r += 1) {
+    const row = rows[r];
+    if (isBlankRow(row)) continue;
+    const cliente = cell(row, colFor, 'cliente');
+    const fecha = cell(row, colFor, 'fecha');
+    if (!cliente && !fecha) continue;
+    out.push({
+      id: cell(row, colFor, 'id'),
+      cliente,
+      asunto: cell(row, colFor, 'asunto'),
       fecha,
-      hora: col.hora !== -1 ? String(row[col.hora] || '').trim() : '',
-      cliente,
-      tipo: col.tipo !== -1 ? String(row[col.tipo] || '').trim() : '',
-      descripcion: col.descripcion !== -1 ? String(row[col.descripcion] || '').trim() : '',
-      lugar: col.lugar !== -1 ? String(row[col.lugar] || '').trim() : '',
-      responsable: col.responsable !== -1 ? String(row[col.responsable] || '').trim() : '',
-      estado: col.estado !== -1 ? String(row[col.estado] || '').trim() : '',
+      hora: cell(row, colFor, 'hora'),
+      modalidad: cell(row, colFor, 'modalidad'),
+      link: cell(row, colFor, 'link'),
+      responsable: cell(row, colFor, 'responsable'),
+      estado: cell(row, colFor, 'estado'),
+      observaciones: cell(row, colFor, 'observaciones'),
     });
   }
   return out;
-}
-
-function parseInicioSheet(workbook) {
-  const sheet = workbook.Sheets['INICIO'];
-  if (!sheet) return [];
-  const rows = sheetRows(sheet);
-  const headerIdx = findHeaderRow(rows, (a) => a === 'letra');
-  if (headerIdx === -1) return [];
-
-  const clientes = [];
-  for (let r = headerIdx + 1; r < rows.length; r += 1) {
-    const row = rows[r];
-    const letra = String(row[0] || '').trim();
-    const nombre = String(row[1] || '').trim();
-    if (!letra || !nombre) continue;
-    const irCell = String(row[4] || '');
-    const sheetName = irCell.replace(/^.*▸\s*/, '').trim() || nombre;
-    clientes.push({
-      letra,
-      nombre,
-      pendientesCount: Number(row[2]) || 0,
-      urgentes: Number(row[3]) || 0,
-      sheetName,
-    });
-  }
-  return clientes;
-}
-
-// The INICIO index's "Ver pestaña" label doesn't always match the real tab
-// name byte-for-byte (e.g. "LA PROTECTORA / SABSA" vs. the actual tab
-// "LA PROTECTORA - SABSA") — fall back to a normalized-name match.
-function resolveSheetName(workbook, label) {
-  if (workbook.Sheets[label]) return label;
-  const target = normalize(label);
-  const found = workbook.SheetNames.find((name) => normalize(name) === target);
-  return found || label;
 }
 
 async function fetchArbitrajeData() {
   const fileId = getFileId();
   const workbook = await downloadWorkbook(fileId);
 
-  // The INICIO tab's "N° pendientes"/"Urgentes" counts are maintained by hand
-  // and drift out of sync with what's actually in each client's tab — derive
-  // both live from the parsed rows instead, so counts always match what the
-  // drill-down shows.
-  const clientesIndex = parseInicioSheet(workbook);
-  const clientes = clientesIndex.map((c) => {
-    const sheetName = resolveSheetName(workbook, c.sheetName);
-    const sheet = workbook.Sheets[sheetName];
-    const pendientes = sheet ? parsePendientesSheet(sheet, c.nombre) : [];
-    const urgentes = pendientes.filter((p) => /urgente/i.test(p.prioridad)).length;
-    const expedientesActivos = pendientes.filter((p) => p.abierto).length;
-    return {
-      ...c,
-      sheetName,
-      pendientes,
-      pendientesCount: pendientes.length,
-      urgentes,
-      expedientesActivos,
-      expedientesCerrados: pendientes.length - expedientesActivos,
-    };
+  const clientesRaw = parseClientesSheet(workbook.Sheets['CLIENTES']);
+  const procesosJudiciales = parseProcesosSheet(workbook.Sheets['PROCESOS JUDICIALES'], 'judicial');
+  const procesosArbitrales = parseProcesosSheet(workbook.Sheets['PROCESOS ARBITRALES'], 'arbitral');
+  const tareas = parseTareasSheet(workbook.Sheets['PENDIENTES']);
+  const reuniones = parseReunionesSheet(workbook.Sheets['REUNIONES']);
+
+  const todosLosProcesos = [...procesosJudiciales, ...procesosArbitrales];
+  const totalExpedientesActivos = todosLosProcesos.filter((p) => p.abierto).length;
+  const totalExpedientesCerrados = todosLosProcesos.length - totalExpedientesActivos;
+
+  // Some clients' cases only ever show up as a PENDIENTES row (no dedicated
+  // PROCESOS entry) — e.g. "OTROS CASOS" in the CLIENTES tab. Count both so
+  // a client's "open" total actually matches what CLIENTES reports, instead
+  // of only reflecting judicial/arbitral processes.
+  const clientes = clientesRaw.map((c) => {
+    const misProcesos = todosLosProcesos.filter((p) => p.cliente === c.nombre);
+    const misTareas = tareas.filter((t) => t.cliente === c.nombre);
+    const casosAbiertos =
+      misProcesos.filter((p) => p.abierto).length + misTareas.filter((t) => t.categoria !== 'completo').length;
+    return { ...c, casosAbiertos };
   });
-
-  const otrosSheet = workbook.Sheets['OTROS CLIENTES'];
-  const otrosClientes = otrosSheet ? parsePendientesSheet(otrosSheet, 'Otros clientes') : [];
-
-  const arbitrajesSheet = workbook.Sheets['ARBITRAJES'];
-  const arbitrajes = arbitrajesSheet ? parseArbitrajesSheet(arbitrajesSheet) : [];
-
-  const agendaSheet = workbook.Sheets['AGENDA'];
-  const agenda = agendaSheet ? parseAgendaSheet(agendaSheet) : [];
 
   return {
     clientes,
-    otrosClientes,
-    arbitrajes,
-    agenda,
-    totalExpedientesActivos: clientes.reduce((s, c) => s + c.expedientesActivos, 0),
-    totalExpedientesCerrados: clientes.reduce((s, c) => s + c.expedientesCerrados, 0),
+    procesosJudiciales,
+    procesosArbitrales,
+    tareas,
+    reuniones,
+    totalExpedientesActivos,
+    totalExpedientesCerrados,
     fetchedAt: new Date().toISOString(),
   };
 }
