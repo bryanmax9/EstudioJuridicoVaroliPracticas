@@ -157,6 +157,34 @@
         </div>
       </div>
 
+      <!-- ============ PERFIL DE CLIENTE (SINCRONIZADO DESDE EXCEL) ============ -->
+      <div class="view" id="view-perfil-excel">
+        <button class="btn secondary" id="btnPerfilExcelVolver" style="margin-bottom:14px;">← Volver a clientes</button>
+        <div class="profile-header">
+          <div>
+            <h2 class="profile-title" id="perfilExcelNombre">—</h2>
+            <div class="profile-meta" id="perfilExcelMeta"></div>
+          </div>
+          <span class="tag gold">Sincronizado desde Excel</span>
+        </div>
+
+        <div class="panel" style="margin-bottom:16px;">
+          <div class="panel-head"><h3>Procesos judiciales y arbitrales</h3></div>
+          <table>
+            <thead><tr><th>Asunto / expediente</th><th>Tipo</th><th>Estado</th><th>Prioridad</th><th>F. límite</th><th>Semáforo</th></tr></thead>
+            <tbody id="perfilExcelProcesosTbody"></tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Pendientes</h3></div>
+          <table>
+            <thead><tr><th>ID</th><th>Tarea</th><th>Tipo de proceso</th><th>Responsable</th><th>Estado</th><th>Prioridad</th><th>F. límite</th></tr></thead>
+            <tbody id="perfilExcelTareasTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
       <!-- ============ EXPEDIENTES ============ -->
       <div class="view" id="view-expedientes">
         <div class="page-head">
@@ -580,7 +608,7 @@
     });
     tbody.querySelectorAll('tr[data-source="excel"]').forEach((tr) => {
       const nombre = tr.querySelector('.client-name').textContent;
-      tr.addEventListener('click', () => goToArbitrajeCliente(nombre));
+      tr.addEventListener('click', () => showPerfilExcel(nombre));
     });
 
     // keep the "nuevo expediente" / "nuevo pendiente" client dropdowns in sync
@@ -590,11 +618,55 @@
     fillSelect('pendienteCliente', internos, (c) => c.id, (c) => c.nombre, true, '— Sin cliente asociado —');
   }
 
-  async function goToArbitrajeCliente(nombre) {
-    switchView('arbitraje');
+  // Shows a client profile sourced entirely from the Excel sync (procesos
+  // judiciales + arbitrales + pendientes, all matched by the CLIENTE column
+  // shared across those three tabs) — without navigating away from Clientes.
+  async function showPerfilExcel(nombre) {
     if (!state.arbitraje) await loadArbitraje(false);
-    showArbitrajeDetalle(nombre);
+    const data = state.arbitraje;
+    if (!data) return;
+    const cliente = data.clientes.find((c) => c.nombre === nombre);
+    if (!cliente) return;
+
+    const procesos = [...data.procesosJudiciales, ...data.procesosArbitrales].filter((p) => p.cliente === nombre);
+    const tareas = data.tareas.filter((t) => t.cliente === nombre);
+
+    document.getElementById('perfilExcelNombre').textContent = cliente.nombre;
+    document.getElementById('perfilExcelMeta').innerHTML =
+      `<span>${procesos.length} proceso(s)</span><span>${tareas.length} pendiente(s)</span>` +
+      (cliente.ruc ? `<span>RUC: ${esc(cliente.ruc)}</span>` : '') +
+      (cliente.responsable ? `<span>Responsable: ${esc(cliente.responsable)}</span>` : '') +
+      (cliente.driveLinkUrl ? `<span><a class="drive-link" href="${esc(cliente.driveLinkUrl)}" target="_blank" rel="noopener">📁 Ver en Drive</a></span>` : '');
+
+    document.getElementById('perfilExcelProcesosTbody').innerHTML = procesos.length
+      ? procesos.map((p) => `
+        <tr>
+          <td><div class="client-name">${esc(p.numeroExpediente || p.codigo || p.idCaso)}</div>${p.observaciones ? `<div class="client-sub">${esc(p.observaciones)}</div>` : ''}${p.linkUrl && /^https:\/\//.test(p.linkUrl) ? `<a class="drive-link" href="${esc(p.linkUrl)}" target="_blank" rel="noopener">📁 Ver en Drive</a>` : ''}</td>
+          <td>${p.tipo === 'judicial' ? 'Judicial' : 'Arbitral'}</td>
+          <td>${arbTag(p.estado, 'estado')}</td>
+          <td>${arbTag(p.prioridad, 'prioridad')}</td>
+          <td>${shortDate(p.fechaLimite)}</td>
+          <td>${arbTag(p.semaforo, 'semaforo')}</td>
+        </tr>`).join('')
+      : '<tr><td colspan="6"><div class="empty-hint">Sin procesos registrados.</div></td></tr>';
+
+    document.getElementById('perfilExcelTareasTbody').innerHTML = tareas.length
+      ? tareas.map((t) => `
+        <tr>
+          <td>${esc(t.id || '—')}</td>
+          <td>${esc(t.tarea)}${t.observaciones ? `<div class="client-sub">${esc(t.observaciones)}</div>` : ''}</td>
+          <td>${esc(t.tipoProceso || '—')}</td>
+          <td>${esc(t.responsable || '—')}</td>
+          <td>${arbTag(t.estado, 'estado')}</td>
+          <td>${arbTag(t.prioridad, 'prioridad')}</td>
+          <td>${shortDate(t.fechaLimite)}</td>
+        </tr>`).join('')
+      : '<tr><td colspan="7"><div class="empty-hint">Sin pendientes registrados.</div></td></tr>';
+
+    switchView('perfil-excel', false);
+    document.querySelectorAll('.nav-btn').forEach((b) => b.classList.toggle('active', b.dataset.view === 'clientes'));
   }
+  document.getElementById('btnPerfilExcelVolver').addEventListener('click', () => switchView('clientes'));
 
   function fillSelect(id, items, valueFn, labelFn, includeEmpty, emptyLabel) {
     const sel = document.getElementById(id);
