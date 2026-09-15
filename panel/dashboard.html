@@ -706,15 +706,17 @@
         <tr>
           <td class="client-name">${esc(e.numero)}</td>
           <td>${esc(clienteNombre(e.clienteId))}</td>
-          <td>${esc(e.materia)}</td>
-          <td><span class="tag warn">${esc(e.etapaKanban)}</span></td>
+          <td>${esc(e.materia || '—')}</td>
+          <td>${e.etapaKanban ? `<span class="tag warn">${esc(e.etapaKanban)}</span>` : (e.source === 'excel' ? '<span class="tag gold">Sincronizado</span>' : '—')}</td>
           <td>${tagFor(e.estado)}</td>
         </tr>`).join('')
       : '<tr><td colspan="5"><div class="empty-hint">Todavía no hay expedientes en esta materia.</div></td></tr>';
 
-    renderKanban(list.filter((e) => e.estado === 'activo'));
+    renderKanban(list.filter((e) => e.estado === 'activo' && e.source !== 'excel'));
 
-    fillSelect('pendienteExpediente', state.expedientes, (e) => e.id, (e) => `${e.numero} — ${clienteNombre(e.clienteId)}`, true, '— Sin expediente asociado —');
+    // internal-only: creating a pendiente links to an internal numeric expedienteId
+    const internos = state.expedientes.filter((e) => e.source !== 'excel');
+    fillSelect('pendienteExpediente', internos, (e) => e.id, (e) => `${e.numero} — ${clienteNombre(e.clienteId)}`, true, '— Sin expediente asociado —');
   }
 
   const ETAPAS = ['Diagnóstico', 'Estrategia', 'Ejecución', 'Seguimiento'];
@@ -1075,8 +1077,11 @@
 
   function openPendienteModal(fromPerfil) {
     state.pendienteFromPerfil = !!fromPerfil;
-    fillSelect('pendienteCliente', state.clientes, (c) => c.id, (c) => c.nombre, true, '— Sin cliente asociado —');
-    fillSelect('pendienteExpediente', state.expedientes, (e) => e.id, (e) => `${e.numero} — ${clienteNombre(e.clienteId)}`, true, '— Sin expediente asociado —');
+    // internal-only: a new pendiente's cliente/expediente FKs must point at internal records
+    const clientesInternos = state.clientes.filter((c) => c.source !== 'excel');
+    const expedientesInternos = state.expedientes.filter((e) => e.source !== 'excel');
+    fillSelect('pendienteCliente', clientesInternos, (c) => c.id, (c) => c.nombre, true, '— Sin cliente asociado —');
+    fillSelect('pendienteExpediente', expedientesInternos, (e) => e.id, (e) => `${e.numero} — ${clienteNombre(e.clienteId)}`, true, '— Sin expediente asociado —');
     if (fromPerfil && state.perfilClienteId) document.getElementById('pendienteCliente').value = state.perfilClienteId;
     openModal('modalPendiente');
   }
