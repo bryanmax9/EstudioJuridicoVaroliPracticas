@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Estudio Jurídico Varoli - Slovsa Abogados en Lima, Perú. Contrataciones del Estado, laboral, administrativo, penal y civil. Primera consulta gratuita.">
+<meta name="description" content="Estudio Jurídico Varoli - Slovsa Abogados en Lima, Perú. Contrataciones con el Estado, administrativo, comercial, societario, inmobiliario y laboral. Primera consulta gratuita.">
 <title>Varoli - Slovsa Abogados · Estudio Jurídico Lima</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,9 +76,6 @@ footer,.compromisos-band{padding-left:clamp(24px,5vw,80px);padding-right:clamp(2
 .nav-cta{background:transparent !important;color:var(--gold) !important;border:1px solid rgba(196,154,108,0.5);padding:9px 20px;border-radius:2px;font-size:10px !important;letter-spacing:1.5px !important;transition:background 0.2s,border-color 0.2s !important}
 .nav-cta:hover{background:var(--gold) !important;color:var(--black) !important;border-color:var(--gold) !important}
 .nav-cta::after{display:none !important}
-.nav-secondary{background:transparent !important;color:rgba(208,200,188,0.85) !important;border:1px solid var(--border-dark);padding:9px 18px;border-radius:2px;font-size:10px !important;letter-spacing:1.5px !important;transition:border-color 0.2s,color 0.2s !important}
-.nav-secondary:hover{border-color:var(--gold) !important;color:var(--gold) !important}
-.nav-secondary::after{display:none !important}
 .nav-mobile-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
 .nav-mobile-btn span{display:block;width:22px;height:1px;background:var(--cream)}
 .nav-mobile-menu{display:none;position:fixed;inset:0;background:#0c1e3a;z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:32px}
@@ -303,7 +300,73 @@ footer a:hover{color:var(--gold)}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .footer-top{grid-template-columns:1fr}
 }
+
+/* ══ MEJORAS V2 — identidad Varoli ══ */
+.hero::before{content:'';position:absolute;left:0;right:0;bottom:0;height:112px;background:var(--gold);clip-path:polygon(0 100%,100% 0,100% 100%);z-index:2;pointer-events:none}
+.hero::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:108px;background:var(--navy);clip-path:polygon(0 100%,100% 0,100% 100%);z-index:3;pointer-events:none}
+.hero-feature{position:absolute;right:clamp(24px,5vw,80px);bottom:170px;z-index:4;max-width:340px;border-left:2px solid var(--gold);padding:4px 0 4px 20px;opacity:0;animation:fadeUp 1s ease 1.3s forwards}
+.hero-feature small{display:block;font-family:var(--sans);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.hero-feature strong{display:block;font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.3;color:var(--cream);margin-bottom:14px}
+.hero-feature a{font-family:var(--sans);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(196,154,108,.45);padding:9px 16px;border-radius:2px;display:inline-block;transition:background .2s,color .2s}
+.hero-feature a:hover{background:var(--gold);color:var(--black)}
+/* menú Áreas de práctica */
+.nav-dd{position:relative}
+.nav-dd>a{display:inline-flex;align-items:center;gap:6px}
+.nav-dd>a svg{width:9px;height:9px;stroke:currentColor;fill:none;stroke-width:1.5}
+.nav-dd-menu{position:absolute;top:calc(100% + 18px);left:-24px;min-width:300px;background:rgba(12,30,58,.98);border:1px solid var(--border-dark);border-top:2px solid var(--gold);padding:12px 0;opacity:0;visibility:hidden;transform:translateY(8px);transition:all .25s;backdrop-filter:blur(12px)}
+.nav-dd:hover .nav-dd-menu,.nav-dd:focus-within .nav-dd-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.nav-dd-menu a{display:block;padding:11px 24px;font-size:11px}
+.nav-dd-menu a::after{display:none}
+.nav-dd-menu a:hover{background:rgba(196,154,108,.08);color:var(--gold)}
+.nav-dd::before{content:'';position:absolute;left:0;right:0;top:100%;height:20px}
+/* íconos de línea */
+.compromiso-icon svg{width:32px;height:32px;stroke:var(--gold);fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.compromiso-icon{margin-bottom:20px}
+/* recursos */
+.recursos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:56px;border-top:1px solid var(--border-dark)}
+.recurso{padding:36px 32px 36px 0;border-right:1px solid var(--border-dark);margin-right:32px;display:flex;flex-direction:column;gap:14px}
+.recurso:last-child{border-right:none;margin-right:0}
+.recurso-tag{font-family:var(--sans);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold)}
+.recurso h3{font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.25;color:var(--cream)}
+.recurso p{font-family:var(--sans);font-size:14px;line-height:1.75;color:var(--text-on-dark);font-weight:300;flex:1}
+.recurso a{font-family:var(--sans);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);display:inline-flex;gap:8px;align-items:center}
+.recurso a:hover{color:var(--gold-light)}
+.newsletter{margin-top:56px;padding:40px;background:var(--navy);border:1px solid var(--border-dark);display:flex;gap:32px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.newsletter h3{font-family:var(--serif);font-weight:400;font-size:26px;color:var(--cream);margin-bottom:6px}
+.newsletter p{font-family:var(--sans);font-size:14px;color:var(--text-on-dark-muted);font-weight:300}
+.newsletter form{display:flex;gap:10px;flex-wrap:wrap}
+.newsletter input{background:transparent;border:1px solid rgba(196,154,108,.4);color:var(--cream);padding:13px 16px;min-width:260px;font-family:var(--sans);font-size:13px;border-radius:2px}
+.newsletter input:focus{outline:none;border-color:var(--gold)}
+@media(max-width:900px){.hero-feature{display:none}.recursos-grid{grid-template-columns:1fr}.recurso{border-right:none;margin-right:0;padding-right:0;border-bottom:1px solid var(--border-dark)}}
+.nav-links a.nav-intranet{display:inline-flex;align-items:center;color:var(--gold);opacity:.9}
+
+/* ══ MARCA + BROCHURE ══ */
+.logo-img{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:block}
+footer .logo-img{width:46px;height:46px}
+.brochure{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,6vw,96px);align-items:center}
+.brochure-cover{position:relative;max-width:360px;margin:0 auto}
+.brochure-cover img{width:100%;height:auto;display:block;box-shadow:0 30px 60px rgba(0,0,0,.45);border:1px solid rgba(196,154,108,.25);transform:rotate(-2deg);transition:transform .4s}
+.brochure-cover:hover img{transform:rotate(0)}
+.brochure-cover::after{content:'';position:absolute;inset:14px -14px -14px 14px;border:1px solid rgba(196,154,108,.35);z-index:-1}
+.brochure-txt h2{margin-bottom:20px}
+.brochure-txt>p{font-family:var(--sans);font-weight:300;font-size:15px;line-height:1.85;color:var(--text-on-dark);max-width:560px;margin-bottom:28px}
+.brochure-list{list-style:none;margin:0 0 36px;padding:0;border-top:1px solid var(--border-dark);max-width:560px}
+.brochure-list li{padding:14px 0;border-bottom:1px solid var(--border-dark);font-family:var(--sans);font-size:13px;color:var(--text-on-dark);font-weight:300;display:flex;gap:16px}
+.brochure-list li b{font-family:var(--serif);font-weight:400;color:var(--gold);font-size:16px;min-width:26px}
+.brochure-btns{display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:900px){.brochure{grid-template-columns:1fr}.brochure-cover{max-width:260px}}
+
+/* ══ 6 ÁREAS ══ */
+.servicios-grid .svc-cta-card{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center;gap:24px;padding:28px 36px}
+.servicios-grid .svc-cta-card p{margin:0}
+@media(max-width:900px){.servicios-grid .svc-cta-card{flex-direction:column;align-items:flex-start}}
+.noticia-img-icon svg{width:42px;height:42px;stroke:#C49A6C;fill:none;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:900px){.hero{padding-bottom:150px}.hero::before{height:72px}.hero::after{height:68px}}
+@media(max-width:560px){.proceso-grid,.compromisos-grid,.proceso-steps{grid-template-columns:1fr!important}.p-step p,.compromiso-item p{overflow-wrap:anywhere}}
+.p-step p{overflow-wrap:anywhere}
 </style>
+<link rel="canonical" href="https://varoli-slovsaabogados.com/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LegalService", "name": "Varoli - Slovsa Abogados", "url": "https://varoli-slovsaabogados.com/", "logo": "https://varoli-slovsaabogados.com/img/logo-varoli.png", "image": "https://varoli-slovsaabogados.com/img/logo-varoli.png", "telephone": "+51924333108", "email": "consultasvaroli@gmail.com", "address": {"@type": "PostalAddress", "streetAddress": "Av. José Leal 835, Of. 302", "addressLocality": "Lince, Lima", "addressCountry": "PE"}, "areaServed": "Lima, Perú", "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "18:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "13:00"}], "knowsAbout": ["Contrataciones con el Estado", "Derecho Administrativo", "Derecho Comercial", "Derecho Societario", "Derecho Inmobiliario", "Derecho Laboral"]}</script>
 </head>
 <body>
 
@@ -320,14 +383,14 @@ footer a:hover{color:var(--gold)}
   <a href="servicios.html" onclick="closeMobileMenu()">Servicios</a>
   <a href="noticias.html" onclick="closeMobileMenu()">Noticias</a>
   <a href="contacto.html" onclick="closeMobileMenu()">Contacto</a>
-  <a href="panel/" onclick="closeMobileMenu()" style="font-size:20px;color:rgba(208,200,188,0.85)">Sistema Interno</a>
+  <a href="panel/" onclick="closeMobileMenu()">Sistema Interno</a>
   <a href="https://wa.me/51924333108" style="color:var(--gold)">Consulta gratuita</a>
 </div>
 
 <!-- NAV -->
 <nav class="nav" id="mainNav">
   <div class="nav-logo">
-    <div class="nav-badge">VS</div>
+    <img src="img/logo-varoli-sm.png" class="logo-img" alt="Varoli - Slovsa Abogados" width="40" height="40">
     <div>
       <div class="nav-brand-name">Varoli - Slovsa Abogados</div>
       <div class="nav-brand-sub">Estudio Jurídico · Lima</div>
@@ -336,10 +399,10 @@ footer a:hover{color:var(--gold)}
   <div class="nav-links">
     <a href="#">Inicio</a>
     <a href="estudio.html">El estudio</a>
-    <a href="servicios.html">Servicios</a>
+    <div class="nav-dd"><a href="servicios.html">Áreas de práctica <svg viewBox="0 0 10 10"><polyline points="1,3 5,7 9,3"/></svg></a><div class="nav-dd-menu"><a href="area-contrataciones.html">Contrataciones con el Estado</a><a href="area-administrativo.html">Derecho Administrativo</a><a href="area-comercial.html">Derecho Comercial</a><a href="area-societario.html">Derecho Societario</a><a href="area-inmobiliario.html">Derecho Inmobiliario</a><a href="area-laboral.html">Derecho Laboral</a></div></div>
     <a href="noticias.html">Noticias</a>
     <a href="contacto.html">Contacto</a>
-    <a href="panel/" class="nav-secondary">Sistema Interno</a>
+    <a href="panel/" class="nav-intranet"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.4" style="margin-right:6px"><rect x="3" y="7" width="10" height="7" rx="1"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Sistema Interno</a>
     <a href="https://wa.me/51924333108?text=Hola,%20quisiera%20una%20consulta%20gratuita." class="nav-cta" target="_blank">Consulta gratuita</a>
   </div>
   <button class="nav-mobile-btn" onclick="openMobileMenu()" aria-label="Menú"><span></span><span></span><span></span></button>
@@ -349,6 +412,11 @@ footer a:hover{color:var(--gold)}
 <section class="hero">
   <div class="hero-bg-img"></div>
   <div class="hero-overlay"></div>
+  <div class="hero-feats" aria-live="off">
+    <div class="hero-feature"><small>Guía descargable</small><strong>Checklist SUNAFIL: ¿está tu empresa preparada para una inspección?</strong><a href="docs/checklist-sunafil.pdf" target="_blank" rel="noopener">Descargar PDF →</a></div>
+    <div class="hero-feature"><small>Brochure institucional</small><strong>Conoce el estudio, sus seis áreas y cómo trabajamos.</strong><a href="docs/brochure-varoli-slovsa.pdf" target="_blank" rel="noopener">Descargar brochure →</a></div>
+    <div class="hero-feature"><small>Primera consulta virtual</small><strong>Gratuita, de 30 minutos y sin compromiso.</strong><a href="contacto.html">Agendar consulta →</a></div>
+  </div>
   <div class="hero-inner">
     <div class="hero-eyebrow fade-up">
       <div class="hero-eyebrow-line"></div>
@@ -378,7 +446,7 @@ footer a:hover{color:var(--gold)}
   <div class="stats-grid">
     <div class="stat-item reveal"><div class="stat-num">+200</div><div class="stat-label">Casos atendidos</div></div>
     <div class="stat-item reveal rd1"><div class="stat-num">+5</div><div class="stat-label">Años de trayectoria</div></div>
-    <div class="stat-item reveal rd2"><div class="stat-num">5</div><div class="stat-label">Áreas de práctica</div></div>
+    <div class="stat-item reveal rd2"><div class="stat-num">6</div><div class="stat-label">Áreas de práctica</div></div>
     <div class="stat-item reveal rd3"><div class="stat-num">24h</div><div class="stat-label">Tiempo de respuesta</div></div>
   </div>
 </section>
@@ -388,48 +456,56 @@ footer a:hover{color:var(--gold)}
   <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>¿En qué podemos ayudarte?</span></div>
   <h2 class="section-title-dark reveal">Servicios jurídicos<br>a tu medida</h2>
   <div class="servicios-grid reveal">
-    <div class="svc-card" onclick="window.location.href='servicios.html?area=contrataciones'">
+    <div class="svc-card" onclick="window.location.href='area-contrataciones.html'">
       <div class="svc-num">01</div>
-      <div class="svc-tag">Servicio 01</div>
-      <h3>Contrataciones del Estado</h3>
-      <p>Te ayudamos a ganar licitaciones, defenderte ante el OSCE y proteger tu posición como proveedor del Estado.</p>
-      <div class="svc-chips"><span class="chip">Licitaciones</span><span class="chip">OSCE</span><span class="chip">Apelaciones</span><span class="chip">Arbitraje</span></div>
+      <div class="svc-tag">Área 01</div>
+      <h3>Contrataciones con el Estado</h3>
+      <p>Te acompañamos desde las bases hasta la ejecución del contrato: apelaciones, sanciones, penalidades y controversias ante el Estado.</p>
+      <div class="svc-chips"><span class="chip">Procesos de selección</span><span class="chip">Impugnaciones</span><span class="chip">Sancionadores</span><span class="chip">Arbitraje</span></div>
       <div class="svc-link">Ver detalle →</div>
     </div>
-    <div class="svc-card" onclick="window.location.href='servicios.html?area=laboral'">
+    <div class="svc-card" onclick="window.location.href='area-administrativo.html'">
       <div class="svc-num">02</div>
-      <div class="svc-tag">Servicio 02</div>
-      <h3>Laboral corporativo</h3>
-      <p>Evitamos que una inspección SUNAFIL o un despido mal gestionado se convierta en un problema mayor para tu empresa.</p>
-      <div class="svc-chips"><span class="chip">SUNAFIL</span><span class="chip">Contratos</span><span class="chip">Despidos</span><span class="chip">Compliance</span></div>
+      <div class="svc-tag">Área 02</div>
+      <h3>Derecho Administrativo</h3>
+      <p>Descargos, recursos, licencias y fiscalizaciones ante entidades públicas, siempre dentro de plazo.</p>
+      <div class="svc-chips"><span class="chip">Sanciones</span><span class="chip">Recursos</span><span class="chip">Licencias</span><span class="chip">Fiscalizaciones</span></div>
       <div class="svc-link">Ver detalle →</div>
     </div>
-    <div class="svc-card" onclick="window.location.href='servicios.html?area=administrativo'">
+    <div class="svc-card" onclick="window.location.href='area-comercial.html'">
       <div class="svc-num">03</div>
-      <div class="svc-tag">Servicio 03</div>
-      <h3>Derecho administrativo</h3>
-      <p>Impugnamos sanciones, recuperamos licencias y te defendemos cuando una entidad pública actúa arbitrariamente.</p>
-      <div class="svc-chips"><span class="chip">Recursos</span><span class="chip">Licencias</span><span class="chip">Sanciones</span><span class="chip">Arbitraje</span></div>
+      <div class="svc-tag">Área 03</div>
+      <h3>Derecho Comercial</h3>
+      <p>Contratos, garantías, cobranza y protección de marca para que tu negocio opere con respaldo.</p>
+      <div class="svc-chips"><span class="chip">Contratos</span><span class="chip">Cobranza</span><span class="chip">Marcas</span><span class="chip">Arbitraje</span></div>
       <div class="svc-link">Ver detalle →</div>
     </div>
-    <div class="svc-card" onclick="window.location.href='servicios.html?area=penal'">
+    <div class="svc-card" onclick="window.location.href='area-societario.html'">
       <div class="svc-num">04</div>
-      <div class="svc-tag">Servicio 04</div>
-      <h3>Derecho penal</h3>
-      <p>Si recibiste una citación fiscal o enfrentás una investigación, actuamos de inmediato para proteger tu libertad.</p>
-      <div class="svc-chips"><span class="chip">Investigaciones</span><span class="chip">Delitos económicos</span><span class="chip">Apelaciones</span></div>
+      <div class="svc-tag">Área 04</div>
+      <h3>Derecho Societario</h3>
+      <p>Constitución, gobierno corporativo, convenios entre socios y reorganizaciones con registros al día.</p>
+      <div class="svc-chips"><span class="chip">Constitución</span><span class="chip">Estatutos</span><span class="chip">Poderes</span><span class="chip">Reorganización</span></div>
       <div class="svc-link">Ver detalle →</div>
     </div>
-    <div class="svc-card" onclick="window.location.href='servicios.html?area=civil'">
+    <div class="svc-card" onclick="window.location.href='area-inmobiliario.html'">
       <div class="svc-num">05</div>
-      <div class="svc-tag">Servicio 05</div>
-      <h3>Civil y comercial</h3>
-      <p>Redactamos y revisamos contratos, resolvemos conflictos patrimoniales y acompañamos herencias y constitución de empresas.</p>
-      <div class="svc-chips"><span class="chip">Contratos</span><span class="chip">Sociedades</span><span class="chip">Inmobiliario</span><span class="chip">Sucesiones</span></div>
+      <div class="svc-tag">Área 05</div>
+      <h3>Derecho Inmobiliario</h3>
+      <p>Estudio de títulos, compraventas, arrendamientos y saneamiento para proteger tu inversión.</p>
+      <div class="svc-chips"><span class="chip">Estudio de títulos</span><span class="chip">Compraventa</span><span class="chip">Arrendamientos</span><span class="chip">Saneamiento</span></div>
+      <div class="svc-link">Ver detalle →</div>
+    </div>
+    <div class="svc-card" onclick="window.location.href='area-laboral.html'">
+      <div class="svc-num">06</div>
+      <div class="svc-tag">Área 06</div>
+      <h3>Derecho Laboral</h3>
+      <p>Contratos, inspecciones SUNAFIL, despidos, beneficios sociales y compliance laboral.</p>
+      <div class="svc-chips"><span class="chip">SUNAFIL</span><span class="chip">Despidos</span><span class="chip">Compliance</span><span class="chip">Beneficios</span></div>
       <div class="svc-link">Ver detalle →</div>
     </div>
     <div class="svc-cta-card" onclick="window.location.href='contacto.html'">
-      <p>"¿No sabés qué servicio necesitás? Contanos tu situación y te orientamos sin costo."</p>
+      <p>"¿No sabes qué servicio necesitas? Cuéntanos tu situación y te orientamos sin costo."</p>
       <span>Consultar ahora →</span>
     </div>
   </div>
@@ -471,27 +547,27 @@ footer a:hover{color:var(--gold)}
 <!-- ═══ PROCESO ═══ -->
 <section class="section section-darker">
   <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>Cómo trabajamos</span></div>
-  <h2 class="section-title-dark reveal">Un proceso claro,<br>sin sorpresas.</h2>
+  <h2 class="section-title-dark reveal">Cómo es el proceso<br>de consulta.</h2>
   <div class="proceso-grid">
     <div class="p-step reveal">
       <div class="p-num">01</div>
-      <h3>Diagnóstico</h3>
-      <p>Evaluación completa de tu situación, antecedentes y riesgos. Consulta inicial de 30 minutos sin costo.</p>
+      <h3>Primera consulta virtual</h3>
+      <p>Escríbenos por WhatsApp al +51 924 333 108 o a consultasvaroli@gmail.com y cuéntanos brevemente tu caso. Es gratuita y virtual; coordinamos contigo el día y la hora.</p>
     </div>
     <div class="p-step reveal rd1">
       <div class="p-num">02</div>
-      <h3>Estrategia</h3>
-      <p>Plan a medida con la solución más efectiva, tiempos y costos acordados desde el inicio sin sorpresas.</p>
+      <h3>Presentación de la documentación</h3>
+      <p>Reúne los documentos de tu caso (contratos, notificaciones, resoluciones, partidas registrales) y preséntalos a nuestro equipo, que los revisa en conjunto.</p>
     </div>
     <div class="p-step reveal rd2">
       <div class="p-num">03</div>
-      <h3>Ejecución</h3>
-      <p>Representación activa con informes de avance permanentes en cada etapa del proceso.</p>
+      <h3>Estrategia y honorarios</h3>
+      <p>Con la documentación analizada, te presentamos la ruta a seguir, sus etapas y los honorarios, acordados desde el inicio.</p>
     </div>
     <div class="p-step reveal rd3">
       <div class="p-num">04</div>
-      <h3>Seguimiento</h3>
-      <p>Acompañamiento hasta la resolución final y asesoría post-caso cuando corresponde.</p>
+      <h3>Ejecución y seguimiento</h3>
+      <p>Un equipo trabaja en tu caso y un solo interlocutor te mantiene informado en cada etapa. Los casos complejos se revisan en equipo antes de decisiones clave.</p>
     </div>
   </div>
 </section>
@@ -502,37 +578,37 @@ footer a:hover{color:var(--gold)}
   <h2 class="section-title-dark reveal">Compromisos que<br>nos definen.</h2>
   <div class="compromisos-grid">
     <div class="compromiso-item reveal">
-      <span class="compromiso-icon">⚖</span>
+      <span class="compromiso-icon"><svg viewBox="0 0 32 32"><path d="M16 4v24M8 28h16M5 9h22M5 9l-3 9a4 4 0 0 0 6 0L5 9zM27 9l-3 9a4 4 0 0 0 6 0l-3-9z"/></svg></span>
       <div class="compromiso-num">01</div>
       <h3>Integridad</h3>
-      <p>Honorarios transparentes desde la primera reunión. Sin costos ocultos, sin sorpresas. Lo que acordamos es lo que pagás.</p>
+      <p>Honorarios transparentes desde la primera reunión. Sin costos ocultos, sin sorpresas. Lo que acordamos es lo que pagas.</p>
     </div>
     <div class="compromiso-item reveal rd1">
-      <span class="compromiso-icon">📋</span>
+      <span class="compromiso-icon"><svg viewBox="0 0 32 32"><rect x="7" y="5" width="18" height="23" rx="2"/><path d="M12 5V3h8v2M11 13h10M11 18h10M11 23h6"/></svg></span>
       <div class="compromiso-num">02</div>
       <h3>Excelencia técnica</h3>
       <p>Actualización normativa permanente en cada área de práctica. Aplicamos el más alto estándar jurídico sin excepciones.</p>
     </div>
     <div class="compromiso-item reveal rd2">
-      <span class="compromiso-icon">🤝</span>
+      <span class="compromiso-icon"><svg viewBox="0 0 32 32"><circle cx="16" cy="11" r="5"/><path d="M5 28c0-6 5-10 11-10s11 4 11 10"/></svg></span>
       <div class="compromiso-num">03</div>
       <h3>Atención directa</h3>
       <p>El abogado que recibe tu caso lo trabaja y lo resuelve. Sin intermediarios, sin delegaciones, sin perder el hilo de tu situación.</p>
     </div>
     <div class="compromiso-item reveal rd1" style="border-top:1px solid rgba(196,154,108,0.1)">
-      <span class="compromiso-icon">⏱</span>
+      <span class="compromiso-icon"><svg viewBox="0 0 32 32"><circle cx="16" cy="17" r="10"/><path d="M16 11v6l4 3M12 4h8"/></svg></span>
       <div class="compromiso-num">04</div>
       <h3>Respuesta en 24h</h3>
       <p>Toda consulta recibida en horario laboral se responde el mismo día. Fuera de horario, en menos de 24 horas hábiles.</p>
     </div>
     <div class="compromiso-item reveal rd2" style="border-top:1px solid rgba(196,154,108,0.1)">
-      <span class="compromiso-icon">🔒</span>
+      <span class="compromiso-icon"><svg viewBox="0 0 32 32"><rect x="6" y="14" width="20" height="14" rx="2"/><path d="M10 14V10a6 6 0 0 1 12 0v4M16 20v3"/></svg></span>
       <div class="compromiso-num">05</div>
       <h3>Confidencialidad total</h3>
       <p>Secreto profesional estricto desde el primer contacto. Tu información está protegida por ley y por nuestro compromiso ético.</p>
     </div>
     <div class="compromiso-item reveal rd3" style="border-top:1px solid rgba(196,154,108,0.1)">
-      <span class="compromiso-icon">🛡</span>
+      <span class="compromiso-icon"><svg viewBox="0 0 32 32"><path d="M16 3l11 4v8c0 7-5 12-11 14C10 27 5 22 5 15V7l11-4z"/><path d="M11 16l4 4 6-8"/></svg></span>
       <div class="compromiso-num">06</div>
       <h3>Enfoque preventivo</h3>
       <p>Te ayudamos a evitar conflictos antes de que escalen. Prevenir cuesta diez veces menos que resolver.</p>
@@ -568,7 +644,7 @@ footer a:hover{color:var(--gold)}
     <div class="noticia-card reveal">
       <div class="noticia-img">
         <div class="noticia-img-ilustrada ni-contrataciones">
-          <span class="noticia-img-icon">⚖️</span>
+          <span class="noticia-img-icon"><svg viewBox="0 0 32 32"><path d="M16 4v24M8 28h16M5 9h22M5 9l-3 9a4 4 0 0 0 6 0L5 9zM27 9l-3 9a4 4 0 0 0 6 0l-3-9z"/></svg></span>
           <span class="noticia-img-label">Contrataciones del Estado</span>
         </div>
       </div>
@@ -578,14 +654,14 @@ footer a:hover{color:var(--gold)}
         <p>La nueva normativa modifica plazos, habilitación y el proceso de apelación ante el Tribunal de Contrataciones del Estado.</p>
         <div class="noticia-actions">
           <a href="noticias.html" class="noticia-link">Leer nota →</a>
-          <a href="docs/guia-contratos-comerciales.pdf" download class="noticia-dl">⬇ Guía PDF</a>
+          <a href="docs/guia-contratos-comerciales.pdf" download class="noticia-dl">Guía PDF</a>
         </div>
       </div>
     </div>
     <div class="noticia-card reveal rd1">
       <div class="noticia-img">
         <div class="noticia-img-ilustrada ni-laboral">
-          <span class="noticia-img-icon">👔</span>
+          <span class="noticia-img-icon"><svg viewBox="0 0 32 32"><circle cx="16" cy="11" r="5"/><path d="M5 28c0-6 5-10 11-10s11 4 11 10"/></svg></span>
           <span class="noticia-img-label">Derecho Laboral</span>
         </div>
       </div>
@@ -595,15 +671,15 @@ footer a:hover{color:var(--gold)}
         <p>El nuevo reglamento otorga mayores atribuciones a los inspectores para revisar contratos y planillas sin previo aviso.</p>
         <div class="noticia-actions">
           <a href="noticias.html" class="noticia-link">Leer nota →</a>
-          <a href="docs/checklist-sunafil.pdf" download class="noticia-dl">⬇ Checklist</a>
+          <a href="docs/checklist-sunafil.pdf" download class="noticia-dl">Checklist</a>
         </div>
       </div>
     </div>
     <div class="noticia-card reveal rd2">
       <div class="noticia-img">
         <div class="noticia-img-ilustrada ni-civil">
-          <span class="noticia-img-icon">📋</span>
-          <span class="noticia-img-label">Derecho Civil</span>
+          <span class="noticia-img-icon"><svg viewBox="0 0 32 32"><rect x="7" y="5" width="18" height="23" rx="2"/><path d="M12 5V3h8v2M11 13h10M11 18h10M11 23h6"/></svg></span>
+          <span class="noticia-img-label">Derecho Comercial</span>
         </div>
       </div>
       <div class="noticia-body">
@@ -612,10 +688,49 @@ footer a:hover{color:var(--gold)}
         <p>Las cláusulas abusivas más frecuentes y cómo identificarlas antes de firmar cualquier acuerdo.</p>
         <div class="noticia-actions">
           <a href="noticias.html" class="noticia-link">Leer nota →</a>
-          <a href="docs/modelo-carta-notarial.pdf" download class="noticia-dl">⬇ Modelo</a>
+          <a href="docs/modelo-carta-notarial.pdf" download class="noticia-dl">Modelo</a>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══ BROCHURE ═══ -->
+<section class="section section-dark" id="brochure">
+  <div class="brochure">
+    <div class="brochure-cover reveal"><a href="docs/brochure-varoli-slovsa.pdf" target="_blank" rel="noopener" aria-label="Abrir brochure en PDF"><img src="img/brochure-portada.jpg" alt="Portada del brochure de Varoli - Slovsa Abogados"></a></div>
+    <div class="brochure-txt">
+      <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>Brochure institucional</span></div>
+      <h2 class="section-title-dark reveal">Conoce el estudio<br>en 10 páginas.</h2>
+      <p class="reveal">Quiénes somos, nuestra misión y principios, el detalle de cada área de práctica y cómo es el proceso de la primera consulta. Un documento que puedes revisar con calma o compartir con tu equipo.</p>
+      <ul class="brochure-list reveal">
+        <li><b>01</b>Misión, visión y los cinco principios que guían cada caso</li>
+        <li><b>02</b>Detalle de las seis áreas de práctica y cómo acompañamos en cada una</li>
+        <li><b>03</b>Proceso de consulta en 4 pasos y qué documentos conviene tener a la mano</li>
+      </ul>
+      <div class="brochure-btns reveal">
+        <a href="docs/brochure-varoli-slovsa.pdf" download class="btn-gold-solid">Descargar brochure (PDF)</a>
+        <a href="docs/brochure-varoli-slovsa.pdf" target="_blank" rel="noopener" class="btn-outline-gold">Ver en línea →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RECURSOS ═══ -->
+<section class="section section-darker" id="recursos">
+  <div class="eyebrow-s reveal"><div class="eyebrow-s-line"></div><span>Recursos descargables</span></div>
+  <h2 class="section-title-dark reveal">Conocimiento jurídico<br>al alcance de tu empresa.</h2>
+  <div class="recursos-grid">
+    <div class="recurso reveal"><span class="recurso-tag">Laboral</span><h3>Checklist SUNAFIL</h3><p>Puntos clave que revisa una inspección laboral y cómo prepararte con anticipación.</p><a href="docs/checklist-sunafil.pdf" target="_blank" rel="noopener">Descargar PDF →</a></div>
+    <div class="recurso reveal rd1"><span class="recurso-tag">Derecho Comercial</span><h3>Guía de contratos comerciales</h3><p>Cláusulas esenciales para proteger tu empresa antes de firmar.</p><a href="docs/guia-contratos-comerciales.pdf" target="_blank" rel="noopener">Descargar PDF →</a></div>
+    <div class="recurso reveal rd2"><span class="recurso-tag">Derecho Comercial</span><h3>Modelo de carta notarial</h3><p>Formato base para requerir el cumplimiento de una obligación.</p><a href="docs/modelo-carta-notarial.pdf" target="_blank" rel="noopener">Descargar PDF →</a></div>
+  </div>
+  <div class="newsletter reveal">
+    <div><h3>Novedades legales en tu correo</h3><p>Cambios normativos y criterios del OSCE, SUNAFIL y Poder Judicial, explicados con claridad.</p></div>
+    <form onsubmit="event.preventDefault();var e=this.email.value;window.location.href='mailto:consultasvaroli@gmail.com?subject='+encodeURIComponent('Suscripción a novedades legales')+'&body='+encodeURIComponent('Deseo recibir novedades legales en: '+e);">
+      <input type="email" name="email" placeholder="Tu correo electrónico" required aria-label="Correo electrónico">
+      <button class="btn-gold-solid" type="submit">Suscribirme</button>
+    </form>
   </div>
 </section>
 
@@ -631,7 +746,7 @@ footer a:hover{color:var(--gold)}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Escribir por WhatsApp
         </a>
-        <a href="contacto.html" class="btn-outline-gold">Agendar consulta →</a>
+        <a class="btn-outline-gold" href="contacto.html">Agendar consulta →</a>
       </div>
     </div>
   </div>
@@ -642,7 +757,7 @@ footer a:hover{color:var(--gold)}
   <div class="footer-top">
     <div class="footer-brand">
       <div class="footer-logo">
-        <div class="nav-badge">VS</div>
+        <img src="img/logo-varoli-sm.png" class="logo-img" alt="Varoli - Slovsa Abogados" width="40" height="40">
         <div>
           <div class="footer-brand-name">Varoli - Slovsa Abogados</div>
           <div class="footer-brand-sub">Estudio Jurídico · Lima</div>
@@ -652,17 +767,20 @@ footer a:hover{color:var(--gold)}
     </div>
     <div>
       <h4>Servicios</h4>
-      <a href="servicios.html?area=contrataciones">Contrataciones del Estado</a>
-      <a href="servicios.html?area=laboral">Laboral corporativo</a>
-      <a href="servicios.html?area=administrativo">Derecho administrativo</a>
-      <a href="servicios.html?area=penal">Derecho penal</a>
-      <a href="servicios.html?area=civil">Civil y comercial</a>
+      <a href="area-contrataciones.html">Contrataciones con el Estado</a>
+      <a href="area-administrativo.html">Derecho Administrativo</a>
+      <a href="area-comercial.html">Derecho Comercial</a>
+      <a href="area-societario.html">Derecho Societario</a>
+      <a href="area-inmobiliario.html">Derecho Inmobiliario</a>
+      <a href="area-laboral.html">Derecho Laboral</a>
     </div>
     <div>
       <h4>Estudio</h4>
       <a href="estudio.html">El estudio</a>
       <a href="noticias.html">Noticias</a>
       <a href="contacto.html">Contacto</a>
+      <a href="docs/brochure-varoli-slovsa.pdf" target="_blank" rel="noopener">Brochure (PDF)</a>
+      <a href="panel/">Sistema Interno</a>
       <a href="https://wa.me/51924333108" target="_blank">WhatsApp directo</a>
     </div>
     <div>
@@ -677,8 +795,8 @@ footer a:hover{color:var(--gold)}
   <div class="footer-bottom">
     <div class="footer-copy">© 2026 Estudio Jurídico Varoli - Slovsa Abogados · Todos los derechos reservados</div>
     <div class="footer-bl">
-      <a href="#">Política de privacidad</a>
-      <a href="#">Ley N° 29733</a>
+      <a href="privacidad.html">Política de privacidad</a>
+      <a href="privacidad.html">Ley N° 29733</a>
     </div>
   </div>
 </footer>
@@ -691,5 +809,6 @@ function closeMobileMenu(){document.getElementById('mobileMenu').classList.remov
 const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}});},{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
+<script src="js/site.js" defer></script>
 </body>
 </html>
