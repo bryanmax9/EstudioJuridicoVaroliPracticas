@@ -1,7 +1,7 @@
 const { requireSession, jsonResponse } = require('./utils/panel-auth');
 const { readList } = require('./utils/panel-store');
 const { filterTareas, filterExpedientes } = require('./utils/panel-rbac');
-const { getArbitrajeData } = require('./utils/sheet-arbitraje');
+const { getArbitrajeData, normalizeSheetDate } = require('./utils/sheet-arbitraje');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'GET') return jsonResponse(405, { error: 'Method Not Allowed' });
@@ -24,59 +24,55 @@ exports.handler = async (event) => {
   const expedienteById = new Map(expedientes.map((e) => [e.id, e]));
   const usuarioById = new Map(usuarios.map((u) => [u.id, u]));
 
-  // Excel-sourced tareas (from the PENDIENTES tab — genuinely tasks, distinct
-  // from the case-level PROCESOS tabs) get folded into the same three
-  // buckets as internally created tareas, so the KPIs reflect the real
-  // caseload that actually lives in the spreadsheet today rather than the
-  // still-empty internal DB.
+  // Tareas and reuniones are returned as flat, normalized lists (internal
+  // records + the Excel PENDIENTES / REUNIONES tabs) so the Panel general
+  // can filter and count them client-side — dates are ISO (YYYY-MM-DD) or
+  // null, never the sheet's raw text.
   const excelTareas = arbitrajeData ? arbitrajeData.tareas : [];
+  const excelReuniones = arbitrajeData ? arbitrajeData.reuniones : [];
 
-  let pendientesPorHacer = tareas.filter((t) => t.estado === 'pendiente').length;
-  let pendientesEnTramite = tareas.filter((t) => t.estado === 'en_tramite').length;
-  let pendientesCompletos = tareas.filter((t) => t.estado === 'completo').length;
-  excelTareas.forEach((t) => {
-    if (t.categoria === 'pendiente') pendientesPorHacer += 1;
-    else if (t.categoria === 'en_tramite') pendientesEnTramite += 1;
-    else pendientesCompletos += 1;
-  });
+  const tareasInternas = tareas.map((t) => ({
+    id: `#${t.id}`,
+    source: 'interno',
+    titulo: t.titulo,
+    categoria: t.estado,
+    cliente: t.clienteId ? clienteById.get(t.clienteId)?.nombre || null : null,
+    tipoProceso: t.expedienteId ? expedienteById.get(t.expedienteId)?.materia || null : null,
+    expediente: t.expedienteId ? expedienteById.get(t.expedienteId)?.numero || null : null,
+    responsable: usuarioById.get(t.responsableId)?.nombre || null,
+    prioridad: '',
+    fechaLimite: normalizeSheetDate(t.fechaLimite),
+  }));
 
-  const expedientesActivos =
-    expedientes.filter((e) => e.estado === 'activo').length + (arbitrajeData ? arbitrajeData.totalExpedientesActivos : 0);
+  const tareasExcel = excelTareas.map((t) => ({
+    id: t.id || null,
+    source: 'excel',
+    titulo: t.tarea || t.observaciones || '(sin descripción)',
+    categoria: t.categoria,
+    cliente: t.cliente || null,
+    tipoProceso: t.tipoProceso || null,
+    expediente: t.expediente || t.idCaso || null,
+    responsable: t.responsable || null,
+    prioridad: t.prioridad || '',
+    fechaLimite: normalizeSheetDate(t.fechaLimite),
+  }));
 
-  const pendientesInternos = tareas
-    .slice()
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    .map((t) => ({
-      idTarea: `#${t.id}`,
-      titulo: t.titulo,
-      estado: t.estado,
-      clienteNombre: t.clienteId ? clienteById.get(t.clienteId)?.nombre || null : null,
-      tipoProceso: t.expedienteId ? expedienteById.get(t.expedienteId)?.materia || null : null,
-      expediente: t.expedienteId ? expedienteById.get(t.expedienteId)?.numero || null : null,
-      responsable: usuarioById.get(t.responsableId)?.nombre || null,
-    }));
-
-  const pendientesExcel = excelTareas
-    .slice()
-    .sort((a, b) => (/urgente/i.test(b.prioridad) ? 1 : 0) - (/urgente/i.test(a.prioridad) ? 1 : 0))
-    .map((t) => ({
-      idTarea: t.id || null,
-      titulo: t.tarea,
-      estado: t.categoria,
-      clienteNombre: t.cliente || null,
-      tipoProceso: t.tipoProceso || null,
-      expediente: t.expediente || t.idCaso || null,
-      responsable: t.responsable || null,
-    }));
-
-  const pendientesRecientes = [...pendientesInternos, ...pendientesExcel].slice(0, 8);
+  const reuniones = excelReuniones.map((r) => ({
+    id: r.id || null,
+    cliente: r.cliente || null,
+    asunto: r.asunto || null,
+    fecha: normalizeSheetDate(r.fecha),
+    hora: r.hora || '',
+    modalidad: r.modalidad || '',
+    estado: r.estado || '',
+    responsable: r.responsable || null,
+    link: r.link || '',
+  }));
 
   return jsonResponse(200, {
-    pendientesPorHacer,
-    pendientesEnTramite,
-    pendientesCompletos,
-    expedientesActivos,
-    pendientesRecientes,
-    totalPendientes: tareas.length + excelTareas.length,
+    tareas: [...tareasInternas, ...tareasExcel],
+    reuniones,
+    clientesTotal: clientes.length + (arbitrajeData ? arbitrajeData.clientes.length : 0),
+    sync: arbitrajeData ? { fetchedAt: arbitrajeData.fetchedAt, stale: !!arbitrajeData.stale } : null,
   });
 };

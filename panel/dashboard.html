@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Panel de Gestión · Varoli - Slovsa Abogados</title>
+<title>LEGAL OFFICE · Varoli - Slovsa Abogados</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="panel.css">
 <style>
   #checkingSession{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--p-sidebar);color:#C4C9D2;font-family:var(--sans);font-size:13px}
@@ -23,25 +23,31 @@
   <!-- ================= SIDEBAR ================= -->
   <div class="sidebar">
     <div class="brand">
-      <div class="mono">VS</div>
+      <div class="mono">L</div>
       <div>
-        <div class="word">Varoli · Slovsa</div>
-        <div class="sub">Sistema Interno</div>
+        <div class="word">LEGAL OFFICE</div>
+        <div class="sub">Gestión interna del estudio</div>
       </div>
     </div>
 
-    <div class="nav-section">General</div>
+    <div class="nav-section">Operación</div>
     <div class="nav">
-      <button class="nav-btn active" data-view="dashboard"><span class="icon">◧</span><span class="lbl">Panel principal</span></button>
-      <button class="nav-btn" data-view="clientes"><span class="icon">◍</span><span class="lbl">Clientes</span></button>
-      <button class="nav-btn" data-view="expedientes"><span class="icon">◫</span><span class="lbl">Expedientes</span></button>
-      <button class="nav-btn" data-view="arbitraje"><span class="icon">⚖</span><span class="lbl">Casos</span></button>
-      <button class="nav-btn" data-view="agenda"><span class="icon">▦</span><span class="lbl">Agenda</span></button>
-      <button class="nav-btn" data-view="plantillas"><span class="icon">▤</span><span class="lbl">Raven</span></button>
+      <button class="nav-btn active" data-view="dashboard"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="lbl">Panel general</span></button>
+      <button class="nav-btn" data-view="agenda"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="lbl">Agenda y plazos</span></button>
     </div>
-    <div class="nav-section">Estudio</div>
+    <div class="nav-section">Asuntos</div>
     <div class="nav">
-      <button class="nav-btn" id="nav-config" data-view="configuracion"><span class="icon">⚙</span><span class="lbl">Configuración</span></button>
+      <button class="nav-btn" data-view="clientes"><svg class="i" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="lbl">Clientes</span></button>
+      <button class="nav-btn" data-view="expedientes"><svg class="i" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="lbl">Expedientes</span></button>
+      <button class="nav-btn" data-view="arbitraje"><svg class="i" viewBox="0 0 24 24"><path d="M12 3v18M5 21h14M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg><span class="lbl">Casos</span></button>
+    </div>
+    <div class="nav-section">Biblioteca</div>
+    <div class="nav">
+      <button class="nav-btn" data-view="plantillas"><svg class="i" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg><span class="lbl">Raven</span></button>
+    </div>
+    <div class="nav-section">Gestión</div>
+    <div class="nav">
+      <button class="nav-btn" id="nav-config" data-view="configuracion"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg><span class="lbl">Configuración</span></button>
     </div>
 
     <div class="sidebar-footer">
@@ -56,10 +62,12 @@
   <!-- ================= MAIN ================= -->
   <div class="main">
     <div class="topbar">
-      <div class="search">🔍&nbsp;Buscar cliente, expediente o plantilla…</div>
+      <div class="search">
+        <svg class="i s" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" id="globalSearch" placeholder="Buscar expedientes por código, cliente o responsable…" aria-label="Buscar expedientes">
+      </div>
       <div class="topbar-right">
-        <div class="bell">🔔<span class="dot"></span></div>
-        <div id="topbarDate"></div>
+        <span class="sync-pill off" id="syncPill" title="Estado de la sincronización con el Excel de Drive"><i></i><span id="syncPillTxt">Excel · sin sincronizar</span></span>
       </div>
     </div>
 
@@ -70,41 +78,62 @@
         <div class="page-head">
           <div>
             <h1 id="dashGreeting">Buenos días</h1>
-            <div class="desc">Esto es lo que necesita tu atención hoy en el estudio.</div>
+            <div class="desc" id="dashSubtitle"></div>
           </div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <button class="btn secondary" id="btnNuevoExpedienteQuick">+ Nuevo expediente</button>
-            <button class="btn gold" id="btnNuevoClienteQuick">+ Nuevo cliente</button>
-            <button class="btn gold" id="btnNuevoPendienteQuick">+ Nuevo pendiente</button>
+          <div class="head-actions">
+            <button class="btn" id="btnNuevoPendienteQuick">+ Nueva tarea</button>
+            <button class="btn" id="btnNuevoClienteQuick">+ Nuevo cliente</button>
+            <button class="btn gold" id="btnNuevoExpedienteQuick">+ Nuevo expediente</button>
           </div>
         </div>
 
         <div id="dashErrorBox"></div>
 
-        <div class="kpi-row">
-          <div class="kpi warn"><div class="num" id="kpiPorHacer"><div class="skel skel-kpi"></div></div><div class="lbl">Pendientes · por hacer</div></div>
-          <div class="kpi gold"><div class="num" id="kpiEnTramite"><div class="skel skel-kpi"></div></div><div class="lbl">Pendientes · en trámite</div></div>
-          <div class="kpi success"><div class="num" id="kpiExpActivos"><div class="skel skel-kpi"></div></div><div class="lbl">Expedientes activos</div></div>
-          <div class="kpi ink"><div class="num" id="kpiCompletos"><div class="skel skel-kpi"></div></div><div class="lbl">Pendientes completados</div></div>
+        <div class="panel mb" style="padding:14px 14px 10px;">
+          <div class="toolbar" style="margin:0 0 6px;">
+            <label class="f"><span>Abogado responsable</span><select id="dfResp"></select></label>
+            <label class="f"><span>Cliente</span><select id="dfCli"></select></label>
+            <label class="f"><span>Tipo de proceso</span><select id="dfTipo"></select></label>
+            <label class="f"><span>Periodo</span>
+              <select id="dfPeriodo">
+                <option value="">Todo el tiempo</option>
+                <option value="hoy">Hoy</option>
+                <option value="semana">Esta semana</option>
+                <option value="mes">Este mes</option>
+                <option value="30">Próximos 30 días</option>
+              </select>
+            </label>
+            <label class="f"><span>Prioridad</span><select id="dfPrio"></select></label>
+            <label class="f"><span>Estado de la tarea</span>
+              <select id="dfEstado">
+                <option value="">Todos</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="en_tramite">En trámite</option>
+                <option value="completo">Completo</option>
+              </select>
+            </label>
+            <button class="btn" id="dfReset" type="button">Limpiar</button>
+          </div>
+          <div class="hint">El filtro de periodo se aplica a fechas límite y agenda; las tareas vencidas siempre se muestran.</div>
         </div>
 
-        <div class="panel">
-          <div class="panel-head">
-            <h3>Pendientes recientes</h3>
-            <span style="font-size:12px;color:var(--p-muted);" id="pendientesTotalLbl"></span>
+        <div id="dashAttn"></div>
+
+        <div class="kpis" id="dashKpis"></div>
+
+        <div class="grid-2">
+          <div class="panel" id="dashTareasPanel">
+            <div class="panel-head"><h3>Tareas vencidas y de hoy</h3><button class="btn small" data-go="arbitraje">Ver en Casos</button></div>
+            <div id="dashTareas"></div>
           </div>
-          <div style="padding:12px 18px 0 18px;display:flex;gap:8px;flex-wrap:wrap;" id="pendientesFilterChips">
-            <div class="filter-chip active" data-f="todos">Todos</div>
-            <div class="filter-chip" data-f="pendiente">Pendiente</div>
-            <div class="filter-chip" data-f="en_tramite">En trámite</div>
-            <div class="filter-chip" data-f="completo">Completo</div>
+          <div class="panel">
+            <div class="panel-head"><h3>Agenda de los próximos 14 días</h3><button class="btn small" data-go="agenda">Abrir agenda</button></div>
+            <div id="dashAgenda"></div>
           </div>
-          <div style="margin-top:6px;overflow-x:auto;">
-            <table>
-              <thead><tr><th>ID</th><th>Tarea</th><th>Cliente</th><th>Tipo de proceso</th><th>Expediente</th><th>Responsable</th><th>Estado</th></tr></thead>
-              <tbody id="pendientesList"><tr><td colspan="7"><div class="skel skel-line" style="width:70%;"></div></td></tr><tr><td colspan="7"><div class="skel skel-line" style="width:55%;"></div></td></tr><tr><td colspan="7"><div class="skel skel-line" style="width:80%;"></div></td></tr></tbody>
-            </table>
-          </div>
+        </div>
+        <div class="panel" style="margin-top:14px;">
+          <div class="panel-head"><h3>Expedientes sin movimiento o sin próxima acción</h3><button class="btn small" data-go="expedientes">Ver expedientes</button></div>
+          <div id="dashExpAlert"></div>
         </div>
       </div>
 
@@ -190,26 +219,41 @@
       <!-- ============ EXPEDIENTES ============ -->
       <div class="view" id="view-expedientes">
         <div class="page-head">
-          <div><h1>Expedientes</h1><div class="desc" id="expedientesCountDesc"></div></div>
-          <button class="btn gold" id="btnNuevoExpediente">+ Nuevo expediente</button>
-        </div>
-        <div class="toolbar" id="expedientesFilterChips">
-          <div class="filter-chip active" data-f="todas">Todas</div>
-          <div class="filter-chip" data-f="Contrataciones del Estado">Contrataciones del Estado</div>
-          <div class="filter-chip" data-f="Laboral corporativo">Laboral</div>
-          <div class="filter-chip" data-f="Derecho administrativo">Administrativo</div>
-          <div class="filter-chip" data-f="Derecho penal">Penal</div>
-          <div class="filter-chip" data-f="Civil y comercial">Civil</div>
-          <div class="view-toggle">
-            <button class="active" data-mode="list">Lista</button>
-            <button data-mode="kanban">Kanban</button>
+          <div><h1>Expedientes y asuntos</h1><div class="desc">Cada asunto tiene responsable, estado, próxima acción y su carpeta en Google Drive.</div></div>
+          <div class="head-actions">
+            <div class="view-toggle" id="expedientesModeToggle">
+              <button class="active" data-mode="list">Lista</button>
+              <button data-mode="kanban">Kanban</button>
+            </div>
+            <button class="btn gold" id="btnNuevoExpediente">+ Nuevo expediente</button>
           </div>
         </div>
 
+        <div class="toolbar" id="expedientesFilters">
+          <label class="f q"><span>Buscar</span><input type="search" id="efQ" placeholder="Código, cliente, N.° de expediente"></label>
+          <label class="f"><span>Área jurídica</span>
+            <select id="efArea">
+              <option value="">Todas</option>
+              <option value="Contrataciones del Estado">Contrataciones del Estado</option>
+              <option value="Laboral corporativo">Laboral corporativo</option>
+              <option value="Derecho administrativo">Derecho administrativo</option>
+              <option value="Derecho penal">Derecho penal</option>
+              <option value="Civil y comercial">Civil y comercial</option>
+            </select>
+          </label>
+          <label class="f"><span>Estado</span><select id="efEstado"></select></label>
+          <label class="f"><span>Prioridad</span><select id="efPrio"></select></label>
+          <label class="f"><span>Abogado responsable</span><select id="efResp"></select></label>
+          <label class="ck"><input type="checkbox" id="efSinMov"> Sin movimiento</label>
+          <label class="ck"><input type="checkbox" id="efSinProx"> Sin próxima acción</label>
+          <button class="btn" id="efReset" type="button">Limpiar</button>
+        </div>
+        <div class="hint" id="expedientesCountDesc" style="margin-bottom:8px;"></div>
+
         <div class="kview active" id="kview-list">
-          <div class="panel">
+          <div class="panel tbl-wrap">
             <table>
-              <thead><tr><th>Expediente</th><th>Cliente</th><th>Materia</th><th>Etapa</th><th>Estado</th></tr></thead>
+              <thead><tr><th>Código</th><th>Cliente</th><th>Área y procedimiento</th><th>Responsable</th><th>Estado</th><th>Prioridad</th><th>Próxima acción</th><th>Último mov.</th></tr></thead>
               <tbody id="expedientesTbody"></tbody>
             </table>
           </div>
@@ -509,6 +553,7 @@
     arbitraje: null, arbSub: 'tipo', arbTipoActual: 'PROCESO JUDICIAL',
     eventos: null, calCursor: new Date(today.getFullYear(), today.getMonth(), 1), editingEventoId: null,
     dataLoaded: false, dataLoadError: null,
+    dash: null, dashError: null, df: {}, ef: {},
   };
 
   fetch('/.netlify/functions/panel-session', { credentials: 'same-origin' })
@@ -521,7 +566,6 @@
       state.session = data;
       document.getElementById('footerName').textContent = data.nombre || data.email;
       document.getElementById('footerAvatar').textContent = (data.nombre || data.email).slice(0, 2).toUpperCase();
-      document.getElementById('dashGreeting').textContent = 'Buenos días, ' + (data.nombre || data.email).split(' ')[0];
       if (data.role !== 'jefe_estudio') {
         document.getElementById('nav-config').classList.add('locked-nav');
       }
@@ -630,42 +674,257 @@
       console.error(err);
       state.dataLoadError = err.message;
     }
+    renderDashboard();
     const activeViewId = document.querySelector('.view.active')?.id;
     if (activeViewId === 'view-clientes') renderClientes();
     if (activeViewId === 'view-expedientes') renderExpedientes();
   }
 
-  const KPI_IDS = ['kpiPorHacer', 'kpiEnTramite', 'kpiExpActivos', 'kpiCompletos'];
+  // ---------- fechas (día calendario local, YYYY-MM-DD) ----------
+  function isoOf(d) { return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`; }
+  function hoyISO() { return isoOf(new Date()); }
+  function addDaysISO(iso, n) { const d = new Date(iso + 'T00:00:00'); d.setDate(d.getDate() + n); return isoOf(d); }
+  function diffDays(aIso, bIso) { return Math.round((new Date(aIso + 'T00:00:00') - new Date(bIso + 'T00:00:00')) / 86400000); }
+  function mondayOf(iso) { const d = new Date(iso + 'T00:00:00'); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return isoOf(d); }
+  function fmtShort(iso) {
+    if (!iso) return '';
+    return new Date(iso + 'T00:00:00').toLocaleDateString('es-PE', { weekday: 'short', day: 'numeric', month: 'short' }).replace(/\./g, '');
+  }
+  function fmtAgo(iso) {
+    if (!iso) return '—';
+    const n = diffDays(hoyISO(), iso);
+    if (n <= 0) return n === 0 ? 'hoy' : 'en ' + (-n) + ' d';
+    return n === 1 ? 'ayer' : 'hace ' + n + ' días';
+  }
+  function inPeriodo(iso, per) {
+    if (!per) return true;
+    const hoy = hoyISO();
+    if (per === 'hoy') return iso === hoy;
+    if (per === 'semana') { const m = mondayOf(hoy); return iso >= m && iso <= addDaysISO(m, 6); }
+    if (per === 'mes') return iso.slice(0, 7) === hoy.slice(0, 7);
+    if (per === '30') return iso >= hoy && iso <= addDaysISO(hoy, 30);
+    return true;
+  }
 
+  // ---------- reglas de expediente (solo los que vienen del Excel traen los datos) ----------
+  const DIAS_SIN_MOV = 30;
+  function expSinMov(e) {
+    return e.source === 'excel' && e.activo && !!e.fechaUltimoMovimiento && diffDays(hoyISO(), e.fechaUltimoMovimiento) > DIAS_SIN_MOV;
+  }
+  function expSinProx(e) { return e.source === 'excel' && e.activo && !(e.proximaActuacion || e.accionPendiente); }
+  function expCliente(e) { return e.source === 'excel' ? (e.clienteNombre || '') : clienteNombre(e.clienteId); }
+
+  function uniqueSorted(list) {
+    return [...new Set(list.filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), 'es'));
+  }
+  // pairs: [[value, label], ...]; the first pair is the "all" option.
+  function setOptions(id, pairs, selected) {
+    const el = document.getElementById(id);
+    el.innerHTML = pairs.map(([v, l]) => `<option value="${esc(v)}">${esc(l)}</option>`).join('');
+    el.value = pairs.some(([v]) => v === (selected || '')) ? (selected || '') : '';
+  }
+  const ICON_ALERT = '<svg class="i s" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01"/></svg>';
+
+  // ---------- Panel general ----------
   async function loadDashboard() {
     document.getElementById('dashErrorBox').innerHTML = '';
-    KPI_IDS.forEach((id) => { document.getElementById(id).innerHTML = '<div class="skel skel-kpi"></div>'; });
-    document.getElementById('pendientesList').innerHTML = skeletonRows(7, 4);
-
-    let d;
+    state.dashError = null;
+    if (!state.dash) renderDashboard(); // skeleton
     try {
-      d = await api('panel-dashboard');
+      state.dash = await api('panel-dashboard');
     } catch (err) {
       console.error(err);
-      document.getElementById('dashErrorBox').innerHTML =
-        `<div class="alert-box error">No se pudo cargar el panel principal (${esc(err.message)}). <button type="button" class="btn secondary" data-retry="dashboard" style="margin-left:8px;padding:5px 12px;font-size:12px;">Reintentar</button></div>`;
-      KPI_IDS.forEach((id) => { document.getElementById(id).textContent = '—'; });
-      document.getElementById('pendientesList').innerHTML = '<tr><td colspan="7"><div class="empty-hint">No se pudo cargar.</div></td></tr>';
+      state.dashError = err.message;
+    }
+    renderDashboard();
+  }
+
+  function updateSyncPill() {
+    const pill = document.getElementById('syncPill');
+    const txt = document.getElementById('syncPillTxt');
+    const sync = state.dash && state.dash.sync;
+    pill.classList.remove('off', 'stale');
+    if (!sync) {
+      pill.classList.add('off');
+      txt.textContent = state.dash ? 'Excel · sin sincronizar' : 'Excel · sincronizando…';
+      return;
+    }
+    const hora = new Date(sync.fetchedAt).toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
+    if (sync.stale) pill.classList.add('stale');
+    txt.textContent = (sync.stale ? 'Excel · copia de las ' : 'Excel sincronizado · ') + hora;
+  }
+
+  function dashSkeletons() {
+    const kpi = '<div class="kpi"><span class="num"><span class="skel skel-kpi"></span></span><span class="lbl"><span class="skel skel-line" style="width:90px;"></span></span></div>';
+    const rows = '<div class="row-item"><div class="skel skel-line" style="width:65%;"></div></div>'.repeat(3);
+    document.getElementById('dashKpis').innerHTML = kpi.repeat(8);
+    ['dashAttn'].forEach((id) => { document.getElementById(id).innerHTML = ''; });
+    ['dashTareas', 'dashAgenda', 'dashExpAlert'].forEach((id) => { document.getElementById(id).innerHTML = rows; });
+  }
+
+  function renderDashboard() {
+    const d = state.dash;
+    const nombre = state.session ? (state.session.nombre || state.session.email || '').split(' ')[0] : '';
+    const hr = new Date().getHours();
+    document.getElementById('dashGreeting').textContent = (hr < 12 ? 'Buenos días' : hr < 19 ? 'Buenas tardes' : 'Buenas noches') + (nombre ? ', ' + nombre : '');
+    const esJefe = state.session && state.session.role === 'jefe_estudio';
+    document.getElementById('dashSubtitle').textContent =
+      new Date().toLocaleDateString('es-PE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) +
+      ' · ' + (esJefe ? 'Jefe de Estudio · vista global del estudio' : 'Asistente legal · asuntos asignados a ti');
+    updateSyncPill();
+
+    if (!d) {
+      if (state.dashError) {
+        document.getElementById('dashErrorBox').innerHTML =
+          `<div class="alert-box error">No se pudo cargar el panel general (${esc(state.dashError)}). <button type="button" class="btn small" data-retry="dashboard" style="margin-left:8px;">Reintentar</button></div>`;
+        document.getElementById('dashKpis').innerHTML = '';
+        document.getElementById('dashAttn').innerHTML = '';
+        ['dashTareas', 'dashAgenda', 'dashExpAlert'].forEach((id) => { document.getElementById(id).innerHTML = '<div class="empty-hint">No se pudo cargar.</div>'; });
+      } else {
+        dashSkeletons();
+      }
       return;
     }
 
-    document.getElementById('kpiPorHacer').textContent = d.pendientesPorHacer;
-    document.getElementById('kpiEnTramite').textContent = d.pendientesEnTramite;
-    document.getElementById('kpiExpActivos').textContent = d.expedientesActivos;
-    document.getElementById('kpiCompletos').textContent = d.pendientesCompletos;
-    document.getElementById('pendientesTotalLbl').textContent = d.totalPendientes + ' en total';
-    document.querySelector('.kpi-row').classList.remove('content-reveal');
-    void document.querySelector('.kpi-row').offsetWidth;
-    document.querySelector('.kpi-row').classList.add('content-reveal');
+    const f = state.df;
+    const per = f.periodo || '';
+    const hoy = hoyISO();
+    const expReady = state.dataLoaded;
 
-    state._pendientesRecientes = d.pendientesRecientes;
-    renderPendientesList('todos');
+    const tareas = d.tareas.filter((t) =>
+      (!f.resp || t.responsable === f.resp) && (!f.cli || t.cliente === f.cli) && (!f.tipo || t.tipoProceso === f.tipo) &&
+      (!f.prio || t.prioridad === f.prio) && (!f.estado || t.categoria === f.estado));
+    const abiertas = tareas.filter((t) => t.categoria !== 'completo');
+    const venc = abiertas.filter((t) => t.fechaLimite && t.fechaLimite < hoy);
+    const vencenHoy = abiertas.filter((t) => t.fechaLimite === hoy);
+    const prox = abiertas.filter((t) => t.fechaLimite && t.fechaLimite > hoy && t.fechaLimite <= addDaysISO(hoy, 7) && inPeriodo(t.fechaLimite, per));
+    const pend = abiertas.filter((t) => !per || (t.fechaLimite && (t.fechaLimite < hoy || inPeriodo(t.fechaLimite, per))));
+    const urgentes = abiertas.filter((t) => /urgente/i.test(t.prioridad));
+
+    const reuniones = d.reuniones.filter((r) =>
+      r.fecha && r.fecha >= hoy && inPeriodo(r.fecha, per) && !/cancel|realiz|complet/i.test(r.estado) &&
+      (!f.resp || r.responsable === f.resp) && (!f.cli || r.cliente === f.cli));
+
+    const exps = expReady
+      ? state.expedientes.filter((e) => (!f.resp || e.abogado === f.resp) && (!f.cli || expCliente(e) === f.cli) && (!f.tipo || e.tipoProceso === f.tipo))
+      : [];
+    const activos = exps.filter((e) => e.activo);
+    const smov = activos.filter(expSinMov);
+    const sprox = activos.filter(expSinProx);
+    const clientesN = (f.resp || f.cli || f.tipo)
+      ? new Set([...exps.map(expCliente), ...tareas.map((t) => t.cliente)].filter(Boolean)).size
+      : d.clientesTotal;
+
+    // filtros: opciones a partir de los datos reales
+    const exAll = expReady ? state.expedientes : [];
+    setOptions('dfResp', [['', 'Todos'], ...uniqueSorted([...d.tareas.map((t) => t.responsable), ...d.reuniones.map((r) => r.responsable), ...exAll.map((e) => e.abogado)]).map((v) => [v, v])], f.resp);
+    setOptions('dfCli', [['', 'Todos'], ...uniqueSorted([...d.tareas.map((t) => t.cliente), ...exAll.map(expCliente)]).map((v) => [v, v])], f.cli);
+    setOptions('dfTipo', [['', 'Todos'], ...uniqueSorted([...d.tareas.map((t) => t.tipoProceso), ...exAll.map((e) => e.tipoProceso)]).map((v) => [v, v])], f.tipo);
+    setOptions('dfPrio', [['', 'Todas'], ...uniqueSorted(d.tareas.map((t) => t.prioridad)).map((v) => [v, v])], f.prio);
+    document.getElementById('dfPeriodo').value = per;
+    document.getElementById('dfEstado').value = f.estado || '';
+
+    // requiere atención
+    const aten = [];
+    if (venc.length) aten.push(['crit', `${venc.length} tarea${venc.length > 1 ? 's' : ''} vencida${venc.length > 1 ? 's' : ''} sin completar`, 'venc']);
+    if (urgentes.length) aten.push(['warn', `${urgentes.length} tarea${urgentes.length > 1 ? 's' : ''} urgente${urgentes.length > 1 ? 's' : ''} abierta${urgentes.length > 1 ? 's' : ''}`, 'pend']);
+    if (sprox.length) aten.push(['warn', `${sprox.length} expediente${sprox.length > 1 ? 's' : ''} activo${sprox.length > 1 ? 's' : ''} sin próxima acción definida`, 'sprox']);
+    if (smov.length) aten.push(['warn', `${smov.length} expediente${smov.length > 1 ? 's' : ''} activo${smov.length > 1 ? 's' : ''} sin movimiento (+${DIAS_SIN_MOV} días)`, 'smov']);
+    document.getElementById('dashAttn').innerHTML = aten.length
+      ? `<div class="panel mb"><div class="panel-head"><h3>Requiere atención</h3></div>${aten.map(([lvl, txt, k]) =>
+          `<div class="row-item attn clk ${lvl}" data-attn="${k}">${ICON_ALERT}<div class="rl">${esc(txt)}</div><span class="tag ${lvl === 'crit' ? 'danger' : 'warn'}">Revisar</span></div>`).join('')}</div>`
+      : '';
+
+    // KPIs
+    const kp = (key, val, label, cls) =>
+      `<button type="button" class="kpi ${cls || ''}" data-kpi="${key}"><span class="num">${val}</span><span class="lbl">${label}</span></button>`;
+    const expVal = (n) => (expReady ? n : state.dataLoadError ? '—' : '<span class="skel skel-kpi"></span>');
+    const kpisEl = document.getElementById('dashKpis');
+    kpisEl.innerHTML = [
+      kp('activos', expVal(activos.length), 'Expedientes activos'),
+      kp('clientes', clientesN, 'Clientes'),
+      kp('pend', pend.length, 'Tareas pendientes'),
+      kp('venc', venc.length, 'Tareas vencidas', venc.length ? 'crit' : ''),
+      kp('hoy', vencenHoy.length, 'Tareas que vencen hoy', vencenHoy.length ? 'warn' : ''),
+      kp('prox', prox.length, 'Próximas a vencer (7 días)'),
+      kp('reun', reuniones.length, 'Reuniones programadas'),
+      kp('sprox', expVal(sprox.length), 'Sin próxima acción', expReady && sprox.length ? 'warn' : ''),
+      kp('smov', expVal(smov.length), `Sin movimiento (+${DIAS_SIN_MOV} d)`, expReady && smov.length ? 'warn' : ''),
+    ].join('');
+    kpisEl.classList.remove('content-reveal'); void kpisEl.offsetWidth; kpisEl.classList.add('content-reveal');
+
+    // tareas vencidas y de hoy
+    const tlist = [...venc, ...vencenHoy].sort((a, b) => a.fechaLimite.localeCompare(b.fechaLimite)).slice(0, 7);
+    document.getElementById('dashTareas').innerHTML = tlist.length
+      ? tlist.map((t) => `
+        <div class="row-item">
+          <div><div class="rl">${esc(t.titulo)}</div>
+            <div class="rsub">${esc([t.expediente, t.cliente, t.responsable].filter(Boolean).join(' · ') || '—')}</div></div>
+          <span class="tag ${t.fechaLimite < hoy ? 'danger' : 'warn'}">${t.fechaLimite < hoy ? 'Venció ' + esc(fmtShort(t.fechaLimite)) : 'Hoy'}</span>
+        </div>`).join('')
+      : '<div class="empty-hint">Sin tareas vencidas ni para hoy.</div>';
+
+    // agenda 14 días: reuniones + próximas actuaciones de expedientes activos
+    const limite = addDaysISO(hoy, 14);
+    const evs = [];
+    reuniones.filter((r) => r.fecha <= limite).forEach((r) => evs.push({
+      fecha: r.fecha, hora: r.hora, tipo: 'Reunión', cls: 'info',
+      titulo: 'Reunión — ' + (r.cliente || 'Sin cliente'), sub: [r.asunto, r.modalidad].filter(Boolean).join(' · '),
+    }));
+    activos.filter((e) => e.fechaProximaActuacion && e.fechaProximaActuacion >= hoy && e.fechaProximaActuacion <= limite && inPeriodo(e.fechaProximaActuacion, per))
+      .forEach((e) => evs.push({
+        fecha: e.fechaProximaActuacion, hora: '', tipo: 'Actuación', cls: 'warn', expId: e.id,
+        titulo: e.proximaActuacion || 'Próxima actuación', sub: [e.numero, expCliente(e)].filter(Boolean).join(' · '),
+      }));
+    evs.sort((a, b) => (a.fecha + a.hora).localeCompare(b.fecha + b.hora));
+    document.getElementById('dashAgenda').innerHTML = evs.length
+      ? evs.slice(0, 8).map((v) => `
+        <div class="row-item${v.expId ? ' clk' : ''}"${v.expId ? ` data-exp="${esc(v.expId)}"` : ''}>
+          <div><div class="rl">${esc(v.titulo)}</div>
+            <div class="rsub">${esc(fmtShort(v.fecha))}${v.hora ? ' · ' + esc(v.hora) : ''}${v.sub ? ' · ' + esc(v.sub) : ''}</div></div>
+          <span class="tag ${v.cls}">${v.tipo}</span>
+        </div>`).join('')
+      : '<div class="empty-hint">Nada programado en los próximos 14 días.</div>';
+
+    // expedientes que necesitan movimiento
+    const alertList = expReady ? activos.filter((e) => expSinMov(e) || expSinProx(e)).slice(0, 8) : null;
+    document.getElementById('dashExpAlert').innerHTML = alertList === null
+      ? '<div class="row-item"><div class="skel skel-line" style="width:60%;"></div></div>'.repeat(3)
+      : alertList.length
+        ? alertList.map((e) => `
+          <div class="row-item clk" data-exp="${esc(e.id)}">
+            <div><div class="rl">${esc(e.numero)} · ${esc(expCliente(e) || '—')}</div>
+              <div class="rsub">${esc([e.materia, e.abogado].filter(Boolean).join(' · ') || '—')}</div></div>
+            <span>${expSinProx(e) ? '<span class="tag warn">Sin próxima acción</span> ' : ''}${expSinMov(e) ? `<span class="tag warn">Sin mov. ${esc(fmtAgo(e.fechaUltimoMovimiento))}</span>` : ''}</span>
+          </div>`).join('')
+        : '<div class="empty-hint">Todos los expedientes activos tienen movimiento reciente y próxima acción.</div>';
   }
+
+  function goExpedientes(filters) {
+    state.ef = Object.assign({}, filters);
+    switchView('expedientes');
+  }
+
+  document.getElementById('view-dashboard').addEventListener('click', (e) => {
+    const go = e.target.closest('[data-go]');
+    if (go) { switchView(go.dataset.go); return; }
+    const exp = e.target.closest('[data-exp]');
+    if (exp) { showExpedienteExcelDetalle(exp.dataset.exp); return; }
+    const k = e.target.closest('[data-kpi],[data-attn]');
+    if (!k) return;
+    const key = k.dataset.kpi || k.dataset.attn;
+    if (key === 'activos') goExpedientes({ estado: '__abierto' });
+    else if (key === 'clientes') switchView('clientes');
+    else if (key === 'reun') switchView('agenda');
+    else if (key === 'smov') goExpedientes({ estado: '__abierto', sinMov: true });
+    else if (key === 'sprox') goExpedientes({ estado: '__abierto', sinProx: true });
+    else document.getElementById('dashTareasPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  [['dfResp', 'resp'], ['dfCli', 'cli'], ['dfTipo', 'tipo'], ['dfPeriodo', 'periodo'], ['dfPrio', 'prio'], ['dfEstado', 'estado']].forEach(([id, key]) => {
+    document.getElementById(id).addEventListener('change', (e) => { state.df[key] = e.target.value; renderDashboard(); });
+  });
+  document.getElementById('dfReset').addEventListener('click', () => { state.df = {}; renderDashboard(); });
 
   // Delegated so it works for retry buttons rendered anywhere, anytime.
   document.addEventListener('click', (e) => {
@@ -676,25 +935,6 @@
     if (btn.dataset.retry === 'arbitraje') loadArbitraje(true);
     if (btn.dataset.retry === 'agenda') loadEventos();
   });
-
-  function renderPendientesList(filter) {
-    const list = state._pendientesRecientes || [];
-    const filtered = filter === 'todos' ? list : list.filter((t) => t.estado === filter);
-    const el = document.getElementById('pendientesList');
-    const html = filtered.length
-      ? filtered.map((t) => `
-        <tr>
-          <td>${esc(t.idTarea || '—')}</td>
-          <td class="client-name">${esc(t.titulo)}</td>
-          <td>${esc(t.clienteNombre || '—')}</td>
-          <td>${esc(t.tipoProceso || '—')}</td>
-          <td>${esc(t.expediente || '—')}</td>
-          <td>${esc(t.responsable || '—')}</td>
-          <td>${tagFor(t.estado)}</td>
-        </tr>`).join('')
-      : '<tr><td colspan="7"><div class="empty-hint">No hay pendientes en esta categoría.</div></td></tr>';
-    revealContent(el, html);
-  }
 
   function renderClientes() {
     const tbody = document.getElementById('clientesTbody');
@@ -826,37 +1066,82 @@
     document.querySelectorAll('.nav-btn').forEach((b) => b.classList.toggle('active', b.dataset.view === 'clientes'));
   }
 
+  function syncExpedientesFilters() {
+    const f = state.ef;
+    const list = state.dataLoaded ? state.expedientes : [];
+    const q = document.getElementById('efQ');
+    if (q.value !== (f.q || '')) q.value = f.q || '';
+    document.getElementById('efArea').value = f.area || '';
+    setOptions('efEstado', [['', 'Todos'], ['__abierto', 'Abiertos'], ['__cerrado', 'Cerrados'], ...uniqueSorted(list.map((e) => e.estado)).map((v) => [v, v])], f.estado);
+    setOptions('efPrio', [['', 'Todas'], ...uniqueSorted(list.map((e) => e.prioridad)).map((v) => [v, v])], f.prio);
+    setOptions('efResp', [['', 'Todos'], ...uniqueSorted(list.map((e) => e.abogado)).map((v) => [v, v])], f.resp);
+    document.getElementById('efSinMov').checked = !!f.sinMov;
+    document.getElementById('efSinProx').checked = !!f.sinProx;
+  }
+
+  function filterExpedientes() {
+    const f = state.ef;
+    const q = (f.q || '').trim().toLowerCase();
+    return state.expedientes.filter((e) => {
+      if (f.area && e.materia !== f.area) return false;
+      if (f.estado === '__abierto' && !e.activo) return false;
+      if (f.estado === '__cerrado' && e.activo) return false;
+      if (f.estado && f.estado !== '__abierto' && f.estado !== '__cerrado' && e.estado !== f.estado) return false;
+      if (f.prio && e.prioridad !== f.prio) return false;
+      if (f.resp && e.abogado !== f.resp) return false;
+      if (f.sinMov && !expSinMov(e)) return false;
+      if (f.sinProx && !expSinProx(e)) return false;
+      if (q) {
+        const hay = [e.numero, expCliente(e), e.abogado, e.partes, e.tipoProceso, e.materia].join(' ').toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      return true;
+    });
+  }
+
+  function expedienteRowHtml(e) {
+    const accion = e.proximaActuacion || e.accionPendiente;
+    const proxima = accion
+      ? `<div>${esc(accion)}</div>${e.fechaProximaActuacion ? `<div class="client-sub">${esc(fmtShort(e.fechaProximaActuacion))}</div>` : ''}`
+      : e.source !== 'excel' ? '—' : e.activo ? '<span class="tag warn">Sin definir</span>' : '<span class="tag">No requiere</span>';
+    const drive = e.linkUrl && /^https:\/\//.test(e.linkUrl)
+      ? `<div><a class="drive-link" href="${esc(e.linkUrl)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Carpeta en Drive ↗</a></div>` : '';
+    return `
+      <tr data-id="${esc(e.id)}" data-source="${e.source}">
+        <td><div class="client-name">${esc(e.numero)}</div>${drive}</td>
+        <td>${esc(expCliente(e) || '—')}</td>
+        <td>${e.materia ? `<div>${esc(e.materia)}</div>` : '—'}${e.tipoProceso || e.tipo ? `<div class="client-sub">${esc(e.tipoProceso || e.tipo)}</div>` : ''}</td>
+        <td>${esc(e.abogado || '—')}</td>
+        <td>${e.source === 'excel' ? arbTag(e.estado, 'estado') : tagFor(e.estado)}</td>
+        <td>${e.prioridad ? arbTag(e.prioridad, 'prioridad') : '—'}</td>
+        <td>${proxima}</td>
+        <td class="nowrap">${e.fechaUltimoMovimiento ? esc(fmtAgo(e.fechaUltimoMovimiento)) : '—'}${expSinMov(e) ? ' <span class="tag warn">Sin mov.</span>' : ''}</td>
+      </tr>`;
+  }
+
   function renderExpedientes() {
     const tbody = document.getElementById('expedientesTbody');
+    syncExpedientesFilters();
     if (!state.dataLoaded) {
       if (state.dataLoadError) {
         document.getElementById('expedientesCountDesc').textContent = '';
-        tbody.innerHTML = errorRowHtml(5, state.dataLoadError, 'clientes-expedientes');
+        tbody.innerHTML = errorRowHtml(8, state.dataLoadError, 'clientes-expedientes');
       } else {
         document.getElementById('expedientesCountDesc').innerHTML = '<div class="skel skel-line" style="width:130px;"></div>';
-        tbody.innerHTML = skeletonRows(5, 5);
+        tbody.innerHTML = skeletonRows(8, 5);
       }
       document.getElementById('kanbanBoard').innerHTML = '';
       return;
     }
 
-    const activeChip = document.querySelector('#expedientesFilterChips .filter-chip.active').dataset.f;
-    let list = state.expedientes;
-    if (activeChip !== 'todas') list = list.filter((e) => e.materia === activeChip);
-
+    const list = filterExpedientes();
+    const total = state.expedientes.length;
     document.getElementById('expedientesCountDesc').textContent =
-      `${state.expedientes.filter((e) => e.activo).length} expedientes activos`;
+      `${list.length} expediente${list.length === 1 ? '' : 's'}` + (list.length !== total ? ` de ${total}` : '');
 
     const html = list.length
-      ? list.map((e) => `
-        <tr data-id="${esc(e.id)}" data-source="${e.source}">
-          <td><div class="client-name">${esc(e.numero)}</div>${e.tipo ? `<div class="client-sub">${esc(e.tipo)}</div>` : ''}</td>
-          <td>${esc(e.source === 'excel' ? (e.clienteNombre || '—') : clienteNombre(e.clienteId))}</td>
-          <td>${e.materia ? `<span class="tag gold">${esc(e.materia)}</span>` : '—'}</td>
-          <td>${e.etapaKanban ? `<span class="tag warn">${esc(e.etapaKanban)}</span>` : '—'}</td>
-          <td>${e.source === 'excel' ? arbTag(e.estado, 'estado') : tagFor(e.estado)}</td>
-        </tr>`).join('')
-      : '<tr><td colspan="5"><div class="empty-hint">Todavía no hay expedientes en esta materia.</div></td></tr>';
+      ? list.map(expedienteRowHtml).join('')
+      : '<tr><td colspan="8"><div class="empty-hint">No hay expedientes con estos filtros.</div></td></tr>';
     revealContent(tbody, html);
 
     tbody.querySelectorAll('tr[data-source="excel"]').forEach((tr) => {
@@ -1348,13 +1633,6 @@
   navButtons.forEach((btn) => btn.addEventListener('click', () => switchView(btn.dataset.view)));
 
   // ---------- filter chip wiring ----------
-  document.getElementById('pendientesFilterChips').addEventListener('click', (e) => {
-    const chip = e.target.closest('.filter-chip');
-    if (!chip) return;
-    chip.parentElement.querySelectorAll('.filter-chip').forEach((c) => c.classList.remove('active'));
-    chip.classList.add('active');
-    renderPendientesList(chip.dataset.f);
-  });
   document.getElementById('clientesFilterChips').addEventListener('click', (e) => {
     const chip = e.target.closest('.filter-chip');
     if (!chip) return;
@@ -1362,20 +1640,34 @@
     chip.classList.add('active');
     renderClientes();
   });
-  document.getElementById('expedientesFilterChips').addEventListener('click', (e) => {
-    const chip = e.target.closest('.filter-chip');
-    const modeBtn = e.target.closest('.view-toggle button');
-    if (modeBtn) {
-      document.querySelectorAll('.view-toggle button').forEach((b) => b.classList.remove('active'));
-      modeBtn.classList.add('active');
-      document.getElementById('kview-list').classList.toggle('active', modeBtn.dataset.mode === 'list');
-      document.getElementById('kview-kanban').classList.toggle('active', modeBtn.dataset.mode === 'kanban');
-      return;
-    }
-    if (!chip) return;
-    chip.parentElement.querySelectorAll('.filter-chip').forEach((c) => c.classList.remove('active'));
-    chip.classList.add('active');
-    renderExpedientes();
+  // ---------- filtros de Expedientes y búsqueda global ----------
+  function readExpedientesFilters() {
+    state.ef = {
+      q: document.getElementById('efQ').value,
+      area: document.getElementById('efArea').value,
+      estado: document.getElementById('efEstado').value,
+      prio: document.getElementById('efPrio').value,
+      resp: document.getElementById('efResp').value,
+      sinMov: document.getElementById('efSinMov').checked,
+      sinProx: document.getElementById('efSinProx').checked,
+    };
+  }
+  ['efQ', 'efArea', 'efEstado', 'efPrio', 'efResp', 'efSinMov', 'efSinProx'].forEach((id) => {
+    document.getElementById(id).addEventListener(id === 'efQ' ? 'input' : 'change', () => { readExpedientesFilters(); renderExpedientes(); });
+  });
+  document.getElementById('efReset').addEventListener('click', () => { state.ef = {}; renderExpedientes(); });
+  document.getElementById('expedientesModeToggle').addEventListener('click', (e) => {
+    const modeBtn = e.target.closest('button');
+    if (!modeBtn) return;
+    document.querySelectorAll('#expedientesModeToggle button').forEach((b) => b.classList.toggle('active', b === modeBtn));
+    document.getElementById('kview-list').classList.toggle('active', modeBtn.dataset.mode === 'list');
+    document.getElementById('kview-kanban').classList.toggle('active', modeBtn.dataset.mode === 'kanban');
+  });
+  document.getElementById('globalSearch').addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const q = e.target.value.trim();
+    e.target.value = '';
+    goExpedientes(q ? { q } : {});
   });
 
   // ---------- create forms ----------
@@ -1502,9 +1794,6 @@
   });
 
   function init() {
-    document.getElementById('topbarDate').textContent = new Date().toLocaleDateString('es-PE', {
-      day: 'numeric', month: 'long', year: 'numeric',
-    });
     // Deliberately not awaited in sequence: each load handles its own
     // errors and retry, so one failing (e.g. a slow/cold Excel sync) must
     // never block or delay the other.

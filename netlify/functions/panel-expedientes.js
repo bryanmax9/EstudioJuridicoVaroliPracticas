@@ -1,7 +1,7 @@
 const { requireSession, jsonResponse } = require('./utils/panel-auth');
 const { readList, writeList, nextId } = require('./utils/panel-store');
 const { filterExpedientes, canSeeExpediente, isAdmin } = require('./utils/panel-rbac');
-const { getArbitrajeData } = require('./utils/sheet-arbitraje');
+const { getArbitrajeData, normalizeSheetDate } = require('./utils/sheet-arbitraje');
 
 const VALID_MATERIAS = [
   'Contrataciones del Estado',
@@ -64,6 +64,7 @@ exports.handler = async (event) => {
           clienteNombre: p.cliente,
           tipo: p.tipo === 'judicial' ? 'Judicial' : 'Arbitral',
           materia: materiaDeProceso(p),
+          tipoProceso: p.tipoProceso || null,
           sede: p.sedeJuzgado,
           partes: p.partes,
           demandante: p.demandante,
@@ -74,8 +75,10 @@ exports.handler = async (event) => {
           activo: p.abierto,
           prioridad: p.prioridad,
           ultimoMovimiento: p.ultimoMovimiento,
-          fechaUltimoMovimiento: p.fechaUltimoMovimiento,
+          fechaUltimoMovimiento: normalizeSheetDate(p.fechaUltimoMovimiento),
           proximaActuacion: p.proximaActuacion,
+          fechaProximaActuacion: normalizeSheetDate(p.fechaProximaActuacion),
+          fechaLimite: normalizeSheetDate(p.fechaLimite),
           accionPendiente: p.accionPendiente,
           observaciones: p.observaciones,
           link: p.link,
