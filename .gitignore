@@ -1,6 +1,7 @@
 # Google credentials — never commit
 *.json
 !package.json
+!package-lock.json
 
 # Local env
 .env
