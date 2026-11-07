@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Agenda — Varoli-Slovsa Abogados</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A1A3C;
+    --navy-2:#132a5c;
+    --gold:#C9A227;
+    --gold-2:#e0bb3d;
+    --cream:#F3EFE6;
+    --card:#FFFFFF;
+    --ink:#20242c;
+    --muted:#6b7280;
+    --line:#e7e2d6;
+    --red:#B4432C;
+    --green:#2f6b4f;
+    --blue:#2b4f7c;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Lato',sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:36px 28px 80px;}
+  .topbar{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:16px;}
+  h1{font-family:'Playfair Display',serif;font-weight:700;font-size:2.4rem;color:var(--navy);margin:0;}
+  .subtitle{color:var(--muted);font-size:0.98rem;margin-top:6px;}
+  .btn-new{background:var(--gold);color:var(--navy);font-weight:700;border:none;padding:12px 22px;border-radius:999px;cursor:pointer;font-size:0.95rem;font-family:'Lato',sans-serif;white-space:nowrap;}
+  .btn-new:hover{background:var(--gold-2);}
+
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin:28px 0 18px;flex-wrap:wrap;gap:14px;}
+  .monthnav{display:flex;align-items:center;gap:14px;}
+  .monthnav button{border:1.5px solid var(--navy);background:#fff;color:var(--navy);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem;font-weight:700;}
+  .monthnav button:hover{background:var(--navy);color:#fff;}
+  .monthnav .label{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--navy);font-weight:600;min-width:200px;text-align:center;}
+  .today-btn{border:1.5px solid var(--navy);background:transparent;color:var(--navy);padding:8px 16px;border-radius:999px;font-weight:700;font-size:0.85rem;cursor:pointer;}
+  .legend{display:flex;gap:16px;font-size:0.82rem;color:var(--muted);flex-wrap:wrap;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  .dot-reunion{background:var(--blue);}
+  .dot-vencimiento{background:var(--red);}
+  .dot-tarea{background:var(--gold);}
+
+  .cal{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+  .cal-head{display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1.5px solid var(--line);}
+  .cal-head div{padding:12px 0;text-align:center;font-size:0.78rem;font-weight:700;color:var(--navy);letter-spacing:.03em;}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);grid-auto-rows:112px;}
+  .day{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px;position:relative;cursor:pointer;overflow:hidden;}
+  .day:nth-child(7n){border-right:none;}
+  .day:hover{background:#faf8f2;}
+  .day.other-month{background:#f8f6f0;color:#c3bda9;}
+  .day.today .daynum{background:var(--gold);color:var(--navy);}
+  .daynum{font-size:0.82rem;font-weight:700;color:var(--ink);width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%;}
+  .evchip{margin-top:5px;padding:2px 7px;border-radius:6px;font-size:0.72rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;}
+  .evchip.reunion{background:#dde6f1;color:var(--blue);}
+  .evchip.vencimiento{background:#f6e2dd;color:var(--red);}
+  .evchip.tarea{background:#f3e9c9;color:#7a5c17;}
+  .more{font-size:0.7rem;color:var(--muted);margin-top:3px;cursor:pointer;}
+
+  /* modal */
+  .overlay{position:fixed;inset:0;background:rgba(10,26,60,.45);display:none;align-items:flex-start;justify-content:center;padding:60px 20px;z-index:50;overflow:auto;}
+  .overlay.show{display:flex;}
+  .modal{background:#fff;border-radius:16px;max-width:480px;width:100%;padding:30px 30px 26px;}
+  .modal h2{font-family:'Playfair Display',serif;color:var(--navy);margin:0 0 20px;font-size:1.35rem;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:0.8rem;font-weight:700;color:var(--navy);margin-bottom:6px;}
+  .field input, .field select, .field textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;font-family:'Lato',sans-serif;font-size:0.92rem;color:var(--ink);}
+  .field textarea{resize:vertical;min-height:70px;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .modal-actions{display:flex;justify-content:space-between;align-items:center;margin-top:22px;}
+  .btn-save{background:var(--navy);color:#fff;font-weight:700;border:none;padding:11px 24px;border-radius:999px;cursor:pointer;font-size:0.9rem;}
+  .btn-cancel{background:transparent;color:var(--muted);border:none;font-weight:600;cursor:pointer;font-size:0.88rem;}
+  .btn-delete{background:transparent;color:var(--red);border:none;font-weight:700;cursor:pointer;font-size:0.85rem;}
+  .note{margin-top:16px;font-size:0.82rem;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h2 id="modal-title">Nuevo evento</h2>
+    <div class="field">
+      <label>Título</label>
+      <input id="f-title" type="text" placeholder="Ej: Audiencia — Rocer Security">
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>Fecha</label>
+        <input id="f-date" type="date">
+      </div>
+      <div class="field">
+        <label>Hora</label>
+        <input id="f-time" type="time">
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>Tipo</label>
+        <select id="f-type">
+          <option>Reunión</option>
+          <option>Audiencia</option>
+          <option>Vencimiento</option>
+          <option>Tarea</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Modalidad</label>
+        <select id="f-modalidad">
+          <option value="">—</option>
+          <option value="PRESENCIAL">Presencial</option>
+          <option value="VIRTUAL">Virtual</option>
+          <option value="TELEFÓNICA">Telefónica</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Cliente</label>
+      <input id="f-cliente" type="text" placeholder="Ej: Correos del Perú">
+    </div>
+    <div class="field">
+      <label>Descripción</label>
+      <textarea id="f-desc" placeholder="Detalle del evento o tarea..."></textarea>
+    </div>
+    <div class="field">
+      <label>Enlace (Meet / Drive)</label>
+      <input id="f-link" type="text" placeholder="https://meet.google.com/...">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-delete" id="btn-delete" style="display:none;">Eliminar</button>
+      <div>
+        <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+        <button class="btn-save" onclick="saveEvent()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let EVENTS = [{"id": "EV-001", "title": "Reunión — ROCER", "date": "2026-04-30", "time": "10:30 AM", "type": "Reunión", "cliente": "ROCER", "description": "EXP 02505/2026.TCE", "modalidad": "VIRTUAL", "link": "https://meet.google.com/gpp-bjfs-gtg"}, {"id": "EV-002", "title": "Reunión — LA PROTECTORA - SABSA", "date": "2026-06-11", "time": "11:00 AM", "type": "Reunión", "cliente": "LA PROTECTORA - SABSA", "description": "LICENCIADO", "modalidad": "VIRTUAL", "link": "ENFE SUNAT"}, {"id": "EV-003", "title": "Reunión — SOTERIA GROUP SAC", "date": "2026-07-01", "time": "10:30 AM", "type": "Reunión", "cliente": "SOTERIA GROUP SAC", "description": "04041-2025-0-1601-JP-LA-12", "modalidad": "VIRTUAL", "link": "https://meet.google.com/xpe-rdpa-avh"}, {"id": "EV-004", "title": "Reunión — PROXUS", "date": "2026-07-24", "time": "9:30 AM", "type": "Reunión", "cliente": "PROXUS", "description": "EXPEDIENTE 8038/2021.TCP", "modalidad": "VIRTUAL", "link": "meet.google.com/hij-pymr-hvu"}, {"id": "EV-005", "title": "Reunión — RUFIO LEGAL", "date": "2026-10-06", "time": "10:00 AM", "type": "Reunión", "cliente": "RUFIO LEGAL", "description": "00612-2025-0-1866-SP-CO-01", "modalidad": "VIRTUAL", "link": "LO PASARÁN EN SU DEBIDO MOMENTO"}, {"id": "EV-006", "title": "Vencimiento judicial — EFAHL SECURITY SAC", "date": "2026-09-14", "time": "", "type": "Vencimiento", "cliente": "EFAHL SECURITY SAC", "description": "Expediente 07193-2025-0-1828-JR-CO-02. REVISAR", "modalidad": "", "link": "07193-2025-0-1828-JR-CO-02"}, {"id": "EV-007", "title": "Vencimiento judicial — EFAHL SECURITY SAC", "date": "2026-09-14", "time": "", "type": "Vencimiento", "cliente": "EFAHL SECURITY SAC", "description": "Expediente 25016-2025-0-1828-JR-CO-12. REVISAR", "modalidad": "", "link": "25016-2025-0-1828-JR-CO-12"}, {"id": "EV-008", "title": "Vencimiento judicial — IMAGINARIUM", "date": "2026-09-14", "time": "", "type": "Vencimiento", "cliente": "IMAGINARIUM", "description": "Expediente 00590-2024-0-0601-JP-LA-04. REVISAR", "modalidad": "", "link": "00590-2024-0-0601-JP-LA-04"}, {"id": "EV-009", "title": "Vencimiento judicial — SOTERIA GROUP SAC", "date": "2026-09-12", "time": "", "type": "Vencimiento", "cliente": "SOTERIA GROUP SAC", "description": "Expediente 01133-2025-0-1601-JR-LA-04. REVISAR", "modalidad": "", "link": "01133-2025-0-1601-JR-LA-04"}, {"id": "EV-010", "title": "Vencimiento judicial — CORREOS DEL PERÚ", "date": "2026-09-11", "time": "", "type": "Vencimiento", "cliente": "CORREOS DEL PERÚ", "description": "Expediente 04872-2025-0-1828-JR-CO-13. REVISAR", "modalidad": "", "link": "04872-2025-0-1828-JR-CO-13"}, {"id": "EV-011", "title": "Vencimiento judicial — CORREOS DEL PERÚ", "date": "2026-09-11", "time": "", "type": "Vencimiento", "cliente": "CORREOS DEL PERÚ", "description": "Expediente 18265-2021-0-1817-JR-CO-06. REVISAR", "modalidad": "", "link": "18265-2021-0-1817-JR-CO-06"}, {"id": "EV-012", "title": "Vencimiento judicial — MACROPOST", "date": "2026-09-11", "time": "", "type": "Vencimiento", "cliente": "MACROPOST", "description": "Expediente 15776-2024-0-1828-JR-CO-04. REVISAR", "modalidad": "", "link": "15776-2024-0-1828-JR-CO-04"}, {"id": "EV-013", "title": "Vencimiento judicial — LA PROTECTORA - CONSORCIO MÉDICO", "date": "2026-12-10", "time": "", "type": "Vencimiento", "cliente": "LA PROTECTORA - CONSORCIO MÉDICO", "description": "Expediente 07306-2025-0-1825-JP-LA-06. REVISAR", "modalidad": "", "link": "07306-2025-0-1825-JP-LA-06"}, {"id": "EV-014", "title": "Vencimiento judicial — SOTERIA GROUP SAC", "date": "2026-09-11", "time": "", "type": "Vencimiento", "cliente": "SOTERIA GROUP SAC", "description": "Expediente 04041-2025-0-1601-JP-LA-12. REVISAR", "modalidad": "", "link": "04041-2025-0-1601-JP-LA-12"}, {"id": "EV-015", "title": "Vencimiento judicial — IMAGINARIUM", "date": "2026-09-11", "time": "", "type": "Vencimiento", "cliente": "IMAGINARIUM", "description": "Expediente 04590-2026-0-1853-JR-CA-01. REVISAR", "modalidad": "", "link": "04590-2026-0-1853-JR-CA-01"}, {"id": "EV-016", "title": "Vencimiento judicial — RUFIO LEGAL", "date": "2026-09-10", "time": "", "type": "Vencimiento", "cliente": "RUFIO LEGAL", "description": "Expediente 14937-2026-0-1828-JR-CO-10. REVISAR", "modalidad": "", "link": "14937-2026-0-1828-JR-CO-10"}, {"id": "EV-017", "title": "Vencimiento judicial — RUFIO LEGAL", "date": "2026-09-11", "time": "", "type": "Vencimiento", "cliente": "RUFIO LEGAL", "description": "Expediente 00612-2025-0-1866-SP-CO-01. REVISAR", "modalidad": "", "link": "00612-2025-0-1866-SP-CO-01"}, {"id": "EV-018", "title": "Vencimiento judicial — IMAGINARIUM", "date": "2026-09-09", "time": "", "type": "Vencimiento", "cliente": "IMAGINARIUM", "description": "Expediente 00348-2026-0-1853-SP-CA-02. HACER", "modalidad": "", "link": "00348-2026-0-1853-SP-CA-02"}, {"id": "EV-019", "title": "Tarea — PROXUS", "date": "2026-09-14", "time": "", "type": "Tarea", "cliente": "PROXUS", "description": "TOMA RAZON 08038-2021-TCE: PARTES: DEMANDADO: CONSORCIO PROXUS SECURITY SAC MAKER SERVICES S.A.C DEMANDANTE: MINISTERIO DE TRABAJO Y PROMOCI", "modalidad": "", "link": "08038-2021-TCE"}, {"id": "EV-020", "title": "Tarea — LA PROTECTORA - SABSA", "date": "2026-09-14", "time": "", "type": "Tarea", "cliente": "LA PROTECTORA - SABSA", "description": "TOMA RAZON 05613-2021-TCE 532200D8 PARTES: (SOMOS DEMANDADOS) DEMANDANTE: MINISTERIO DE ECONOMIA Y FINANZAS DEMANDADOS: LA PROTECTORA-SABSA ", "modalidad": "", "link": "05613-2021-TCE"}, {"id": "EV-021", "title": "Tarea — EFAHL SECURITY SAC", "date": "2026-09-14", "time": "", "type": "Tarea", "cliente": "EFAHL SECURITY SAC", "description": "PROCESOS JUDICALES EJECUCION DE LAUDOS ARBITRALES EXP:07193-2025-0-1828-JR-CO-02 PARTES: DEMANDANTE: EFAHL SECURITY S.A.C. DEMANDADO: HOSPIT", "modalidad": "", "link": "07193-2025-0-1828-JR-CO-02"}, {"id": "EV-022", "title": "Tarea — EFAHL SECURITY SAC", "date": "2026-09-14", "time": "", "type": "Tarea", "cliente": "EFAHL SECURITY SAC", "description": "PROCESOS JUDICIALES: EJECUCION DE LAUDOS ARBITRALES 25016-2025-0-1828-JR-CO-12 PARTES: (SOMOS DEMANDANTES) DEMANDANTE: EFAHL SECURITY S.A.C.", "modalidad": "", "link": "25016-2025-0-1828-JR-CO-12"}, {"id": "EV-023", "title": "Tarea — IMAGINARIUM", "date": "2026-09-14", "time": "", "type": "Tarea", "cliente": "IMAGINARIUM", "description": "PROCESO JUDICIAL: PAGO DE BENEFICIOS SOCIALES Y/O INDEMNIZACION U OTROS BENEFICIOS ECONOMICOS 00590-2024-0-0601-JP-LA-04 PARTES: DEMANDANTE:", "modalidad": "", "link": "00590-2024-0-0601-JP-LA-04"}, {"id": "EV-024", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-12", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "PROCESO JUDICIAL: INDEM. POR DAÑOS Y PERJUICIOS POR INCUMP. DE CONTRATO 01133-2025-0-1601-JR-LA-04 DEMANDANTE: GUEVARA RIOS VICTOR PAUL DEMA", "modalidad": "", "link": "01133-2025-0-1601-JR-LA-04"}, {"id": "EV-025", "title": "Tarea — CORREOS DEL PERÚ", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "CORREOS DEL PERÚ", "description": "EJECUCION DE LAUDOS ARBITRALES PROCESO JUDICIAL: 04872-2025-0-1828-JR-CO-13 PARTES:(SOMOS DEMANDADOS) DEMANDANTE: ORGANISMO DE FORMALIZACION", "modalidad": "", "link": "04872-2025-0-1828-JR-CO-13"}, {"id": "EV-026", "title": "Tarea — CORREOS DEL PERÚ", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "CORREOS DEL PERÚ", "description": "EJECUCIÓN DE GARANTÍAS PROCESO JUDICIAL: 18265-2021-0-1817-JR-CO-06 PARTES: DEMANDANTE: SCOTIABANK PERU SAA DEMANDADO:CORREOS DEL PERÚ SOMOS", "modalidad": "", "link": "18265-2021-0-1817-JR-CO-06"}, {"id": "EV-027", "title": "Tarea — MACROPOST", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "MACROPOST", "description": "REGISTRAR Y VALIDAR CORRECTAMENTE EN MPV DEL PJ, EL CÓDIGO DE PAGO, FECHA Y HORA DEL ARANCEL POR CONCEPTO DE \"OFRECIMIENTO DE PRUEBAS Y EXCE", "modalidad": "", "link": "15776-2024-0-1828-JR-CO-04"}, {"id": "EV-028", "title": "Tarea — LA PROTECTORA - CONSORCIO MÉDICO", "date": "2026-12-10", "time": "", "type": "Tarea", "cliente": "LA PROTECTORA - CONSORCIO MÉDICO", "description": "CASO JUDICIAL: OBLIGACIONES DE DAR HASTA 70 URP ABOGADO CRHISTIAN SINOE: CASO JUDICIAL: 07306-2025-0-1825-JP-LA-06 PARTES PROCESALES DEMANDA", "modalidad": "", "link": "07306-2025-0-1825-JP-LA-06"}, {"id": "EV-029", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "REALIZAR CONTESTACION DE DEMANDA / REUNION CON EL SR CARLOS CASO JUDICIAL: 04041-2025-0-1601-JP-LA-12 CHAVEZ DIAZ, WALTER ALBERTO", "modalidad": "", "link": "04041-2025-0-1601-JP-LA-12"}, {"id": "EV-030", "title": "Tarea — RENATO LOPEZ", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "RENATO LOPEZ", "description": "SE PRESENTO UNA DENUNCIA, SEGUIMIENTO SOBRE EL PROCESO. DENUNICA ADMINITRASTIVA EXP: 2026-009927", "modalidad": "", "link": "DENUNCIA JOYA"}, {"id": "EV-031", "title": "Tarea — PROXUS", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "PROXUS", "description": "ANALIZAR PROCESO SANCIONADOR PARA INFORMAR AL CLIENTE MEDIANTE REUNION TOMA RAZON 05813-2025-TCE D18457C3", "modalidad": "", "link": "05813-2025-TCE"}, {"id": "EV-032", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "ANALIZAR PROCESO SANCIONADOR PARA INFORMAR AL CLIENTE MEDIANTE REUNION TOMA RAZON 10379-2024-TCE 4675767A", "modalidad": "", "link": "10379-2024-TCE"}, {"id": "EV-033", "title": "Tarea — IMAGINARIUM", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "IMAGINARIUM", "description": "ANULACION DE LAUDO CASO JUDICIAL: 00453-2025-0-1866-SP-CO-02 DEMANDANTE: CORPORACION PERUANA DE AEROPUERTOS Y AVIACION COMERCIAL SOCIEDAD AN", "modalidad": "", "link": "00453-2025-0-1866-SP-CO-02"}, {"id": "EV-034", "title": "Tarea — IMAGINARIUM", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "IMAGINARIUM", "description": "EJECUCION DE LAUDO CASO JUDICIAL: 03749-2026-0-1828-JR-CO-12 DEMANDANTE: IMAGISOLEMPRE S.A.C. DEMANDADO: Corporación Peruana de Aeropuertos ", "modalidad": "", "link": "03749-2026-0-1828-JR-CO-12"}, {"id": "EV-035", "title": "Tarea — IMAGINARIUM", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "IMAGINARIUM", "description": "DEMANDA DE NULIDAD E INEFICACIA DE RESOLUCION ADMINISTRATIVA CASO JUDICIAL: 04590-2026-0-1853-JR-CA-01 PARTES: IMAGINARIUM SOLUCIONES EMPRES", "modalidad": "", "link": "04590-2026-0-1853-JR-CA-01"}, {"id": "EV-036", "title": "Tarea — LA PROTECTORA - SABSA", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "LA PROTECTORA - SABSA", "description": "FESUNAT CARTA DE CONCILIACION TELMA TORRES TUANAMA", "modalidad": "", "link": "INVITACION PARA CONCILIAR - TELMA ROSA TORRES TUANAMA (1).pdf"}, {"id": "EV-037", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "ACTA DE INFRACCION : SUCAMEC LIBERTAD", "modalidad": "", "link": "LA LIBERTAD-AJCL"}, {"id": "EV-038", "title": "Tarea — RUFIO LEGAL", "date": "2026-09-10", "time": "", "type": "Tarea", "cliente": "RUFIO LEGAL", "description": "REALIZAR CARTA SOLICITANDO AL BBVA PODER FRANCCIONAR LA DEUDA PROCESO JUDICIAL : 14937-2026-0-1828-JR-CO-10 (IDENTIFICAR LAS PARTES)", "modalidad": "", "link": "BBVA"}, {"id": "EV-039", "title": "Tarea — PROXUS", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "PROXUS", "description": "MINISTERIO PUBLICO CAJAMARCA Contrato N° 017-2025-OGA-SG/MC / CP N° 001-2025/MC VERIFICAR LAS PENALIDADES INTERPUESTA AL ENTREGABLE DE ABRIL", "modalidad": "", "link": "Contrato N° 017-2025-OGA-SG/MC"}, {"id": "EV-040", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "VERIFICAR LOS HECHOS Y REALIZAR LOS DESCARGOS CORRESPODIENTES ROBO DE BICICLETA SANTA CRUZ", "modalidad": "", "link": "FALTA CARPETA"}, {"id": "EV-041", "title": "Tarea — RUFIO LEGAL", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "RUFIO LEGAL", "description": "EJECUCION DE LAUDO PROCESO JUDICIAL: 03677-2026-0-1828-JR-CO-02 PARTES: DEMANDADO : DIRECCION REGIONAL DE SALUD APURIMAC, DEMANDANTE : RUFIO", "modalidad": "", "link": "03677-2026-0-1828-JR-CO-02"}, {"id": "EV-042", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "APLICACION DE PENALIDADES POR PARTE LA CAJA DE PENSIONES EN EL CONTRATO N° a) Contrato N° 018-2024-CPMP Declaran improcedente nuestro descar", "modalidad": "", "link": "LA CAJA"}, {"id": "EV-043", "title": "Tarea — ROCER SECURITY", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "ROCER SECURITY", "description": "APELACION DE PERDIDA DE BUENA PRO PROCESO DE SELECCION: EXPEDIENTE N° 03747 / 2026.TCE TOMA RAZON DE APELACION CARTA N° 000085-2026-MP-FN-GG", "modalidad": "", "link": "MINISTERIO PUBLICO CAÑETE"}, {"id": "EV-044", "title": "Tarea — RUFIO LEGAL", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "RUFIO LEGAL", "description": "ANULACION DE LAUDOS ARBITRALES PROCESO JUDICIAL 00612-2025-0-1866-SP-CO-01 DEMANDANTE: DIRECCION REGIONAL DE SALUD APURIMAC, DEMANDADO RUFIO", "modalidad": "", "link": "03677-2026-0-1828-JR-CO-02"}, {"id": "EV-045", "title": "Tarea — P&M COURIER", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "P&M COURIER", "description": "SOLICITAR LA EJECUCION DE LAUDO PROCESO JUDICAL: 00369-2025-0-1866-SP-CO-02 DEMANDANTE: P & M COURIER EXPRESS S.A.C. DEMANDADO: MINISTERIO P", "modalidad": "", "link": "00369-2025-0-1866-SP-CO-02"}, {"id": "EV-046", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "SUBSANAR APERCEBIMIENTO : LA LIBERTAD-AJCL", "modalidad": "", "link": "LA LIBERTAD-AJCL"}, {"id": "EV-047", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "REALIZAR SUBSANCION DE LA CARTA N° D000056-2026-MIDAGRI-AGROIDEAS-UA", "modalidad": "", "link": "AGROIDEAS"}, {"id": "EV-048", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "REALIZAR SUBSANACION A CARTA N°039-2026-PRODUCE-PROINNÓVATE-UA", "modalidad": "", "link": "PROINNOVATE"}, {"id": "EV-049", "title": "Tarea — FM CONTRATISTAS LEGAL", "date": "2026-09-11", "time": "", "type": "Tarea", "cliente": "FM CONTRATISTAS LEGAL", "description": "PROCESO SANCIONADOR POR DOCUMENTACION FALSA TOMA RAZON 00609-2026-TCE", "modalidad": "", "link": "P. SANCIONADOR - TOMA RAZON 00609-2026-TCE"}, {"id": "EV-050", "title": "Tarea — SUALLU", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SUALLU", "description": "FORMALIZACION DE PROVEEDORES (NO TRABAJADOR CON RXH)", "modalidad": "", "link": "CONTRATO DE PRESTACIÓN DE SERVICIOS"}, {"id": "EV-051", "title": "Tarea — ROCER SECURITY", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "ROCER SECURITY", "description": "SOBRE EL PROCESO DE SELECCION: PRESENTAR RECURSO DE NULIDAD EMAPA HUARAL SA 1-2026 (DESCALIFICACION ) RUC: 20193099166", "modalidad": "", "link": "001-2026-EMAPA HUARAL SA"}, {"id": "EV-052", "title": "Tarea — EFAHL SECURITY SAC", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "EFAHL SECURITY SAC", "description": "EFECTUAR LA DEVOLUCION DE TASA DEL PORCESO DE SELECCION : CONCURSO PÚBLICO DE SERVICIOS N.º 01-2025-HHV-1", "modalidad": "", "link": "DEVOLUCION DE TASA"}, {"id": "EV-053", "title": "Tarea — ONDINE", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "ONDINE", "description": "COTIZAR RUC 10 ARQUITECTOS- TENEMOS UN AREA : CAPACITACION SEGURIDAD Y SALUD DE TRABAJDO ASOSORIA", "modalidad": "", "link": "COTIZACIÓN"}, {"id": "EV-054", "title": "Tarea — SEÑOR Z", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SEÑOR Z", "description": "CASO SUNAFIL : Carta N° 0000026109-2026 (ACCIONES PREVIAS)", "modalidad": "", "link": "FALTA CARPETA"}, {"id": "EV-055", "title": "Tarea — SEÑOR Z", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SEÑOR Z", "description": "REVISION DE DE DOCUMENTACION DEL CONTRATO RESPECTO A CONFLICTOS Y COBROS ATRIBUIDOS POR PARTE DEL PROYECTO DE CUSI YUPANQUI", "modalidad": "", "link": "PROYECTO CUSIYUPANQUI"}, {"id": "EV-056", "title": "Tarea — SERGEYCO", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SERGEYCO", "description": "ESTODO ACTUALES DE SUS PROCESOS ARBITRALES", "modalidad": "", "link": "FALTA CARPETA"}, {"id": "EV-057", "title": "Tarea — ROCER SECURITY", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "ROCER SECURITY", "description": "EFECTUAR ANALISIS SOBRE CONCURSO: CP-ABR-4-2026-PAE-1 Y VER SI ES APLEABLE EL PROCESO DONDE OCUPAMOS EL SEGUNDO PUESTO EN ORDEN DE PRELACION", "modalidad": "", "link": "CP-ABR-4-2026-PAE-1"}, {"id": "EV-058", "title": "Tarea — PROXUS", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "PROXUS", "description": "RESOLVER EL CONTRATO DERIVADO DEL PROCEDIMIENTO DE SELECCIÓN N°CPS N° 0010-2025-BN (DOC. FALSA EN PERFECCIONAMIENTO DE CONTRACTO)", "modalidad": "", "link": "FALTA CARPETA"}, {"id": "EV-059", "title": "Tarea — RUFIO LEGAL", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "RUFIO LEGAL", "description": "SUBSANAR CONTRATO DE CONSORCIO PARA EL PERFECCIONAMIENTO DEL CONTRATO", "modalidad": "", "link": "LICITACIÓN PÚBLICA DE BIENES N°04-2025-INBP"}, {"id": "EV-060", "title": "Tarea — ROCER SECURITY", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "ROCER SECURITY", "description": "PROCEDIMIENTO DE SELECCIÓN NO COMPETITIVO N.° 007-2026-PROMPERÚ, POR PERDIDA DE BUENA PRO ANALIZAR EL PROCESO", "modalidad": "", "link": "PROCEDIMIENTO DE SELECCIÓN NO COMPETITIVO N.° 007-2026-PROMPERÚ"}, {"id": "EV-061", "title": "Tarea — RUFIO LEGAL", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "RUFIO LEGAL", "description": "REVISAR CONTRATO : CONTRATO N° 016-2026-INBP-OA LICITACIÓN PÚBLICA PARA BIENES Nº 04-2025-INBP", "modalidad": "", "link": "CONTRATO N° 016-2026-INBP-OA"}, {"id": "EV-062", "title": "Tarea — ROCER SECURITY", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "ROCER SECURITY", "description": "HOSPITAL SANTA ROSA APERCEBIMEINTO POR INCUMPLIMIENTO CONTRACTUAL CONTRATO 011-2025-HSR", "modalidad": "", "link": "CONTRATO 011-2025-HSR"}, {"id": "EV-063", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "PROCESO DE FISCALIZACIÓN POSTERIOR DEL CONTRATO N° 001–2025 UGEL02–ADM–EL", "modalidad": "", "link": "PROCESO DE FISCALIZACIÓN POSTERIOR DEL CONTRATO N° 001–2025 UGEL02–ADM–EL"}, {"id": "EV-064", "title": "Tarea — RUFIO LEGAL", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "RUFIO LEGAL", "description": "SOLICITUD DE REPROGRAMACIÓN DE VISITA DE INSPECCIÓN DE AMBULANCIAS GOBIERNO REGIONAL DE JUNÍN CARTA N.° 002-2026-CG/OC5341-AC-AMB.U", "modalidad": "", "link": "CARTA N.° 002-2026-CG - REPROGRAMACIÓN DE VISITA"}, {"id": "EV-065", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "REALIZAR LOS DESCARGOS CORRESPONDIENTES A LA FISCALIZACION DE CESE LABORAL DE UN TRABAJADOR EL CUAL NO SE NOTIFICO A LA ENTIDAD Resolución d", "modalidad": "", "link": "Resolución de Subdirección N° 00569-2026-SUCAMEC-DSAN-SDIS"}, {"id": "EV-066", "title": "Tarea — ROCER SECURITY", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "ROCER SECURITY", "description": "PLIEGO DE CONSULTAS Y OBSERVACIONES CONCURSO PUBLICO DE SERVICIO : 002-2026/ UNAAT", "modalidad": "", "link": "CONCURSO PÚBLICO N° 02-2026-UNAAT"}, {"id": "EV-067", "title": "Tarea — PROXUS", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "PROXUS", "description": "FISCALIZACION DE DOCUMENTACIÓN FALSA BANCO DE LA NACION", "modalidad": "", "link": "Concurso Público de Servicios N° 0010-2025-BN"}, {"id": "EV-068", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "LICENCIA DE PATERNIDAD", "modalidad": "", "link": "LICENCIA DE PATERNIDAD"}, {"id": "EV-069", "title": "Tarea — PROXUS", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "PROXUS", "description": "PENALIDADES APLICADAS Contrato N° 016-2025-OGA-SG/MC", "modalidad": "", "link": "CONTRATO N° 016-2025-OGA-SG/MC"}, {"id": "EV-070", "title": "Tarea — P&M COURIER", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "P&M COURIER", "description": "87170 - 2026 - SUNAFIL/DPPR/SDPA ACCIONES PREVIAS", "modalidad": "", "link": "SUNAFIL/DPPR/SDPA-87170 - 2026"}, {"id": "EV-071", "title": "Tarea — ROCER SECURITY", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "ROCER SECURITY", "description": "RECURSO DE APELACIÓN CONTRA EL OTORGAMIENTO DE LA BUENA PRO DEL CP SER-SM-5-2026-INDECI-1, AL HABERSE IDENTIFICADO UN INCUMPLIMIENTO EN LA P", "modalidad": "", "link": "CONCURSO PUBLICO 005-2026"}, {"id": "EV-072", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "SOBRE EL CONTRATO N° 006-2026/VIVIENDA/VMCS/PASLC SE PRESENTARON OBSERVACIONES POR EL REEMPLAZO Y RENUNCIA DEL PERSONAL PROPUESTO INSTALADO,", "modalidad": "", "link": "CONTRATO N° 006-2026-PASLC - OBSERVACIONES RENUNCIA DE PERSONAL"}, {"id": "EV-073", "title": "Tarea — SEÑOR Z", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "SEÑOR Z", "description": "CONSTITUCIÓN, IMPLEMENTACIÓN E INSCRIPCIÓN DEL BANCO DE DATOS PERSONALES PARA SUBSANAR OBSERVACIÓN EN EL PROCESO DE HOMOLOGACIÓN CON BBVA.", "modalidad": "", "link": "SUBSANACIÓN OBSERVACIÓN PROTECCIÓN DE DATOS - HOMOLOGACIÓN BBVA"}, {"id": "EV-074", "title": "Tarea — IMAGINARIUM", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "IMAGINARIUM", "description": "", "modalidad": "", "link": "FALTA CARPETA"}, {"id": "EV-075", "title": "Tarea — ROCER SECURITY", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "ROCER SECURITY", "description": "RECURSO DE APELACIÓN CONTRA EL OTORGAMIENTO DE LA BUENA PRO RUC: 20546369383 NOMENCLATURA:CP SER-SM-1-2026-MINEDU/UE 116-1", "modalidad": "", "link": "CP SER-SM-1-2026-MINEDU/UE 116-1g"}, {"id": "EV-076", "title": "Tarea — ROCER SECURITY", "date": "2026-09-07", "time": "", "type": "Tarea", "cliente": "ROCER SECURITY", "description": "NULIDAD DEL PROCESO CP SER-SM-2-2026-UNAAT-1", "modalidad": "", "link": "CP SER-SM-2-2026-UNAAT-1"}, {"id": "EV-077", "title": "Tarea — SOTERIA GROUP SAC", "date": "2026-09-08", "time": "", "type": "Tarea", "cliente": "SOTERIA GROUP SAC", "description": "POR RENUNCIA DEL TRABAJADOR, EL CLIENTE NO QUIERE ACEPTAR LA RENUNCIA CONTRATO 124-2026", "modalidad": "", "link": "Contrato N°124-2026"}, {"id": "EV-078", "title": "Tarea — RUFIO LEGAL", "date": "2026-09-08", "time": "", "type": "Tarea", "cliente": "RUFIO LEGAL", "description": "REALIZAR CARTA DE SOLICITUD DE AMPLIACION DE PLAZO DE EJECUCION DEL CONTRATO", "modalidad": "", "link": "Contrato N°009-2025-GRU-GGR-ORA"}, {"id": "EV-079", "title": "Tarea — IMAGINARIUM", "date": "2026-09-09", "time": "", "type": "Tarea", "cliente": "IMAGINARIUM", "description": "00348-2026-0-1853-SP-CA-02 PROCESOS JUDICIALES DEMANDANTE: IMAGINARIUM SOLUCIONES EMPRESARIALES S.A.C. DEMADADO: ORGANISMO ESPECIALIZADO PAR", "modalidad": "", "link": "00348-2026-0-1853-SP-CA-02"}, {"id": "EV-080", "title": "Tarea — PROXUS", "date": "2026-09-10", "time": "", "type": "Tarea", "cliente": "PROXUS", "description": "RECONSIDERACIÓN DE PENALIDADES INTERPUESTAS Contrato N°067-2025-RENIEC", "modalidad": "", "link": "Contrato N°067-2025-RENIEC"}, {"id": "EV-081", "title": "Tarea — INTER LOGISTICS PERU S.A.C", "date": "2026-09-10", "time": "", "type": "Tarea", "cliente": "INTER LOGISTICS PERU S.A.C", "description": "DESCARGOS EN FISCALIZACIÓN POSTERIOR – CONCURSO PÚBLICO DE SERVICIOS N.° 50-2025-SUNAT/7F0600", "modalidad": "", "link": "DESCARGO DE FISCALIZACIÓN A SUNAT – CP N.° 50-2025-SUNAT/7F0600"}, {"id": "EV-082", "title": "Tarea — ROCER SECURITY", "date": "2026-09-10", "time": "", "type": "Tarea", "cliente": "ROCER SECURITY", "description": "DESCARGOS ANTE LA ENTIDAD RESPECTO DEL RECURSO DE APELACIÓN Y FISCALIZACIÓN POSTERIOR – C.P.A. N.° 03-2026-SBS CY-OEC", "modalidad": "", "link": "DESCARGOS ROCER - CONCURSO PÚBLICO ABREVIADO N.° 03-2026-SBS CY-OEC"}];
+let editingId = null;
+let cursor = new Date(2026, 8, 1); // referencia: hoy = 14 sep 2026
+const TODAY = new Date(2026, 8, 14);
+
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const DIAS = ['LUN','MAR','MIÉ','JUE','VIE','SÁB','DOM'];
+
+function pad(n){ return n<10 ? '0'+n : ''+n; }
+function isoDate(y,m,d){ return `${y}-${pad(m+1)}-${pad(d)}`; }
+function typeClass(t){
+  t = (t||'').toLowerCase();
+  if(t==='reunión'||t==='reunion'||t==='audiencia') return 'reunion';
+  if(t==='vencimiento') return 'vencimiento';
+  return 'tarea';
+}
+
+function render(){
+  const app = document.getElementById('app');
+  const y = cursor.getFullYear(), m = cursor.getMonth();
+  const firstDay = new Date(y,m,1);
+  const startOffset = (firstDay.getDay()+6)%7; // lunes=0
+  const daysInMonth = new Date(y,m+1,0).getDate();
+  const daysInPrev = new Date(y,m,0).getDate();
+
+  let cells = [];
+  for(let i=startOffset-1;i>=0;i--) cells.push({day:daysInPrev-i, other:true, y, m:m-1});
+  for(let d=1; d<=daysInMonth; d++) cells.push({day:d, other:false, y, m});
+  while(cells.length % 7 !== 0 || cells.length < 42) cells.push({day:cells.length - startOffset - daysInMonth + 1, other:true, y, m:m+1});
+
+  const byDate = {};
+  EVENTS.forEach(e=>{ (byDate[e.date] = byDate[e.date]||[]).push(e); });
+
+  app.innerHTML = `
+    <div class="topbar">
+      <div>
+        <h1>Agenda</h1>
+        <div class="subtitle">Reuniones, audiencias, vencimientos y tareas del estudio</div>
+      </div>
+      <button class="btn-new" onclick="openNew()">+ Nuevo evento</button>
+    </div>
+
+    <div class="toolbar">
+      <div class="monthnav">
+        <button onclick="changeMonth(-1)">&lsaquo;</button>
+        <div class="label">${MESES[m<0?11:(m>11?0:m)]} ${y}</div>
+        <button onclick="changeMonth(1)">&rsaquo;</button>
+        <button class="today-btn" onclick="goToday()" style="border-radius:999px;width:auto;height:auto;padding:8px 16px;">Hoy</button>
+      </div>
+      <div class="legend">
+        <span><span class="dot dot-reunion"></span>Reunión / Audiencia</span>
+        <span><span class="dot dot-vencimiento"></span>Vencimiento</span>
+        <span><span class="dot dot-tarea"></span>Tarea</span>
+      </div>
+    </div>
+
+    <div class="cal">
+      <div class="cal-head">${DIAS.map(d=>`<div>${d}</div>`).join('')}</div>
+      <div class="cal-grid" id="grid"></div>
+    </div>
+    <div class="note">Prototipo de agenda: los eventos que crees aquí se guardan solo en esta sesión del navegador, para mostrar el formato y flujo antes de conectarlo a una base de datos real.</div>
+  `;
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = cells.map(c=>{
+    const realM = ((c.m % 12)+12)%12;
+    const realY = c.y + Math.floor(c.m/12) - (c.m<0?1:0);
+    const iso = isoDate(realY, realM, c.day);
+    const isToday = !c.other && iso === isoDate(TODAY.getFullYear(),TODAY.getMonth(),TODAY.getDate());
+    const evs = (byDate[iso]||[]).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+    const shown = evs.slice(0,3);
+    const rest = evs.length - shown.length;
+    return `<div class="day ${c.other?'other-month':''} ${isToday?'today':''}" onclick="openNewOnDate('${iso}', event)">
+      <div class="daynum">${c.day}</div>
+      ${shown.map(e=>`<div class="evchip ${typeClass(e.type)}" onclick="openEdit('${e.id}', event)">${e.time?e.time+' · ':''}${e.title}</div>`).join('')}
+      ${rest>0?`<div class="more">+${rest} más</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+function changeMonth(delta){ cursor = new Date(cursor.getFullYear(), cursor.getMonth()+delta, 1); render(); }
+function goToday(){ cursor = new Date(TODAY.getFullYear(), TODAY.getMonth(), 1); render(); }
+
+function openNew(){
+  editingId = null;
+  document.getElementById('modal-title').textContent = 'Nuevo evento';
+  ['f-title','f-date','f-time','f-cliente','f-desc','f-link'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-type').value = 'Reunión';
+  document.getElementById('f-modalidad').value = '';
+  document.getElementById('btn-delete').style.display = 'none';
+  document.getElementById('overlay').classList.add('show');
+}
+function openNewOnDate(iso, ev){
+  ev.stopPropagation();
+  openNew();
+  document.getElementById('f-date').value = iso;
+}
+function openEdit(id, ev){
+  ev.stopPropagation();
+  const e = EVENTS.find(x=>x.id===id);
+  if(!e) return;
+  editingId = id;
+  document.getElementById('modal-title').textContent = 'Editar evento';
+  document.getElementById('f-title').value = e.title || '';
+  document.getElementById('f-date').value = e.date || '';
+  document.getElementById('f-time').value = to24h(e.time) || '';
+  document.getElementById('f-type').value = normType(e.type);
+  document.getElementById('f-modalidad').value = e.modalidad || '';
+  document.getElementById('f-cliente').value = e.cliente || '';
+  document.getElementById('f-desc').value = e.description || '';
+  document.getElementById('f-link').value = e.link || '';
+  document.getElementById('btn-delete').style.display = 'inline-block';
+  document.getElementById('btn-delete').onclick = ()=>{ EVENTS = EVENTS.filter(x=>x.id!==id); closeModal(); render(); };
+  document.getElementById('overlay').classList.add('show');
+}
+function normType(t){
+  const opts = ['Reunión','Audiencia','Vencimiento','Tarea'];
+  return opts.includes(t) ? t : 'Tarea';
+}
+function to24h(t){
+  if(!t) return '';
+  const m = t.match(/(\d{1,2}):(\d{2})\s*([AP]M)?/i);
+  if(!m) return '';
+  let h = parseInt(m[1],10), min = m[2];
+  if(m[3]){ const ap = m[3].toUpperCase(); if(ap==='PM' && h<12) h+=12; if(ap==='AM' && h===12) h=0; }
+  return pad(h)+':'+min;
+}
+function closeModal(){ document.getElementById('overlay').classList.remove('show'); }
+
+function saveEvent(){
+  const title = document.getElementById('f-title').value.trim();
+  const date = document.getElementById('f-date').value;
+  if(!title || !date){ alert('Falta título o fecha.'); return; }
+  const data = {
+    title,
+    date,
+    time: document.getElementById('f-time').value,
+    type: document.getElementById('f-type').value,
+    modalidad: document.getElementById('f-modalidad').value,
+    cliente: document.getElementById('f-cliente').value.trim(),
+    description: document.getElementById('f-desc').value.trim(),
+    link: document.getElementById('f-link').value.trim(),
+  };
+  if(editingId){
+    const idx = EVENTS.findIndex(x=>x.id===editingId);
+    EVENTS[idx] = {...EVENTS[idx], ...data};
+  } else {
+    const newId = 'EV-' + String(EVENTS.length+1).padStart(3,'0') + '-' + Date.now()%1000;
+    EVENTS.push({id:newId, ...data});
+  }
+  closeModal();
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
