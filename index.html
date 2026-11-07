@@ -222,6 +222,8 @@ footer,.compromisos-band{padding-left:clamp(24px,5vw,80px);padding-right:clamp(2
 .ni-laboral .noticia-img-label{color:rgba(180,220,150,0.85)}
 .ni-civil{background:linear-gradient(135deg,#4a3520 0%,#2d1f0d 100%)}
 .ni-civil .noticia-img-label{color:rgba(220,180,120,0.9)}
+.noticia-photo{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.noticia-card:hover .noticia-photo{transform:scale(1.04)}
 .noticia-body{padding:22px}
 .noticia-tag{font-family:var(--sans);font-size:9px;color:var(--brown);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
 .noticia-card h4{font-family:var(--serif);font-size:18px;color:var(--text-on-light);font-weight:400;line-height:1.3;margin-bottom:10px}
@@ -643,10 +645,7 @@ footer .logo-img{width:46px;height:46px}
   <div class="noticias-grid">
     <div class="noticia-card reveal">
       <div class="noticia-img">
-        <div class="noticia-img-ilustrada ni-contrataciones">
-          <span class="noticia-img-icon"><svg viewBox="0 0 32 32"><path d="M16 4v24M8 28h16M5 9h22M5 9l-3 9a4 4 0 0 0 6 0L5 9zM27 9l-3 9a4 4 0 0 0 6 0l-3-9z"/></svg></span>
-          <span class="noticia-img-label">Contrataciones del Estado</span>
-        </div>
+        <img class="noticia-photo" src="img/noticias/n0.jpg" alt="Nueva ley de contrataciones del Estado" width="1200" height="675" loading="lazy">
       </div>
       <div class="noticia-body">
         <div class="noticia-tag">Mayo 2026</div>
@@ -660,10 +659,7 @@ footer .logo-img{width:46px;height:46px}
     </div>
     <div class="noticia-card reveal rd1">
       <div class="noticia-img">
-        <div class="noticia-img-ilustrada ni-laboral">
-          <span class="noticia-img-icon"><svg viewBox="0 0 32 32"><circle cx="16" cy="11" r="5"/><path d="M5 28c0-6 5-10 11-10s11 4 11 10"/></svg></span>
-          <span class="noticia-img-label">Derecho Laboral</span>
-        </div>
+        <img class="noticia-photo" src="img/noticias/n1.jpg" alt="Inspección laboral de SUNAFIL" width="1200" height="675" loading="lazy">
       </div>
       <div class="noticia-body">
         <div class="noticia-tag">Abril 2026</div>
@@ -677,10 +673,7 @@ footer .logo-img{width:46px;height:46px}
     </div>
     <div class="noticia-card reveal rd2">
       <div class="noticia-img">
-        <div class="noticia-img-ilustrada ni-civil">
-          <span class="noticia-img-icon"><svg viewBox="0 0 32 32"><rect x="7" y="5" width="18" height="23" rx="2"/><path d="M12 5V3h8v2M11 13h10M11 18h10M11 23h6"/></svg></span>
-          <span class="noticia-img-label">Derecho Comercial</span>
-        </div>
+        <img class="noticia-photo" src="img/noticias/n3.jpg" alt="Contrato comercial con cláusulas observadas" width="1200" height="675" loading="lazy">
       </div>
       <div class="noticia-body">
         <div class="noticia-tag">Marzo 2026</div>
